@@ -1,0 +1,1312 @@
+/**
+ * DIRECCIÓN C - LAS SECCIONES.
+ *
+ * ── LO QUE ESTA HOJA ARREGLA ────────────────────────────────────────────────
+ * "Se ve plana" no era un problema de layout. Medido: el sitio entero vivía
+ * entre #f1f3f6 de campo y #ffffff de hoja, seis puntos de valor, 1,06:1 de
+ * contraste. Una página que ocurre dentro de una banda de seis puntos no puede
+ * tener profundidad porque no hay luz con qué modelar, y ninguna grilla lo
+ * arregla. La referencia que se pidió igualar tiene, en una sola composición,
+ * campo #0a0a0a y cuerpo #ffffff: 19:1.
+ *
+ * Así que la página tiene ahora una ESTRUCTURA DE LUZ a lo largo de su
+ * longitud, y el rango entra por ahí. Dos movimientos oscuros -Control y
+ * Cierre- que abren y cierran un paréntesis alrededor de los movimientos
+ * claros.
+ *
+ * ── LAS DOS SUPERPOSICIONES, Y POR QUÉ SON DOS ──────────────────────────────
+ * La ventana del héroe baja y termina sobre el negro; la hoja del informe sale
+ * del negro y baja al claro. Son las únicas dos superposiciones de la página y
+ * las dos cruzan un cambio de valor, que es lo que las hace legibles como
+ * profundidad. Un recurso repetido en cada sección deja de leerse como
+ * profundidad y pasa a leerse como manierismo.
+ *
+ * ── CADA SECCIÓN TIENE SU PROPIA COMPOSICIÓN ────────────────────────────────
+ *   Control     tres bloques en fila con un hueco literal en el medio, y la
+ *               cifra agrandada hasta volverse objeto. Frenos asimétricos.
+ *   Prueba      hoja grande a la izquierda cruzando el horizonte, notas
+ *               pegadas y desfasadas a la derecha.
+ *   Límites     sin una sola superficie. Dos columnas desfasadas en vertical.
+ *   Planes      UNA superficie partida en dos anchos distintos, con un lado
+ *               hundido y el otro levantado. No son dos tarjetas gemelas.
+ *   Preguntas   titular fijo a la izquierda, grupos pasando por la derecha.
+ *   Cierre      centrado, que es el único lugar donde centrar es correcto.
+ *
+ * El ritmo vertical también cambia sección a sección: paddings iguales en todas
+ * son, por sí solos, la estructura repetida que hay que evitar.
+ */
+
+.dirC {
+  /* El movimiento oscuro. No es "modo oscuro": es un tramo del recorrido. */
+  --noche: #14120f;
+  --noche-alta: #1d1a16;
+  --noche-linea: #2e2a24;
+
+  /* Medidos sobre #14120f: 8,09:1, 5,25:1 y 8,76:1. */
+  --tinta-noche: #f7f5f2;
+  --tinta-noche-media: #b0aaa1;
+  --tinta-noche-suave: #8d877d;
+  --senal-noche: #f0a04b;
+}
+
+.c-pagina {
+  overflow-x: clip;
+}
+
+.c-sec {
+  position: relative;
+}
+
+/* ── Piezas compartidas por varias secciones ────────────────────────────────*/
+
+.c-titulo-sec {
+  margin: 0;
+  max-width: 24rem;
+  font-size: clamp(1.875rem, 3vw, 2.625rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+.c-bajada-sec {
+  margin: 18px 0 0;
+  max-width: 30rem;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--tinta-media);
+}
+
+.c-titulo-noche {
+  color: var(--tinta-noche);
+}
+
+.c-bajada-noche {
+  color: var(--tinta-noche-media);
+}
+
+.c-nota-pie {
+  margin: 56px 0 0;
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+/* ═══ 2. CONTROL - movimiento oscuro ════════════════════════════════════════
+   Sube por debajo de la ventana del héroe: sus últimos 200px quedan apoyados
+   sobre negro. El padding superior devuelve el aire que el margen negativo se
+   comió. */
+
+.c-control {
+  margin-top: -200px;
+  padding: 296px 0 112px;
+  background: var(--noche);
+  color: var(--tinta-noche);
+}
+
+/* La luz que entra por arriba, que es lo que hace que una superficie oscura
+   parezca material y no un rectángulo pintado. */
+.c-control::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    72% 38% at 50% 0%,
+    rgb(255 255 255 / 0.05),
+    rgb(255 255 255 / 0) 72%
+  );
+}
+
+.c-control > .c-marco {
+  position: relative;
+}
+
+.c-control-cabeza {
+  max-width: 46rem;
+}
+
+.c-control .c-nota-pie {
+  color: var(--tinta-noche-suave);
+}
+
+/* ── El hueco de ocho minutos ───────────────────────────────────────────────
+   La tipografía ES la imagen: es el único lugar de la página donde una cifra se
+   agranda hasta volverse objeto. El corte entre las dos horas es literal, y la
+   raya que las uniría está interrumpida a propósito. */
+
+.c-hueco {
+  margin-top: 72px;
+  display: grid;
+  gap: 4px;
+}
+@media (min-width: 900px) {
+  .c-hueco {
+    grid-template-columns: minmax(0, auto) minmax(80px, 1fr) minmax(0, auto);
+    align-items: start;
+    gap: 32px;
+  }
+}
+
+.c-hito {
+  max-width: 21rem;
+}
+
+.c-hito-hora {
+  display: block;
+  font-size: clamp(2.75rem, 5vw, 4.25rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--tinta-noche);
+}
+
+.c-hito-estado {
+  display: block;
+  margin-top: 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--tinta-noche);
+}
+
+.c-hito-detalle {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--tinta-noche-media);
+}
+
+.c-corte {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 30px;
+}
+
+.c-corte-linea {
+  flex: 1;
+  height: 0;
+  border-top: 1px dashed var(--senal-noche);
+  opacity: 0.5;
+}
+
+.c-corte-marca {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--senal-noche);
+  /* Lo único que brilla en la página, y marca el único punto donde entra una
+     persona. Sobre claro este resplandor no existiría. */
+  text-shadow: 0 0 24px rgb(240 160 75 / 0.4);
+}
+
+@media (max-width: 899px) {
+  .c-corte {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px 0;
+  }
+  .c-corte-linea {
+    flex: none;
+    width: 0;
+    height: 20px;
+    margin-left: 10px;
+    border-top: 0;
+    border-left: 1px dashed var(--senal-noche);
+  }
+}
+
+/* ── Los dos frenos, con dos pesos distintos ────────────────────────────────*/
+
+.c-frenos {
+  margin-top: 104px;
+  display: grid;
+  gap: 44px;
+}
+@media (min-width: 900px) {
+  .c-frenos {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0 32px;
+  }
+  .c-freno-ancho {
+    grid-column: 1 / span 6;
+  }
+  /* Angosto, corrido a la derecha y bajado: dos bloques iguales lado a lado
+     vuelven a ser dos tarjetas. */
+  .c-freno-angosto {
+    grid-column: 8 / span 4;
+    margin-top: 64px;
+  }
+}
+
+.c-freno {
+  padding-top: 20px;
+  border-top: 1px solid var(--noche-linea);
+}
+
+.c-freno-orden {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--tinta-noche-suave);
+}
+
+.c-freno-titulo {
+  margin: 14px 0 0;
+  font-size: 1.125rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--tinta-noche);
+}
+
+.c-freno-texto {
+  margin: 10px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--tinta-noche-media);
+}
+
+/* ═══ 3. PRUEBA - el cruce ══════════════════════════════════════════════════
+   El horizonte es un corte duro, no un desvanecido: los dos topes del gradiente
+   están en la misma posición. Un degradé acá diría "esto se está apagando"; el
+   corte dice "acá cambia el material". */
+
+.c-prueba {
+  padding: 96px 0 128px;
+  background: linear-gradient(
+    180deg,
+    var(--noche) 0,
+    var(--noche) 520px,
+    rgb(20 18 15 / 0) 520px
+  );
+}
+
+.c-prueba-cabeza {
+  max-width: 44rem;
+}
+
+.c-prueba-grilla {
+  margin-top: 56px;
+  display: grid;
+  gap: 40px;
+}
+@media (min-width: 1000px) {
+  .c-prueba-grilla {
+    grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+}
+
+/* La hoja sube para cruzar el horizonte. Es la segunda y última superposición
+   de la página. */
+.c-hoja {
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 1000px) {
+  .c-hoja {
+    margin-top: -118px;
+  }
+}
+
+/* Las notas acompañan la lectura en vez de enumerarla, y arrancan más abajo que
+   la hoja para que la grilla no se lea como dos columnas iguales. */
+/* Arrancan POR DEBAJO del horizonte, y no sólo por composición: cruzándolo, la
+   primera nota quedaba en tinta oscura sobre negro y era ilegible. La hoja es
+   lo único que puede cruzar, porque es lo único que trae su propio fondo.
+
+   NO VAN PEGADAS. Estuvieron `sticky` y la lectura guiada no podía funcionar:
+   clavadas al viewport, las notas nunca cruzaban la banda central del
+   observador, así que el foco se congelaba en la que hubiera quedado ahí.
+   Medido: al llevar la primera nota al centro, el foco marcaba la cuarta.
+
+   Sueltas y separadas, cada nota pasa por el centro cuando le toca y queda a la
+   altura de la parte del informe de la que habla. La separación grande es lo que
+   reparte las cuatro notas a lo largo del alto del documento. */
+.c-nota + .c-nota {
+  margin-top: 28px;
+}
+
+/* La separación grande reparte las cuatro notas a lo largo del alto del
+   documento, para que cada una quede a la altura de la parte de la que habla.
+   Con 28px las cuatro ocupaban 498px contra 1570 del informe y las últimas dos
+   hablaban de partes que ya habían pasado de largo. Va DESPUÉS de la regla
+   general: con la misma especificidad, gana la que está más abajo. */
+@media (min-width: 1000px) {
+  .c-notas {
+    margin-top: 248px;
+  }
+
+  .c-nota + .c-nota {
+    margin-top: 232px;
+  }
+}
+
+.c-nota-titulo {
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--linea-viva);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.c-nota-texto {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+/* ── EL DOCUMENTO, A TAMAÑO REAL ────────────────────────────────────────────
+   Es la única evidencia citable del sitio. Acá no se recorta: se lee. Cuerpo a
+   15px, que es cuerpo de documento y no de maqueta. */
+
+/* MÁRGENES DE DOCUMENTO, NO PADDING DE TARJETA. Un informe que alguien va a
+   mandarle a un cliente tiene margen: 56px contra los 44 de antes, y más abajo
+   que arriba, que es como se compagina una hoja. */
+.doc {
+  background: var(--hoja);
+  border-radius: var(--r-ventana);
+  padding: 52px 56px 56px;
+  box-shadow:
+    0 0 0 1px rgb(26 25 23 / 0.07),
+    inset 0 0 0 1px rgb(255 255 255 / 0.06),
+    0 2px 4px rgb(26 25 23 / 0.04),
+    0 44px 88px -36px rgb(26 25 23 / 0.28);
+}
+
+.doc-cabeza {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.doc-agencia {
+  margin: 0 0 6px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-media);
+}
+
+.doc-cliente {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.doc-periodo {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--tinta-suave);
+  white-space: nowrap;
+}
+
+/* El ritmo no es parejo: el resumen respira distinto que la tabla. */
+.doc-bloque {
+  margin-top: 38px;
+}
+
+.doc-bloque + .doc-bloque {
+  margin-top: 44px;
+}
+
+/* El rótulo cuelga de un filete corto en vez de flotar suelto: es la marca de
+   sección de un documento compaginado, no una etiqueta de interfaz. */
+.doc-rotulo {
+  margin: 0 0 16px;
+  padding-top: 10px;
+  border-top: 1px solid var(--tinta);
+  display: inline-block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tinta);
+}
+
+/* Medida de lectura real: 34rem da unos 68 caracteres en español, que es donde
+   el ojo vuelve al renglón siguiente sin perderse. En 38rem se pasaba de 75.
+   La propiedad text-wrap: pretty saca las huérfanas al final de cada párrafo. */
+.doc-parrafo {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 0.9375rem;
+  line-height: 1.72;
+  color: var(--tinta-media);
+  text-wrap: pretty;
+}
+
+.doc-parrafo + .doc-parrafo {
+  margin-top: 15px;
+}
+
+.doc-alerta {
+  margin-top: 34px;
+  padding: 22px 24px;
+  border-left: 2px solid var(--senal-linea);
+  border-radius: 0 var(--r-superficie) var(--r-superficie) 0;
+  background: var(--senal-campo);
+}
+
+.doc-alerta .doc-rotulo {
+  border-top-color: var(--senal);
+  color: var(--senal);
+}
+
+.doc-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 30px;
+  background: var(--linea);
+  box-shadow: 0 0 0 1px var(--linea);
+  border-radius: var(--r-superficie);
+  overflow: hidden;
+}
+
+.doc-kpi {
+  padding: 18px 20px;
+  background: var(--hoja);
+}
+
+/* Dos líneas reservadas: "Costo por conversación" envuelve y, sin la reserva,
+   su valor bajaba y los cuatro KPI dejaban de alinear entre sí. */
+.doc-kpi-etiqueta {
+  margin: 0;
+  min-height: 2.7em;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--tinta-suave);
+}
+
+.doc-kpi-valor {
+  margin: 8px 0 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  font-feature-settings: "ss01", "tnum";
+}
+
+.doc-kpi-var {
+  margin: 4px 0 0;
+  font-size: 0.75rem;
+}
+
+.doc-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.doc-tabla th,
+.doc-tabla td {
+  padding: 13px 0;
+  text-align: right;
+  border-bottom: 1px solid var(--linea);
+}
+
+/* La última fila no lleva filete: una tabla no se cierra con una raya al aire. */
+.doc-tabla tbody tr:last-child th,
+.doc-tabla tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* El encabezado se separa con peso y espacio, no con una raya oscura: en
+   var(--tinta-media) competía con las cifras que tiene debajo. */
+.doc-tabla thead th {
+  padding-bottom: 9px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  border-bottom-color: var(--linea-viva);
+}
+
+/* La columna del mes anterior pesa menos que la del mes que se reporta: son
+   dos jerarquías distintas y antes tenían el mismo color. */
+.doc-tabla tbody td:first-of-type {
+  color: var(--tinta);
+  font-weight: 500;
+}
+
+.doc-tabla th:first-child,
+.doc-tabla tbody th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.doc-anterior {
+  color: var(--tinta-suave);
+}
+
+/* Números colgados: el texto arranca todo en la misma vertical y el orden
+   queda afuera de la caja de lectura, que es como se compagina una lista
+   numerada en un documento y no en una interfaz. */
+.doc-acciones {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 18px;
+  max-width: 36rem;
+}
+
+.doc-acciones li {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 14px;
+  font-size: 0.9375rem;
+  line-height: 1.72;
+  color: var(--tinta-media);
+  text-wrap: pretty;
+}
+
+.doc-orden {
+  font-size: 0.6875rem;
+  color: var(--senal);
+  padding-top: 5px;
+}
+
+.doc-pie {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--linea);
+}
+
+.doc-pie p {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--tinta-suave);
+}
+
+.doc-pie strong {
+  font-weight: 650;
+  color: var(--tinta-media);
+}
+
+.doc-franja {
+  margin-top: 10px !important;
+  font-size: 0.75rem !important;
+}
+
+/* ═══ 4. LÍMITES - el pasaje tranquilo ══════════════════════════════════════
+   Sin una sola superficie: ni caja, ni borde alrededor, ni fondo. Sólo un
+   número, un título y un texto colgando de un filete. */
+
+.c-limites {
+  padding: 128px 0 120px;
+}
+
+.c-limites-titulo {
+  max-width: 18rem;
+}
+
+.c-limites-grilla {
+  margin: 64px 0 0;
+  display: grid;
+  gap: 48px;
+}
+@media (min-width: 900px) {
+  .c-limites-grilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 56px 72px;
+  }
+  /* El desfase vertical es lo que impide que seis pares se lean como seis
+     casilleros iguales. */
+  .c-limites-grilla > *:nth-child(even) {
+    margin-top: 72px;
+  }
+}
+
+.c-limite {
+  padding-top: 18px;
+  border-top: 1px solid var(--linea-viva);
+}
+
+.c-limite-orden {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--tinta-suave);
+}
+
+.c-limite-titulo {
+  margin: 12px 0 0;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.c-limite-texto {
+  margin: 8px 0 0;
+  max-width: 30rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--tinta-media);
+}
+
+/* ═══ 5. PLANES - una superficie partida ════════════════════════════════════*/
+
+.c-planes {
+  padding: 112px 0 120px;
+}
+
+.c-planes-titulo {
+  max-width: 26rem;
+}
+
+.c-tabla-planes {
+  margin-top: 56px;
+  display: grid;
+  border-radius: var(--r-ventana);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgb(26 25 23 / 0.07),
+    0 2px 4px rgb(26 25 23 / 0.03),
+    0 32px 64px -30px rgb(26 25 23 / 0.14);
+}
+@media (min-width: 900px) {
+  .c-tabla-planes {
+    /* Anchos distintos: los planes no son equivalentes, uno es el otro sin una
+       línea al pie. */
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  }
+}
+
+.c-plan {
+  padding: 38px 40px 40px;
+}
+
+/* Uno hundido y otro levantado, dentro de la misma superficie. */
+.c-plan-estandar {
+  background: var(--hoja-hundida);
+}
+
+.c-plan-marca-blanca {
+  position: relative;
+  z-index: 1;
+  background: var(--hoja);
+  box-shadow: -20px 0 44px -26px rgb(26 25 23 / 0.22);
+}
+
+.c-plan-nombre {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.c-plan-precio {
+  margin: 16px 0 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.c-plan-cifra {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.c-plan-unidad {
+  font-size: 0.875rem;
+  color: var(--tinta-media);
+}
+
+.c-plan-texto {
+  margin: 14px 0 0;
+  max-width: 24rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+.c-macro {
+  margin-top: 30px;
+}
+
+.c-macro-rotulo {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.c-macro-hoja {
+  padding: 18px 20px;
+  border-radius: var(--r-superficie);
+  background: var(--hoja);
+  box-shadow: 0 0 0 1px var(--linea);
+}
+
+.c-macro-firma {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--tinta-suave);
+}
+
+.c-macro-firma strong {
+  font-weight: 650;
+  color: var(--tinta-media);
+}
+
+/* La franja y su ausencia miden lo mismo: la diferencia entre los planes se ve
+   porque los dos pies están alineados y a uno le falta una línea. */
+.c-macro-franja,
+.c-macro-vacio {
+  min-height: 18px;
+  margin: 10px 0 0;
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+.c-planes-pie {
+  margin-top: 40px;
+  display: grid;
+  gap: 18px;
+  align-items: center;
+}
+@media (min-width: 760px) {
+  .c-planes-pie {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
+.c-planes-nota {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+/* ═══ 6. PREGUNTAS - el titular no se mueve ═════════════════════════════════*/
+
+.c-preguntas {
+  padding: 120px 0 136px;
+}
+
+.c-preguntas-grilla {
+  display: grid;
+  gap: 48px;
+}
+@media (min-width: 1000px) {
+  .c-preguntas-grilla {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.35fr);
+    gap: 80px;
+    align-items: start;
+  }
+  .c-preguntas-titulo {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+.c-grupos {
+  display: grid;
+  gap: 52px;
+}
+
+.c-grupo-titulo {
+  margin: 0 0 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.c-pregunta {
+  border-bottom: 1px solid var(--linea);
+}
+
+.c-pregunta summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  transition: color 140ms ease-out;
+}
+
+.c-pregunta summary::-webkit-details-marker {
+  display: none;
+}
+
+.c-pregunta summary:hover {
+  color: var(--tinta-media);
+}
+
+/* La cruz gira al abrir: movimiento atado a un estado, no decoración. */
+.c-cruz {
+  position: relative;
+  flex-shrink: 0;
+  width: 11px;
+  height: 11px;
+  transition: transform 180ms ease-out;
+}
+
+.c-cruz::before,
+.c-cruz::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1.5px;
+  background: var(--tinta-media);
+  transform: translateY(-50%);
+}
+
+.c-cruz::after {
+  inset: 0 50% auto auto;
+  width: 1.5px;
+  height: 100%;
+  transform: translateX(50%);
+}
+
+.c-pregunta[open] .c-cruz {
+  transform: rotate(45deg);
+}
+
+.c-pregunta p {
+  margin: 0;
+  padding: 0 0 22px;
+  max-width: 38rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--tinta-media);
+}
+
+/* ═══ 7. CIERRE - movimiento oscuro, cierra el paréntesis ═══════════════════*/
+
+.c-cierre {
+  padding: 144px 0 152px;
+  background: var(--noche);
+  color: var(--tinta-noche);
+  text-align: center;
+}
+
+.c-cierre::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    56% 62% at 50% 42%,
+    rgb(255 255 255 / 0.055),
+    rgb(255 255 255 / 0) 74%
+  );
+}
+
+.c-cierre-caja {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.c-cierre-titular {
+  margin: 0;
+  /* 22rem lo partía en cuatro líneas y quedaba angosto para su cuerpo. */
+  max-width: 27rem;
+  font-size: clamp(2rem, 3.6vw, 3.125rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  color: var(--tinta-noche);
+}
+
+.c-cierre-bajada {
+  margin: 20px 0 36px;
+  max-width: 28rem;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--tinta-noche-media);
+}
+
+.c-boton-claro {
+  background: var(--tinta-noche);
+  color: var(--noche);
+}
+.c-boton-claro:hover {
+  background: #ffffff;
+}
+
+.c-cierre-fina {
+  margin: 18px 0 0;
+  font-size: 0.8125rem;
+  color: var(--tinta-noche-suave);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-cruz,
+  .c-pregunta summary {
+    transition: none;
+  }
+}
+
+/* ── Teléfono ───────────────────────────────────────────────────────────────*/
+
+@media (max-width: 999px) {
+  /* Sin dos planos no hay superposición que cruzar: el horizonte pasa a ser el
+     borde de la sección y la hoja empieza abajo de él. */
+  .c-prueba {
+    background: linear-gradient(
+      180deg,
+      var(--noche) 0,
+      var(--noche) 300px,
+      rgb(20 18 15 / 0) 300px
+    );
+  }
+}
+
+@media (max-width: 639px) {
+  .c-control {
+    margin-top: -120px;
+    padding: 190px 0 88px;
+  }
+
+  .c-prueba {
+    padding: 72px 0 96px;
+    background: linear-gradient(
+      180deg,
+      var(--noche) 0,
+      var(--noche) 260px,
+      rgb(20 18 15 / 0) 260px
+    );
+  }
+
+  .c-limites,
+  .c-planes,
+  .c-preguntas {
+    padding: 88px 0;
+  }
+
+  .c-cierre {
+    padding: 104px 0 112px;
+  }
+
+  .c-frenos {
+    margin-top: 72px;
+  }
+
+  .doc {
+    padding: 26px 22px 28px;
+    border-radius: var(--r-superficie);
+  }
+
+  .doc-cabeza {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .doc-cliente {
+    font-size: 1.375rem;
+  }
+
+  /* Cuatro KPI en 390px dan 82px por celda y "$ 486.250" a 24px no entra. */
+  .doc-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .doc-kpi-valor {
+    font-size: 1.25rem;
+  }
+
+  .doc-tabla {
+    font-size: 0.75rem;
+  }
+
+  .c-plan {
+    padding: 28px 22px 30px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TERCERA PASADA
+   ═══════════════════════════════════════════════════════════════════════════
+
+   Seis cambios, cada uno con su razón:
+
+   1. MATERIAL REAL. La sección del correo lleva una captura de pantalla de
+      Gmail, no una reproducción en HTML. Es el unico pixel de la pagina que no
+      dibujamos nosotros.
+   2. EL RIEL ES UN COMPONENTE. Tenia forma de esquema pegado encima de la app.
+      Ahora tiene barra con titulo, marco propio y dato de resumen.
+   3. EL MARCO DE VIDRIO. Terminacion tipo Attio: el objeto no apoya directo
+      sobre el campo, va dentro de un marco translucido con luz en el canto.
+   4. REVELADO PROGRESIVO. Nada aparece de golpe, y no es parejo: sólo entran
+      los bloques de voz y los objetos grandes.
+   5. LECTURA GUIADA. El informe enciende la parte de la que habla la nota que
+      se esta leyendo y apaga el resto.
+   6. TEXTURA SELECTIVA. Grano solo en los tramos oscuros, que es donde un
+      plano liso se lee como plastico. En claro no va: ahi ensucia.
+*/
+
+.dirC {
+  /* El marco es el unico radio nuevo, y su regla es la de siempre: un marco
+     vale el radio del objeto que envuelve mas su propio padding (12 + 4). */
+  --r-marco: 16px;
+}
+
+/* ── 3. EL MARCO DE VIDRIO ──────────────────────────────────────────────────
+   Attio no apoya la captura sobre el campo: la mete en un contenedor
+   translucido con un canto claro por dentro. Es lo que separa "captura pegada"
+   de "objeto montado". Sirve sobre los dos fondos: sobre claro es un marco
+   apenas visible, sobre el negro es un halo de luz. */
+
+.c-vidrio {
+  position: relative;
+  padding: 8px;
+  border-radius: var(--r-marco);
+  background: rgb(255 255 255 / 0.5);
+  box-shadow:
+    0 0 0 1px rgb(26 25 23 / 0.06),
+    inset 0 1px 0 rgb(255 255 255 / 0.65),
+    0 1px 2px rgb(26 25 23 / 0.03),
+    0 44px 92px -36px rgb(26 25 23 / 0.2);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+/* Sin transparencia el marco tiene que seguir leyendose como marco. */
+@media (prefers-reduced-transparency: reduce) {
+  .c-vidrio {
+    background: rgb(255 255 255 / 0.94);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ── 4. REVELADO PROGRESIVO ─────────────────────────────────────────────────
+   Con la linea de tiempo de scroll nativa: sin JavaScript, sin librería y sin
+   escuchar `scroll`. Donde el navegador no la soporta el contenido se ve
+   entero, que es el unico degradado aceptable para algo que revela texto.
+
+   No se aplica parejo: sólo a los bloques de voz y a los objetos grandes. Si
+   entrara cada fila de cada lista, el recurso deja de significar. */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .c-revela {
+      animation: c-entrar linear both;
+      animation-timeline: view();
+      animation-range: entry 4% entry 62%;
+    }
+  }
+}
+
+@keyframes c-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── 6. TEXTURA, SÓLO EN LO OSCURO ──────────────────────────────────────────
+   El grano vive como archivo y no como data: URI porque la CSP declara
+   `img-src 'self'`. Es una imagen tileada, no un filtro CSS: se rasteriza una
+   vez y despues sólo se compone, así que no repinta con el scroll. */
+
+.c-control::after,
+.c-correo::after,
+.c-cierre::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("/grano.svg");
+  background-size: 180px 180px;
+  opacity: 0.3;
+}
+
+/* ═══ 3. CORREO - material real ═════════════════════════════════════════════
+   Sigue el tramo oscuro que abrio Control: son dos secciones distintas dentro
+   del mismo movimiento de luz, no dos bandas. */
+
+.c-correo {
+  padding: 24px 0 120px;
+  background: var(--noche);
+  color: var(--tinta-noche);
+}
+
+.c-correo-grilla {
+  display: grid;
+  gap: 56px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .c-correo-grilla {
+    /* El telefono es angosto por naturaleza: darle media pagina lo dejaria
+       nadando. La voz se queda con el ancho y el objeto entra a su tamaño. */
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    gap: 72px;
+  }
+}
+
+.c-datos {
+  margin: 44px 0 0;
+  display: grid;
+  gap: 28px;
+  max-width: 34rem;
+}
+
+.c-dato {
+  padding-top: 16px;
+  border-top: 1px solid var(--noche-linea);
+}
+
+.c-dato-titulo {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--tinta-noche);
+}
+
+.c-dato-texto {
+  margin: 7px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--tinta-noche-media);
+}
+
+/* El telefono. Bisel, pantalla hundida y luz en el canto superior: una captura
+   apoyada sin bisel sobre un fondo oscuro se lee como una imagen pegada. */
+.c-fono {
+  margin: 0;
+  justify-self: center;
+}
+
+.c-fono-bisel {
+  padding: 9px;
+  border-radius: 42px;
+  background: linear-gradient(160deg, #3a352d 0%, #1c1a16 42%, #262219 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    0 0 0 1px rgb(0 0 0 / 0.6),
+    0 50px 90px -40px rgb(0 0 0 / 0.9),
+    0 0 90px -30px rgb(240 160 75 / 0.16);
+}
+
+.c-fono-pantalla {
+  overflow: hidden;
+  border-radius: 34px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.45);
+  line-height: 0;
+}
+
+.c-fono-captura {
+  display: block;
+  width: 264px;
+  height: auto;
+}
+@media (min-width: 1200px) {
+  .c-fono-captura {
+    width: 300px;
+  }
+}
+
+/* ═══ 5. LECTURA GUIADA ═════════════════════════════════════════════════════
+   El informe apaga lo que no se esta leyendo. `data-foco="todo"` es el estado
+   de reposo -sin JavaScript, con movimiento reducido o en una columna- y ahi el
+   documento se ve entero y nitido: el realce mejora una seccion que ya
+   funciona, no es un requisito para poder leerla. */
+
+.c-prueba-grilla:not([data-foco="todo"]) .doc [data-parte] {
+  opacity: 0.34;
+  filter: blur(1.8px);
+  transition:
+    opacity 480ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 480ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-prueba-grilla[data-foco="marca"] .doc [data-parte="marca"],
+.c-prueba-grilla[data-foco="numeros"] .doc [data-parte="numeros"],
+.c-prueba-grilla[data-foco="variacion"] .doc [data-parte="variacion"],
+.c-prueba-grilla[data-foco="acciones"] .doc [data-parte="acciones"] {
+  opacity: 1;
+  filter: none;
+}
+
+/* La nota que manda tambien se distingue, si no el lector no sabe que la
+   pagina le esta contestando. */
+.c-prueba-grilla:not([data-foco="todo"]) .c-nota {
+  opacity: 0.42;
+  transition: opacity 480ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.c-prueba-grilla .c-nota[data-activa] {
+  opacity: 1;
+}
+
+.c-nota[data-activa] .c-nota-titulo {
+  border-top-color: var(--senal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-prueba-grilla .doc [data-parte],
+  .c-prueba-grilla .c-nota {
+    opacity: 1 !important;
+    filter: none !important;
+    transition: none;
+  }
+}
+
+/* ── El estado al que el reporte todavía no llegó ───────────────────────────
+   El último paso del recorrido no ocurrió: el informe está frenado esperando a
+   una persona. Antes tenía hora propia y verbo en pasado, y contradecía tanto
+   al chip "Borrador" de la cabecera como al "te espera a vos" del paso
+   anterior: el mismo reporte figuraba en dos estados y en dos tiempos.
+
+   Se muestra apagado y con el nodo hueco. Es más fuerte que mostrarlo cumplido:
+   el visitante ve el informe detenido, que es exactamente lo que se vende. */
+
+.rec-paso-pendiente .rec-cuerpo {
+  opacity: 0.5;
+}
+
+.rec-paso-pendiente .rec-nodo {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--linea-viva);
+}
+
+.rec-paso-pendiente .chip {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--linea-viva);
+  color: var(--tinta-suave);
+}
+
+.rec-paso-pendiente .chip-punto {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px currentColor;
+}

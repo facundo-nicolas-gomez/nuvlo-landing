@@ -1,0 +1,311 @@
+/**
+ * SISTEMA "MESA DE LUZ" — prototipo de dirección.
+ *
+ * ── LA IDEA, EN UNA LÍNEA ───────────────────────────────────────────────────
+ * La página es la mesa; el reporte es lo único iluminado sobre ella.
+ *
+ * Nuvlo existe para que un trafficker freelance le mande a SU cliente un
+ * informe firmado con SU marca. La única evidencia citable que tiene el sitio
+ * es ese documento (PRODUCT.md: no hay testimonios, ni logos, ni casos, ni
+ * capturas del panel). Entonces el documento no es una ilustración de la
+ * sección: es el argumento, y todo lo demás es el banco donde se lo inspecciona.
+ *
+ * ── POR QUÉ EL CAMPO ES OSCURO ──────────────────────────────────────────────
+ * No es preferencia estética, es la corrección a un defecto medido. La landing
+ * anterior era casi blanca y todos sus objetos eran hojas blancas: cuatro
+ * rectángulos claros sobre un fondo claro en más de cinco mil píxeles de alto,
+ * donde nada podía leerse como protagonista porque todo tenía el mismo valor.
+ * Sobre un campo casi negro una hoja blanca es un acontecimiento y no el
+ * estado por defecto de la página. El contraste hace el trabajo que allá
+ * intentaban hacer tres niveles de sombra.
+ *
+ * Consecuencia buscada: el ámbar puede usarse a plena intensidad. Sobre claro
+ * había que oscurecerlo para llegar a 3:1 en un anillo de foco; acá el mismo
+ * acento mide más de 9:1 y sirve igual para señal y para foco.
+ *
+ * ── VOCABULARIO DE FORMAS ───────────────────────────────────────────────────
+ * Se declara ANTES de dibujar nada, y cada forma tiene un solo significado.
+ * Una forma usada fuera de su significado es un error, no una variación:
+ *
+ *   hoja    rectángulo blanco   el entregable. La única superficie con luz.
+ *   filete  línea de 1px        estructura y relación. Organiza en lugar de
+ *                               encajonar: el sistema no tiene tarjetas.
+ *   barra   barra ámbar llena   donde interviene una persona. Aprobación y
+ *                               acción primaria. Nada más.
+ *   marca   tick perpendicular  medida y registro. Enmarca e indexa; no adorna.
+ *   cifra   numeral mono grande la evidencia. Un número es un objeto.
+ *
+ * ── PROFUNDIDAD: NO HAY ─────────────────────────────────────────────────────
+ * El sistema es plano a propósito. La jerarquía sale del valor (campo oscuro
+ * contra hoja blanca), de la escala y del filete. No hay escalera de sombras:
+ * si dos cosas tienen que separarse, se separan con una línea o con espacio.
+ * La sombra existe en un solo lugar y por una sola razón física: la hoja está
+ * apoyada sobre la mesa y proyecta.
+ *
+ * Está escrito en CSS plano y scopeado bajo `.mesa`, no en utilidades de
+ * Tailwind ni en el `@theme` global: producción sigue con el sistema anterior y
+ * este archivo no puede tocarla. Al aprobarse, los tokens se mudan a `@theme` y
+ * el marcado se reescribe con utilidades, que es la convención del repo.
+ */
+
+.mesa {
+  /* ── Campo ────────────────────────────────────────────────────────────────
+     Grafito neutro, ni azulado ni cálido: cualquier temperatura acá le roba
+     neutralidad a la hoja blanca, que es el objeto que tiene que leerse como
+     papel. Nunca #000 puro, que mata la profundidad y hace vibrar el texto. */
+  --mesa: #101113;
+  --mesa-alta: #16181b;
+  --mesa-honda: #0b0c0e;
+
+  /* La hoja: el entregable. Blanco puro, y es el único blanco puro del sistema. */
+  --hoja: #ffffff;
+  --hoja-tenue: #f4f4f2;
+
+  /* ── Tinta sobre campo ────────────────────────────────────────────────────
+     Rampa fría muy leve para que no se lea como gris sucio sobre el grafito.
+     `apagada` es el piso de cuerpo: mide 7,4:1 sobre --mesa. */
+  --luz: #f7f8f8;
+  --luz-media: #b9bdc2;
+  --luz-apagada: #8e949b;
+  --filete: #26292d;
+  --filete-vivo: #363a3f;
+
+  /* ── Tinta sobre hoja ─────────────────────────────────────────────────────
+     El documento tiene su propia rampa porque vive sobre blanco, y sus valores
+     no son los mismos que los del campo. */
+  --grafito: #16181b;
+  --grafito-medio: #52565c;
+  --grafito-suave: #6b7076;
+  --filete-hoja: #e4e4e1;
+
+  /* ── El acento único ──────────────────────────────────────────────────────
+     Ámbar de lámpara indicadora: significa QUE ACÁ INTERVIENE UNA PERSONA.
+     Marca la aprobación y pinta la acción primaria, que en este producto son
+     la misma cosa —el CTA es "empezar", y el argumento entero es que nada sale
+     sin que vos aprietes—. No pinta estados de dato, ni decora, ni aparece en
+     el reporte.
+
+     Mide 9,8:1 sobre --mesa, así que sirve también para el anillo de foco sin
+     necesitar una variante oscurecida. */
+  --senal: #ffb020;
+  --senal-viva: #ffc44d;
+  --senal-honda: #3a2a08;
+  --senal-tinta: #7a5200;
+
+  /* ── Dentro del reporte, y sólo ahí ───────────────────────────────────────
+     Verde y rojo los decide el negocio, no la dirección: que la inversión suba
+     no es verde. Viven dentro del documento y nunca salen al cromo. */
+  --positivo: #0b6b4f;
+  --negativo: #a52a1f;
+  /* La alerta del reporte: un tinte de papel, no un color de alarma. Es una
+     observacion que la IA marco, no un error del que haya que rescatar a nadie. */
+  --alerta-campo: #faf7f0;
+  --alerta-filete: #d8c9a4;
+
+  /* ── Geometría ────────────────────────────────────────────────────────────
+     Radio casi nulo. El sistema es de líneas y rectángulos rectos: un radio
+     grande convertiría cada hoja en una tarjeta, que es justo la forma que
+     esta dirección evita. 3px es el redondeo de un papel real, no un widget. */
+  --r: 3px;
+
+  /* La única sombra del sistema: la hoja apoyada sobre la mesa. */
+  --apoyo: 0 24px 60px -20px rgb(0 0 0 / 0.7), 0 2px 8px rgb(0 0 0 / 0.4);
+
+  --sans: var(--fuente-archivo), system-ui, -apple-system, sans-serif;
+  --mono: var(--fuente-plex-mono), ui-monospace, Menlo, monospace;
+
+  /* ── Escala tipográfica ───────────────────────────────────────────────────
+     Declarada como contrato y no dispersa en las reglas. Todo cuerpo cae en un
+     escalón: un tamaño entre dos escalones es un error, no una variación. */
+  --t-portada: clamp(2.125rem, 3.6vw, 3.25rem);
+  --t-titular: clamp(1.9rem, 3.6vw, 2.9rem);
+  --t-titulo: 1.3125rem;
+  --t-plomo: 1.0625rem;
+  --t-cuerpo: 0.9375rem;
+  --t-chico: 0.8125rem;
+  --t-fino: 0.75rem;
+  --t-marca: 0.6875rem;
+
+  /* Ritmo vertical de sección, en dos valores y no en quince. */
+  --aire: 88px;
+  --aire-lg: 136px;
+}
+
+/* El campo tiene que llegar al borde real de la ventana: `globals.css` pinta el
+   body con el campo claro de producción y este preview no puede tocarlo, así
+   que se lo sobreescribe desde acá, que es un archivo propio. Sin esto, el
+   rebote del scroll muestra una franja clara arriba y abajo. */
+body:has(.mesa) {
+  background: var(--mesa, #101113);
+}
+
+.mesa {
+  background: var(--mesa);
+  color: var(--luz);
+  font-family: var(--sans);
+  font-size: var(--t-cuerpo);
+  line-height: 1.6;
+  min-height: 100dvh;
+  /* `clip` y no `hidden`: no crea contexto de scroll y no rompe `position:
+     sticky` más adelante. */
+  overflow-x: clip;
+}
+
+/* ── Piso de accesibilidad, adaptado al campo oscuro ─────────────────────────
+   `globals.css` define el anillo de foco con el ámbar OSCURO de producción
+   (#855a00 sobre campo claro). Sobre este grafito ese tono desaparece: mide
+   2,4:1 y un anillo que no se ve es un anillo que no existe. Acá el mismo rol
+   lo cumple el ámbar a plena intensidad, que mide 9,8:1 sobre el campo.
+   El halo oscuro va debajo para que el anillo también se lea cuando la parada
+   cae sobre la hoja blanca. */
+.mesa :focus-visible {
+  outline: 2px solid var(--senal);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgb(16 17 19 / 0.9);
+  border-radius: 1px;
+}
+
+.mesa ::selection {
+  background: var(--senal);
+  color: var(--mesa);
+}
+
+/* ── Primitivas ─────────────────────────────────────────────────────────────*/
+
+.contenedor {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (min-width: 768px) {
+  .contenedor {
+    padding: 0 40px;
+  }
+}
+
+/* La marca: tick perpendicular de registro. Indexa el comienzo de una sección
+   como la marca de una regla, y es la razón por la que estas secciones no
+   necesitan un copete en mayúsculas encima de cada titular. */
+.marca {
+  display: block;
+  width: 1px;
+  height: 28px;
+  background: var(--senal);
+  margin-bottom: 20px;
+}
+
+.titular {
+  margin: 0;
+  font-size: var(--t-titular);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  max-width: 20ch;
+}
+
+.bajada {
+  margin: 18px 0 0;
+  font-size: var(--t-plomo);
+  line-height: 1.55;
+  color: var(--luz-media);
+  /* Medida en rem y verificada contra el conteo real de caracteres: el español
+     rinde ~30% más ancho por `ch` de lo que la unidad sugiere. */
+  max-width: 34rem;
+}
+
+.cifra {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ── La barra: acción e intervención humana ─────────────────────────────────*/
+
+.barra {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border: 0;
+  border-radius: var(--r);
+  background: var(--senal);
+  color: #1a1200;
+  font-family: var(--sans);
+  font-size: var(--t-cuerpo);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 140ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 140ms ease-out;
+}
+.barra:hover {
+  background: #ffc44d;
+}
+.barra:active {
+  transform: translateY(1px);
+}
+
+.barra-fantasma {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border: 1px solid var(--filete-vivo);
+  border-radius: var(--r);
+  background: transparent;
+  color: var(--luz);
+  font-size: var(--t-cuerpo);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    border-color 140ms ease-out,
+    color 140ms ease-out;
+}
+.barra-fantasma:hover {
+  border-color: var(--luz-apagada);
+}
+
+/* ── Entrada ────────────────────────────────────────────────────────────────
+   Animación de scroll nativa (`animation-timeline: view()`), sin librería y sin
+   listener de scroll. Si el navegador no la soporta, el contenido ya está
+   visible: la animación nunca es la condición para poder leer.
+
+   MOTION_INTENSITY 5: entradas reales y un solo beat de estado en la
+   aprobación. Nada de pinning ni de secuestro de scroll, que en una página que
+   argumenta control serían una contradicción de tono. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .entra {
+      animation: entrar linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 26%;
+    }
+  }
+}
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Al imprimir no hay scroll, así que una animación de línea de tiempo de vista
+   se queda congelada en su primer fotograma y el encabezado de cada sección
+   saldría en blanco. El contenido nunca puede depender de que la animación
+   haya corrido. */
+@media print {
+  .entra {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

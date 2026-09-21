@@ -1,0 +1,1053 @@
+/**
+ * EL HÉROE, EL DOCUMENTO Y LOS TRAMOS OSCUROS.
+ *
+ * ── LA ROTURA DEL BORDE DE 1PX SE REVIRTIÓ ──────────────────────────────────
+ * Los mockups estuvieron en 2px. El problema que resolvía era real —a 1px el
+ * marco se confundía con las divisiones internas del propio documento— pero el
+ * remedio engordaba todo el conjunto y le daba a la página un aire tosco.
+ *
+ * Vuelve el filete de 1px como regla universal, y la separación la hace un
+ * ANILLO EXTERIOR de tinta al 7%: define el canto sin sumarle espesor, que es
+ * exactamente la diferencia entre un objeto recortado y un objeto dibujado con
+ * marcador. Un canto no se construye con grosor sino con dos valores contiguos.
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL HÉROE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-heroe {
+  position: relative;
+  padding-top: clamp(40px, 5vw, 76px);
+  padding-bottom: 0;
+  overflow: clip;
+}
+
+.f-fila {
+  display: grid;
+  gap: clamp(32px, 3.6vw, 48px);
+  align-items: start;
+}
+
+@media (min-width: 1060px) {
+  .f-fila {
+    grid-template-columns: minmax(0, 0.76fr) minmax(0, 1.24fr);
+  }
+
+  /**
+   * ── LA COLUMNA SE CENTRA CONTRA EL DOCUMENTO ──────────────────────────────
+   * Alineada arriba, la columna terminaba en el primer tercio y dejaba un vacío
+   * grande abajo del CTA: el aire se acumulaba todo de un lado en vez de
+   * repartirse. Centrada, el mismo contenido queda con aire arriba y abajo.
+   *
+   * El `margin-bottom` es la corrección del difuminado, y por eso no es un
+   * número redondo: el documento se desvanece desde el 66% de su alto, así que
+   * su centro GEOMÉTRICO cae más abajo que su centro ÓPTICO —la parte que
+   * todavía se ve—. Centrar sin corregir dejaba la columna hundida contra la
+   * mitad borrada. Como el margen entra en la caja que se centra, la columna
+   * sube la mitad de este valor.
+   */
+  .f-texto {
+    align-self: center;
+    /* La corrección se recalculó cuando el fundido pasó del 66% al 85%: con la
+       banda borrada más corta, el centro geométrico y el óptico se acercaron y
+       la compensación bajó a la mitad. Es un valor medido contra el render, no
+       una proporción estimada. */
+    margin-bottom: clamp(145px, 30vh, 300px);
+  }
+}
+
+/* El intervalo entre el titular y la fila bajó con la escala. Los valores
+   estaban calculados para una tipografía más grande, y al achicarla quedaron
+   huecos donde antes había una relación. */
+.f-fila {
+  margin-top: clamp(26px, 2.8vw, 40px);
+}
+
+.f-bajada-heroe {
+  max-width: 32rem;
+}
+
+.f-accion-heroe {
+  margin-top: clamp(24px, 2.6vw, 32px);
+}
+
+/**
+ * ── LOS DOS FUNDIDOS SE DECLARAN ACÁ, Y NO SON EL MISMO ─────────────────────
+ * Son dos porque las dos cosas que se disuelven no terminan en el mismo lugar:
+ * el marco lleva el documento y la forma del piso lleva la sombra, y una
+ * sombra se pinta DESPLAZADA Y DIFUMINADA respecto de lo que la proyecta. Con
+ * el mismo gradiente en las dos, la sombra le sobrevive al documento: donde ya
+ * no hay nada que leer queda un rectángulo tenue de tono con su borde de
+ * abajo. Es el mismo defecto que la silueta nítida del `box-shadow`, en
+ * versión suave, y se ve igual.
+ *
+ * La condición es que la sombra muera ANTES que el documento, y el margen es
+ * exactamente su alcance: desplazamiento más difuminado. El fundido del piso
+ * es entonces el del marco corrido hacia arriba ese alcance, y los dos llegan
+ * a cero en la misma línea.
+ *
+ * La corrección va en `calc()` y no en un porcentaje escrito a mano porque el
+ * alcance es una medida en PÍXELES y el marco cambia de alto: 1012px en
+ * escritorio y ~517px en móvil. Un 8,5% restado —que es lo que da la cuenta en
+ * escritorio— vale 43px en móvil y ahí la sombra vuelve a sobrevivir al
+ * documento por medio alcance. Restando px la corrección es la misma a
+ * cualquier alto.
+ *
+ * `--alcance-sombra` tiene que seguir siendo la suma del desplazamiento y el
+ * difuminado del `drop-shadow` más largo de `.f-piso`. Es el único par de
+ * valores del archivo que hay que mover junto.
+ *
+ * ── DÓNDE ARRANCA Y CUÁNTO DURA, QUE SON DOS COSAS ─────────────────────────
+ * Estuvo al 66% —banda larga y blanda, pero arrancaba en la primera fila de la
+ * tabla y no se leía ninguna— y después al 85%, que dejó las filas limpias
+ * pero acortó la banda a 135px y el documento pasó a cortarse duro.
+ *
+ * El 79% es el punto donde las dos cosas se cumplen: el fundido sigue
+ * arrancando después de la segunda fila, y la banda vuelve a ~200px, que es lo
+ * que lo hace disolverse en vez de terminar. Lo que paga la diferencia es el
+ * recorte, que sube de 900 a 960px: una banda larga necesita lugar donde
+ * ocurrir.
+ *
+ * Termina en 94% y no en 100%: el último 6% de la caja queda garantizado en
+ * blanco, así que cualquier cosa que caiga ahí abajo —el borde del documento,
+ * un filete de bloque, un resto de bandeja— es invisible por construcción y no
+ * por cálculo. El cálculo ya falló dos veces.
+ */
+.f-escena {
+  position: relative;
+  min-width: 0;
+  --fundido: linear-gradient(to bottom, #000 0 79%, transparent 94%);
+  --alcance-sombra: 86px;
+  --fundido-piso: linear-gradient(
+    to bottom,
+    #000 0 calc(79% - var(--alcance-sombra)),
+    transparent calc(94% - var(--alcance-sombra))
+  );
+}
+
+/**
+ * La escena NO sube con margen negativo.
+ *
+ * Lo hacía, y con el titular a ancho completo las hojas apiladas —que asoman 38px
+ * por arriba del marco— se montaban sobre la segunda línea del titular y tapaban
+ * la barra de la marca, que es justo lo que el titular tiene que mostrar. La
+ * regla del sistema es que toda superposición cae sobre espacio VACÍO de la
+ * pieza de atrás; acá atrás hay texto, así que no hay superposición.
+ */
+.f-escena {
+  margin-top: 0;
+}
+
+/* ── LAS HOJAS APILADAS DETRÁS ───────────────────────────────────────────────
+   Le dan cuerpo al objeto sin inventar una línea de contenido que el producto
+   no tenga: son hojas en blanco, y eso es lo que son —los meses anteriores del
+   mismo cliente, que existen y no hace falta dibujar—.
+
+   Los escalones son de 19px cada uno y ése es el número que importa: con 12px
+   las dos hojas se leían como UNA línea gruesa arriba del marco. Lo que da
+   cuerpo no es que existan sino cuánto asoman. */
+
+.f-pila {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-obj);
+  background: var(--papel);
+  box-shadow: var(--e1);
+}
+
+/**
+ * Los escalones bajaron de 19px a 12px. Dos motivos, y los dos empujan igual:
+ * con la escala general más chica y los bordes de vuelta en 1px, dos hojas
+ * asomando 19px se leían gruesas al lado de todo lo demás; y con la fila más
+ * pegada al titular, la hoja de más atrás subía 38px y se montaba sobre la
+ * barra de la marca —justo sobre la parte del titular que la marca señala—.
+ *
+ * 24px de sobresaliente total contra 37px de margen: la pila entra con aire y
+ * sin tocar nada.
+ */
+.f-pila-1 {
+  top: -12px;
+  width: calc(100% - 28px);
+  height: 60px;
+  z-index: 1;
+}
+
+.f-pila-2 {
+  top: -24px;
+  width: calc(100% - 62px);
+  height: 60px;
+  z-index: 0;
+  opacity: 0.66;
+}
+
+/**
+ * EL PISO.
+ *
+ * Una caja vacía detrás del marco cuyo único trabajo es proyectar la sombra.
+ * Existe por un conflicto real: para que el documento se funda con el fondo hay
+ * que enmascarar el marco entero —borde y superficie incluidos—, y una máscara
+ * recorta también la sombra del elemento. Enmascarar y conservar la sombra son
+ * incompatibles en el mismo nodo.
+ *
+ * ── LA SOMBRA DEL PISO NO SIGUE A LA ESCALA GENERAL ─────────────────────────
+ * Cuando la página bajó de peso, `e4` se afinó con todo lo demás y el documento
+ * volvió a quedar flotando sin apoyarse en nada. Fue un error de método: afiné
+ * un token compartido para resolver un problema tipográfico, y el piso —que era
+ * el único uso de `e4` que dependía de su fuerza— pagó el ajuste.
+ *
+ * Ahora el piso declara su propia sombra en vez de heredar el token. Un objeto
+ * que ocupa media pantalla necesita una sombra proporcional a su tamaño, y ésa
+ * es una relación con el OBJETO, no con el peso de la tipografía.
+ *
+ * ── LA SOMBRA SE DISUELVE CON EL DOCUMENTO, Y ESO OBLIGA A `drop-shadow` ───
+ * El piso estuvo al 96% del alto y con `box-shadow`, y ahí apareció el defecto
+ * que esta regla existe para no repetir: cuando el documento terminaba de
+ * desvanecerse al 94%, lo único que seguía pintado era la silueta de la propia
+ * sombra —un rectángulo redondeado con el canto de abajo nítido y la banda
+ * ambiental cortada seca contra el borde del héroe—. El objeto no terminaba de
+ * disolverse: terminaba mostrando el contorno de su sombra, que es exactamente
+ * el aspecto de una captura recortada y no el de una presentación.
+ *
+ * La causa de fondo es que el fundido estaba aplicado POR ELEMENTO —máscara
+ * sobre el marco— y el piso no lo tenía. Enmascararlo tampoco alcanza:
+ * `mask-clip` recorta contra el borde de la caja, así que una máscara le borra
+ * la sombra entera, que es el mismo conflicto por el que el piso existe.
+ *
+ * La salida es invertir quién lleva la sombra. El piso pasa a ser un
+ * contenedor con `filter: drop-shadow()` y adentro va una FORMA enmascarada.
+ * `drop-shadow` se calcula sobre el alfa de lo que hay adentro, así que donde
+ * la forma se desvanece la sombra se desvanece con ella: hay apoyo debajo de
+ * cada línea que todavía se lee, y no hay nada debajo de lo que ya no está.
+ *
+ * Por eso el piso volvió a medir el alto entero del marco: los porcentajes del
+ * fundido son relativos a la caja de cada uno, y con cajas de distinto alto los
+ * dos tramos no se pueden calzar. Calzarlos es la cuenta que está escrita en
+ * `.f-escena`, donde viven los dos gradientes, que NO son el mismo: la sombra
+ * tiene que terminar un alcance de sombra antes que el documento.
+ *
+ * La elipse difusa de abajo se retiró en la misma pasada. Era el tercer plano
+ * de la sombra y su trabajo era que el documento se leyera apoyado; pero un
+ * objeto que se disuelve no se apoya en nada, y la elipse era justamente una
+ * marca de dónde terminaba.
+ */
+.f-piso {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  /* 30 + 56 = los 86px de `--alcance-sombra`. Van juntos. */
+  filter:
+    drop-shadow(0 6px 12px rgb(22 19 15 / 0.06))
+    drop-shadow(0 30px 56px rgb(22 19 15 / 0.2));
+}
+
+/* La forma no se ve nunca: es la misma caja que el marco, que la tapa entera
+   mientras es opaco, y se desvanece antes que él. Va en `--papel` y no en un
+   color cualquiera porque el campo a esa altura ya es `--papel` puro: si
+   alguna vez asomara un píxel, asoma del color del fondo. */
+.f-piso span {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radio-obj);
+  background: var(--papel);
+  -webkit-mask-image: var(--fundido-piso);
+  mask-image: var(--fundido-piso);
+}
+
+/* ── EL MARCO DE NAVEGADOR ───────────────────────────────────────────────────
+   Con la URL real: el cliente final abre el informe como página pública en
+   r.nuvloapp.com/r/{token}. Un marco con tres puntitos y un campo vacío sería el
+   recurso más gastado de la categoría; con la dirección verdadera adentro es el
+   único lugar del sitio que muestra dónde vive el entregable.
+
+   La máscara vive acá y no en el recorte interior: enmascarando sólo el
+   contenido, el marco seguía entero debajo —fondo, filete y esquina—, así que
+   quedaba una caja vacía con borde abajo del texto que se iba.
+
+   ── LA BANDEJA Y EL DOCUMENTO SON UNA PIEZA SOLA ────────────────────────────
+   El marco es cromo de navegador, en `--crema` como su propia barra, y el
+   documento se apoya adentro. Pero la separación es MÍNIMA —4px de aire y un
+   filete finito— porque las dos superficies tienen que leerse como un solo
+   objeto y no como dos capas apiladas: el aire ancho y la sombra propia que
+   tenía antes las separaban demasiado.
+
+   ── LOS FILETES, FINOS Y NEUTROS ────────────────────────────────────────────
+   Los dos bordes —el de la bandeja y el del documento— son el mismo valor y
+   son apenas más oscuros que el blanco del documento. No usan los filetes
+   cálidos del sistema (`--filete`, `--filete-fuerte`): a este tamaño el tan
+   se lee como un borde grueso, y lo que hace falta acá es una línea que
+   separe sin pesar. Es una excepción declarada, no deriva.
+
+   ── SIN SOMBRAS, SALVO EL CONTACTO ──────────────────────────────────────────
+   Ni la bandeja ni el documento proyectan sombra: la única es la de contacto,
+   corta, en el borde inferior del documento, para que se sienta apoyado. El
+   piso del héroe sigue siendo el que sostiene el objeto entero, y el
+   difuminado de abajo no se toca. */
+
+/* El borde del marco es 1,5px y el del documento 1px al 5%: los dos filetes
+   dejaron de ser el mismo valor a propósito. El de afuera cierra el objeto
+   contra la página y puede pesar un poco; el de adentro sólo tiene que insinuar
+   dónde termina la bandeja y empieza la hoja, y cuanto menos se note, más se
+   leen las dos superficies como una sola pieza. */
+.f-navegador {
+  position: relative;
+  z-index: 2;
+  border: 2px solid rgb(20 16 12 / 0.09);
+  border-radius: var(--radio-obj);
+  background: var(--crema);
+  overflow: hidden;
+  /* El fundido sale de `--fundido`, declarado en la escena, porque el piso
+     tiene que disolverse con exactamente el mismo tramo. Sus dos números y por
+     qué son ésos están escritos allá.
+
+     Va con prefijo además de sin prefijo: `mask-image` sin prefijo es reciente
+     en Chrome, y en una versión donde no aplique el documento se corta seco.
+
+     Fuera de la escena `--fundido` no existe y la declaración cae en `none`,
+     que es lo correcto: el documento de su propia sección no se funde. */
+  -webkit-mask-image: var(--fundido, none);
+  mask-image: var(--fundido, none);
+}
+
+/* El documento entero, sin recorte ni máscara: es el de la sección propia.
+   Tampoco proyecta sombra: lo único que sostiene al objeto es la sombra de
+   contacto del documento de adentro. */
+.f-navegador-entero {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* Sin filete abajo: con el documento apoyado a 4px, el borde de la barra y el
+   borde de arriba del documento se leían como dos líneas paralelas. La única
+   que queda es la del documento, que es la que separa cromo de contenido. */
+/**
+ * ── LA BARRA SE CENTRA CONTRA EL CANTO DEL DOCUMENTO, NO CONTRA SU TEXTO ────
+ * El relleno de arriba estuvo en 23px, contando como aire de abajo los 4px de
+ * bandeja, el filete del documento y los 14px de relleno del encabezado: 23
+ * contra 23, simétrico en la cuenta. En pantalla no lo era. El encabezado del
+ * documento tiene fondo propio y filete, así que su relleno interno es aire
+ * DEL DOCUMENTO y el ojo no lo suma al cromo: lo que se ve arriba de la
+ * bandeja son 25px y lo que se ve abajo son 8px, y la barra queda colgada del
+ * borde superior con un hueco que no sostiene nada.
+ *
+ * El aire de la barra se mide contra lo que se ve terminar, que es el canto del
+ * documento. Con 12px de relleno son 14px arriba del campo de dirección contra
+ * 8px abajo, y el resto de arriba —2px de borde y la curva del radio— explica
+ * la diferencia que queda.
+ *
+ * Consecuencia: esta cuenta depende del margen superior del documento, no del
+ * relleno de `.f-r-cabeza`. Ese ya no entra.
+ */
+.f-navegador-barra {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px 4px;
+  background: var(--crema);
+}
+
+.f-luces {
+  display: flex;
+  flex: none;
+  gap: 7px;
+}
+
+/**
+ * LAS TRES LUCES, EN SUS COLORES.
+ *
+ * Adentro del reporte el verde y el rojo significan «mejoró» y «empeoró». Acá
+ * arriba no significan nada: son la convención de un sistema operativo. Lo que
+ * evita el choque es la separación —viven en el cromo, no en la zona de datos—
+ * más la forma y la escala: 11px de disco liso contra una cápsula con texto.
+ */
+.f-luces span {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.11);
+}
+
+.f-luces span:nth-child(1) {
+  background: #ff5f57;
+}
+
+.f-luces span:nth-child(2) {
+  background: #febc2e;
+}
+
+.f-luces span:nth-child(3) {
+  background: #28c840;
+}
+
+.f-url {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+  border: 1px solid var(--filete);
+  border-radius: 9999px;
+  padding: 6px 13px;
+  background: var(--papel);
+  font-size: 0.75rem;
+  color: var(--tinta-media);
+}
+
+.f-url svg {
+  flex: none;
+  color: var(--tinta-media);
+}
+
+.f-url-token {
+  color: var(--tinta-media);
+}
+
+/* El recorte sólo limita la altura. El fundido lo hace la máscara del marco. */
+/* Altura FIJA, no máxima. `max-height` deja la altura del recorte indefinida, y
+   contra una altura indefinida el `min-height: 100%` del documento no resuelve:
+   el porcentaje se ignora y el documento vuelve a medir lo que mide su
+   contenido. Con `height` la caja del recorte es definida, el documento la
+   llena siempre, y el corte deja de depender de cuánto texto entró. */
+.f-recorte {
+  height: clamp(360px, 54vh, 580px);
+  overflow: hidden;
+}
+
+/**
+ * ── EL DOCUMENTO DEL FRAGMENTO NO TIENE CIERRE, Y NO PUEDE TENERLO ──────────
+ * Adentro del recorte el documento se estira hasta el alto del recorte y pierde
+ * su borde inferior, sus dos esquinas de abajo y su margen: lo único que puede
+ * pasar ahí abajo es que el fundido lo disuelva.
+ *
+ * Estuvo apoyado en que el contenido fuera más alto que el recorte, y eso no es
+ * una garantía: el alto del documento depende de cómo envuelva el texto, y el
+ * texto envuelve distinto en cada ancho de pantalla. En 1440 sobraban 143px y
+ * en un monitor más ancho el mismo documento se acortaba hasta terminar ANTES
+ * del corte, y ahí reaparecían la esquina redondeada y la franja de bandeja
+ * abajo. Con `min-height` el corte deja de depender del contenido: pase lo que
+ * pase con el texto, abajo del recorte no hay dónde ver el final.
+ */
+.f-recorte .f-reporte {
+  min-height: 100%;
+  margin-bottom: 0;
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: none;
+}
+
+@media (min-width: 1060px) {
+  /**
+   * ── EL CORTE LO MANDA EL ALTO DEL HÉROE, NO CUÁNTO DOCUMENTO ENTRA ────────
+   * Estuvo en 116vh/1120px para que el plan de acción llegara a asomar, y con
+   * eso el héroe se fue a 1,5 pantallas. Se revirtió a propósito: en el héroe
+   * el plan de acción NO tiene que verse. Lo que el fragmento prueba es que el
+   * documento existe y que sigue, y para eso alcanza con llegar a las primeras
+   * filas de la tabla.
+   */
+  .f-recorte {
+    height: clamp(440px, 107vh, 960px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL DOCUMENTO
+
+   ── UNA SOLA ESCALA INTERNA, Y LOS SEPARADORES ORDENADOS ───────────────────
+   El relleno horizontal es 24px en TODAS las filas del objeto y el vertical es
+   22px arriba y 24px abajo. Antes había cuatro valores distintos que nadie
+   eligió, y por eso las columnas de la tabla no arrancaban donde arranca el
+   nombre del cliente.
+
+   Los separadores también estaban desordenados: había filetes de bloque, de
+   celda y de tabla mezclados, algunos dobles donde dos elementos con borde
+   quedaban pegados. La regla ahora es una sola y se puede verificar mirando:
+   **el filete separa BLOQUES del documento; adentro de un bloque no hay
+   filetes.** La única excepción es la retícula de KPI y la tabla, donde el
+   filete es la estructura del dato y no una división de contenido.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * ── POR QUÉ EL MARGEN DE ABAJO ES MÁS GRANDE QUE LOS OTROS TRES ─────────────
+ * La sombra de contacto no se veía. El marco tiene `overflow: hidden`, así que
+ * recorta la sombra del documento: con 4px iguales en los cuatro lados, la
+ * sombra tenía 4px para caer y quedaba comida por el recorte justo donde
+ * empieza a leerse. Ahora abajo hay 11px —el resto sigue en 4px, que es lo que
+ * hace que las dos superficies se lean como una— y la sombra cae adentro de
+ * ese aire.
+ *
+ * En el fragmento del héroe esta sombra no aparece, y está bien: ahí el
+ * documento no termina, lo corta el difuminado. El piso del héroe es el que
+ * sostiene ese objeto.
+ */
+.f-reporte {
+  container-type: inline-size;
+  margin: 4px 4px 11px;
+  border: 1px solid rgb(20 16 12 / 0.05);
+  border-radius: var(--radio-int);
+  background: var(--papel);
+  box-shadow: 0 3px 6px -2px rgb(20 16 12 / 0.16);
+  overflow: hidden;
+}
+
+/* El separador de bloque, declarado UNA vez. Todo lo que separa bloques usa
+   esto y nada declara su propio borde. */
+.f-reporte > * + * {
+  border-top: 1px solid var(--filete);
+}
+
+/* El encabezado arranca más arriba que el resto de los bloques: entre la barra
+   de direcciones y el nombre del cliente había 4px de bandeja más 18px de
+   relleno, y ese hueco leía como si el documento empezara despegado del marco.
+   Los 12px de acá son lo único asimétrico del documento y por eso se declara. */
+.f-r-cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px 18px;
+  padding: 14px 20px 16px;
+}
+
+.f-r-cabeza-quien {
+  min-width: 0;
+}
+
+/* Las tres líneas del encabezado —el rótulo, el nombre y las fechas— llevan
+   más aire entre sí que el resto del documento: son tres cuerpos distintos
+   apilados en cuatro renglones, y con los márgenes chicos se leían como un
+   bloque pegado en vez de como tres datos. */
+.f-r-cliente {
+  margin: 11px 0 0;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  line-height: 1.2;
+}
+
+.f-r-periodo {
+  margin: 9px 0 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--tinta-media);
+}
+
+/**
+ * LA CHAPA DE ESTADO, SIN ACENTO (06/09/2026).
+ *
+ * Llevaba el punto naranja y el campo de acento porque «espera una decisión».
+ * Salió: el acento no entra al documento, que sale con la marca del trafficker
+ * y no con la nuestra.
+ *
+ * Lo que dice «esperando» ahora es la FORMA, que es la salida que el sistema ya
+ * tenía escrita para el énfasis sin color: superficie levantada —papel, que acá
+ * es más claro que el encabezado— y filete cerrado. Es la misma chapa, contada
+ * con valor en vez de con color.
+ */
+.f-chapa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  border: 1px solid var(--filete-fuerte);
+  border-radius: 9999px;
+  padding: 5px 12px;
+  background: var(--papel);
+  box-shadow: var(--e1);
+  color: var(--tinta);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* La escala interna bajó un paso para que en el fragmento del héroe entre el
+   documento entero —resumen incluido— y el plan de acción llegue a asomar por
+   debajo del fundido. Es relleno, no cuerpo de texto: la rampa tipográfica no
+   se tocó. */
+.f-r-bloque {
+  padding: 14px 20px 16px;
+}
+
+.f-r-bloque > .f-rotulo + * {
+  margin-top: 11px;
+}
+
+.f-r-parrafo {
+  margin-top: 10px;
+  max-width: 44rem;
+}
+
+/**
+ * LA ALERTA — UN FILETE A LA IZQUIERDA, SIN CAJA Y SIN PUNTO (06/09/2026).
+ *
+ * ── ESTO NO LO INVENTA LA LANDING: LO EMITE EL PRODUCTO ────────────────────
+ * `buildReportHtml()` en `nuvlo-panel/src/lib/report-generator.ts` arma la
+ * alerta con `border-left: 3px solid #1a1a1a; padding: 4px 0 4px 20px`. Sin
+ * caja, sin fondo y sin bullet. La caja con contorno y el punto naranja que
+ * había acá eran la DIVERGENCIA, no la fuente: la landing se estaba apartando
+ * del reporte que dice reproducir.
+ *
+ * ── LO ÚNICO QUE DECIDE LA LANDING ES CÓMO TERMINA EL FILETE ───────────────
+ * Va con DEGRADADO vertical: tinta plena en el primer renglón y disuelto al
+ * final. Se eligió sobre la otra opción —un filete corto, sólo hasta la altura
+ * de la primera línea— por dos motivos. Uno, el filete corto deja un vacío al
+ * costado de los renglones que siguen y la alerta se lee desalineada cuando
+ * tiene tres o cuatro líneas, que es lo que mide de verdad. Dos, el degradado
+ * no depende del alto: una alerta de una línea y una de cinco se resuelven con
+ * la misma declaración, y el texto lo escribe la IA, así que su largo no es
+ * nuestro.
+ *
+ * Por la decisión del dueño del 19/08/2026 el mockup de la landing es upstream
+ * del reporte real: **el panel adopta después el degradado**, manteniendo los
+ * 3px y el relleno de 20px que ya emite.
+ *
+ * ── POR QUÉ ESTO NO ES «EL CALLOUT CON BORDE GRUESO DE COLOR» ──────────────
+ * DESIGN.md prohíbe ese recurso y ésta no es una instancia: el filete es de
+ * TINTA, no de color de marca ni semántico, mide 3px y es la forma que el
+ * producto ya emite. Si el detector lo marca, queda anotado y no se rediseña.
+ */
+.f-r-alerta {
+  display: block;
+  margin-top: 13px;
+  max-width: 44rem;
+  padding: 4px 0 4px 20px;
+  background:
+    linear-gradient(to bottom, var(--tinta), rgb(22 19 15 / 0)) left / 3px 100%
+      no-repeat;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+/* ── EL BANCO DE KPI ─────────────────────────────────────────────────────────
+   La retícula de un píxel: las líneas son el fondo asomando por el gap, no hay
+   bordes por celda. */
+
+.f-reticula {
+  display: grid;
+  gap: 1px;
+  background: var(--filete);
+}
+
+.f-reticula > * {
+  background: var(--papel);
+}
+
+.f-banco {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@container (min-width: 620px) {
+  .f-banco {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.f-kpi {
+  padding: 14px 20px 15px;
+}
+
+/* La caja del rótulo reserva dos líneas siempre: sin eso «Costo por
+   conversación» envuelve, empuja su cifra un renglón, y las cuatro quedan
+   escalonadas. */
+.f-kpi .f-rotulo {
+  min-height: calc(2 * 1.3em);
+}
+
+/**
+ * LA CIFRA DE KPI.
+ *
+ * Cambió de tratamiento y no sólo de familia. La cifra se parte en tres piezas
+ * con jerarquías distintas: el signo de moneda y el sufijo de porcentaje bajan a
+ * 0,52em y a tinta media, y el número queda solo en 800 con el tracking cerrado.
+ *
+ * No es un efecto: «$ 486.250» tiene dos caracteres que no son el dato y que a
+ * igual cuerpo compiten con él. Bajarlos deja que la cifra se lea de un vistazo
+ * y ordena la línea de base de las cuatro celdas, que antes arrancaban en
+ * lugares distintos según llevaran símbolo o no.
+ */
+.f-kpi-valor {
+  display: flex;
+  align-items: baseline;
+  gap: 0.14em;
+  margin: 8px 0 0;
+  font-size: clamp(1.375rem, 3.1cqi, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.024em;
+  line-height: 1;
+}
+
+.f-kpi-afijo {
+  font-size: 0.54em;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--tinta-media);
+}
+
+.f-kpi-pie {
+  margin-top: 9px;
+}
+
+.f-kpi-pista {
+  margin: 10px 0 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--tinta-media);
+  text-wrap: pretty;
+}
+
+/* ── LA CÁPSULA DE VARIACIÓN ─────────────────────────────────────────────────
+   El tick lo decide el SIGNO; el color lo decide el NEGOCIO y nunca se infiere
+   del signo. Una flecha para abajo en verde no es un error: es el caso que el
+   sistema tiene que saber expresar, y acá es literal —el costo por conversación
+   bajó 10,7% y eso está bien—.
+
+   Se resuelve con línea y espacio: filete del tono del texto y un campo apenas
+   insinuado. El neutro no lleva fondo: el color dice si lo que pasó es bueno,
+   así que una cápsula gris gastaría una superficie en decir «nada». */
+
+.f-capsula {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  padding: 3px 9px 3px 7px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+.f-capsula[data-sentido="bueno"] {
+  border-color: var(--positivo-filete);
+  background: var(--positivo-campo);
+  color: var(--positivo);
+}
+
+.f-capsula[data-sentido="malo"] {
+  border-color: var(--negativo-filete);
+  background: var(--negativo-campo);
+  color: var(--negativo);
+}
+
+.f-capsula[data-sentido="neutro"] {
+  border-color: var(--filete);
+  background: transparent;
+  color: var(--tinta-media);
+}
+
+/* ── LA TABLA ─────────────────────────────────────────────────────────────── */
+
+.f-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.f-tabla th {
+  padding: 10px 20px 8px;
+  border-bottom: 1px solid var(--filete);
+  background: transparent;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--tinta-media);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.f-tabla th:first-child,
+.f-tabla td:first-child {
+  text-align: left;
+}
+
+.f-tabla td {
+  padding: 9px 20px;
+  border-bottom: 1px solid var(--filete);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.f-tabla tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.f-tabla td:first-child {
+  font-weight: 500;
+}
+
+.f-anterior {
+  color: var(--tinta-media);
+}
+
+/* ── PLAN DE ACCIÓN Y CIERRE ───────────────────────────────────────────────── */
+
+.f-r-nota {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--filete);
+}
+
+.f-r-acciones {
+  margin: 11px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 11px;
+  max-width: 44rem;
+}
+
+.f-r-acciones li {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+/* El ordinal va a dos dígitos como en el panel. Un «1» suelto y un «01» no
+   dicen lo mismo: el segundo promete una lista corta y numerada.
+
+   Estaba en `--acento` y era el tercer lugar donde el naranja se había metido
+   adentro del informe. Sale por lo mismo que la chapa y la alerta: el
+   entregable no lleva marca nuestra. Lo que separa al ordinal de su acción
+   sigue siendo el peso y la columna, que es lo que hace el panel. */
+.f-r-ordinal {
+  flex: none;
+  min-width: 22px;
+  padding-top: 1px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--tinta-media);
+}
+
+.f-r-cierre {
+  padding: 18px 20px 22px;
+}
+
+.f-r-firma {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LOS TRAMOS OSCUROS
+
+   ── SON PUNTUALES, NO UN MODO ──────────────────────────────────────────────
+   La página es clara. Los tramos oscuros son dos y cada uno tiene un motivo:
+   Control, donde el argumento cambia de naturaleza —todo lo demás muestra el
+   entregable y ahí se explica por qué se puede confiar en él—, y el Cierre, que
+   remata. Dos son un paréntesis; tres serían alternancia, que es ritmo y no
+   significado.
+
+   ── LA TEXTURA ─────────────────────────────────────────────────────────────
+   Sobre claro ensuciaba; sobre oscuro da profundidad y por eso entra sólo acá.
+   Son dos capas de gradientes y ningún archivo: la CSP tiene img-src 'self' sin
+   data:, así que un SVG embebido no cargaría en producción. Un grano de puntos
+   de 1px cada 22px al 3,5% más un halo cálido arriba, que es lo que evita que
+   el tramo se lea como un rectángulo negro plano.
+
+   ── EL PASAJE DE CLARO A OSCURO ────────────────────────────────────────────
+   No es un borde: es un tramo de transición de 96px que va del papel al grafito
+   y que pertenece a la sección oscura, no a la clara. Un corte recto entre dos
+   valores tan distintos se lee como dos páginas pegadas; con la transición se
+   lee como una sola que entra en sombra.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-oscuro {
+  position: relative;
+  z-index: 1;
+  background: var(--grafito-honda);
+  color: var(--sobre-oscuro);
+  isolation: isolate;
+}
+
+/* La textura, sólo acá. */
+.f-oscuro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      70rem 42rem at 76% 0%,
+      rgb(234 88 12 / 0.14),
+      transparent 64%
+    ),
+    radial-gradient(
+      circle at 1px 1px,
+      rgb(255 253 251 / 0.035) 1px,
+      transparent 0
+    );
+  background-size:
+    auto,
+    22px 22px;
+}
+
+/**
+ * EL PASAJE. Va arriba y abajo del tramo, y su altura es la mitad de un
+ * intervalo de sección: alcanza para que el ojo no registre un borde y no tanto
+ * como para que el tramo pierda su contorno.
+ *
+ * ── DOS COSAS ESTABAN MAL Y NO SE VEÍA NINGUNA (06/09/2026) ────────────────
+ * No se veía porque el degradado NO SE DIBUJABA. El nodo es estático, o sea
+ * `z-index: auto` sin posicionar, y `.f-fondo` es absoluto con `z-index: 0` y
+ * un fondo OPACO: en el orden de pintado, un fondo de bloque no posicionado va
+ * antes que un elemento posicionado con z-index 0, así que el campo le pasaba
+ * por encima al pasaje entero. La sección oscura sí se veía porque `.f-oscuro`
+ * trae `position: relative; z-index: 1`. El pasaje ahora también.
+ *
+ * Y la punta clara apuntaba a `--papel`, que desde el 06/09/2026 es la
+ * superficie de una HOJA y no el fondo de la página. El degradado tiene que
+ * terminar en `--campo` o el tramo desemboca en un valor que no existe alrededor
+ * —y en cuanto se lo hizo visible se vio: una franja casi blanca entre el
+ * grafito y el hueso—.
+ *
+ * Los dos arreglos van juntos porque el segundo sólo se nota con el primero
+ * puesto.
+ */
+.f-pasaje {
+  position: relative;
+  z-index: 1;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--campo), var(--grafito-honda));
+}
+
+.f-pasaje-sube {
+  background: linear-gradient(to bottom, var(--grafito-honda), var(--campo));
+}
+
+.f-oscuro .f-bajada,
+.f-oscuro .f-cuerpo {
+  color: var(--sobre-oscuro-media);
+}
+
+.f-oscuro .f-rotulo,
+.f-oscuro .f-fino {
+  color: var(--sobre-oscuro-media);
+}
+
+.f-oscuro .f-chico {
+  color: var(--sobre-oscuro-media);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LAS PIEZAS QUE SALEN DEL MARCO
+
+   Viven acá y no en `secciones.css` porque son del HÉROE: la etiqueta que dice
+   que el reporte espera aprobación y la burbuja del cliente. Estaban en el
+   archivo de las secciones y eso las dejaba a merced de una reescritura de
+   secciones, que es exactamente lo que pasó.
+
+   Las dos obedecen la misma regla dura de la casa: una superposición cae sobre
+   AIRE de la pieza de atrás, nunca sobre contenido. Si tapa palabras se lee
+   como error de maquetado y no como profundidad.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-flotante {
+  display: none;
+}
+
+/* Las dos etiquetas flotantes usan el filete fino del documento y una sombra
+   corta, no la elevación grande que tenían: tienen que leerse como piezas del
+   mismo objeto que flotan al costado, no como tarjetas de otro sistema. */
+
+@media (min-width: 1060px) {
+  .f-flotante {
+    display: flex;
+    position: absolute;
+    z-index: 3;
+    top: 74%;
+    left: 0;
+    translate: -95% -50%;
+    align-items: flex-start;
+    gap: 12px;
+    width: 278px;
+    border: 1px solid rgb(20 16 12 / 0.08);
+    border-radius: var(--radio-obj);
+    padding: 16px 18px;
+    background: var(--papel);
+    box-shadow: 0 2px 4px -1px rgb(20 16 12 / 0.1);
+  }
+}
+
+.f-flotante .f-marca-punto {
+  margin-top: 7px;
+  box-shadow: 0 0 0 4px var(--acento-campo);
+}
+
+.f-flotante-titulo {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.f-flotante-pie {
+  margin: 5px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--tinta-media);
+}
+
+/* ── LA ETIQUETA DE WHATSAPP EN LA ESCENA ────────────────────────────────────
+   Una burbuja de chat y nada más, en el verde claro de WhatsApp: sin nombre,
+   sin hora y sin ninguna línea que narre lo que la forma ya dice.
+
+   Va a la IZQUIERDA y con la colita a la izquierda porque es un mensaje que
+   ENTRA: en cualquier cliente de chat lo que recibís se apoya sobre el margen
+   izquierdo y lo que mandás sobre el derecho. Es la misma clase de cita que
+   las luces del marco: la convención del canal, no una decisión de
+   composición.
+
+   Sin rotación: la burbuja se apoya derecha como el resto de las piezas.
+
+   El verde vive fuera de la zona de datos, así que no toca el verde del
+   negocio, que sólo existe adentro del reporte. */
+
+.f-wa-etiqueta {
+  display: none;
+}
+
+@media (min-width: 1060px) {
+  .f-wa-etiqueta {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    top: 4%;
+    left: 0;
+    /* Sale ENTERA del marco, con 4px de aire: pisándolo aunque sea un 20% se
+       comía las luces y la barra de direcciones, que es justo lo que el marco
+       tiene para mostrar. La regla de la casa es que una superposición cae
+       sobre aire, nunca sobre contenido. */
+    translate: -104% -32%;
+    max-width: 230px;
+    margin: 0;
+    border-radius: var(--radio-int);
+    border-bottom-left-radius: 3px;
+    padding: 12px 15px;
+    background: #b9f5ac;
+    box-shadow: 0 3px 8px -2px rgb(20 16 12 / 0.16);
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    color: var(--tinta);
+  }
+
+  /* La colita, abajo a la izquierda: mensaje entrante. */
+  .f-wa-etiqueta::after {
+    content: "";
+    position: absolute;
+    left: -6px;
+    bottom: 0;
+    width: 7px;
+    height: 10px;
+    background: #b9f5ac;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  }
+}
+

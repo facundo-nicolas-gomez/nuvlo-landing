@@ -1,0 +1,1756 @@
+/**
+ * DIRECCIÓN D — COMPOSICIÓN.
+ *
+ * Cada sección tiene su propia composición: no hay dos tramos con la misma
+ * estructura, y ninguno se resuelve con tarjetas hermanas. La profundidad viene
+ * de PLANOS y SUPERPOSICIÓN —piezas que se pisan entre sí con z-index real—, no
+ * de sombras grandes: la escala de elevación es mínima a propósito.
+ *
+ * Móvil primero. Arriba de 1024px entran las superposiciones; debajo todo apila
+ * en celdas enteras, nunca a medias.
+ */
+
+/* ════════════════════════════════════════════════════════════════════════════
+   CABECERA
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .n-barra {
+  position: relative;
+  z-index: 20;
+  border-bottom: 1px solid var(--filete);
+  background: var(--hoja);
+}
+
+.dirD .n-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 64px;
+}
+
+.dirD .n-wordmark {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--tinta);
+}
+
+.dirD .n-enlaces {
+  display: none;
+  gap: 28px;
+}
+
+.dirD .n-enlace {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--tinta-media);
+  transition: color 150ms ease-out;
+}
+
+.dirD .n-enlace:hover {
+  color: var(--tinta);
+}
+
+.dirD .n-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dirD .n-cta {
+  display: none;
+}
+
+/* El menú de teléfono: un disclosure de verdad, no un enlace que desaparece. */
+.dirD .n-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--filete);
+  border-radius: var(--r-int);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.dirD .n-menu-lineas {
+  display: grid;
+  gap: 4px;
+  width: 14px;
+}
+
+.dirD .n-menu-lineas > span {
+  height: 1.5px;
+  background: currentColor;
+  border-radius: var(--r-pastilla);
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dirD .n-menu-lineas[data-abierto] > span:first-child {
+  transform: translateY(2.75px) rotate(45deg);
+}
+
+.dirD .n-menu-lineas[data-abierto] > span:last-child {
+  transform: translateY(-2.75px) rotate(-45deg);
+}
+
+.dirD .n-panel {
+  border-top: 1px solid var(--filete);
+  background: var(--hoja);
+}
+
+.dirD .n-panel-cuerpo {
+  display: grid;
+  padding-block: 6px 14px;
+}
+
+.dirD .n-panel-enlace {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--tinta-media);
+  border-bottom: 1px solid var(--filete);
+}
+
+.dirD .n-panel-enlace:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 900px) {
+  .dirD .n-enlaces {
+    display: flex;
+  }
+
+  .dirD .n-cta {
+    display: inline-flex;
+  }
+
+  .dirD .n-menu,
+  .dirD .n-panel {
+    display: none;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   HÉROE
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .h-seccion {
+  padding-top: 64px;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.dirD .h-titular {
+  max-width: 17ch;
+}
+
+.dirD .h-bajada {
+  margin-top: 22px;
+  max-width: 34rem;
+}
+
+.dirD .h-acciones {
+  margin-top: 34px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.dirD .h-nota {
+  color: var(--tinta-suave);
+}
+
+.dirD .h-escena {
+  margin-top: 56px;
+}
+
+@media (min-width: 768px) {
+  .dirD .h-seccion {
+    padding-top: 88px;
+  }
+
+  .dirD .h-escena {
+    margin-top: 72px;
+  }
+}
+
+/* El reporte en fragmento: dos planos y un corte contra el borde de abajo. */
+.dirD .h-fragmento {
+  display: grid;
+  gap: 16px;
+}
+
+.dirD .h-f-lectura {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid var(--filete);
+  border-radius: var(--r-int);
+  background: var(--panel);
+}
+
+.dirD .h-f-fuente {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dirD .h-f-fuente {
+  margin-right: 10px;
+  padding: 2px 8px;
+  border-radius: var(--r-pastilla);
+}
+
+.dirD .h-f-fuente[data-origen="meta"] {
+  color: var(--tinta-media);
+  background: var(--panel-hondo);
+}
+
+.dirD .h-f-fuente[data-origen="nuvlo"] {
+  color: var(--tinta);
+  background: var(--hoja);
+  box-shadow: inset 0 0 0 1px var(--filete-fuerte);
+}
+
+.dirD .h-f-que {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.dirD .h-f-reposo {
+  color: var(--tinta-suave);
+}
+
+@media (min-width: 1024px) {
+  /**
+   * EL CORTE DEL FRAGMENTO.
+   *
+   * El recorte va acá y no en `.h-fragmento`, y ésa es toda la diferencia: la
+   * sección no lleva relleno abajo, así que el borde de esta caja ES el borde
+   * de la sección y el documento se corta contra él. Estaba al revés —el
+   * recorte 104px más arriba— y el resultado era una caja recortada flotando
+   * en blanco: se leía como un error, no como un documento que sigue.
+   *
+   * El valor cae entre dos filas de la tabla, no en el medio de una cifra.
+   */
+  .dirD .h-escena {
+    max-height: 451px;
+    overflow: hidden;
+  }
+
+  .dirD .h-fragmento {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+    gap: 0;
+  }
+
+  .dirD .h-f-encabezado {
+    grid-area: 1 / 1 / 2 / 7;
+    z-index: 2;
+  }
+
+  .dirD .h-f-banco {
+    grid-area: 1 / 6 / 2 / 13;
+    z-index: 3;
+    margin-top: 74px;
+  }
+
+  /**
+   * El lector y la tabla son columnas contiguas, sin pisarse: la única
+   * superposición del héroe es el banco bajando sobre el encabezado. El lector
+   * estaba en 1-7 contra una tabla en 6-13 y se comía el rótulo «MÉTRICAS DEL
+   * PERÍODO». Una superposición que hay que explicar no es profundidad.
+   */
+  .dirD .h-f-lectura {
+    grid-area: 2 / 1 / 3 / 7;
+    z-index: 4;
+    margin-top: 24px;
+    margin-right: 28px;
+    background: var(--hoja);
+    box-shadow: var(--e1);
+  }
+
+  .dirD .h-f-tabla {
+    grid-area: 2 / 7 / 3 / 13;
+    z-index: 1;
+    margin-top: 24px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   LAS PIEZAS DEL REPORTE — interior de cada objeto
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .r-encabezado {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+}
+
+.dirD .r-cliente {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin-block: 6px 4px;
+}
+
+/* Los 32px de abajo son el aire que se come la tabla al subir 16px. */
+.dirD .r-resumen {
+  display: grid;
+  gap: 12px;
+  padding: 18px 20px 32px;
+}
+
+.dirD .r-resumen .t-cuerpo {
+  max-width: 32rem;
+}
+
+/**
+ * La alerta NO lleva acento. El ámbar es de los botones, y una alerta no es una
+ * acción: es una observación del informe. Se marca subiendo la superficie y
+ * cerrando el filete, que es como este sistema dice «mirá esto» sin gastar la
+ * única señal de color que tiene.
+ */
+.dirD .r-alerta {
+  margin-top: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--filete-fuerte);
+  border-radius: var(--r-int);
+  background: var(--panel);
+}
+
+.dirD .r-alerta .t-rotulo {
+  color: var(--tinta);
+  margin-bottom: 4px;
+}
+
+.dirD .r-alerta .t-cuerpo {
+  color: var(--tinta);
+  max-width: 28rem;
+}
+
+/**
+ * El banco de KPI: la retícula de un píxel, que es el elemento firma.
+ *
+ * El rótulo va DENTRO de la pieza y no flotando encima. Flotando, el objeto no
+ * tenía fondo propio arriba, así que cuando el banco se superponía con la pieza
+ * de atrás el rótulo quedaba escrito sobre el texto de la otra. Un plano que se
+ * superpone tiene que traer su propia superficie completa.
+ */
+.dirD .r-banco {
+  overflow: hidden;
+  box-shadow: var(--e2);
+}
+
+.dirD .r-banco-grilla {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: var(--filete);
+  border: 0;
+  border-radius: 0;
+}
+
+/**
+ * LA CELDA DE KPI. Tres niveles y cada uno con su trabajo:
+ *
+ *   rótulo     11px/500, versalitas discretas, en tinta suave. Se retira.
+ *   cifra      el escalón de titular a 700 con `tnum`. Domina la celda.
+ *   variación  la cápsula, que es el elemento firma y tiene forma propia.
+ *
+ * **Las cuatro cifras comparten línea de base.** El rótulo reserva dos líneas
+ * siempre, entre o no en una: antes «Costo por conversación» envolvía y le
+ * empujaba la cifra un renglón hacia abajo, con lo cual las cuatro quedaban
+ * escalonadas y el bloque se leía torcido. La reserva la hace la caja del
+ * rótulo, no un salto de línea escrito a mano, así que sobrevive a que mañana
+ * cambie el nombre de una métrica.
+ */
+.dirD .r-celda {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  gap: 7px;
+  justify-items: start;
+  align-content: start;
+  text-align: left;
+  padding: 16px 18px 17px;
+  transition: background 220ms ease-out;
+}
+
+.dirD .r-celda-rotulo {
+  min-height: calc(2 * 1.3em);
+}
+
+.dirD .r-celda:hover,
+.dirD .r-celda[data-activo] {
+  background: var(--panel-hondo);
+}
+
+.dirD .r-valor {
+  font-size: clamp(1.375rem, 2.5vw, 1.875rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* La tabla. Separación por padding de celda, nunca por espacios. */
+.dirD .r-tabla-grilla {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.dirD .r-tabla-grilla th,
+.dirD .r-tabla-grilla td {
+  padding: 9px 16px;
+  text-align: right;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  border-bottom: 1px solid var(--filete);
+}
+
+.dirD .r-tabla-grilla thead th {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  padding-block: 8px;
+}
+
+.dirD .r-tabla-grilla th:first-child,
+.dirD .r-tabla-grilla td:first-child,
+.dirD .r-tabla-grilla tbody th {
+  text-align: left;
+}
+
+.dirD .r-tabla-grilla tbody th {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.dirD .r-tabla-grilla tbody tr:last-child th,
+.dirD .r-tabla-grilla tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.dirD .r-tabla-var {
+  text-align: right;
+}
+
+.dirD .r-tabla-actual {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.dirD .r-tabla-anterior {
+  color: var(--tinta-suave);
+}
+
+.dirD .r-tabla-grilla tbody tr {
+  transition: background 160ms ease-out;
+}
+
+.dirD .r-tabla-grilla tbody tr:hover,
+.dirD .r-tabla-grilla tbody tr[data-activa] {
+  background: var(--panel);
+}
+
+/* Encendida desde OTRA pieza: es la que sostiene la cuenta del KPI activo. */
+.dirD .r-tabla-grilla tbody tr[data-encendida] {
+  background: var(--panel-hondo);
+}
+
+.dirD .r-tabla-grilla tbody tr[data-encendida] th {
+  box-shadow: inset 1px 0 0 var(--tinta);
+}
+
+/* Plan de acción. */
+.dirD .r-acciones {
+  padding: 18px 20px;
+}
+
+.dirD .r-acciones-lista {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+}
+
+.dirD .r-acciones-lista li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.dirD .r-ordinal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  border: 1px solid var(--filete-fuerte);
+  border-radius: var(--r-pastilla);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--tinta-media);
+}
+
+.dirD .r-acciones-lista .t-cuerpo {
+  max-width: 30rem;
+}
+
+/* Recorrido de estados. */
+/**
+ * El aire de abajo no es decorativo: es lo que el plano de adelante se come.
+ * El banco se superpone 24px sobre esta pieza, así que los últimos 40px del
+ * riel están vacíos a propósito. Una superposición que tapa texto no se lee
+ * como profundidad: se lee como un error de maquetado.
+ */
+.dirD .r-riel {
+  display: grid;
+  padding: 6px 20px 44px;
+}
+
+.dirD .r-riel li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 12px;
+  padding-top: 14px;
+}
+
+.dirD .r-riel li::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 26px;
+  bottom: -6px;
+  width: 1px;
+  background: var(--filete);
+}
+
+.dirD .r-riel li:last-child::before {
+  display: none;
+}
+
+.dirD .r-nodo {
+  width: 9px;
+  height: 9px;
+  margin-top: 7px;
+  margin-left: 3px;
+  border-radius: var(--r-pastilla);
+  border: 1px solid var(--filete-fuerte);
+  background: var(--hoja);
+}
+
+.dirD .r-riel li[data-hecho] .r-nodo {
+  background: var(--tinta);
+  border-color: var(--tinta);
+}
+
+.dirD .r-riel li[data-actual] .r-nodo {
+  background: var(--tinta);
+  border-color: var(--tinta);
+  box-shadow: 0 0 0 3px var(--panel-hondo);
+}
+
+.dirD .r-paso-cabeza {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+/**
+ * Un paso pendiente se distingue por el NODO —hueco contra lleno—, no por
+ * opacidad. La versión con `opacity: 0.5` bajaba el cuerpo secundario a ~2,4:1
+ * contra el blanco: apagaba texto real por debajo del mínimo legible para
+ * decir algo que la forma del nodo ya dice.
+ */
+.dirD .r-riel li[data-pendiente] .r-paso-cabeza .t-titulo {
+  color: var(--tinta-media);
+  font-weight: 500;
+}
+
+/* Pie firmado del informe. */
+.dirD .r-pie {
+  overflow: hidden;
+}
+
+.dirD .r-firma {
+  padding: 16px 20px;
+}
+
+.dirD .r-firma .t-titulo {
+  margin-top: 4px;
+}
+
+.dirD .r-franja {
+  padding: 9px 20px;
+  border-top: 1px solid var(--filete);
+  background: var(--panel);
+}
+
+.dirD .r-franja-limpia {
+  color: var(--tinta-suave);
+  font-style: italic;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   SECCIÓN «EL REPORTE» — el objeto compuesto
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * El aire de arriba es RELLENO y no margen: un margen lo pinta el fondo del
+ * documento, y entre el corte del fragmento del héroe y el borde de esta
+ * sección quedaba una banda de campo sin nada. Como relleno, el panel empieza
+ * donde termina el corte y el fragmento sí se corta contra el borde.
+ */
+.dirD .r-seccion {
+  background: var(--panel);
+  border-top: 1px solid var(--filete);
+  border-bottom: 1px solid var(--filete);
+  padding-block: 144px 72px;
+}
+
+.dirD .r-vivo {
+  display: grid;
+  gap: 40px;
+}
+
+/* ── LA GUÍA: la columna izquierda, que ahora tiene trabajo ─────────────────
+   Estuvo vacía —un titular arriba y 400px de nada debajo— y ése era el
+   síntoma: si una columna no tiene contenido, no es una columna, es un hueco.
+   Hoy lleva los cuatro pasos que conducen la lectura del objeto. */
+
+.dirD .r-mando {
+  margin-top: 26px;
+}
+
+.dirD .r-segmentado {
+  margin-top: 8px;
+  display: inline-flex;
+  padding: 3px;
+  gap: 3px;
+  border: 1px solid var(--filete);
+  border-radius: var(--r-int);
+  background: var(--hoja);
+}
+
+.dirD .r-segmento {
+  padding: 6px 13px;
+  border-radius: calc(var(--r-int) - 3px);
+  color: var(--tinta-media);
+  transition:
+    background 160ms ease-out,
+    color 160ms ease-out;
+}
+
+.dirD .r-segmento:hover {
+  color: var(--tinta);
+}
+
+.dirD .r-segmento[aria-pressed="true"] {
+  background: var(--tinta);
+  color: var(--hoja);
+}
+
+/**
+ * Los pasos. El activo se marca con el nodo lleno del riel y con contraste de
+ * texto, nunca con opacidad: bajar la opacidad de un párrafo secundario lo
+ * hunde por debajo del mínimo legible, y un paso inactivo igual tiene que
+ * poder leerse. Tampoco con un borde grueso de color a la izquierda, que es el
+ * recurso de callout que este sistema no usa.
+ */
+.dirD .r-pasos {
+  margin-top: 34px;
+  border-left: 1px solid var(--filete-fuerte);
+}
+
+.dirD .r-paso {
+  position: relative;
+  padding: 15px 0 15px 22px;
+  cursor: default;
+}
+
+.dirD .r-paso::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 22px;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pastilla);
+  background: var(--panel);
+  border: 1px solid var(--filete-fuerte);
+  transition:
+    background 260ms ease-out,
+    border-color 260ms ease-out,
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dirD .r-paso[data-activo]::before {
+  background: var(--tinta);
+  border-color: var(--tinta);
+  transform: scale(1.25);
+}
+
+.dirD .r-paso .t-titulo {
+  color: var(--tinta-media);
+  transition: color 260ms ease-out;
+}
+
+.dirD .r-paso .t-chico {
+  margin-top: 4px;
+  color: var(--tinta-suave);
+  transition: color 260ms ease-out;
+}
+
+.dirD .r-paso[data-activo] .t-titulo {
+  color: var(--tinta);
+}
+
+.dirD .r-paso[data-activo] .t-chico {
+  color: var(--tinta-media);
+}
+
+/* ── EL OBJETO ──────────────────────────────────────────────────────────────
+   UNA superficie partida por la retícula de un píxel. Todo comparte borde: el
+   encabezado es la primera fila, los KPI la segunda, y abajo dos columnas que
+   alinean entre sí. No hay hueco vacío porque no hay nada flotando: lo único
+   que sale del objeto es el recorrido, y sale por un solo lado. */
+
+.dirD .r-escena {
+  position: relative;
+}
+
+.dirD .r-objeto {
+  display: grid;
+  gap: 1px;
+  background: var(--filete);
+  border: 1px solid var(--filete);
+  border-radius: var(--r-obj);
+  overflow: hidden;
+  box-shadow: var(--e3);
+}
+
+.dirD .r-objeto > * {
+  --superficie: var(--hoja);
+  background: var(--superficie);
+}
+
+/**
+ * LA ZONA APAGADA Y LA ZONA ENCENDIDA.
+ *
+ * Las zonas de las que el texto todavía no habla se hunden al panel; la que el
+ * paso activo nombra sube a hoja. Es el revelado que pide el brief —el reporte
+ * muestra y oculta partes según el texto que lo acompaña— hecho con una sola
+ * variable y sin secuestrar el scroll: el visitante scrollea normal y el objeto
+ * responde. `--superficie` hereda hacia adentro, así que las celdas de la
+ * retícula y los fondos internos siguen a su zona sin saber nada de esto.
+ */
+.dirD .r-objeto > [data-zona] {
+  --superficie: var(--panel);
+  transition: --superficie 340ms ease-out;
+}
+
+.dirD .r-objeto[data-zona-activa="kpi"] .r-o-banco,
+.dirD .r-objeto[data-zona-activa="grafico"] .r-o-grafico,
+.dirD .r-objeto[data-zona-activa="tabla"] .r-o-tabla,
+.dirD .r-objeto[data-zona-activa="cierre"] .r-o-acciones {
+  --superficie: var(--hoja);
+}
+
+/**
+ * Qué va a ancho completo y qué va en dos columnas.
+ *
+ * El gráfico toma el ancho entero: en media columna medía 345px y, como el SVG
+ * escala por proporción, eso lo dejaba en 135px de alto —una tira— con un
+ * bloque de aire muerto debajo, que es el mismo defecto de hueco que esta
+ * pasada vino a arreglar. A 700px la serie de 31 días tiene resolución real.
+ *
+ * Las dos columnas quedan para el par que sí se lee en paralelo: el resumen
+ * redactado a la izquierda y el detalle numérico a la derecha.
+ */
+.dirD .r-o-encabezado,
+.dirD .r-o-banco,
+.dirD .r-o-deriva,
+.dirD .r-o-grafico,
+.dirD .r-o-acciones,
+.dirD .r-o-pie,
+.dirD .r-o-barra {
+  grid-column: 1 / -1;
+}
+
+.dirD .r-o-banco .d-reticula {
+  border: 0;
+  border-radius: 0;
+  background: var(--filete);
+}
+
+/* La franja de procedencia: alto fijo para que nada salte cuando aparece. */
+.dirD .r-o-deriva {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 0;
+}
+
+.dirD .r-deriva-fuente {
+  display: inline-block;
+  flex: none;
+  padding: 2px 8px;
+  border-radius: var(--r-pastilla);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dirD .r-deriva-fuente[data-origen="meta"] {
+  color: var(--tinta-media);
+  background: var(--panel-hondo);
+}
+
+.dirD .r-deriva-fuente[data-origen="nuvlo"] {
+  color: var(--tinta);
+  background: var(--hoja);
+  box-shadow: inset 0 0 0 1px var(--filete-fuerte);
+}
+
+.dirD .r-deriva-que {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.dirD .r-deriva-reposo {
+  color: var(--tinta-suave);
+}
+
+/* ── EL ÚNICO PLANO DE ADELANTE ─────────────────────────────────────────────
+   El recorrido sobresale del objeto por la esquina superior derecha. **Ocupa su
+   propia celda**, así que sobresale sin tapar nada: flotando en absoluto se
+   comía las dos últimas celdas del banco, y una superposición que tapa
+   contenido no es profundidad. Es el único elemento que rompe el borde del
+   objeto; con tres cosas despegadas a alturas distintas se pierde el plano. */
+
+.dirD .r-o-recorrido {
+  --superficie: var(--hoja);
+}
+
+/* ── BARRA DE ACCIÓN ──────────────────────────────────────────────────────── */
+
+.dirD .r-o-barra {
+  padding: 16px 20px 18px;
+}
+
+.dirD .r-barra {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 18px;
+  border-radius: var(--r-int);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+/* La acción del reporte lleva el acento: es un botón, y el acento es de los
+   botones. Es la única pieza de color de marca adentro del documento. */
+.dirD .r-barra-accion {
+  background: var(--acento);
+  color: var(--hoja);
+  transition:
+    background 180ms ease-out,
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dirD .r-barra-accion:hover {
+  background: var(--acento-tinta);
+  transform: translateY(-1px);
+}
+
+.dirD .r-barra-hecha {
+  justify-content: space-between;
+  background: var(--panel);
+  border: 1px solid var(--filete);
+  color: var(--tinta-media);
+}
+
+.dirD .r-barra-pie {
+  margin-top: 9px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .dirD .r-objeto {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+
+  .dirD .r-banco-grilla {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .dirD .r-seccion {
+    padding-block: 208px 104px;
+  }
+
+  .dirD .r-vivo {
+    grid-template-columns: minmax(0, 330px) minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+
+  .dirD .r-guia {
+    position: sticky;
+    top: 72px;
+  }
+
+  /* El recorrido se levanta sobre el borde del objeto sin salirse de su celda:
+     el margen negativo lo despega, la sombra lo separa y el z-index lo pone
+     adelante, pero la fila sigue reservando su espacio. */
+  .dirD .r-o-encabezado {
+    grid-column: 1;
+  }
+
+  .dirD .r-o-recorrido {
+    grid-column: 2;
+    margin: -28px -16px 0 0;
+    border-radius: var(--r-obj);
+    box-shadow: var(--e3);
+    position: relative;
+    z-index: 3;
+  }
+
+  .dirD .r-o-recorrido .d-pieza {
+    border: 1px solid var(--filete);
+    border-radius: var(--r-obj);
+    background: var(--hoja);
+    overflow: hidden;
+  }
+
+  /* Riel horizontal: tres estados en fila, sin el detalle. El detalle lo cuenta
+     el texto que acompaña al objeto; repetirlo en columnas de 145px lo parte en
+     seis renglones y convierte un riel de estado en un párrafo. */
+  .dirD .r-o-recorrido .r-riel {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 16px 18px 18px;
+    column-gap: 12px;
+  }
+
+  .dirD .r-o-recorrido .r-riel li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-top: 0;
+  }
+
+  .dirD .r-o-recorrido .r-riel li::before {
+    left: 4px;
+    right: -12px;
+    top: 4px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .dirD .r-o-recorrido .r-riel li:last-child::before {
+    display: none;
+  }
+
+  .dirD .r-o-recorrido .r-nodo {
+    margin: 0 0 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dirD .r-o-recorrido .r-paso-cabeza {
+    display: grid;
+    gap: 1px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   CONTROL — el primer tramo negro
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .c-seccion {
+  padding-block: 88px;
+}
+
+.dirD .c-fila {
+  display: grid;
+  gap: 44px;
+}
+
+.dirD .c-cuerpo {
+  display: grid;
+  gap: 40px;
+}
+
+.dirD .c-artefacto-rotulo {
+  margin-bottom: 10px;
+}
+
+/**
+ * La hoja sobre negro. Se separa por VALOR —255 contra 13— y por eso va sin
+ * sombra y sin anillo: las tres elevaciones son `rgb(13 15 18 / …)` y sobre
+ * tinta no mueven un nivel. Declararlas sería código muerto que aparenta
+ * profundidad.
+ *
+ * Adentro hay que devolver los tokens claros, porque `.d-invertido` los
+ * invirtió para todo el tramo y este pedazo de reporte es un documento, no
+ * parte del fondo.
+ */
+.dirD .c-hoja {
+  background: var(--hoja);
+  border-radius: var(--r-obj);
+  overflow: hidden;
+}
+
+.dirD .c-hoja .d-pieza {
+  background: var(--hoja);
+  border: 0;
+}
+
+.dirD .c-hoja .t-cuerpo {
+  color: var(--tinta-media);
+}
+
+.dirD .c-hoja .t-rotulo {
+  color: var(--tinta-suave);
+}
+
+.dirD .c-artefacto-pie {
+  margin-top: 12px;
+  max-width: 30rem;
+}
+
+/* Los cuatro hechos: una lista de filetes, no cuatro tarjetas. */
+.dirD .c-hechos {
+  display: grid;
+}
+
+.dirD .c-hecho {
+  padding: 20px 0;
+  border-top: 1px solid var(--sobre-tinta-filete);
+}
+
+.dirD .c-hecho .t-cuerpo {
+  margin-top: 6px;
+  max-width: 30rem;
+}
+
+@media (min-width: 768px) {
+  .dirD .c-hechos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dirD .c-seccion {
+    padding-block: 128px;
+  }
+
+  .dirD .c-fila {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: 72px;
+    align-items: start;
+  }
+
+  .dirD .c-voz {
+    position: sticky;
+    top: 56px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   ENTREGABLE — un objeto grande y dos notas
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .e-seccion {
+  padding-block: 96px;
+}
+
+.dirD .e-cabeza {
+  max-width: 40rem;
+}
+
+.dirD .e-cabeza .t-bajada {
+  margin-top: 18px;
+}
+
+.dirD .e-fila {
+  margin-top: 52px;
+  display: grid;
+  gap: 28px;
+}
+
+.dirD .e-mail {
+  border: 1px solid var(--filete);
+  border-radius: var(--r-obj);
+  background: var(--hoja);
+  box-shadow: var(--e3);
+  overflow: hidden;
+}
+
+.dirD .e-mail-cabeza {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px 12px;
+}
+
+.dirD .e-mail-de {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.dirD .e-mail-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-pastilla);
+  background: var(--tinta);
+  color: var(--hoja);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.dirD .e-mail-asunto {
+  padding: 0 20px 16px;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  border-bottom: 1px solid var(--filete);
+}
+
+.dirD .e-mail-cuerpo {
+  display: grid;
+  gap: 14px;
+  padding: 26px 20px 24px;
+  background: var(--panel);
+}
+
+.dirD .e-mail-cuerpo .t-cuerpo {
+  color: var(--tinta);
+  max-width: 26rem;
+}
+
+.dirD .e-mail-boton {
+  justify-self: start;
+  margin-top: 6px;
+  padding: 11px 20px;
+  border-radius: var(--r-int);
+  background: var(--tinta);
+  color: var(--hoja);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.dirD .e-mail-firma {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--filete);
+  color: var(--tinta-media);
+}
+
+.dirD .e-mail-pie {
+  padding: 11px 20px;
+  border-top: 1px solid var(--filete);
+}
+
+.dirD .e-notas {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+.dirD .e-nota {
+  padding-top: 18px;
+  border-top: 1px solid var(--filete);
+}
+
+.dirD .e-nota .t-cuerpo {
+  margin-top: 7px;
+  max-width: 27rem;
+}
+
+@media (min-width: 1024px) {
+  .dirD .e-seccion {
+    padding-block: 136px;
+  }
+
+  .dirD .e-fila {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  .dirD .e-mail-col {
+    max-width: 480px;
+  }
+
+  .dirD .e-notas {
+    padding-top: 40px;
+    gap: 40px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   LÍMITES — el pasaje tranquilo, sin objeto y sin superficie
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .l-seccion {
+  padding-block: 88px;
+  border-top: 1px solid var(--filete);
+}
+
+.dirD .l-cabeza {
+  max-width: 34rem;
+}
+
+.dirD .l-cabeza .t-bajada {
+  margin-top: 16px;
+}
+
+/* Tabla de definición sobre la retícula de un píxel. */
+.dirD .l-tabla {
+  margin-top: 44px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.dirD .l-fila {
+  display: grid;
+  gap: 4px;
+  padding: 18px 20px;
+}
+
+.dirD .l-fila dd {
+  max-width: 34rem;
+}
+
+@media (min-width: 768px) {
+  .dirD .l-fila {
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: 28px;
+    align-items: baseline;
+    padding: 20px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dirD .l-seccion {
+    padding-block: 128px;
+  }
+
+  .dirD .l-fila {
+    grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+    gap: 40px;
+    padding: 22px 28px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   PLANES — una superficie partida por la retícula, no dos tarjetas gemelas
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .p-seccion {
+  padding-block: 96px;
+  background: var(--panel);
+  border-top: 1px solid var(--filete);
+}
+
+.dirD .p-cabeza {
+  max-width: 36rem;
+}
+
+.dirD .p-cabeza .t-bajada {
+  margin-top: 16px;
+}
+
+.dirD .p-grilla {
+  margin-top: 48px;
+  grid-template-columns: minmax(0, 1fr);
+  box-shadow: var(--e2);
+}
+
+.dirD .p-plan {
+  padding: 26px 24px 28px;
+}
+
+.dirD .p-precio {
+  margin-top: 12px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/**
+ * El precio toma el escalon de display y no un valor propio. Estuvo en 2,25rem,
+ * que es exactamente el sintoma que la regla de la rampa cerrada describe: un
+ * valor entre dos escalones. Acá no falta un rol —el precio ES el numero mas
+ * grande de la pagina fuera del reporte, o sea display— asi que se ajusta.
+ */
+.dirD .p-precio-cifra {
+  font-size: clamp(1.875rem, 3.9vw, 2.875rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.dirD .p-unidad {
+  color: var(--tinta-media);
+}
+
+.dirD .p-resumen {
+  margin-top: 14px;
+  max-width: 26rem;
+}
+
+.dirD .p-puntos {
+  margin-top: 18px;
+  display: grid;
+  gap: 9px;
+}
+
+.dirD .p-puntos li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.dirD .p-puntos li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 1px;
+  background: var(--tinta-suave);
+}
+
+.dirD .p-prueba,
+.dirD .p-cobro {
+  padding: 24px;
+}
+
+.dirD .p-pies {
+  margin-top: 16px;
+  display: grid;
+  gap: 16px;
+}
+
+.dirD .p-pie-caso .t-fino {
+  margin-bottom: 7px;
+}
+
+.dirD .p-cobro {
+  display: grid;
+  gap: 11px;
+  align-content: start;
+}
+
+.dirD .p-cobro .t-chico {
+  max-width: 28rem;
+}
+
+.dirD .p-cta {
+  justify-self: start;
+  margin-top: 8px;
+}
+
+@media (min-width: 768px) {
+  .dirD .p-grilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dirD .p-pies {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .dirD .p-seccion {
+    padding-block: 136px;
+  }
+
+  .dirD .p-plan {
+    padding: 32px 30px 34px;
+  }
+
+  .dirD .p-prueba,
+  .dirD .p-cobro {
+    padding: 30px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   PREGUNTAS — titular fijo, grupos que pasan
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .q-seccion {
+  padding-block: 88px;
+}
+
+.dirD .q-fila {
+  display: grid;
+  gap: 36px;
+}
+
+.dirD .q-voz .t-titular {
+  max-width: 15ch;
+}
+
+.dirD .q-item {
+  border-top: 1px solid var(--filete);
+}
+
+.dirD .q-lista > *:last-child .q-item {
+  border-bottom: 1px solid var(--filete);
+}
+
+.dirD .q-pregunta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: 18px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.dirD .q-pregunta::-webkit-details-marker {
+  display: none;
+}
+
+.dirD .q-pregunta:hover .t-titulo {
+  color: var(--tinta-media);
+}
+
+.dirD .q-cruz {
+  flex: none;
+  color: var(--tinta-suave);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dirD .q-item[open] .q-cruz {
+  transform: rotate(45deg);
+}
+
+.dirD .q-respuesta {
+  padding-bottom: 20px;
+  max-width: 32rem;
+}
+
+@media (min-width: 1024px) {
+  .dirD .q-seccion {
+    padding-block: 128px;
+  }
+
+  .dirD .q-fila {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+    gap: 72px;
+    align-items: start;
+  }
+
+  .dirD .q-voz {
+    position: sticky;
+    top: 56px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   CIERRE — el segundo tramo negro, anclado por el wordmark
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .z-seccion {
+  padding-top: 96px;
+  overflow: hidden;
+}
+
+.dirD .z-oferta {
+  max-width: 34rem;
+}
+
+.dirD .z-oferta .t-bajada {
+  margin-top: 18px;
+}
+
+.dirD .z-acciones {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/**
+ * El wordmark gigante. El cuerpo sale del ancho del viewport y no de la rampa:
+ * no es un titular sino una firma, y es el único lugar de la página donde el
+ * nombre propio es más grande que cualquier afirmación. El brief lo pide
+ * explícitamente y por eso pasa por encima del techo de 6rem del piso de
+ * calidad.
+ */
+.dirD .z-wordmark {
+  margin-top: 64px;
+  margin-bottom: 0;
+  padding-inline: var(--borde-x);
+  font-size: clamp(4.5rem, 21vw, 17rem);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 0.84;
+  color: var(--sobre-tinta);
+  text-align: center;
+  user-select: none;
+}
+
+@media (min-width: 1024px) {
+  .dirD .z-seccion {
+    padding-top: 136px;
+  }
+
+  .dirD .z-wordmark {
+    margin-top: 88px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   PIE DEL SITIO
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dirD .f-pie {
+  padding-top: 56px;
+  border-top: 1px solid var(--filete);
+}
+
+.dirD .f-fila {
+  display: grid;
+  gap: 40px;
+}
+
+.dirD .f-wordmark {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.dirD .f-linea {
+  margin-top: 10px;
+  max-width: 22rem;
+}
+
+.dirD .f-columnas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.dirD .f-enlaces {
+  margin-top: 4px;
+}
+
+.dirD .f-enlace {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.8125rem;
+  color: var(--tinta-media);
+  transition: color 150ms ease-out;
+}
+
+.dirD .f-enlace:hover {
+  color: var(--tinta);
+}
+
+.dirD .f-base {
+  margin-top: 44px;
+  padding-block: 20px;
+  border-top: 1px solid var(--filete);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .dirD .f-columnas {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .dirD .f-pie {
+    padding-top: 72px;
+  }
+
+  .dirD .f-fila {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+    gap: 72px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   EL GRÁFICO — evolución del período
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * El trazo es tinta y el relleno es un degradado de la propia paleta. El acento
+ * no entra: vive en los botones. El único color del bloque es el de la
+ * variación, que lo asigna el negocio y no la dirección de arte.
+ */
+
+.dirD .g-bloque {
+  display: grid;
+  gap: 14px;
+  padding: 16px 20px 18px;
+}
+
+.dirD .g-cabeza {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dirD .g-total {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.dirD .g-selector {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--filete);
+  border-radius: var(--r-int);
+  background: var(--hoja);
+}
+
+.dirD .g-opcion {
+  padding: 4px 10px;
+  border-radius: calc(var(--r-int) - 3px);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--tinta-suave);
+  transition:
+    background 160ms ease-out,
+    color 160ms ease-out;
+}
+
+.dirD .g-opcion:hover {
+  color: var(--tinta);
+}
+
+.dirD .g-opcion[aria-pressed="true"] {
+  background: var(--panel-hondo);
+  color: var(--tinta);
+}
+
+.dirD .g-lienzo {
+  display: grid;
+  gap: 8px;
+}
+
+.dirD .g-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: pan-y;
+}
+
+.dirD .g-grilla {
+  stroke: var(--filete);
+  stroke-width: 1;
+}
+
+/* Junio entra como línea de base punteada: dice cuánto, no cómo. */
+.dirD .g-base {
+  stroke: var(--tinta-suave);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.75;
+}
+
+.dirD .g-linea {
+  fill: none;
+  stroke: var(--tinta);
+  stroke-width: 1.75;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.dirD .g-cursor line {
+  stroke: var(--tinta);
+  stroke-width: 1;
+  opacity: 0.28;
+}
+
+.dirD .g-cursor circle {
+  fill: var(--hoja);
+  stroke: var(--tinta);
+  stroke-width: 1.75;
+}
+
+.dirD .g-eje {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  fill: var(--tinta-suave);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dirD .g-eje-fin {
+  text-anchor: end;
+}
+
+/* Alto fijo: la lectura cambia de contenido y nada se mueve de lugar. */
+.dirD .g-lectura {
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8125rem;
+}
+
+.dirD .g-lectura-dia {
+  font-weight: 500;
+  color: var(--tinta-suave);
+}
+
+.dirD .g-lectura-valor {
+  font-weight: 700;
+  color: var(--tinta);
+}
+
+.dirD .g-lectura-reposo {
+  color: var(--tinta-suave);
+}

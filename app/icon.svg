@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Nuvlo">
+  <!--
+    EL ÍCONO DE PESTAÑA (20/09/2026)
+
+    El sitio estuvo sin favicon desde el 12/09/2026, cuando se borraron
+    `app/icon.png` y `apple-icon.png`. Vuelve porque el dueño aportó la marca
+    en sus dos variantes, y con la variante OSCURA, que es la que él eligió
+    para acá: la pestaña del navegador es campo ajeno y una marca sobre su
+    propio fondo se sostiene sola, sin depender de si el navegador la pone
+    contra claro o contra oscuro.
+
+    EL FONDO ES REDONDO por pedido del dueño. No es sólo gusto: a 16px un
+    cuadrado con la marca adentro se lee como una ficha, y el círculo deja que
+    lo único con forma reconocible sea el monograma.
+
+    LOS COLORES VAN A MANO Y ESO ES UNA DEUDA CONOCIDA. Este archivo no puede
+    leer los tokens —lo sirve Next como ícono, fuera del árbol de la página—,
+    así que repite el mismo problema que `app/opengraph-image.tsx`: un cambio
+    de paleta no lo alcanza. El negro es el del archivo que aportó el dueño
+    (`marca/nuvlo-oscura.png`), no `--color-tinta`; a 16px la diferencia entre
+    #000000 y #101519 no existe, pero queda anotado por si algún día el ícono
+    se muestra grande.
+
+    LA GEOMETRÍA ESTÁ TRAZADA, NO DIBUJADA A OJO. Los dos `path` salen de
+    vectorizar `marca/nuvlo-clara.png` —seguimiento de contorno más
+    Douglas-Peucker con tolerancia 1,6 sobre 2000px— y se verificaron
+    rasterizándolos contra el original: difiere el 0,73 % de la tinta y 2.799
+    de esos 4.021 píxeles son antialias de borde, o sea 0,22 % de discrepancia
+    geométrica real. Si la marca cambia, se vuelve a trazar; no se edita un
+    vértice a mano.
+
+    La caja de tinta del monograma mide 1600×924. Acá entra escalada a 0,20625
+    y centrada, o sea 330 de ancho sobre un círculo de 512: deja aire suficiente
+    para que el corte del círculo no muerda la diagonal.
+  -->
+  <circle cx="256" cy="256" r="256" fill="#000000" />
+  <g transform="translate(91 160.7) scale(0.20625)">
+    <path d="M533 0L853 0L1012 276L906 460L748 186L640 184L213 923L0 923Z" fill="#ffffff" />
+    <path
+      d="M1387 0L1599 1L1067 922L746 923L587 647L691 465L696 467L851 737L960 739Z"
+      fill="#a8d2d7"
+    />
+  </g>
+</svg>

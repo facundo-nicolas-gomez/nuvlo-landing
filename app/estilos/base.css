@@ -1,0 +1,1591 @@
+/**
+ * IRIS — BASE DEL SISTEMA.
+ *
+ * ── LA DIRECCIÓN, EN UNA FRASE ──────────────────────────────────────────────
+ * Un campo de hueso cálido, hojas de blanco puro, y **dos materiales que hacen
+ * todo el trabajo**: un petróleo profundo en la acción y un grafito frío que
+ * vive ADENTRO de los objetos de producto —el cromo del navegador, la barra del
+ * panel— y en los dos tramos de noche. La página es clara; lo oscuro está en el
+ * marco del objeto, no en el fondo de la página.
+ *
+ * ── CÓMO SE LLEGÓ ACÁ, EN DOS DECISIONES (10/09/2026) ───────────────────────
+ * **Primera.** El acento fue el iris, un violeta saturado en el botón, y el dueño
+ * lo rechazó por genérico. El diagnóstico que salió de ahí sigue en pie: lo
+ * genérico no era el violeta, era que el violeta era el SEXTO color probado en
+ * ese mismo rol —cobalto, azul de tinta, ámbar, ámbar quemado, naranja, iris—.
+ * Cuando seis valores fallan en el mismo lugar por el mismo motivo, el problema
+ * es el rol y no el valor.
+ *
+ * **Segunda.** La primera salida fue mover el color al campo y dejar la acción en
+ * tinta. El dueño la eligió, la miró un día y pidió alternativas al hue: el
+ * grana que probamos después le gustó pero lo leyó «cosmético, tira a fucsia
+ * sobre blanco», así que el rojo-magenta se corrió hacia el rojo y bajó de luz
+ * hasta el vino de hoy. De once combinaciones construidas sobre la página real
+ * eligió ésta, y lo que la distingue no es el hue: es **dónde vive el oscuro**.
+ *
+ * ── EL OSCURO ADENTRO DEL OBJETO, QUE ES LA IDEA ────────────────────────────
+ * Las otras candidatas ponían el oscuro en la página: como fondo, como zócalo
+ * del héroe, como el color del botón. Ésta lo mete adentro del objeto que la
+ * página vende. El navegador que muestra el informe se sirve como un navegador
+ * en modo oscuro, y con eso el documento blanco deja de ser «una zona más de la
+ * página» y se lee como documento. Es un gesto de producto y no de marca, que es
+ * la diferencia que este sitio necesita defender.
+ *
+ * ── POR QUÉ PETRÓLEO, Y NO OTRO (12/09/2026) ────────────────────────────────
+ * Verde y rojo son del negocio: adentro del reporte significan «mejoró» y
+ * «empeoró». El naranja es de lo pendiente desde que el dueño pidió que Borrador
+ * fuera naranja. El violeta quedó rechazado.
+ *
+ * El vino duró dos días y se fue por lo mismo que este archivo ya había
+ * anotado y decidido bancar: **estaba a 19° del rojo del dato**. El argumento
+ * era que los separaba la profundidad y no el hue, y en el papel funcionaba;
+ * sobre la noche del login no, porque ahí los dos tienen que aclararse y se
+ * encuentran en el mismo rosa. El aviso de error se leía como un enlace.
+ *
+ * El petróleo no compite con ninguno de los tres significados: 89,3 de distancia
+ * al rojo de falla, 103,6 al naranja de espera. Lo que sí le queda cerca es el
+ * verde de «hecho», a 39,5, y ésa es la cuenta que hay que vigilar. Se eligió
+ * mirando cuatro acentos —vino, índigo, petróleo y azul tinta— sobre el tablero,
+ * la columna de formulario, el login y el hero, con el mismo marcado.
+ *
+ * ── EL CAMPO ES CLARO Y CASI NEUTRO, Y ESO ES UN RIESGO ASUMIDO ─────────────
+ * Croma 0,0045: menos que la piedra de neto (0,007), que el dueño rechazó porque
+ * la página se leía gris. Lo que acá no deja que eso pase es que hay DOS cosas
+ * con peso: el botón de petróleo a 7,32:1 y el cromo oscuro de los objetos. La regla
+ * que queda: un campo casi neutro es legal **sólo si algo grande y saturado lo
+ * acompaña**; si un día el botón pierde el color, el campo tiene que ganar croma
+ * en la misma tanda.
+ *
+ * ── LO QUE EL DUEÑO FIJÓ Y NO SE REABRE (07/09/2026) ────────────────────────
+ * Clara con dos tramos oscuros. El reporte con marco de navegador y URL real.
+ * Una sola familia. El reporte con presencia: desplazado, cortado, nunca
+ * centrado y contenido.
+ *
+ * ── TOKENS BAJO `.iris`, NO EN `:root` ──────────────────────────────────────
+ * Siguen scopeados, y ahora por un motivo distinto del original. Nacieron así
+ * porque los prototipos conviven en `/preview` y cada uno scopea los suyos; hoy
+ * esta hoja se carga desde el layout raíz, en todas las rutas, así que el scope
+ * es lo que la deja convivir con las diez direcciones históricas que quedan.
+ *
+ * **Esta hoja se carga en todo el sitio: nada de acá puede tener un selector
+ * pelado.** Se pagó una vez —las once reglas de `[data-entra]`, que le metían
+ * un desenfoque a `firma`, `neto` y `registro`—; la regla está escrita al lado
+ * de ellas.
+ *
+ * Lo que falta de la promoción es el renombre: cada `--x` pasa a `--color-x` en
+ * el `@theme` de `app/globals.css` (CLAUDE.md), y de ahí a `nuvlo-panel`. Es
+ * tanda propia: son 485 usos de `var()` y mezclarla con la mudanza de rutas
+ * hace que una regresión visual no se pueda atribuir a ninguna de las dos.
+ *
+ * El nombre de la carpeta y de la clase raíz sigue siendo `iris`: nombran la
+ * dirección, no el color. Los TOKENS se llaman `--color-acento*` desde el 10/09/2026,
+ * porque un token que se llama como un violeta y pinta otra cosa miente sobre el
+ * sistema.
+ */
+
+.iris {
+  /* ── LOS TOKENS DEL SISTEMA YA NO SE DECLARAN ACÁ (19/09/2026) ─────────────
+     Hasta hoy este bloque repetía, con nombres cortos (`--tinta`, `--r-hoja`,
+     `--sombra-ventana`…), los mismos valores que `sistema/nuvlo.css` declara con
+     nombres de sistema (`--color-tinta`, `--radius-hoja`, `--shadow-ventana`…):
+     dos copias de cada valor, sincronizadas a mano, y el 18/09 se desfasaron en
+     veinte tokens sin que nadie se enterara.
+
+     Ahora el sistema se importa en `app/globals.css` y es la única copia. Se
+     borraron de acá las 47 declaraciones que coincidían —medido: ninguna
+     difería— y las referencias de las tres hojas pasaron al nombre largo. Lo que
+     queda en este bloque es lo que el sistema NO lleva a propósito: el escenario
+     de la landing (lavados, bandeja, brillos, el canto de la ventana dibujada,
+     WhatsApp) y las medidas de página (marco, rieles, barra). La lista y el
+     motivo de cada exclusión están en `sistema/SISTEMA.md`.
+
+     **Los comentarios de abajo se quedan**, aunque varios hablen de un token que
+     ya no se declara en este archivo: registran POR QUÉ cada valor es el que es,
+     y eso no se mudó. El valor vive en el sistema; el porqué, acá.
+
+     **La landing sigue decidiendo.** Un valor se cambia en `sistema/nuvlo.css` y
+     se copia entero al panel —`verificar-sistema` compara los dos por
+     `sha256`—. Y no queda ninguna excepción: el `--alto-control-compacto` de 36
+     que sobrevivía al renombre se cerró el mismo día contra el escalón MEDIO del
+     sistema, que es el que el propio sistema destina a la barra de la landing. */
+
+  /* ── SUPERFICIES: LA SEPARACIÓN ES POR FILETE, NO POR VALOR ──────────────
+     La hoja es **blanco puro** y el campo es un blanco apenas cálido, tres
+     centésimas por debajo. El escalón entre los dos mide 1,035:1, o sea que **no
+     se ve**: lo que separa una hoja del campo es su filete de un píxel, que es
+     como lo resuelve Attio. Es un cambio de mecanismo y no de valores, pedido
+     por el dueño el 10/09/2026 con el objetivo dicho: **que la hoja del informe
+     se vea más blanca.** Con la separación por valor, el campo tenía que quedarse
+     lo bastante oscuro como para que la hoja se despegara, y eso le ponía un
+     techo al blanco del documento.
+
+     Regla que queda: **toda hoja que se apoye en el campo lleva filete.** Si un
+     objeto nuevo aparece sin borde, no se lo arregla oscureciendo el campo.
+
+     **Y el hue volvió a ser cálido.** Estuvo unas horas en frío (hue 250) por
+     una lectura equivocada de un pedido: el dueño quería la hoja más blanca, no
+     la página más fría.
+
+     **Subió dos veces más el mismo día**, las dos porque el dueño lo seguía
+     leyendo gris, y la segunda con el argumento correcto en la mano: *ahora que
+     la separación es por filete, el campo ya no tiene que quedarse oscuro para
+     que la hoja se despegue*. Hoy es un marfil de L 0,991 y croma 0,006 —el
+     doble de croma que hace dos vueltas—, a 1,023:1 de la hoja blanca. Lo que lo
+     salva de leerse gris no es el valor sino **la croma**: la piedra de neto era
+     más oscura Y más neutra, y ésa es la variable que importa.
+
+     `campo-luz` es blanco puro: con el campo tan arriba, el lavado vertical del
+     fondo ya no puede ir de más claro a claro, así que va **de blanco al marfil**
+     —el tope de la página es lo más blanco y la calidez aparece al bajar—. Es
+     casi imperceptible y está bien que lo sea. */
+  /* ── SE PROBÓ TEÑIRLO Y VOLVIÓ (dueño, 18/09/2026) ───────────────────────
+     El campo venía de marfil `#fffcf8` y esa mañana se enfrió acá, a pedido del
+     dueño («un poco más frío, como tiene Stripe»). Más tarde marcó que «se ve
+     tan blanco» y se probó teñirlo de salvia `#eef2ef` —en la familia del
+     petróleo del acento, para no caer en el gris-azul que usa media categoría—.
+     El dueño prefirió éste y el salvia se revirtió entero, con sus cuatro
+     escalones.
+
+     Lo que queda de esa vuelta, y vale aunque el color no: el problema de «se ve
+     tan blanco» NO se resuelve poniéndole cosas encima al héroe. Ocho
+     tratamientos —haz, bandeja, amanecer, cinta en cuatro variantes, planilla—
+     fallaron todos por eso, y están registrados en `PRODUCT.md`. Si el tema
+     vuelve, se toca el campo o no se toca nada. */
+  /* ── EL PISO DEL HÉROE (dueño, 18/09/2026: «quedó muy básico») ────────────
+     El héroe era la única sección clara sobre clara, y la medición lo dice sin
+     lugar a discusión: campo `L=0,972`, página de la ventana `0,895`, documento
+     `1,000`. El campo y el documento quedaban a **0,028** — cuando todo pesa lo
+     mismo no hay figura y fondo, y eso se lee como «básico» aunque no falte
+     nada encima.
+
+     Esto es VALOR, no color, y por eso no es la novena vuelta de las ocho que
+     se rechazaron ahí arriba: aquéllas eran lavados, cintas y degradés que
+     intentaban decir algo. Un escalón de superficie no dice nada: ordena. Y es
+     vocabulario propio, el mismo que `.i-ventana-papel` ya usa adentro de la
+     ventana —cromo → página → documento— citando a Linear.
+
+     `0,843` deja la escalera pareja hacia arriba: piso 0,843 → ventana 0,895 →
+     documento 1,000. Con un paso más corto (`#edf0f5`, 0,869) el primer escalón
+     quedaba en 0,026 y no se veía, que es el error de «es muy chico y no cambia
+     nada» ya cometido en esta misma pasada. */
+  --campo-heroe: #e9edf2;
+  --campo-luz: #ffffff;
+
+  /* ── TINTA ──────────────────────────────────────────────────────────────
+     Tres escalones fríos, del mismo hue que el campo (dueño, 18/09/2026: el
+     campo se enfrió y una tinta cálida encima lo habría delatado como suciedad;
+     el hue de la tinta sigue al del campo, que es la regla de siempre).
+     Antes: `#191510`, `#4e4942`, `#6f6960`.
+
+     ── Y LAS DOS SECUNDARIAS SE NEUTRALIZAN (dueño, 18/09/2026) ────────────
+     El capítulo oscuro pasó a negro neutro con texto hueso (`#e9ebdf`, tomado
+     de Retool), y adentro de ese capítulo hay hojas blancas con el informe que
+     —por *La Regla de la Hoja Clara en la Noche*— recuperan estas tintas. Medido
+     ahí, convivían tres temperaturas en un mismo objeto: negro neutro, texto
+     hueso a −10 de tinte, y el documento escrito a +19.
+
+     Las dos secundarias bajan de +19 y +22 a +11 y +12. Siguen leyéndose frías
+     sobre el campo, que es azulado, y dejan de pelearse con el hueso adentro de
+     la noche. Los contrastes quedan iguales o mejores: tinta-2 sobre campo 8,44
+     contra 8,36, y tinta-3 sobre hoja hundida 4,83 contra 4,80.
+
+     El campo claro NO se tocó. Se evaluó y se descartó: está elegido, la tinta
+     fría le corresponde, y moverlo por simetría sería cambiar lo que funciona
+     para acompañar a lo que se acababa de mover. Entre capítulos, además, una
+     diferencia de temperatura no es un defecto — el defecto del 13/09 fue el
+     contrario, que todo viviera en el mismo tono. La terciaria se mide
+     contra la superficie MÁS OSCURA donde escribe —la hoja hundida, 4,86:1— y no
+     contra el campo, que le da 5,25. Es la cuarta vez que este archivo escribe
+     la misma lección, así que queda dicha una vez y corta: una tinta se mide
+     donde se usa. */
+
+  /* ── EL PETRÓLEO ────────────────────────────────────────────────────────
+     La acción, y el único saturado de la página: 7,32:1 con el blanco encima y
+     7,16:1 como texto sobre el campo. Vive en el botón, el marcador de la lista
+     de lo incluido, el número del paso que es tuyo, los enlaces de prosa —los
+     de la landing y los de las tres legales—, el anillo de foco y el caret.
+
+     ── POR QUÉ DEJÓ DE SER EL VINO (12/09/2026) ───────────────────────────
+     El vino (#8b2b3f) era el color de la marca y funcionaba, pero estaba en la
+     familia del rojo, y el rojo en este producto ya significa algo: el dato que
+     empeoró adentro del reporte, la chapa de conexión vencida, el aviso de
+     error. La distancia perceptual entre el acento y el rojo de falla era 34,1
+     —la más corta de todos los candidatos que se midieron— y eso se cobró dos
+     veces: sobre la noche del login los dos se aclaran y se encuentran en el
+     mismo rosa, y el aviso de error terminaba leyéndose como un enlace.
+
+     El petróleo resuelve el rol, no el gusto: queda a 89,3 del rojo de falla y a
+     103,6 del naranja de espera, así que el rango caliente entero vuelve a
+     significar una sola cosa. Su costo, medido y aceptado, es el otro lado: está
+     a 39,5 del verde de «hecho», que es la distancia más corta que le queda.
+     Conviven en la tabla del tablero —la chapa es chica y menta, el botón es
+     profundo— y ahí es donde hay que mirarlo si alguna vez se reabre.
+
+     Se eligió mirando: se armaron el tablero, la columna de formulario, el login
+     y el hero de la landing en cuatro acentos —vino, índigo, petróleo y azul
+     tinta— con el mismo marcado y sólo los tokens cambiados.
+
+     Perdió un lugar el 11/09/2026: el cuadradito de la marca, que el dueño
+     sacó del wordmark. Su tinta es el
+     hover; el campo es la selección de texto y el pico del destello de la barra
+     de direcciones; el filete es el borde de las citas del producto; la luz es
+     la banda común de Precios y el hover del botón invertido. */
+  /* Subió de `#f1f5f6` a `#e6f1f1` el 13/09/2026, cuando el dueño leyó la
+     página «muy blanca»: el viejo medía 1,04:1 contra la hoja y la fila teñida
+     de Tres pasos —la única de la página que dice «esto es tuyo»— no se
+     distinguía del campo. Es el mismo hue del petróleo con la croma que hace
+     falta para verse, y la tinta 3 todavía da 4,71:1 encima. */
+  /* El tramo claro del barrido del CTA (13/09/2026): el petróleo aclarado justo
+     hasta donde el blanco encima sigue en 4,7:1. Y su par sobre la noche, el
+     petróleo luz un escalón más hondo, para que el barrido se vea en el botón
+     claro (14,4:1 con la tinta). */
+  --acento-brillo: #1f7f8c;
+  --acento-brillo-luz: #d7e8e9;
+
+  /* ── LA BANDEJA VUELVE, EN PETRÓLEO (13/09/2026) ─────────────────────────
+     Estos dos valores seguían en el rosa del vino después del cambio a
+     petróleo: nadie los retiñó, y eran el último rastro del acento anterior.
+     Ahora son el petróleo pálido y vuelven a tener trabajo: el dueño pidió
+     «más color, hoy queda muy blanco», y el `Don't` que ya estaba escrito dice
+     cómo darlo sin romper nada — **el campo no se oscurece; el color lo pone
+     la bandeja**. Viven detrás de los objetos de producto grandes (la escena
+     del héroe, el tablero, la prueba de la IA), nunca detrás de texto suelto.
+     Sobre la bandeja se escribe en tinta 2 (6,69:1 en el extremo oscuro); la
+     tinta 3 no llega (4,08:1), como ya decía `DESIGN.md`. */
+  --bandeja-a: #e6f1f1;
+  --bandeja-b: #cfe3e4;
+
+  /* Dos brillos y no uno. El resplandor del acento tiñe lo que ES del acento —la
+     sombra del marcador de la lista—; el fondo del héroe lleva un haz CÁLIDO de
+     la familia del campo. Nació de un error que vale registrar: teñir el fondo
+     con el acento dejaba una mancha del color complementario, leída como
+     suciedad y no como luz. **Un halo pertenece a la familia de la superficie
+     que ilumina, no a la del objeto que lo emite.** */
+  --resplandor: rgb(15 95 107 / 0.22);
+  --luz-heroe: rgb(255 253 249 / 0.9);
+  /* ── EL LAVADO DEL HÉROE, NEUTRO Y FRÍO (13/09/2026, tercera vuelta) ──────
+     Fue petróleo pálido (se leía de farmacia) y después cálido: #f6f0e7 →
+     #ede3d3, que el dueño leyó «amarillento, se siente viejo, no moderno» y la
+     crítica midió como papel envejecido. Pidió un neutro frío casi blanco: el
+     tono es un gris azulado de croma casi nula, sin tinte que se lea como color,
+     y el color de la escena lo ponen el botón y los objetos. Es escenografía del
+     héroe, no material del sistema: no cruza al panel. */
+  --lavado-a: #f6f7f8;
+  --lavado-b: #eceef1;
+  /* La banda de la fila «tuya» de Tres pasos: la misma temperatura que el
+     lavado, un escalón más clara. Se separa del campo marfil por temperatura
+     y no por valor. Tinta 3 encima: 4,85:1; el acento, 6,5:1. */
+  --banda-fria: #f1f2f3;
+  /* El canto de los objetos SUBIÓ con el cambio a separación por filete
+     (10/09/2026): al 8 % medía 1,17:1 contra el campo y el mail se leía flotando
+     sin borde, sostenido sólo por su sombra. Al 13 % da 1,31:1, del orden del
+     filete del sistema (1,20). **Cuando la separación pasa de valor a borde,
+     todos los bordes tienen que poder verse**, no sólo los de las hojas nuevas. */
+  --ventana-canto: rgb(22 20 31 / 0.13);
+  --ventana-canto-suave: rgb(22 20 31 / 0.07);
+
+  /* ── EL GRAFITO: EL OSCURO, Y VIVE ADENTRO DE LOS OBJETOS ───────────────
+     Un solo material oscuro para dos trabajos: el cromo de los objetos de
+     producto —la barra del navegador, el campo de la dirección, la barra de
+     acción del panel— y los dos tramos de noche, que son ese mismo grafito.
+     Neutro a propósito —y neutro de verdad desde el 18/09/2026; antes decía
+     «frío y neutro», que son dos cosas distintas y tenía las dos—: es lo que
+     hace un navegador de verdad en modo oscuro, y el marco vale en esta página
+     porque es cierto. Un cromo tintado
+     con la marca lo convertiría en un tema, que es lo contrario de lo que
+     `PRODUCT.md` sostiene sobre la barra de direcciones.
+
+     Lo que se escribe encima es crema (7,1:1 el secundario, medido componiendo
+     el alfa) y el acento se aclara a 5,7:1. El botón, en cambio, no se aclara:
+     se invierte a hoja. */
+  /* ── NEUTRO DE VERDAD, NO «FRÍO» (dueño, 18/09/2026) ─────────────────────
+     El comentario de arriba decía «frío y neutro», y era las dos cosas a la
+     vez: `#1c2126` tenía **+10 de azul sobre el rojo** y `#292e34` +11. El
+     dueño preguntó si ese fondo era el real del navegador de Apple. No lo era —
+     y averiguándolo aparece algo mejor que un hex:
+
+     **Safari no tiene un color de barra.** El cromo de macOS es un MATERIAL
+     (`NSVisualEffectView`), no un color: es translúcido, y el sistema lo tiñe
+     con el color promedio del escritorio que hay detrás, así que cambia al
+     mover la ventana. Encima, desde Monterey Safari toma el color de la propia
+     página o el que ésta declare con `theme-color`. Muestrear una captura no
+     daría el color de Safari: daría el fondo de pantalla de esa máquina.
+
+     Por eso lo fiel no es copiar un pixel sino ser NEUTRO, que es el promedio
+     de todos esos estados. Los dos grises nuevos tienen la misma luminancia que
+     los viejos —se buscaron por medición, no a ojo— y cero tinte. Los
+     contrastes del campo de dirección quedan en 7,6:1 y 11,5:1, por encima de
+     los 5,8 y 11,2 que este archivo ya documentaba. */
+  /* ── LA NOCHE ES CASI NEGRA (13/09/2026, segunda vuelta del día) ─────────
+     A la mañana se separó del grafito y pasó a petróleo nocturno (#0b2e34). A
+     la tarde el dueño leyó la página «de farmacia, de sitio médico o
+     institucional», y la medición le dio la razón: todo el color de la página
+     vivía entre 180° y 190° de tono —la bandeja pálida al 85–92 % de luz, el
+     acento al 24 %, la noche al 12 %— más dos verdes al lado. Un cian pálido
+     sobre blanco con un verde azulado profundo es el código de color de la
+     salud, y la noche en el mismo tono lo reforzaba en vez de romperlo: no
+     había un solo oscuro neutro que le diera rango a la página.
+
+     Ahora la noche es un negro apenas frío, sin tono, y hay más superficie
+     oscura (ver *El capítulo oscuro* en `secciones.css`). El petróleo queda
+     sólo en la acción y en las señales, que es donde no se lee como paleta sino
+     como botón. El grafito del cromo del navegador queda más claro que la
+     noche, como una ventana en modo oscuro sobre un escritorio negro.
+
+     ── Y SE NEUTRALIZA, MIRANDO A RETOOL (dueño, 18/09/2026) ───────────────
+     El dueño mandó a mirar Retool y pidió sus tonos para el capítulo oscuro.
+     Lo que Retool hace es un negro NEUTRO y más claro —`#151515`— con crema
+     encima; el calor de esa página no está en el negro sino en el texto y en
+     una imagen de fondo. Se dijo acá que el crema de Nuvlo «ya era casi
+     idéntico» al suyo y era falso: medido, Retool escribe en `#e9ebdf` —hueso
+     verdoso y apagado— contra el `#f4f3f1` de acá, once puntos más claro y sin
+     el verde. El dueño lo vio antes que la medición: «la tipografía sigue
+     blanca». Se replican los dos, el negro y el hueso.
+
+     La traducción es de temperatura y valor, NO de tono, y esa distinción es la
+     que evita repetir el error de arriba: el petróleo nocturno falló por tener
+     tono y estar en la misma familia que todo lo demás; neutralizar y aclarar
+     hace lo contrario, le saca el resto de tinte frío que le quedaba.
+
+     El grafito NO se toca, y no por olvido: es el cromo del navegador y de la
+     barra de acción, y su frialdad neutra es lo que hace un navegador de verdad
+     en modo oscuro. Tintarlo lo convertiría en un tema, que es lo que
+     `PRODUCT.md` no admite para la barra de direcciones. Sigue quedando más
+     claro que la noche, que es lo que lo hace leer como una ventana sobre un
+     escritorio.
+
+     Medido sobre la noche nueva: crema 16,5:1, secundaria al 66 % 7,7:1, el
+     acento aclarado 9,4:1 y la hoja del botón 18,3:1. Antes daban 17,3 / 7,8 /
+     9,9 / 19,2. */
+  /* El fondo del tramo: la noche un escalón más honda, adonde cae la luz al
+     bajar (13/09/2026). Sin él la noche era un solo valor de arriba abajo. */
+  --noche-honda: #0e0e0d;
+  /* El haz de arriba del tramo: un escalón apenas más claro, para que el negro
+     tenga luz y no sea un rectángulo pintado. */
+  --noche-luz: #232322;
+  /* ── UNA SOLA TINTA (dueño, 18/09/2026: «veo líneas más gruesas que otras») ─
+     Subió de 0,10 a 0,18. Sobre un plano de L 0,05 el blanco al 10% casi no se
+     ve, y el 18 sí: por eso los rieles del capítulo oscuro se habían subido
+     aparte, con lo cual el tramo quedó con TRES tintas para el mismo trabajo
+     —0,10 en las líneas internas, 0,16 en el canto de arriba del prompt, 0,18
+     en los rieles—. A ese nivel la diferencia de opacidad no se lee como
+     opacidad, se lee como GROSOR: el mismo píxel, más oscuro, parece más
+     grueso. El trazo es uno cuando la tinta es una. */
+  /* El filete de la noche sigue al hueso y no al blanco puro: con el texto en
+     `#e9ebdf`, una línea de blanco puro se lee más fría que todo lo que separa. */
+
+
+  /* ── LOS TÍTULOS EN DOS TONOS (13/09/2026) ────────────────────────────────
+     Pedido del dueño: jerarquizar dentro de la misma línea sin sumar color —lo
+     que pesa en tinta y el resto en gris—. El gris es display, así que se mide
+     como texto grande: 3,35:1 sobre el campo y 4,9:1 sobre la noche, arriba
+     del 3:1 que pide un texto de 24px o más. No se usa en ningún texto chico. */
+  --titulo-gris: #848b95;
+  --titulo-gris-noche: rgb(233 235 223 / 0.5);
+  /* ── LOS DOS COLORES DEL NEGOCIO ────────────────────────────────────────
+     Sólo viven adentro del reporte, en las cápsulas de variación, y los
+     asigna `sentido` desde `lib/reporte-muestra.ts`: que la inversión suba no
+     es verde. Fuera del documento no se usan para nada. */
+
+  /* ── EL PASO HECHO ──────────────────────────────────────────────────────
+     El único verde fuera del reporte, y no es el mismo: adentro del informe
+     el verde es una afirmación de NEGOCIO («esto mejoró») que asigna el
+     negocio; el tilde de un paso terminado es una afirmación de MÁQUINA, no la
+     decide nadie y es la convención más asentada que hay. Es la excepción que
+     el dueño ya había sancionado en la pasada «firma» (07/09/2026) y que pidió
+     de nuevo al ver la lista de generación con tildes en tinta. Nunca en una
+     cápsula con cifra: siempre un tilde sin palabra. */
+  /* El verde para escribir encima en blanco o para pintar la palabra «Enviado»:
+     el dueño pidió que todo lo que diga Enviado sea verde.
+
+     Bajó un paso desde #17804f el 08/09/2026. Sobre blanco daba 4,96:1 y pasaba,
+     pero la chapa «Enviado» no escribe sobre blanco: escribe sobre su propio
+     fondo, `--color-hecho` al 11%, y ahí medía 4,38:1 —fallaba por 0,12 (cuarta
+     crítica)—. Ahora la peor de sus superficies da 5,2:1. La lección es la
+     de siempre acá: una tinta se mide contra la superficie donde se usa, no
+     contra la más clara donde podría usarse. */
+
+  /* ── EL NARANJA DE LO PENDIENTE ─────────────────────────────────────────
+     «Borrador tiene que ser naranja» (dueño, 07/09/2026): lo que espera una
+     decisión —la chapa Borrador, la cara pendiente del héroe, el hito que te
+     espera— va en naranja, la convención de «pendiente» del Status de diceui.
+     No es rojo: adentro del reporte el rojo significa «empeoró». El iris
+     queda para la acción y las bandejas. */
+
+  /* ── EL VERDE DE WHATSAPP ───────────────────────────────────────────────
+     Cita de canal, no color del sistema: la burbuja del cliente en el héroe
+     se reconoce por este verde y por la cola, sin interfaz alrededor. Es el
+     valor que el dueño pidió en firma («subile un paso la saturación»,
+     04/09/2026) y volvió a pedir en iris (07/09/2026). No toca el verde del
+     dato ni el del paso hecho: no comparten superficie. */
+  --wa: #b9f5ac;
+
+  /* La tinta secundaria de ADENTRO de la burbuja: la hora, y nada más.
+     `--color-tinta-3` acá medía 4,38:1 y no llegaba al mínimo de 4,5 (quinta
+     crítica, 08/09/2026). Es la única falla de contraste de texto que quedaba
+     en la página, y la causa es la que `DESIGN.md` ya tenía escrita para
+     `hecho-tinta`: una tinta se mide contra la superficie donde se usa, no
+     contra la más clara donde podría usarse. `--color-tinta-3` está medida contra el
+     campo (5,1:1) y contra la bandeja (4,6:1), y ésta es su TERCERA superficie.
+
+     No se resolvió oscureciendo `--color-tinta-3`, que pasa el resto de la página
+     entre 4,92 y 5,5:1 y no tiene margen para moverse. Se resolvió como la
+     pantalla del teléfono: **un objeto citado se cita entero**, y si toma
+     prestado el color de un canal ajeno toma también su tinta. El gris propio
+     de WhatsApp (#667781) da 3,70:1 sobre este verde y tampoco alcanza —el
+     verde real de la app es más claro; éste lleva el paso de saturación que
+     pidió el dueño—, así que es un verde-gris oscuro de la misma familia:
+     5,80:1 sobre `--wa`, contra los 14,7:1 del texto del mensaje, que es la
+     distancia que lo deja leer como secundario. */
+  --wa-tinta-2: #4a5a52;
+
+  /* ── FORMA ──────────────────────────────────────────────────────────────
+     Tres radios y una pastilla, por pertenencia: la bandeja es lo más grande
+     que se apoya en el campo; la hoja es lo que se apoya sobre la bandeja o
+     sobre el campo; el interior es lo que va adentro de una hoja (celda,
+     cita, campo de dirección). La pastilla es para lo que se toca o rotula.
+
+     ── UN PASO MÁS FILOSA (dueño, 18/09/2026: «apenas más filosos») ─────────
+     De 22 / 16 / 10 a 18 / 13 / 8: un 18% menos. El mismo día se había probado
+     10 / 7 / 4 —un 55%— y el dueño lo revirtió por filoso, así que lo que quedó
+     rechazado es el grado y no la dirección; éste es el paso corto que pidió
+     después. Las razones se mantienen: la escala no baja pareja en píxeles sino
+     en proporción, y los saltos entre un peldaño y el siguiente siguen siendo
+     1,38 y 1,63, que es lo que deja leer la pertenencia entre bandeja, hoja e
+     interior. La pastilla no participa: no es un radio, es una forma. */
+  /* El redondeo con que el telón cierra abajo y revela el pie. Es token y no un
+     número suelto porque lo necesitan DOS reglas —el campo de `.i-cortina` y el
+     riel de la última sección, que tiene que curvar con él— y un valor repetido
+     a mano en dos lados es exactamente lo que este archivo ya registró como
+     error el 18/09/2026. Baja de 28 a 24 con el resto de la escala. */
+  --r-cortina: 24px;
+
+  /* El radio del CONTROL SUELTO: el botón y el campo que no están adentro de
+     nada.
+
+     ── BAJA A 10, EL DEL INTERIOR (dueño, 18/09/2026) ───────────────────────
+     Venía de 16, que es el MISMO valor que `--radius-hoja`: el CTA tenía la esquina
+     de una hoja de informe, y en una página cuyo tema son documentos el control
+     que los aprueba no puede tener la esquina del documento. Además el sitio
+     tenía dos radios de control —16 en el botón grande y 10 en el compacto, que
+     había bajado porque «16px sobre 36px de alto se lee como pastilla, no como
+     botón»—. Ese argumento no se vuelve falso al crecer el botón.
+
+     El comentario viejo decía que control y hoja eran dos tokens para que las
+     esquinas no quedaran concéntricas iguales, y estaban iguales en 16: la
+     regla estaba escrita y no se cumplía. Ahora sí.
+
+     Se probó antes afilar la escala entera a 10 / 7 / 4 con el control en 5, y
+     el dueño la revirtió: la quiso menos filosa. Ese mismo día pidió después un
+     paso corto, y la escala quedó en 18/13/8 (ver arriba). El control sigue
+     igualado al interior, que es lo que el argumento de acá pide: lo que
+     importa es que NO sea la esquina de la hoja. */
+
+  /* ── LOS ESCALONES DE CONTROL SON LOS DEL SISTEMA (19/09/2026) ──────────
+     Acá vivió un escalón propio, 36, contra los tres del sistema —52 grande,
+     40 medio, 32 compacto—. Nació el 13/09 para la barra, porque el compacto de
+     32 convivía ahí con «Entrar al panel» a 38 y eran dos alturas en la misma
+     fila.
+
+     Se fue, y la deriva se cierra sin discutir nada: los dos únicos controles
+     que lo usaban —«Ingresar» y el CTA chico— **son los dos de la barra**, y el
+     sistema ya dice para qué es su escalón MEDIO: «lo que acompaña —la barra de
+     la landing, los encabezados, diálogos y filtros del panel—». No eran
+     compactos: eran medios, y el 36 era un cuarto escalón inventado para no
+     mirar cuál correspondía.
+
+     La landing usa dos de los tres —grande en el héroe, medio en la barra— y no
+     usa el compacto, que es para una fila de tabla. Eso es exactamente lo que el
+     sistema permite: **una superficie elige qué escalones usa; no redefine
+     ninguno.**
+
+     **No cambió nada de lo que se ve**, y el motivo es peor que el problema:
+     los dos controles de la barra ya no leían este token. Una regla más
+     específica —`.i-nav-acciones .i-nav-entrar, … .i-boton-chico`— les fija 35
+     a mano desde el 16/09, para que las dos pistas de la barra midan 43 y queden
+     a la misma altura. O sea que el 36 era, además de un cuarto escalón, un
+     escalón MUERTO: la única excepción de verdad está anotada allá, en
+     `secciones.css`, donde el número tiene su razón al lado. */
+
+  /* ── EL ALTO DE LA BARRA, COMO TOKEN (19/09/2026) ───────────────────────
+     El alto de la barra vivía como número adentro de sus propias reglas en
+     `secciones.css`. Sube acá porque hay algo AFUERA de la barra que necesita
+     saber cuánto mide: el héroe se monta debajo suyo con un margen negativo, y
+     la barra queda flotando sobre la banda como en la referencia. Dos números
+     que tienen que coincidir y viven en archivos distintos son un desajuste
+     esperando; uno solo declarado no.
+
+     Fueron dos pisos hasta el 19/09/2026 —una franja legal que se iba al bajar,
+     y la fila—, y por eso `--alto-barra` era una suma. El dueño sacó la franja
+     y con ella el sumando; la fila, en la misma orden, se ensanchó de 64 a 76.
+     `--alto-barra` se queda como nombre porque es el que leen el héroe y las
+     paradas de foco: lo que cambió es de qué está hecho. */
+  --alto-nav-fila: 76px;
+  --alto-barra: var(--alto-nav-fila);
+
+  /* ── PROFUNDIDAD ────────────────────────────────────────────────────────
+     Dos sombras, las dos con desplazamiento y desenfoque, tinteadas desde la
+     tinta y no grises. La de la hoja es el mínimo que la separa del campo; la
+     de la ventana es del protagonista y lleva un segundo plano largo, con un
+     poco de iris adentro porque está apoyada sobre la bandeja. */
+  /* ── LOS PLANOS LARGOS DEJAN DE SER PETRÓLEO (dueño, 18/09/2026) ─────────
+     Los tres tokens de abajo teñían su plano largo con `rgb(6 44 51)` —+45 de
+     tinte, petróleo puro— porque caían sobre la bandeja de ese color. Esa
+     bandeja se retiró, el haz del héroe también, y el campo quedó casi neutro:
+     lo que quedaba era una sombra de un mundo que ya no existe.
+
+     Pasan a `rgb(20 20 20)`. El tramo de contacto conserva su `rgb(22 20 31)`,
+     que tiene +9 y acompaña al campo, que es levemente frío. */
+
+
+  /* ── LA SOMBRA DEL OBJETO GRANDE NO ES LA DEL OBJETO CHICO ────────────────
+     La ventana del héroe ocupa media pantalla y usaba la misma sombra que el
+     mail y el panel, con **−18px de extensión**: el desenfoque estaba pero la
+     extensión negativa lo encogía, y encima cae sobre la bandeja lila, que ya
+     oscurece esa zona. Resultado, un objeto grande sin apoyo.
+
+     Ésta es la de `preview/firma` traída con su razón: **sin extensión
+     negativa**, la de contacto un poco más larga y la ambiental al 20%. La
+     relación es con el TAMAÑO DEL OBJETO, no con la escala tipográfica de la
+     página — que es el error que firma registró haber cometido una vez, afinar
+     un token compartido y dejar al objeto grande flotando. */
+  --sombra-ventana-heroe:
+    0 6px 12px rgb(22 20 31 / 0.06), 0 30px 56px rgb(20 20 20 / 0.18);
+
+  /* ── LA SOMBRA DE LO QUE FLOTA ────────────────────────────────────────────
+     Las dos piezas del héroe se apoyan ENCIMA de la ventana y tienen que
+     despegarse de ella de verdad (dueño, 10/09/2026): la de ventana, con su
+     extensión negativa, las dejaba pegadas al cromo. Más desplazamiento y más
+     desenfoque que la de ventana, con un poco de iris, como todo lo que se
+     apoya cerca de la página del informe. */
+
+
+  /* ── MEDIDAS ────────────────────────────────────────────────────────────── */
+  /* 1440 desde el 09/09/2026. Medidos los contenedores de las cuatro
+     referencias del dueño cargándolas en el navegador: Attio 1440, Linear
+     1436, Resend 1280. Estábamos en 1200, el más angosto de todos.
+
+     Lo que NO se copia es «todo más ancho»: la banda del titular de Attio mide
+     912 dentro de su contenedor de 1440. Contenedor grande afuera, medida
+     controlada adentro — por eso la bandeja del héroe lleva tope propio (ver
+     `secciones.css`): sin él, el párrafo del informe pasaba de 79 a ~115
+     caracteres por línea y el objeto que la página vende quedaba ilegible. */
+  --marco: 1440px;
+  /* ── LA GRILLA TIENE SU PROPIO ANCHO, Y ES MÁS QUE EL DEL CONTENIDO ───────
+     El 18/09/2026 el riel llegó a ser exactamente el canto del texto, y con eso
+     la grilla dejó de poder ensancharse sin arrastrar el contenido. El dueño lo
+     cortó en seco —«ensanchá SOLO el ancho de la grilla»—: la grilla es el
+     encuadre, y un encuadre que mide lo mismo que lo que encuadra no encuadra
+     nada. Vuelve a tener medida propia, siempre POR FUERA de la columna: 24 de
+     margen y 1520 de tope, contra 1440 y `--borde-x` del contenido. A 1440 los
+     rieles caen en 24/1401 con el texto en 40/1385 —16px de aire—; a 1920, en
+     200/1720 con el texto en 280/1640 —80px—. La grilla respira más cuanto más
+     grande es la pantalla, que es lo que se le pedía.
+
+     Lo que NO vuelve es la trampa de la vuelta anterior: la grilla es más ancha
+     que el contenido, nunca más angosta, así que no hay nada que achicar ni que
+     desalinear para que entre. */
+  /* Cuánto vuela la grilla POR FUERA de la columna de texto, y es lo único que
+     la define: la grilla no tiene un ancho propio que pueda desfasarse del
+     contenido, tiene una distancia. Así vale a cualquier ancho de pantalla —a
+     1440 los rieles caen en 24/1401 con el texto en 40/1385; a 1920, en
+     256/1648 con el texto en 272/1632— y **las horizontales de sección siguen
+     muriendo contra la vertical**, que es lo que se rompía cuando la grilla
+     tenía tope propio: a 1520 de tope quedaba 80px por fuera a 1920 y todas las
+     líneas internas se cortaban antes de llegar. */
+  --grilla-vuelo: 16px;
+  /* ── Y DESDE EL 20/09/2026 SON DOS NÚMEROS, NO UNO ───────────────────────
+     Hasta hoy el mismo 16 hacía dos trabajos: separaba el riel del texto (el
+     encuadre) y sacaba las superficies con filete hasta ese riel (el vuelo).
+     El dueño midió la página y marcó que **el héroe se veía apenitas más
+     angosto que el resto**: no era el héroe, era que cuatro de las siete
+     piezas grandes terminaban en la columna —1385 a 1440— y las otras tres
+     —la cuenta de Precios, las filas de Preguntas y el cuerpo de Tres pasos—
+     salían 16px más, hasta el riel. Dos anchos de página, y la diferencia
+     justo del tamaño que se nota sin poder nombrarla.
+
+     Separados, cada uno hace su trabajo sin arrastrar al otro. **El vuelo
+     estuvo un rato en cero** —con eso las siete piezas grandes compartieron la
+     columna y se cerró el «el héroe es apenitas más angosto»— y volvió a 16 el
+     mismo día, porque con él apagado NINGUNA horizontal de página llegaba al
+     riel: quedaban las veinte cortas por 16 de cada lado, y el dueño lo marcó
+     («hacé llegar todas las líneas horizontales hasta los rieles»).
+
+     **La regla que quedó, y es la que hay que sostener:** una LÍNEA llega al
+     riel; un OBJETO se queda en la columna. Lo que rompía el ancho no era que
+     las líneas volaran, era que volaran superficies enteras. Hoy las tres que
+     lo hacían —la cuenta de Precios, las filas de Preguntas y la tira de
+     marcas— son bandas delimitadas por dos líneas y no cajas con fondo, así
+     que volar es lo que les corresponde.
+
+     **Lo que se paga, y está elegido:** las horizontales de esas tres
+     superficies ya no mueren contra la vertical. Era lo que el vuelo vino a
+     arreglar. Entre las dos, el dueño eligió que la página tenga un solo
+     ancho; si algún día pesa más lo otro, este número vuelve a 16 y todo se
+     deshace solo. */
+
+  /* ── EL ENCUADRE SE QUEDA EN 16, Y SE PROBÓ EN CERO EL MISMO DÍA ─────────
+     El dueño pidió el 20/09/2026 que la guía dejara de ser más ancha que el
+     héroe, se llevó a cero y la vertical cayó exacta sobre el canto del texto.
+     Lo miró y marcó la consecuencia en una línea: **«ahora todo lo de adentro
+     quedó pegado al riel, se perdió la separación que había»**. O sea llegó él
+     mismo, por el otro camino, a lo que ya había escrito el 18/09 —«un encuadre
+     que mide lo mismo que lo que encuadra no encuadra nada»—. Vuelve a 16.
+
+     **Lo que sí arregló su queja fue el otro número**, el vuelo de arriba. El
+     problema nunca fue la distancia del riel: era que la página tenía DOS
+     anchos de pieza grande y el riel coincidía con unos y con otros no, así que
+     el héroe se leía más angosto que lo que lo acompañaba. Con el vuelo en cero
+     las siete piezas comparten la columna y el riel queda parejo por fuera de
+     TODAS: ya no hay nada más angosto que nada.
+
+     Queda anotado que el cero se probó y qué se vio, para que no se vuelva a
+     probar creyendo que es nuevo. */
+  --grilla-encuadre: 16px;
+
+  /* El relleno del marco, y desde el 18/09/2026 también **la posición de los
+     dos rieles**: la grilla no tiene medida propia, es el canto del texto. Una
+     grilla con su propio ancho (estuvo en 1320 y en 1400) obligaba a elegir
+     entre achicar las escenas del héroe y de El entregable o dejarlas
+     desalineadas del resto; el dueño cortó por «alineá todo al ancho completo»
+     y con eso el riel pasó a ser el borde de la columna. Cambiar este número
+     mueve el texto Y los rieles, que es lo correcto: son la misma línea. */
+  /* ── Y DESDE EL 19/09/2026 TAMBIÉN ESQUIVA LA MUESCA ─────────────────────
+     El número de diseño sigue siendo 20; el `max()` sólo lo levanta cuando el
+     teléfono declara un área insegura más ancha que eso, que en la práctica es
+     el teléfono ACOSTADO (portrait devuelve 0 a los costados). Lo enciende
+     `viewport-fit=cover`, en `app/layout.tsx`: sin él estos dos `env()` valen
+     `0px` y la expresión entera colapsa al valor de diseño, en todas las
+     pantallas.
+
+     Va en `--borde-x` y no en `.iris` a propósito. Corrido acá se corren juntos
+     el texto y los rieles —que son la misma línea— y las bandas de noche
+     siguen llegando al canto físico del vidrio, que es lo que `cover` compra.
+     Un relleno en `.iris` habría dejado dos franjas de campo a los costados de
+     cada tramo oscuro. Los dos lados toman el mismo valor porque una columna
+     que se corre de un solo lado deja de estar centrada en la pantalla. */
+  --borde-x: max(20px, env(safe-area-inset-left), env(safe-area-inset-right));
+  /* La columna de las tres páginas legales. Es la única medida de PROSA LARGA
+     del sitio —el resto del texto vive adentro de objetos que ya tienen su
+     ancho— y por eso es un token y no un número suelto en su sección.
+     Se fija midiendo caracteres renderizados, no en `ch`: ver `.i-legal-columna`.
+
+     **Subió de 32 a 37rem el 11/09/2026, y la banda de caracteres por línea no
+     fue el criterio.** A 32 daba 68 de promedio, que es el centro del rango
+     canónico, y aun así el dueño lo leyó apretado. El motivo es que la banda de
+     65-75 describe PROSA CORRIDA, y estas páginas no lo son: tienen listas con
+     sangría, negritas cada pocas líneas y títulos cada dos párrafos, y todo eso
+     come ancho útil que la cuenta de caracteres no ve. La regla que queda:
+     **una medida se juzga sobre el texto que va a llevar, no sobre un párrafo
+     de muestra.** */
+  --medida-legal: 37rem;
+  /* Subió de `clamp(88px, 9vw, 136px)` el 13/09/2026: el dueño pidió más aire
+     y con nueve secciones, dos de ellas sobre bandeja, las fronteras entre una
+     y otra se leían amontonadas. */
+  /* Y bajó el mismo día, a pedido del dueño: «hay demasiado aire entre
+     secciones». Con secciones que se funden entre sí en el tramo oscuro, el aire
+     grande sobraba en las costuras. */
+  /* ── UN SOLO AIRE (13/09/2026, pasada de elevación) ──────────────────────
+     Las costuras por capítulo daban 53, 58, 86, 110 y 170px arriba y abajo de
+     secciones vecinas, y la suma entre El entregable y Precios llegaba a 279.
+     «Ritmo parejo, sin aire exagerado ni zonas apretadas» (dueño): cada
+     sección lleva el mismo aire arriba y abajo, y el titular queda siempre a
+     la misma distancia de su contenido. Donde cambia el fondo, el borde de
+     color ya separa y el aire de cada lado basta. */
+  /* ── REDONDEADOS A PÍXEL ENTERO (dueño, 18/09/2026: «veo líneas más gruesas
+     que otras») ────────────────────────────────────────────────────────────
+     Un `clamp()` con `vw` casi nunca da un entero: a 1440 estos dos valían
+     92,16 y 48,96. Todo lo que se apoya en ellos —que es el ritmo entero de la
+     página— caía en fracción de píxel, y **un filete de 1px en una fracción no
+     se dibuja en 1px**: el navegador lo reparte entre dos filas a media
+     opacidad y se lee más grueso y más lavado que el mismo filete apoyado en
+     un entero. Medido antes de esto: 84 de 105 horizontales en fracción.
+
+     `round()` los deja en entero a cualquier ancho sin congelar la fluidez.
+     No alcanza para todas —las que dependen de la métrica del tipo siguen
+     cayendo donde caen— pero sí para el ritmo de sección y de bloque, que es
+     donde viven las líneas que encuadran la página. */
+
+  /* La curva de las entradas (13/09/2026, pasada de movimiento): una salida
+     exponencial más larga que la del sistema. Arranca con decisión —la entrada
+     se ve empezar— y se toma su tiempo para asentarse, que es lo que el dueño
+     pidió: «que aparezcan en el momento justo y no apuradas». Los controles
+     siguen en `--ease-nuvlo`, porque ahí la respuesta tiene que ser inmediata. */
+
+  position: relative;
+  font-family: var(--font-sans);
+  color: var(--color-tinta);
+  background: var(--color-campo);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern" 1, "liga" 1;
+  overflow-x: clip;
+}
+
+/* Los dos escalones llevan el mismo `max()` que el valor base: un teléfono
+   acostado entra en el primero (844, 932 y 956 de ancho son todos ≥768) y ahí
+   es justamente donde la muesca está a un costado. */
+@media (min-width: 768px) {
+  .iris {
+    --borde-x: max(32px, env(safe-area-inset-left), env(safe-area-inset-right));
+  }
+}
+
+@media (min-width: 1200px) {
+  .iris {
+    --borde-x: max(40px, env(safe-area-inset-left), env(safe-area-inset-right));
+  }
+}
+
+/* ── EL CAMPO LLEGA AL BODY POR AHÍ, Y NO ES UN PARCHE (11/09/2026) ─────────
+   Esto era el parche con el que la ruta de preview pisaba el fondo del mundo
+   retirado sin tocar `globals.css`, y decía «se va con la promoción». Cambió
+   de motivo, no de forma: los tokens viven bajo `.iris`, así que `--color-campo` no
+   existe en el `body` y el valor tiene que ir literal. Es el mecanismo por el
+   que el campo llega al fondo de la página mientras los tokens estén
+   scopeados.
+
+   Ahora sí se va con la tanda que los sube a `--color-x` en el `@theme`: ahí
+   el `body` puede leer el token y esto pasa a ser una declaración normal. */
+/* Al enfriar el campo el 18/09/2026 este valor no siguió: quedó en `#fffcf8`,
+   el marfil cálido anterior. Se ve en cualquier rebote de scroll. El costo de
+   escribirlo literal es exactamente éste, y se paga hasta que los tokens
+   suban al `@theme`. */
+body:has(.iris) {
+  background: #fbfcfd;
+}
+
+/* ── LAS SUPERFICIES QUE NO DIBUJAMOS ─────────────────────────────────────
+   Selección, foco, caret, barra de scroll: vienen del navegador y no pertenecen
+   a ningún sistema. Se tiñen desde la paleta.
+
+   El anillo NO se elige por sección sino por superficie, con una variable que
+   hereda: `--anillo` vale iris en el campo, su versión clara sobre la noche, y
+   vuelve a iris en cualquier hoja clara que viva ADENTRO de la noche. Antes se
+   escribía con `.i-noche :focus-visible`, que pinta por descendencia y no por
+   fondo: el anillo del botón «Aprobar y Enviar» de Control se dibujaba en
+   `--color-acento-sobre-noche` sobre la banda `hoja-hundida` del panel y medía 2,57:1,
+   bajo el mínimo de 3:1 de WCAG 1.4.11 —y encima era el CTA del pico de la
+   página— (crítica del 08/09/2026). Con la variable, una hoja nueva adentro de
+   la noche sólo tiene que redeclararla, que es lo que el Do de «la superficie
+   decide el color» ya manda para el botón y los enlaces.
+
+   El halo: `app/globals.css` declara un `:focus-visible` con
+   `box-shadow: 0 0 0 6px var(--color-senal-campo)` —una crema del mundo
+   retirado «Sala de revisión»— y como acá sólo se pisaba el `outline`, el halo
+   se filtraba a esta rama. Se apaga: con `outline-offset` de 3px sobre hoja y
+   campo el anillo ya se separa, y el halo traía un color que no está en esta
+   paleta. */
+.iris ::selection {
+  background: var(--color-acento-campo);
+  color: var(--color-tinta);
+}
+
+.iris {
+  --anillo: var(--color-acento);
+
+  /* La rama es clara y no tiene modo oscuro, por decisión: una hoja blanca con
+     dos tramos de noche. Declararlo evita que un control nativo futuro —o la
+     barra de scroll de un contenedor— salga oscuro adentro de una hoja blanca
+     cuando el sistema del visitante está en oscuro. Hoy el único campo está
+     restilado entero y no cambia nada; es la puerta que se cierra, no un bug
+     que se arregla. */
+  color-scheme: light;
+}
+
+/* Las paradas de foco se desplazan con aire arriba y abajo. Arriba, para que
+   la barra pegada de 64px no tape el elemento que el navegador acaba de traer:
+   Chromium ya lo esquiva solo, pero Firefox y Safari no, y el piso de
+   `DESIGN.md` es que TODA parada se vea. Abajo, porque el anillo son 5px
+   —3 de separación y 2 de trazo— y la última respuesta del acordeón quedaba
+   con su borde inferior exactamente en el borde de la pantalla a 1440×900, con
+   el anillo cortado por afuera (quinta crítica, 08/09/2026). */
+.iris :is(a, button, summary, input, [tabindex]) {
+  scroll-margin-top: 80px;
+  scroll-margin-bottom: 16px;
+}
+
+.i-noche {
+  --anillo: var(--color-acento-sobre-noche);
+}
+
+.iris :focus-visible {
+  outline: 2px solid var(--anillo);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+.iris {
+  scrollbar-color: var(--color-filete-fuerte) transparent;
+  caret-color: var(--color-acento);
+  /* ── LA SUPERFICIE QUE FALTABA TEÑIR: EL DESTELLO DEL TOQUE (19/09/2026) ──
+     Selección, caret y barra de scroll ya salían de la paleta; el destello que
+     iOS y Android pintan sobre lo que se toca seguía siendo el gris del
+     navegador, y es **la única de las cuatro que el dueño ve en el teléfono**.
+     Se tiñe con el acento al 12 %, que es el mismo material del resalte de la
+     selección.
+
+     No se apaga con `transparent`, que es lo que se suele hacer: sin destello
+     y sin un `:active` propio en cada control, el toque deja de tener acuse y
+     la página se siente muerta. Se tiñe, no se saca.
+
+     Por `color-mix()` y no con el rgb escrito a mano: esta propiedad no admite
+     una capa encima, así que el alfa tiene que venir en el color, y un valor
+     literal acá sería una copia del acento que ningún chequeo cuida. */
+  -webkit-tap-highlight-color: color-mix(
+    in srgb,
+    var(--color-acento) 12%,
+    transparent
+  );
+}
+
+/* Los enlaces de prosa; los que llevan clase se visten aparte. `:not([class])`
+   y no `.iris a`, porque un selector sobre `a` pisa el color de los botones por
+   especificidad y ya pasó en esta rama. */
+.iris a:not([class]) {
+  color: var(--color-acento);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.iris a:not([class]):hover {
+  color: var(--color-acento-tinta);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TIPOGRAFÍA — LOS ROLES
+
+   Cuatro pesos —400 lee, 500 controla, 600 titula, 700 firma— y el
+   contraste entre escalones lo hacen el peso y el color tanto como el cuerpo.
+   `text-wrap: balance` en lo que titula, `pretty` en lo que se lee.
+
+   ── EL PISO SUBIÓ UN ESCALÓN (13/09/2026) ─────────────────────────────────
+   «Hay textos que quedaron demasiado chicos» (dueño). La escala tenía cuatro
+   roles por debajo de 15px —rótulo 11, fino 12, chico 13, cuerpo 15— y la
+   mitad de lo que la página explica vivía en los dos de abajo. Subieron todos
+   un escalón: rótulo 12, fino 13, chico 14, cuerpo 16, título 20 y la bajada
+   hasta 21. **Nada que se lea baja de 13px**; los 12 quedan para versalitas,
+   que se leen por forma y no por palabra. Los tamaños fijos de las piezas
+   dibujadas del producto subieron igual. El documento del informe no: su
+   geometría espera una decisión del dueño (`RUTA-AL-LANZAMIENTO.md` del panel).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── EL SALTO ENTRE ESCALONES (13/09/2026, pasada de elevación) ────────────
+   La portada iba a 64 y el display a 42 con una bajada de 21: tres escalones
+   a razón de 1,5 y 2, que se leían como una sola voz a distintos volúmenes.
+   La portada sube a 72 y el display a 48, con el tracking un punto más
+   cerrado: Geist no tiene corte Display y a cuerpo grande el aire entre
+   letras es lo que la delata. El titular del héroe sigue en dos renglones
+   (970px contra un marco de 1360). */
+/* ── UN ESCALÓN MÁS GRANDES Y MÁS FINOS (dueño, 19/09/2026) ────────────────
+   «Apenas más grandes y apenas menos gruesos, así se ven más limpios.» Los dos
+   roles que titulan pasan de 600 a 550 y suben un 6% de cuerpo: la portada de
+   72 a 76 y el display de 48 a 51.
+
+   Las dos mitades son una sola decisión y por eso van juntas. A cuerpo grande,
+   el 600 de Geist pinta tanto trazo que la palabra se lee por su silueta antes
+   que por sus letras: es una mancha, no un titular. Bajando el peso, el mismo
+   cuerpo entrega menos tinta y más forma —se ve el dibujo de la letra, que a
+   este tamaño es lo que hay para ver—, y eso deja lugar para subir el cuerpo
+   sin que la página se vuelva ruidosa. Al revés no funciona: 600 a 76px sería
+   una pared.
+
+   550 y no 500: Geist es variable —medido, ocho pesos dan ocho anchos
+   distintos—, así que es un corte de verdad. Medio escalón, porque el pedido
+   fue «apenas»: a 500 el titular empezaba a pelear con la bajada en pantallas
+   de baja densidad.
+
+   El contraste entre escalones lo siguen haciendo el cuerpo y el color, como
+   dice la cabecera de esta sección. Abajo —título, rótulo, la cifra— el 500 y
+   el 600 se quedan: ahí el cuerpo es chico y el peso es lo único que separa. */
+.i-portada {
+  margin: 0;
+  font-size: clamp(2.625rem, 5.4vw, 4.75rem);
+  font-weight: 550;
+  line-height: 1;
+  letter-spacing: -0.038em;
+  text-wrap: balance;
+}
+
+.i-display {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 3.1875rem);
+  font-weight: 550;
+  line-height: 1.04;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+/* La mitad que no pesa de un titular en dos tonos (dueño, 13/09/2026).
+
+   NO VA EN CUALQUIER TITULAR. Se aplicó a los diez y el dueño lo marcó: en el
+   héroe no funcionaba. Quedó donde el titular tiene DOS partes de distinta
+   función —un planteo y una afirmación, o un rótulo y una promesa— y el gris
+   va en el planteo: «Tres pasos. / El último es tuyo.», «La IA escribe. / Los
+   números ya estaban.», «Se paga / por cliente atendido.», «Preguntas, / y
+   varias dicen que no.». Donde el titular es una sola frase con un solo sujeto
+   —el héroe, Control, El entregable, el Cierre— partirla en dos pesos
+   le saca la mitad del sujeto y sólo ensucia. Nunca en texto chico: el gris se
+   mide como texto grande. */
+.i-tenue {
+  color: var(--titulo-gris);
+}
+
+.i-titulo {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+}
+
+.i-bajada {
+  margin: 0;
+  font-size: clamp(1.125rem, 1.45vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--color-tinta-2);
+  text-wrap: pretty;
+}
+
+/* ── BAJADA DE PORTADA ────────────────────────────────────────────────────
+   Un ROL, no un escalón suelto. El sistema prohíbe un valor que caiga entre dos
+   pasos de la escala, y da la salida: «o falta un rol y se documenta». Éste
+   faltaba, porque entre la bajada (19px) y el display (30px) la escala no tiene
+   nada, y el héroe salta de 64 a 19 en una columna de 355px.
+
+   Existe por una razón de composición medida: la columna de texto del héroe
+   tenía 257px de contenido contra una bandeja de 684, y dos críticas seguidas
+   leyeron esos 427px como columna vacía. No estaba vacía —bajada, botón, la
+   línea de la prueba y la pista del gesto son el argumento completo del primer
+   viewport—: estaba hablando bajo. Crece la voz, no el contenido.
+
+   El tope de 22px NO se eligió: se midió, contando caracteres por línea visual
+   en la columna de 355px del héroe. A 19px la bajada da 43 caracteres de línea
+   máxima; a 22 da 39; a 24 se derrumba a 32 y a 26 sigue en 32 mientras el alto
+   casi no crece. Ahí está el codo: 22 es el último cuerpo que se lee como prosa
+   en esa columna, y más grande sólo compra un titular partido.
+
+   El piso es el MISMO de la bajada normal, a propósito: en teléfono el héroe ya
+   mide 892px contra un viewport de 844, así que este rol no puede engordarlo.
+   Crece con el ancho y en un teléfono no crece nada.
+
+   Honestidad sobre lo que resuelve: la columna pasa de 257 a 304px de contenido
+   sobre una fila de 684. La voz crece; el aire baja de 427 a 380. Llenar esa
+   fila con tipografía pediría un cuerpo que arruina la medida, así que lo que
+   queda de aire es composición y no hueco. */
+.i-portada-bajada {
+  font-size: clamp(1.125rem, 1.9vw, 1.4375rem);
+  line-height: 1.45;
+  letter-spacing: -0.012em;
+}
+
+.i-cuerpo {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-tinta-2);
+  text-wrap: pretty;
+}
+
+.i-chico {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-tinta-3);
+}
+
+.i-fino {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-tinta-3);
+}
+
+/* Encabezado de campo: rotula lo que tiene debajo ADENTRO de un objeto (el
+   reporte, el pie, la tabla). Nunca es un copete arriba de un titular. */
+.i-rotulo {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-tinta-3);
+}
+
+/* Toda cifra que pueda caer en columna. */
+.i-cifra {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ANDAMIAJE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.i-marco {
+  width: 100%;
+  max-width: var(--marco);
+  margin-inline: auto;
+  padding-inline: var(--borde-x);
+}
+
+/* Un nodo que se lee y no se ve. */
+.i-solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA ACCIÓN — el bloque
+
+   El único CTA del sitio es `PanelLink`; acá se viste. Un bloque iris de
+   esquinas interiores (10px), 48px de alto, texto en 600 y un canto inferior
+   de 2px que le da cuerpo; sin flecha ni ícono. En hover se oscurece, sube 1px
+   y tira una sombra iris corta. Sobre la noche se invierte a hoja. Elegido por
+   el dueño entre tres diseños el 07/09/2026 («B · Bloque»), en lugar de la
+   pastilla con el disco que se llena.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.i-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--spacing-control);
+  padding: 0 24px;
+  border: 0;
+  border-radius: var(--radius-control);
+  /* ── TINTA, SIN COLOR (dueño, 18/09/2026) ────────────────────────────────
+     Estuvo en tinta unas horas el 13/09, cuando el color vivía en el campo, y
+     volvió al petróleo. Hoy el campo se enfrió, el héroe perdió su haz y el
+     dueño eligió tinta entre tres destinos: el acento queda sólo para enlaces,
+     estados y el anillo de foco.
+
+     El motivo es el mismo que retiró el haz: el petróleo es el color de lo
+     accionable, y cuando también es el campo y el relleno del único CTA, deja
+     de señalar. En tinta el botón mide 18,37:1 con el blanco encima —contra los
+     8,35 del petróleo— y es lo más oscuro de la página, que es donde tiene que
+     estar el CTA. */
+  background: var(--color-tinta);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  /* 500 y no 600 (dueño, 18/09/2026: «bajale el grosor»). No es gusto: la Regla
+     de la Única Familia dice 500 controla y 600 titula, y el botón estaba
+     escrito con el peso de un titular. Con el relleno en tinta plana el peso
+     sobraba: el CTA ya pesa por valor —es lo más oscuro sobre lo más claro— y
+     no necesita pesar también por trazo. */
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  /* ── Y PLANO ─────────────────────────────────────────────────────────────
+     El filo de luz y la sombra teñida existían porque el petróleo plano se leía
+     como un rectángulo pintado sobre el marfil. La tinta sobre el campo frío no
+     necesita ayuda: es el valor más oscuro de la página contra el más claro.
+     Al apretarlo se sigue hundiendo un 3 %, que es la respuesta al dedo que un
+     control de verdad da y un enlace no. */
+  transition:
+    background-color 0.18s var(--ease-nuvlo),
+    transform 0.16s var(--ease-nuvlo);
+}
+
+.i-boton:hover {
+  /* La tinta aclara en vez de oscurecer: ya es lo más oscuro que hay. */
+  background: #242b33;
+}
+
+.i-boton:active {
+  transform: scale(0.97);
+}
+
+.i-boton-chico {
+  height: var(--spacing-control-medio);
+  padding: 0 16px;
+  /* El medio vuelve al radio interior: 16px sobre 40px de alto se lee como
+     pastilla, no como botón. */
+  border-radius: var(--radius-int);
+  /* 15px, igual en la barra y en la tarjeta del héroe: estaba a 14 en una y 15
+     en la otra con el mismo alto (segunda crítica de la pasada de elevación). */
+  font-size: 0.9375rem;
+}
+
+/* Sobre la noche el iris pierde canto contra el fondo; el botón se invierte a
+   hoja con el texto en tinta. */
+.i-boton-hoja {
+  background: var(--color-hoja);
+  color: var(--color-tinta);
+}
+
+.i-boton-hoja:hover {
+  background: #e8ecf1;
+}
+
+/* Un enlace que actúa como control (reiniciar el ejemplo): sin fondo, con
+   subrayado, y hereda el color de donde está. */
+.i-enlace {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA MARCA
+
+   «nuvlo» en minúscula, Geist 800 y muy apretada (16/09/2026). Era «Nuvlo» a
+   700 con −0,03em; el dueño no se convencía con la tipografía y eligió, en modo
+   live, entre esa firma a 600, esta minúscula compacta y unas versales
+   espaciadas. Es la única de las tres que se lee como marca y no como texto: el
+   peso la separa de los enlaces a 500 y de los títulos a 600. Sigue siendo el
+   paso intermedio hasta el SVG (ver `Piezas.tsx`).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.i-marca {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.375rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+/* Acá vivían `.i-marca-cuadro` y su versión sobre la noche: un cuadrado de
+   11px con el acento, pegado al nombre. El dueño lo sacó el 11/09/2026 y el
+   wordmark queda en la familia del sistema a 700, pelado, hasta que entre el SVG de la marca
+   (`components/iris/Piezas.tsx` lo explica). Se va también el `gap` de 9px del
+   contenedor, que no separaba nada más. */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHAPA DE ESTADO Y CÁPSULA DE VARIACIÓN
+
+   La chapa dice en qué estado está el reporte: «Borrador» lleva un punto iris
+   porque es el estado que te espera a vos; «Enviado» se cierra en tinta. Los
+   dos son estados reales del panel (`ESTADOS_MUESTRA`).
+
+   La cápsula lleva el tick por SIGNO y el color por NEGOCIO; sólo vive adentro
+   del reporte.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* La chapa de estado con el dibujo del «Status» de diceui (21st.dev, pedido
+   por el dueño el 07/09/2026): pastilla con el color del estado al 10% de
+   fondo y al 20% de filete, el texto en el tono oscuro del mismo color, y un
+   punto de 8px con un anillo que late hacia afuera. Borrador va en el naranja de
+   lo pendiente y Enviado en el verde del paso hecho. */
+.i-chapa {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 24px;
+  padding: 0 10px 0 9px;
+  border: 1px solid color-mix(in srgb, var(--color-espera) 26%, transparent);
+  border-radius: var(--radius-pastilla);
+  background: color-mix(in srgb, var(--color-espera) 11%, transparent);
+  color: var(--color-espera-tinta);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  --punto: var(--color-espera);
+  transition:
+    background-color 0.3s var(--ease-nuvlo),
+    color 0.3s var(--ease-nuvlo),
+    border-color 0.3s var(--ease-nuvlo);
+}
+
+/* El punto y, detrás, el anillo que late: el mismo círculo creciendo y
+   desvaneciéndose, como el `animate-ping` del original. */
+.i-chapa::before {
+  content: "";
+  position: relative;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--punto);
+}
+
+.i-chapa::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--punto);
+  /* EN BUCLE, SIN TOPE. Estuvo capado a tres pasadas por WCAG 2.2.2 —el
+     criterio del parpadeo— desde la crítica del 08/09/2026. El dueño revirtió
+     esa decisión el 12/09/2026, enterado del motivo: todo lo que se anima en la
+     landing va en bucle.
+
+     Lo que queda cubierto, y no es un detalle: `prefers-reduced-motion` apaga
+     estas animaciones en el bloque del final de esta hoja, así que quien pide
+     que la pantalla se quede quieta la tiene quieta. El criterio de WCAG que
+     esto deja de cumplir es el de poder pausarlo desde la página misma. */
+  animation: i-late-anillo 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes i-late-anillo {
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.i-chapa[data-estado="enviado"] {
+  border-color: color-mix(in srgb, var(--color-hecho) 26%, transparent);
+  background: color-mix(in srgb, var(--color-hecho) 11%, transparent);
+  color: var(--color-hecho-tinta);
+  --punto: var(--color-hecho);
+}
+
+/* El mismo dibujo con otro nombre, y no es una copia por descuido: al acotar el
+   latido a tres pasadas, una chapa que ya las gastó en «Borrador» no volvería a
+   latir al pasar a «Enviado», que es justo el momento en que el latido significa
+   algo. Cambiar el nombre de la animación la reinicia; cambiar sólo el color no.
+   Si hiciera falta un tercer estado, éste es el patrón. */
+.i-chapa[data-estado="enviado"]::after {
+  animation-name: i-late-anillo-acuse;
+}
+
+@keyframes i-late-anillo-acuse {
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* ── LAS CHAPAS QUE NO LATEN (13/09/2026) ───────────────────────────────────
+   Hubo acá un tercer estado, neutro, para el «Sin generar» del tablero; se fue
+   con la sección el 17/09/2026.
+
+   En una lista las chapas no laten. El latido dice «esto
+   está pasando ahora» en la única chapa de Control y del héroe; repetido en
+   cada renglón de una tabla deja de significar y pasa a ser ruido. */
+.i-chapa[data-quieta]::after {
+  content: none;
+}
+
+.i-capsula {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  padding: 0 7px 0 6px;
+  border-radius: var(--radius-pastilla);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.i-capsula[data-sentido="bueno"] {
+  background: var(--color-bueno-campo);
+  color: var(--color-bueno);
+}
+
+.i-capsula[data-sentido="malo"] {
+  background: var(--color-malo-campo);
+  color: var(--color-malo);
+}
+
+.i-capsula[data-sentido="neutro"] {
+  background: var(--color-hoja-hundida);
+  color: var(--color-tinta-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REVELADO
+
+   El estado por defecto es visible. `data-entra="oculto"` lo escribe el
+   cliente después de montar y sólo si el visitante no pidió movimiento
+   reducido (`Entra.tsx`); sin JavaScript no hay atributo y la página se ve
+   entera. La entrada usa desenfoque además de opacidad y desplazamiento: es
+   una sola curva para toda la página, no un efecto por sección.
+
+   ── POR QUÉ CUELGAN DE `.iris` Y NO DEL ATRIBUTO PELADO (11/09/2026) ───────
+   `data-entra` no es un atributo de esta rama: `firma`, `neto` y `registro`
+   tienen su propio `Entra` y lo escriben igual. Mientras esta hoja se cargaba
+   sólo en `/preview/iris` eso no se notaba; al subir al layout raíz, la regla
+   pelada —(0,1,0)— pasaba a alcanzar los nodos de esas tres páginas, y como
+   las suyas están scopeadas —(0,2,0)— y declaran sólo opacidad y
+   desplazamiento, **ganaban ellas en todo salvo en el desenfoque**: les
+   aparecía un `blur(6px)` que nadie pidió y que nada pisaba.
+
+   Las once reglas del bloque llevan el prefijo, no sólo las dos que se
+   filtraban: prefijar de a una cambia las distancias de especificidad de
+   adentro del bloque, y lo que hace que esto siga rindiendo igual es que
+   TODAS suban el mismo escalón.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── SIN APURO (13/09/2026, pasada de movimiento) ────────────────────────────
+   Estaba en 0,7s y 16px con la curva de los controles, y el dueño leyó las
+   entradas apuradas. Ahora recorren 24px con 8px de desenfoque en 1s de
+   opacidad y 1,15s de desplazamiento, con la curva exponencial de entrada: el
+   bloque se ve arrancar y se asienta despacio. El desenfoque va más corto que el
+   desplazamiento para que la forma ya esté nítida mientras termina de llegar. */
+.iris [data-entra="oculto"] {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(8px);
+}
+
+.iris [data-entra="visto"] {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+  transition:
+    opacity 1s var(--ease-entrada) var(--demora, 0ms),
+    transform 1.15s var(--ease-entrada) var(--demora, 0ms),
+    filter 0.85s var(--ease-entrada) var(--demora, 0ms);
+}
+
+/* ── LA CASCADA (10/09/2026) ───────────────────────────────────────────────
+   El dueño: «la única sección donde las animaciones se notan es Precios; en el
+   resto no pasa nada». Medido en el código, tenía razón y la causa era una sola:
+   **Precios monta NUEVE envoltorios con demoras de 300 a 1800 ms, y las otras
+   cinco secciones montan DOS** —el titular y el objeto entero—. Dos bloques
+   enormes entrando a la vez no se leen como movimiento; nueve piezas encadenadas
+   sí.
+
+   Y hay una segunda causa que agrava la primera: un envoltorio que mide una
+   sección entera intersecta apenas asoma su borde superior, o sea mientras el
+   visitante todavía está leyendo la sección anterior. Para cuando llega, la
+   animación ya terminó. Por eso el observador ahora espera un 18 % del viewport
+   en vez de un 8 % (`Entra.tsx`).
+
+   La cascada resuelve la primera sin tocar el JSX: el envoltorio deja de animar
+   y animan sus HIJOS DIRECTOS, escalonados. Donde la escena es un rótulo más un
+   objeto, eso ya son dos tiempos; donde hay más piezas, son más. */
+.iris [data-entra].i-entra-cascada {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.iris [data-entra="oculto"].i-entra-cascada > * {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(8px);
+}
+
+/* La demora del envoltorio SE SUMA al paso de cada hijo. Antes la cascada leía
+   sólo `--paso`, así que el objeto que tenía que llegar después del titular
+   (`demora={220}`) arrancaba junto con él: dos entradas encimadas. */
+.iris [data-entra="visto"].i-entra-cascada > * {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+  transition:
+    opacity 0.95s var(--ease-entrada)
+      calc(var(--demora, 0ms) + var(--paso, 0ms)),
+    transform 1.1s var(--ease-entrada)
+      calc(var(--demora, 0ms) + var(--paso, 0ms)),
+    filter 0.8s var(--ease-entrada)
+      calc(var(--demora, 0ms) + var(--paso, 0ms));
+}
+
+.iris [data-entra="visto"].i-entra-cascada > :nth-child(2) {
+  --paso: 120ms;
+}
+
+.iris [data-entra="visto"].i-entra-cascada > :nth-child(3) {
+  --paso: 240ms;
+}
+
+.iris [data-entra="visto"].i-entra-cascada > :nth-child(4) {
+  --paso: 360ms;
+}
+
+.iris [data-entra="visto"].i-entra-cascada > :nth-child(n + 5) {
+  --paso: 480ms;
+}
+
+/* ── LA VARIANTE DESDE ARRIBA (10/09/2026) ─────────────────────────────────
+   La entrada del «pricing-section-1» de 21st.dev, pedida por el dueño para
+   Precios: baja desde 20px por encima con 10px de desenfoque en 0,5s, en vez
+   de subir 16 con 6 en 0,7. Es la misma mecánica —`data-entra` escrito al
+   montar— con otros números, acotada por clase a los bloques que la piden. */
+/* PRECIOS VA MÁS RÁPIDO QUE EL RESTO (13/09/2026): el dueño pidió las
+   entradas del resto sin apuro y ésta al revés. Es la sección de la decisión:
+   el precio tiene que estar ahí cuando lo buscás, no llegando. 0,42s y las
+   demoras de `Precios.tsx` comprimidas de 300–1800ms a 0–440ms. */
+.iris [data-entra="oculto"].i-entra-arriba {
+  transform: translateY(-14px);
+  filter: blur(8px);
+}
+
+.iris [data-entra="visto"].i-entra-arriba {
+  transition-duration: 0.42s, 0.42s, 0.42s;
+  transition-timing-function: var(--ease-nuvlo);
+}
+
+/* ── EL CORTE VERTICAL DEL TITULAR (10/09/2026) ────────────────────────────
+   Cada palabra en su caja recortada; el tramo de adentro arranca 100% arriba
+   y baja a su lugar con la curva de la rama, cada uno con su demora. Ver
+   `CorteVertical.tsx`. */
+.i-corte {
+  display: inline;
+}
+
+.i-corte-palabra {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* Un pelo de aire abajo: sin él, el recorte se comía el descendente de la
+     «p» y de la «g» en Inter a 40px. */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.i-corte-tramo {
+  display: inline-block;
+}
+
+[data-corte="oculto"] .i-corte-tramo {
+  transform: translateY(-100%);
+}
+
+/* 0,55s y no 0,7: el único titular que entra por palabras es el de Precios, y
+   Precios va más rápido que el resto (13/09/2026). */
+[data-corte="visto"] .i-corte-tramo {
+  transform: none;
+  transition: transform 0.55s var(--ease-nuvlo) var(--demora, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iris *,
+  .iris *::before,
+  .iris *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  /* ── LA ÚNICA EXCEPCIÓN, Y POR QUÉ LO ES ──────────────────────────────────
+     El acuse de la barra de direcciones (`i-acusa`) es el gesto que
+     `DESIGN.md` midió dos veces y sobre el que escribió «un acuse que no se
+     puede medir contra su fondo no es un acuse». Con el apagón global caía a
+     0,01ms: dejaba de existir justo para quien pidió movimiento reducido
+     (quinta crítica, 08/09/2026).
+
+     Se exceptúa porque **no tiene movimiento**: es un cruce de color y de
+     borde, sin desplazamiento, sin escala y sin rotación. `prefers-reduced-
+     motion` existe por el malestar vestibular que produce el movimiento, y
+     apagar una realimentación que no se mueve no protege a nadie —es
+     exactamente el `0.01ms` global que se lleva puesta una señal útil—. El
+     cambio de estado se comunica igual por texto y por `aria-live`; esto es
+     lo que lo hace VER.
+
+     Gana por especificidad: (0,2,1) contra el (0,1,0) de `.iris *`, con
+     `!important` de los dos lados. Si mañana hace falta una segunda
+     excepción, la prueba es la misma: que la animación no desplace nada.
+
+     SON 6s Y NO 1,6, Y ES EL MISMO GESTO. Al pasar el acuse a bucle
+     (12/09/2026) el ciclo se estiró a 6s con el movimiento en su primer 27 %,
+     que son los 1,6s de siempre; el resto del ciclo es descanso. Acá la cuenta
+     de repeticiones sigue siendo 1 —la pone la regla global de arriba—, así
+     que quien pidió movimiento reducido ve el acuse una vez, a su velocidad
+     real, y después nada. Si este número se desincroniza del de `secciones.css`,
+     el acuse se acelera o se arrastra. */
+  .iris .i-direccion[data-estado="publico"] {
+    animation-duration: 6s !important;
+  }
+
+  /* ── LA SEGUNDA EXCEPCIÓN: LAS ENTRADAS, SÓLO CON OPACIDAD (13/09/2026) ────
+     Pasa la misma prueba que la de arriba —no desplaza nada—. Hasta acá, con
+     movimiento reducido los bloques no se revelaban: aparecían ya puestos, y la
+     página perdía el ritmo de lectura entero. Ahora el bloque aparece con un
+     fundido de 400ms, sin subir y sin desenfoque. */
+  .iris [data-entra="oculto"],
+  .iris [data-entra="oculto"].i-entra-cascada > * {
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .iris [data-entra="visto"],
+  .iris [data-entra="visto"].i-entra-cascada > * {
+    transform: none !important;
+    filter: none !important;
+    transition-property: opacity !important;
+    transition-duration: 0.4s !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL CTA: GLOW (13/09/2026)
+
+   El dueño pidió un CTA más atractivo. Se buscaron candidatos en 21st.dev, se
+   construyeron dos sobre la página real —«Glow Button» (waleedkibhen) y «Pearl
+   Button» (reuno-ui)— y se compararon en el héroe, la barra sobre claro y sobre
+   la noche, y el cierre, en reposo, con el mouse encima y apretados. Eligió
+   Glow: conserva la forma de bloque que ya había elegido y le suma luz sin
+   cambiar de lenguaje. Pearl, una pastilla con volumen de perla, tenía más
+   personalidad pero pesaba en la barra y se aplanaba sobre la noche.
+
+   **Revierte a sabiendas la regla «el hover es sólo color»**, que venía de la
+   forma del login: el barrido de luz al pasar el mouse es el gesto por el que se
+   eligió. Se escribe sólo sobre los CTA (`a.i-boton`, lo que emite
+   `PanelLink`); el botón «Aprobar y enviar» del panel de ejemplo es un
+   `<button>` y sigue con el dibujo del panel, porque es cita del producto.
+
+   Del original se conserva lo que lo hace ser él y se cambia lo que choca con
+   el sistema: el color pasa al petróleo, los tamaños a los dos altos de control
+   y el tono claro del barrido baja hasta que el blanco encima siga en 4,7:1.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── EL GLOW, RETIRADO (dueño, 18/09/2026: «no me gusta el color ni el diseño
+   que tienen») ─────────────────────────────────────────────────────────────
+   Acá vivía el tratamiento «Glow»: un degradé a 325° tres veces más ancho que
+   el botón que barría de punta a punta al pasar el mouse, dos luces interiores
+   en diagonal y un halo teñido de petróleo. El dueño lo había elegido entre
+   tres piezas y revertía a sabiendas la regla «el hover es sólo color».
+
+   Se va entero, con el color. El CTA ahora es el `.i-boton` de tinta plana y
+   nada más: sin degradé, sin luces interiores y sin halo. Un botón que barre
+   luz es un objeto que pide que lo miren; en una página donde el CTA ya es el
+   valor más oscuro sobre el campo más claro, eso es peso de sobra.
+
+   Sobre la noche sigue invirtiéndose a hoja —la tinta no existiría contra el
+   negro—, también plano. */
+/* Cualquier `.i-boton` adentro de la noche, no sólo los enlaces: el botón
+   «Aprobar y enviar» de la máquina es un `<button>` y con el primario en
+   petróleo se veía igual. Con el primario en tinta medía 1,05:1 contra la
+   noche —invisible como objeto— y el defecto no lo trajo esa sección: lo trajo
+   el cambio de color. Una regla que nombra el TIPO de elemento en vez de la
+   superficie se rompe en cuanto cambia lo otro. */
+.iris .i-noche .i-boton,
+.iris .i-boton-hoja {
+  background: var(--color-hoja);
+  color: var(--color-tinta);
+}
+
+.iris .i-noche .i-boton:hover,
+.iris .i-boton-hoja:hover {
+  background: #e8ecf1;
+}
+
+.iris a.i-boton:active {
+  transform: scale(0.97);
+}

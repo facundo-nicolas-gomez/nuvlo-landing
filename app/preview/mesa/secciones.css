@@ -1,0 +1,717 @@
+/**
+ * SECCIONES.
+ *
+ * Cada sección tiene que traer su propia familia de composición. La regla que
+ * gobierna este archivo: ninguna sección repite la estructura de otra, y la
+ * página completa no puede resolverse con "titular arriba, tres columnas
+ * abajo" siete veces. Las familias que se usan, una vez cada una:
+ *
+ *   portada   split asimétrico con el documento sangrando por derecha
+ *   prueba    documento a escala real, anclado, con la lectura al costado
+ *   control   línea de tiempo horizontal con un corte en el medio
+ *   limites   pares de texto en dos columnas, sin superficie
+ *   planes    una sola hoja partida, con los dos pies del reporte enfrentados
+ *   preguntas dos columnas de acordeón agrupadas
+ *   cierre    centrado, que acá es correcto porque el mensaje ES el diseño
+ */
+
+/* ── Cabecera ───────────────────────────────────────────────────────────────*/
+
+.cab {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgb(16 17 19 / 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--filete);
+}
+
+.cab-fila {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.wordmark {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.cab-acciones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cab-ancla {
+  padding: 8px 12px;
+  font-size: var(--t-chico);
+  color: var(--luz-media);
+  text-decoration: none;
+  transition: color 140ms ease-out;
+}
+.cab-ancla:hover {
+  color: var(--luz);
+}
+
+.barra-chica {
+  padding: 9px 15px;
+  font-size: var(--t-chico);
+}
+
+/* ── Portada ────────────────────────────────────────────────────────────────
+   Split asimétrico: el texto no llega a la mitad y el documento se lleva el
+   resto y sigue de largo. En teléfono se apila y el documento deja de sangrar,
+   porque a ese ancho el sangrado no significaría nada: sería un recorte. */
+
+.portada {
+  padding: 72px 0 88px;
+}
+@media (min-width: 1024px) {
+  .portada {
+    /* Tope de aire arriba: con más, el contenido flota a media pantalla y se
+       lee como un error de maqueta en vez de espacio compuesto. */
+    padding: 88px 0 0;
+    min-height: calc(100dvh - 64px);
+    display: flex;
+    align-items: center;
+  }
+}
+
+.portada-grilla {
+  display: grid;
+  gap: 48px;
+}
+@media (min-width: 1024px) {
+  .portada-grilla {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 64px;
+    align-items: center;
+    /* El contenedor deja de contener por la derecha: es lo que permite que la
+       hoja se vaya del encuadre. */
+    max-width: none;
+    padding-right: 0;
+    padding-left: max(40px, calc((100vw - 1240px) / 2 + 40px));
+  }
+}
+
+.portada-titular {
+  margin: 0;
+  font-size: var(--t-portada);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.portada-accion {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.portada-hoja {
+  /* La hoja arranca a tamaño de lectura y no se achica para entrar. */
+  min-width: 0;
+}
+@media (min-width: 1024px) {
+  .portada-hoja {
+    /* Sangra: se va del borde derecho de la ventana. */
+    margin-right: -72px;
+    /* Y se corta abajo contra el pliegue, que es lo que dice "sigue". */
+    max-height: calc(100dvh - 200px);
+    overflow: hidden;
+    border-radius: var(--r);
+  }
+}
+
+/* ── Prueba ─────────────────────────────────────────────────────────────────
+   Segunda familia: el documento a escala real con la lectura pegada al
+   costado. No comparte estructura con la portada —allá era un split donde la
+   hoja sangraba, acá la hoja está entera y contenida— y las notas son
+   adherentes, que ninguna otra sección usa. */
+
+.prueba {
+  padding: var(--aire) 0;
+  border-top: 1px solid var(--filete);
+}
+@media (min-width: 1024px) {
+  .prueba {
+    padding: var(--aire-lg) 0;
+  }
+}
+
+.prueba-cabeza {
+  margin-bottom: 44px;
+}
+
+.prueba-grilla {
+  display: grid;
+  gap: 40px;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .prueba-grilla {
+    /* El documento se lleva la parte mayor: es el objeto, no la ilustración. */
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 64px;
+  }
+}
+
+.prueba-notas {
+  display: grid;
+  gap: 30px;
+}
+@media (min-width: 1024px) {
+  .prueba-notas {
+    position: sticky;
+    top: 104px;
+  }
+}
+
+/* La nota cuelga de un filete: el filete es el recurso estructural del sistema
+   y acá marca "esto anota a aquello". Sin caja, sin fondo, sin tarjeta. */
+.nota {
+  padding-left: 18px;
+  border-left: 1px solid var(--filete-vivo);
+}
+
+.nota-titulo {
+  margin: 0 0 7px;
+  font-size: var(--t-cuerpo);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.nota-texto {
+  margin: 0;
+  font-size: var(--t-chico);
+  line-height: 1.65;
+  color: var(--luz-media);
+}
+
+.prueba-pie {
+  margin: 36px 0 0;
+  font-size: var(--t-fino);
+  color: var(--luz-apagada);
+}
+
+/* ── Control ────────────────────────────────────────────────────────────────
+   Tercera familia: línea de tiempo horizontal. El filete que une los estados se
+   INTERRUMPE en el hito de la decisión, y ahí va el ámbar. La línea es lo
+   automático; el corte es la persona. */
+
+.control {
+  padding: var(--aire) 0;
+  border-top: 1px solid var(--filete);
+}
+@media (min-width: 1024px) {
+  .control {
+    padding: var(--aire-lg) 0;
+  }
+}
+
+.control-cabeza {
+  margin-bottom: 56px;
+  max-width: 44rem;
+}
+.control-cabeza .titular {
+  max-width: 26ch;
+}
+
+.linea {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 34px;
+}
+@media (min-width: 900px) {
+  .linea {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+}
+
+.hito {
+  position: relative;
+  padding-top: 26px;
+  /* El filete corre por arriba de cada hito y es lo que los une. */
+  border-top: 1px solid var(--filete-vivo);
+}
+@media (min-width: 900px) {
+  .hito {
+    padding-right: 40px;
+  }
+}
+
+/* El hito de la decisión rompe la línea: su filete es ámbar y más grueso, así
+   que la fila queda visiblemente cortada a los costados. */
+.hito-decision {
+  border-top-color: var(--senal);
+  border-top-width: 3px;
+  padding-top: 24px;
+}
+
+.hito-cabeza {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.hito-estado {
+  font-size: var(--t-titulo);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.hito-decision .hito-estado {
+  color: var(--senal);
+}
+
+.hito-hora {
+  font-size: var(--t-fino);
+  color: var(--luz-apagada);
+}
+
+.hito-detalle {
+  margin: 0;
+  font-size: var(--t-chico);
+  line-height: 1.65;
+  color: var(--luz-media);
+  max-width: 30rem;
+}
+
+.garantias {
+  margin-top: 56px;
+  display: grid;
+  gap: 32px;
+}
+@media (min-width: 900px) {
+  .garantias {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+  }
+}
+
+.garantia {
+  padding-top: 18px;
+  border-top: 1px solid var(--filete);
+}
+
+.garantia-titulo {
+  margin: 0 0 8px;
+  font-size: var(--t-plomo);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.garantia-texto {
+  margin: 0;
+  font-size: var(--t-chico);
+  line-height: 1.65;
+  color: var(--luz-media);
+}
+
+.control-pie {
+  margin: 32px 0 0;
+  font-size: var(--t-fino);
+  color: var(--luz-apagada);
+}
+
+/* ── Límites ────────────────────────────────────────────────────────────────
+   Cuarta familia: pares de texto en grilla, sin superficie y sin objeto. La
+   sección más liviana de la página, entre las dos más densas. */
+
+.limites {
+  padding: var(--aire) 0;
+  border-top: 1px solid var(--filete);
+}
+@media (min-width: 1024px) {
+  .limites {
+    padding: var(--aire-lg) 0;
+  }
+}
+
+.limites-cabeza {
+  margin-bottom: 44px;
+}
+
+.limites-grilla {
+  margin: 0;
+  display: grid;
+  gap: 30px 48px;
+}
+@media (min-width: 700px) {
+  .limites-grilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .limites-grilla {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px 56px;
+  }
+}
+
+.limite-titulo {
+  margin: 0 0 7px;
+  font-size: var(--t-cuerpo);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.limite-texto {
+  margin: 0;
+  font-size: var(--t-chico);
+  line-height: 1.65;
+  color: var(--luz-media);
+}
+
+/* ── Planes ─────────────────────────────────────────────────────────────────
+   Quinta familia: una sola hoja partida en dos, no dos fichas hermanas
+   flotando. No son dos productos: es el mismo con una franja de más o de
+   menos, y la superficie compartida lo dice antes que el texto. */
+
+.planes {
+  padding: var(--aire) 0;
+  border-top: 1px solid var(--filete);
+}
+@media (min-width: 1024px) {
+  .planes {
+    padding: var(--aire-lg) 0;
+  }
+}
+
+.planes-cabeza {
+  margin-bottom: 40px;
+}
+
+.planes-hoja {
+  display: grid;
+  border: 1px solid var(--filete-vivo);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+@media (min-width: 860px) {
+  .planes-hoja {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.plan {
+  padding: 30px 26px 32px;
+  border-top: 1px solid var(--filete-vivo);
+}
+.plan:first-child {
+  border-top: 0;
+}
+@media (min-width: 860px) {
+  .plan {
+    padding: 38px 36px 40px;
+    border-top: 0;
+  }
+  .plan + .plan {
+    border-left: 1px solid var(--filete-vivo);
+  }
+}
+
+.plan-nombre {
+  margin: 0;
+  font-size: var(--t-marca);
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--luz-apagada);
+}
+
+.plan-precio {
+  margin: 14px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.plan-cifra {
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* La unidad NUNCA se separa del número: sin ella "USD 39" se lee como abono
+   fijo, que es un precio distinto del que se cobra. */
+.plan-unidad {
+  font-size: var(--t-chico);
+  color: var(--luz-media);
+}
+
+.plan-texto {
+  margin: 16px 0 0;
+  font-size: var(--t-chico);
+  line-height: 1.65;
+  color: var(--luz-media);
+  max-width: 30rem;
+}
+
+/* El macro del pie del informe. Fondo de hoja porque es un pedazo de documento
+   y no un bloque de la página: la regla del sistema es que la hoja es blanca. */
+.macro {
+  margin-top: 26px;
+}
+
+.macro-rotulo {
+  display: block;
+  margin-bottom: 10px;
+  font-size: var(--t-marca);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--luz-apagada);
+}
+
+.macro-hoja {
+  background: var(--hoja);
+  color: var(--grafito-suave);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  font-size: var(--t-fino);
+}
+
+.macro-firma {
+  margin: 0;
+}
+.macro-firma strong {
+  color: var(--grafito);
+  font-weight: 600;
+}
+
+.macro-franja {
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--filete-hoja);
+}
+
+/* El hueco que deja la franja cuando no está. Ocupa el mismo alto para que los
+   dos macros se comparen sin que uno salte: la diferencia entre planes tiene
+   que verse en el contenido, no en la altura de la caja. */
+.macro-vacio {
+  display: block;
+  margin: 10px 0 0;
+  /* Mismo alto exacto que `.macro-franja`: 10px de padding más la línea de
+     texto. Si los dos macros no miden igual, la diferencia entre planes se lee
+     en la altura de la caja en vez de en lo que dice el pie, que es lo único
+     que cambia de verdad. */
+  padding-top: 10px;
+  height: 17px;
+}
+
+.planes-pie {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 28px;
+}
+
+.planes-nota {
+  margin: 0;
+  flex: 1 1 22rem;
+  font-size: var(--t-fino);
+  line-height: 1.6;
+  color: var(--luz-apagada);
+}
+
+/* ── Preguntas ──────────────────────────────────────────────────────────────
+   Sexta familia: el titular es una celda de la misma grilla que los grupos, no
+   un hermano encima de una lista. Un filete por grupo, tres en toda la
+   sección: con uno por fila el ojo cuenta rayas en vez de leer preguntas. */
+
+.preguntas {
+  padding: var(--aire) 0;
+  border-top: 1px solid var(--filete);
+}
+@media (min-width: 1024px) {
+  .preguntas {
+    padding: var(--aire-lg) 0;
+  }
+}
+
+.preguntas-grilla {
+  display: grid;
+  gap: 36px;
+}
+@media (min-width: 900px) {
+  .preguntas-grilla {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 48px;
+  }
+}
+
+.preguntas-titular {
+  max-width: 30rem;
+}
+@media (min-width: 900px) {
+  .preguntas-titular {
+    grid-column: 1 / -1;
+    margin-bottom: 4px;
+  }
+}
+
+.grupo {
+  padding-top: 18px;
+  border-top: 1px solid var(--filete-vivo);
+}
+
+.grupo-titulo {
+  margin: 0 0 6px;
+  font-size: var(--t-plomo);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.pregunta {
+  border-bottom: 1px solid var(--filete);
+}
+.pregunta:last-child {
+  border-bottom: 0;
+}
+
+.pregunta summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  font-size: var(--t-cuerpo);
+  font-weight: 500;
+  line-height: 1.45;
+  cursor: pointer;
+  list-style: none;
+}
+.pregunta summary::-webkit-details-marker {
+  display: none;
+}
+
+/* La cruz, dibujada con dos gradientes y no con un SVG: es el único ícono de
+   todo el sitio y no justifica instalar una familia entera. */
+.cruz {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  margin-top: 5px;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  background-image:
+    linear-gradient(var(--luz-apagada), var(--luz-apagada)),
+    linear-gradient(var(--luz-apagada), var(--luz-apagada));
+  background-size:
+    100% 1px,
+    1px 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.pregunta[open] .cruz {
+  transform: rotate(45deg);
+}
+
+.pregunta p {
+  margin: 0;
+  padding: 0 24px 18px 0;
+  font-size: var(--t-chico);
+  line-height: 1.7;
+  color: var(--luz-media);
+}
+
+/* ── Cierre ─────────────────────────────────────────────────────────────────
+   Séptima familia, y la única centrada de la página: acá el mensaje ES el
+   diseño y no hay un segundo elemento que la asimetría deba balancear. */
+
+.cierre {
+  padding: var(--aire) 0;
+  border-top: 1px solid var(--filete);
+}
+@media (min-width: 1024px) {
+  .cierre {
+    padding: var(--aire-lg) 0 calc(var(--aire-lg) + 8px);
+  }
+}
+
+.cierre-caja {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+
+.cierre-titular {
+  margin: 0;
+  max-width: 18ch;
+  font-size: var(--t-titular);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.cierre-bajada {
+  margin: 0;
+  max-width: 34rem;
+  font-size: var(--t-plomo);
+  color: var(--luz-media);
+}
+
+.cierre-fina {
+  margin: 0;
+  font-size: var(--t-fino);
+  color: var(--luz-apagada);
+}
+
+/* ── Pie ────────────────────────────────────────────────────────────────────*/
+
+.pie {
+  padding: 40px 0 48px;
+  border-top: 1px solid var(--filete);
+}
+
+.pie-grilla {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px 40px;
+}
+
+.pie-linea {
+  margin: 8px 0 0;
+  max-width: 26rem;
+  font-size: var(--t-fino);
+  color: var(--luz-apagada);
+}
+
+.pie-enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+/* 44px de blanco táctil: es el piso, no una sugerencia. */
+.pie-enlaces a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--t-fino);
+  color: var(--luz-media);
+  text-decoration: none;
+  transition: color 140ms ease-out;
+}
+.pie-enlaces a:hover {
+  color: var(--luz);
+}

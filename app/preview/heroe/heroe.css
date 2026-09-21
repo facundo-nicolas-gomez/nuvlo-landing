@@ -1,0 +1,711 @@
+/**
+ * TRES HÉROES PARA COMPARAR (18/09/2026).
+ *
+ * El dueño pidió «diseños diferentes» después de que una misma composición
+ * —argumento al lado del objeto— se iterara seis veces sin convencer. Así que
+ * acá no hay tres versiones de un layout: hay tres ideas distintas de QUÉ ES el
+ * héroe, y cada una se puede mirar entera.
+ *
+ * Corren el sistema vigente: esta ruta no trae tipografía ni paleta propia, usa
+ * `.iris` de `app/estilos/` como la home. Lo único que agrega es la composición
+ * de cada dirección, scopeada en `[data-var]` para que no se contaminen.
+ *
+ * Es material de comparación. Nada de acá se cita como referencia ni se copia a
+ * la home sin que el dueño elija: eso vale para las nueve direcciones
+ * históricas de `/preview` y vale para ésta.
+ */
+
+.p-barra {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--color-noche);
+  color: var(--color-sobre-noche);
+  font-size: 13px;
+}
+
+.p-barra a {
+  padding: 5px 12px;
+  border-radius: var(--radius-int);
+  background: rgb(255 255 255 / 0.1);
+  color: inherit;
+  text-decoration: none;
+}
+
+.p-barra a:hover {
+  background: rgb(255 255 255 / 0.2);
+}
+
+.p-rotulo {
+  margin-right: auto;
+  opacity: 0.66;
+}
+
+/* Cada dirección arranca con su nombre y su tesis, fuera del héroe: es material
+   de comparación, no la página. */
+.p-ficha {
+  padding: 40px 40px 0;
+  background: var(--campo-heroe);
+}
+
+.p-ficha h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-acento);
+}
+
+.p-ficha p {
+  margin: 8px 0 0;
+  max-width: 44rem;
+  font-size: 15px;
+  color: var(--color-tinta-2);
+}
+
+.p-heroe {
+  position: relative;
+  overflow: hidden;
+  padding: 48px 40px 0;
+  background: var(--campo-heroe);
+  border-bottom: 1px solid var(--color-filete-fuerte);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   1 · EL DOCUMENTO ES LA PÁGINA
+
+   Se va el marco de navegador. Lo que se vende es el entregable, así que el
+   entregable ocupa el héroe y no una ilustración de una ventana que lo
+   contiene. La URL —que es la prueba de que existe un enlace público— baja a
+   una línea de texto debajo del CTA, que es donde puede leerse.
+   ══════════════════════════════════════════════════════════════════════════ */
+[data-var="1"] .p-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 27rem) minmax(0, 1fr);
+  column-gap: 64px;
+  align-items: start;
+}
+
+[data-var="1"] .p-papel {
+  position: relative;
+  height: 560px;
+  overflow: hidden;
+}
+
+/* La hoja, sola: filete, radio arriba y sombra de hoja. Sin bandeja, sin cromo
+   y sin página gris alrededor: es papel apoyado en el campo. */
+[data-var="1"] .p-papel .i-doc {
+  border: 1px solid var(--color-filete);
+  border-bottom: 0;
+  border-radius: var(--radius-hoja) var(--radius-hoja) 0 0;
+  background: var(--color-hoja);
+  box-shadow: var(--shadow-hoja);
+}
+
+[data-var="1"] .p-url {
+  margin: 16px 0 0;
+  font-size: 13px;
+  color: var(--color-tinta-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   2 · COMO LO ABRE EL CLIENTE
+
+   El héroe no muestra la herramienta: muestra el momento en que el informe
+   LLEGA. Es literal la promesa del titular —«el informe escrito que le llega»—
+   y es la única dirección donde aparece una persona del otro lado.
+   ══════════════════════════════════════════════════════════════════════════ */
+[data-var="2"] .p-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 72px;
+  align-items: center;
+}
+
+[data-var="2"] .p-telefono {
+  height: 560px;
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   3 · EL GESTO
+
+   Lo que ninguna otra herramienta puede mostrar es que NADA SALE sin que una
+   persona lo apruebe. Acá el informe es el fondo y la aprobación es el objeto:
+   el botón del héroe no es «Empezar gratis», es «Aprobar y enviar», y la
+   dirección de la barra cambia cuando lo apretás.
+   ══════════════════════════════════════════════════════════════════════════ */
+[data-var="3"] .p-escena {
+  position: relative;
+  height: 600px;
+  margin-top: 40px;
+  overflow: hidden;
+}
+
+[data-var="3"] .p-detras {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 720px;
+}
+
+/* El informe se corre atrás: sigue siendo legible —es la prueba— pero deja de
+   competir con lo que hay que hacer. Sin desenfoque: un informe borroso es un
+   informe que no se puede juzgar, y juzgarlo es todo el argumento. */
+[data-var="3"] .p-detras .i-doc {
+  opacity: 0.55;
+}
+
+[data-var="3"] .p-gesto {
+  position: absolute;
+  left: 50%;
+  bottom: 96px;
+  translate: -50% 0;
+  width: min(520px, calc(100% - 80px));
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   4 · EL ESCENARIO (Superhuman)
+
+   Medido en su página: el `body` es blanco y el héroe es un BLOQUE acotado de
+   650px de alto con un degradé oscuro, argumento a la izquierda y producto a la
+   derecha sangrando por abajo. O sea: el héroe es un objeto sobre la página, no
+   la página.
+
+   Acá el escenario es de noche —la superficie que el sistema ya tiene, con sus
+   tokens— y adentro va el documento de la dirección 1. El documento blanco
+   sobre noche es el máximo escalón de valor que existe: deja de leerse como
+   tarjeta pegada y pasa a leerse como iluminado. Sin una gota de color, que es
+   lo que se rechazó ocho veces.
+
+   Lo que NO se copia es el degradé a vino: el acento de este sistema es lo
+   accionable y como campo compite con el único CTA. La noche va plana, como en
+   las otras tres secciones oscuras.
+   ══════════════════════════════════════════════════════════════════════════ */
+[data-var="4"] .p-heroe {
+  padding: 0;
+  background: var(--color-campo);
+  border-bottom: 0;
+}
+
+[data-var="4"] .p-escenario {
+  position: relative;
+  overflow: hidden;
+  /* Más relleno y menos alto: el escenario de Superhuman mide 650 y el nuestro
+     medía 864. Lo que hace que se lea sofisticado no es el tamaño del bloque
+     sino cuánto aire tiene alrededor lo que hay adentro. */
+  /* Relleno parejo salvo abajo, que es por donde el documento se corta. Primero
+     se le sacó el relleno derecho creyendo que la captura de Superhuman sangraba
+     por ahí; se volvió a medir y NO: termina en 1353 con el escenario en 1425.
+     Lo único que corta es el borde de abajo (801px de video en 650 de
+     escenario). El corte es vertical, no lateral. */
+  padding: 64px 64px 0;
+  border-radius: var(--radius-bandeja);
+  margin: 0 40px;
+  /* ── COLOR, CONTRASTE Y PROFUNDIDAD (dueño, 19/09/2026) ──────────────────
+     Superhuman no tiene el escenario plano: es
+     `linear-gradient(to right, rgb(20 20 19), rgb(66 29 36))` —de casi negro a
+     un vino muy oscuro— y encima la captura se apoya sobre una imagen. Ese
+     degradé es lo que le da color y profundidad sin que nada compita con el
+     texto, porque los dos extremos son oscuros.
+
+     Acá el recorrido va de la noche a un petróleo muy oscuro: es el acento del
+     sistema, pero a esta luminancia (`#12333a`, L=0,03) no puede competir con
+     el CTA, que fue el motivo por el que se rechazaron los tratamientos 1 a 3
+     del héroe. Aquéllos ponían el acento como CAMPO CLARO, al lado del botón;
+     éste lo pone como sombra de un escenario oscuro.
+
+     El segundo plano es el resplandor detrás del documento: una elipse clara
+     al 6% donde se apoya el papel. Eso es la profundidad —el objeto está
+     iluminado, no pegado— y es lo que la página clara no podía dar. */
+  background:
+    radial-gradient(
+      ellipse 52% 60% at 72% 34%,
+      rgb(233 235 223 / 0.07) 0%,
+      transparent 68%
+    ),
+    linear-gradient(104deg, var(--noche-honda) 0%, #12333a 100%);
+}
+
+/* ── LA ESCALA, MEDIDA CONTRA SUPERHUMAN (dueño, 19/09/2026: «todo se ve más
+   chico y sofisticado; el nuestro se ve grotesco») ─────────────────────────
+   Los números de su héroe: titular 49px con **peso 460**, interlínea 1,2 y
+   tracking −0,027em; botón y listas a 14px. El nuestro venía a 72px con peso
+   600 e interlínea 1,0, o sea 47% más grande y muchísimo más pesado.
+
+   Lo grotesco no era el tamaño solo: era la COMBINACIÓN. 72 a peso 600 con
+   interlínea 1 es una losa; 49 a peso 460 con 1,2 respira. Acá el titular baja
+   a 47 y a peso 500 —Geist a 460 no tiene corte, y 500 es el escalón que más
+   se le acerca sin irse a regular— y la interlínea sube a 1,15. */
+/* ── EL TRAZO, EXACTO (dueño, 19/09/2026: «trazo más fino, no apilado») ─────
+   Dije que Geist no tenía corte 460 y era falso: se midió y **es variable** —
+   ocho pesos dan ocho anchos distintos—, así que va el 460 de Superhuman, no
+   una aproximación. La diferencia entre 500 y 460 a 47px es la que separa
+   «sólido» de «delicado», que es la palabra que usó el dueño.
+
+   Y deja de estar apilado: con la columna en 26rem el titular caía en CUATRO
+   renglones. Sube a 38rem y quedan tres —dos de la primera oración, uno de la
+   segunda—, con el límite de oración cayendo donde tiene que caer. Dos no se
+   pueden: la primera oración tiene 32 caracteres y a 47px pide 780px de
+   columna, que no sobran adentro del escenario. */
+/* ── DOS RENGLONES, Y MÁS FINO TODAVÍA (dueño, 19/09/2026) ─────────────────
+   A 47px la primera oración medía 608 en una columna de 608: entraba por un
+   pelo y no entraba, así que caía en dos renglones y el titular quedaba en
+   tres. A 44 mide 570 y entra —uno por oración, dos en total— sin tocar la
+   columna, que es lo que hay que cuidar porque de ahí sale el ancho del
+   documento.
+
+   El peso baja de 460 a 420. Geist es variable, así que 420 es un corte real y
+   no una aproximación; es más fino que el 460 de Superhuman, que es lo que el
+   dueño pidió. Por debajo de 400 el titular deja de tener autoridad a este
+   cuerpo: el trazo se adelgaza hasta parecer texto de párrafo agrandado. */
+[data-var="4"] .i-portada {
+  font-size: 2.75rem;
+  font-weight: 420;
+  line-height: 1.15;
+  letter-spacing: -0.027em;
+}
+
+[data-var="4"] .i-portada-rotulo {
+  font-size: 0.6875rem;
+}
+
+[data-var="4"] .i-portada-bajada {
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 30rem;
+}
+
+[data-var="4"] .p-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 38rem) minmax(0, 1fr);
+  column-gap: 48px;
+  align-items: start;
+}
+
+/* El papel sangra por abajo: el escenario lo recorta y el informe sigue. */
+[data-var="4"] .p-papel {
+  position: relative;
+  height: 520px;
+  overflow: hidden;
+}
+
+/* ── EL DOCUMENTO SE ACHICA, Y ES UN CAMBIO DE DOCTRINA (dueño, 19/09/2026) ──
+   `documento.css` dice «se recorta, nunca se encoge — un documento miniaturizado
+   se lee como captura pegada», y el cuerpo de 16 es justo lo que el cliente lee.
+   Esa regla se escribió cuando el documento era LA SUPERFICIE DE LECTURA del
+   héroe. Acá es el artefacto adentro de un escenario, que es otro trabajo: lo
+   que tiene que hacer es reconocerse, no leerse renglón por renglón.
+
+   A 1:1 el nombre del cliente medía 34px contra un titular de 47, o sea que el
+   mockup competía con la afirmación de la página. A 0,78 queda en 26,5 y el
+   cuerpo en 12,5 —el orden de magnitud de la captura de Superhuman— y la
+   jerarquía se ordena: primero lo que la página afirma, después la prueba.
+
+   `scale` y no un cuerpo más chico: el documento tiene sus medidas en px y
+   reproduce las del panel, así que bajarle el cuerpo lo desalinearía del
+   reporte real. Escalado, el documento sigue siendo el mismo: lo que cambia es
+   a qué distancia se lo mira. */
+/* ── VUELVE EL MARCO (dueño, 19/09/2026: «no quedó coherente con el resto») ──
+   Se le había sacado el cromo y el radio copiando a Superhuman, que muestra su
+   UI pelada. Pero acá eso rompe el sitio: en TODAS las demás superficies —el
+   héroe viejo, La lectura, El entregable— el informe se muestra adentro de la
+   ventana, y la ventana además carga la URL, que es la prueba del gesto. Copiar
+   un recurso ajeno no puede costar la coherencia del propio.
+
+   La ventana entera se escala, no el documento: así el cromo, el papel y el
+   informe mantienen entre sí las proporciones del objeto real. */
+[data-var="4"] .p-ventana {
+  position: relative;
+  width: 860px;
+  transform: scale(0.78);
+  transform-origin: top left;
+}
+
+/* El marco vive suelto acá, no adentro del recorte del héroe, así que se le
+   quita el posicionamiento absoluto que tiene en la home. */
+[data-var="4"] .p-ventana .i-ventana {
+  position: static;
+  width: 100%;
+}
+
+[data-var="4"] .p-ventana .i-ventana-papel {
+  height: 640px;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/* ── EL CAMPO DE ATRÁS ──────────────────────────────────────────────────────
+   Superhuman apoya su captura sobre un campo de color desenfocado, y eso es lo
+   que la despega del escenario sin darle un marco más. Acá son dos flores de
+   luz: una fría en el petróleo del sistema, arriba a la izquierda del objeto, y
+   una tibia muy tenue abajo a la derecha. Las dos a opacidad baja sobre la
+   noche, o sea que no son color plano: son LUZ, que es lo que un objeto
+   iluminado necesita atrás.
+
+   No compiten con el CTA —el motivo por el que se rechazaron los tratamientos
+   1 a 3 del héroe— porque no son campo claro al lado del botón: son manchas
+   oscuras sobre un escenario oscuro. */
+[data-var="4"] .p-resplandor {
+  position: absolute;
+  inset: -80px -120px -40px -160px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 42% 46% at 26% 18%,
+      rgb(94 214 226 / 0.16) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 38% 42% at 88% 84%,
+      rgb(233 198 150 / 0.1) 0%,
+      transparent 72%
+    );
+  filter: blur(18px);
+}
+
+[data-var="4"] .p-papel {
+  position: relative;
+  height: 560px;
+  overflow: visible;
+}
+
+/* La ventana por encima del resplandor. */
+[data-var="4"] .p-ventana,
+[data-var="4"] .p-flota {
+  position: relative;
+  z-index: 2;
+}
+
+/* Pisa el canto izquierdo del documento y se apoya sobre la noche: es el plano
+   de adelante. Sombra larga, que acá SÍ separa —cae sobre el papel y sobre el
+   escenario, que son las dos superficies que tiene debajo—. */
+[data-var="4"] .p-flota {
+  position: absolute;
+  left: -72px;
+  bottom: 56px;
+  z-index: 3;
+  width: 340px;
+  box-shadow: var(--shadow-flota);
+  border-radius: var(--radius-hoja);
+}
+
+[data-var="4"] .p-url {
+  margin: 20px 0 0;
+  font-size: 13px;
+  color: var(--color-sobre-noche-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   5 · TRES CAPAS (brief del dueño, 19/09/2026)
+
+   Boceto de COMPOSICIÓN. Resuelve las tres capas y el solape, que es lo que el
+   brief pidió mirar antes de pulir. La jerarquía sale del contraste entre
+   capas, no del tamaño:
+
+     atrás    mesh gradient saturado, blur fuerte
+     medio    el tablero de Meta Ads, lavado y recortado
+     adelante una card nítida con sombra grande, que ROMPE el canto de la
+              ventana y se sale hacia el gradiente
+
+   Si la card queda contenida adentro de la ventana, se aplana todo: el solape
+   es el que da la profundidad.
+   ══════════════════════════════════════════════════════════════════════════ */
+[data-var="5"] .p-heroe {
+  padding: 0;
+  background: var(--color-campo);
+  border-bottom: 0;
+}
+
+[data-var="5"] .p-escenario {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 0 64px;
+  border-radius: var(--radius-bandeja);
+  margin: 0 40px;
+  background: #0b0b14;
+}
+
+[data-var="5"] .p-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 30rem) minmax(0, 1fr);
+  column-gap: 48px;
+  align-items: start;
+  min-height: 560px;
+}
+
+/* ── LA COLUMNA, SOBRIA ──────────────────────────────────────────────────── */
+[data-var="5"] .i-portada {
+  font-size: 2.75rem;
+  font-weight: 420;
+  line-height: 1.15;
+  letter-spacing: -0.027em;
+}
+
+/* Bitono: la primera afirmación en gris, la segunda —la que carga la promesa—
+   en blanco. Es lo que hace Superhuman con el nombre del producto. */
+[data-var="5"] .i-portada-frase:first-of-type {
+  color: rgb(255 255 255 / 0.45);
+}
+
+[data-var="5"] .i-portada-frase:last-of-type {
+  color: #ffffff;
+}
+
+[data-var="5"] .c-acciones {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 28px;
+}
+
+[data-var="5"] .c-secundario {
+  color: rgb(255 255 255 / 0.62);
+  font-size: 0.9375rem;
+  text-decoration: none;
+}
+
+/* Las pestañas de features, pegadas al borde de abajo. */
+[data-var="5"] .c-tabs {
+  position: absolute;
+  bottom: 0;
+  left: 64px;
+  width: 30rem;
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+}
+
+[data-var="5"] .c-tab {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 16px;
+  padding: 13px 0;
+  font-size: 0.8125rem;
+  color: rgb(255 255 255 / 0.5);
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+}
+
+[data-var="5"] .c-tab strong {
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.9);
+}
+
+/* ══ LA PIEZA: LAS TRES CAPAS ══════════════════════════════════════════════ */
+[data-var="5"] .c-pieza {
+  position: relative;
+  height: 560px;
+}
+
+/* 1 · EL MESH, SATURADO Y DESENFOCADO.
+   Índigo, magenta-rojo y azul eléctrico. El blur fuerte es lo que lo vuelve
+   campo y no figura: sin él son tres manchas: con él es luz. */
+[data-var="5"] .c-mesh {
+  position: absolute;
+  inset: -80px -40px -80px -80px;
+  background:
+    radial-gradient(ellipse 46% 52% at 22% 26%, #4f2bd9 0%, transparent 62%),
+    radial-gradient(ellipse 42% 48% at 74% 18%, #d61f6a 0%, transparent 60%),
+    radial-gradient(ellipse 52% 56% at 62% 82%, #1f6bff 0%, transparent 64%),
+    radial-gradient(ellipse 40% 40% at 96% 58%, #8b1fd6 0%, transparent 62%);
+  filter: blur(56px);
+  opacity: 0.92;
+}
+
+/* 2 · LA VENTANA, LAVADA Y RECORTADA.
+   Sangra por el canto derecho y por el de abajo del panel: nunca se la ve
+   entera. Y va lavada —opacidad y contraste bajos— porque es CONTEXTO: si se
+   entiende cada número, compite con la card y la jerarquía se pierde. */
+[data-var="5"] .c-ventana {
+  position: absolute;
+  top: 40px;
+  left: 96px;
+  right: -180px;
+  bottom: -120px;
+  border-radius: var(--radius-hoja) 0 0 0;
+  background: rgb(255 255 255 / 0.9);
+  overflow: hidden;
+  opacity: 0.52;
+  filter: contrast(0.72) saturate(0.6);
+  box-shadow: 0 40px 90px -30px rgb(0 0 0 / 0.5);
+}
+
+[data-var="5"] .c-tablero {
+  padding: 18px 22px;
+  color: #101519;
+  font-size: 12px;
+}
+
+[data-var="5"] .c-tablero-barra {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgb(16 21 25 / 0.12);
+}
+
+[data-var="5"] .c-tablero-marca {
+  font-weight: 600;
+}
+
+[data-var="5"] .c-tablero-cuenta {
+  color: rgb(16 21 25 / 0.55);
+}
+
+[data-var="5"] .c-tablero-cifras {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 14px 0;
+  background: rgb(16 21 25 / 0.1);
+  border: 1px solid rgb(16 21 25 / 0.1);
+}
+
+[data-var="5"] .c-tablero-cifra {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  background: #ffffff;
+  font-size: 11px;
+  color: rgb(16 21 25 / 0.55);
+}
+
+[data-var="5"] .c-tablero-cifra strong {
+  font-size: 17px;
+  font-weight: 600;
+  color: #101519;
+}
+
+[data-var="5"] .c-tablero-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+[data-var="5"] .c-tablero-tabla th {
+  padding: 8px 10px;
+  text-align: right;
+  font-weight: 600;
+  color: rgb(16 21 25 / 0.5);
+  border-bottom: 1px solid rgb(16 21 25 / 0.12);
+}
+
+[data-var="5"] .c-tablero-tabla td {
+  padding: 9px 10px;
+  text-align: right;
+  border-bottom: 1px solid rgb(16 21 25 / 0.08);
+}
+
+[data-var="5"] .c-tablero-tabla th:first-child,
+[data-var="5"] .c-tablero-tabla td:first-child {
+  text-align: left;
+}
+
+/* 3 · LA CARD, NÍTIDA Y SOLAPADA.
+   Rompe el canto izquierdo de la ventana y se sale hacia el gradiente: ese
+   solape es la profundidad. Contenida adentro de la ventana, se aplana todo.
+   Sombra grande, que es lo que la separa de las dos capas de atrás. */
+[data-var="5"] .c-card {
+  position: absolute;
+  left: -32px;
+  bottom: 64px;
+  z-index: 3;
+  width: 420px;
+  padding: 22px 24px 24px;
+  border-radius: var(--radius-hoja);
+  background: #ffffff;
+  box-shadow:
+    0 2px 6px rgb(0 0 0 / 0.12),
+    0 40px 80px -20px rgb(0 0 0 / 0.55);
+}
+
+[data-var="5"] .c-card-rotulo {
+  margin: 0 0 12px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgb(16 21 25 / 0.45);
+}
+
+/* El relleno de gradiente marca el frente de escritura: el texto ya escrito va
+   en tinta y lo último en azul, que es por donde va la máquina. */
+[data-var="5"] .c-card-texto {
+  margin: 0;
+  min-height: 7.5em;
+  font-size: 15px;
+  line-height: 1.55;
+  background: linear-gradient(100deg, #101519 0%, #101519 62%, #1f6bff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── AJUSTES DEL BRIEF AMPLIADO (dueño, 19/09/2026) ──────────────────────────
+   El brief agregó especificaciones que el primer boceto no tenía: el bitono al
+   65% (no 45), el titular a 49/1,2 con peso medio, el CTA y el link secundario
+   en LAVANDA, y los tabs como carrusel con barra de progreso en el canto de
+   arriba del activo. Acá va el frame estático del slide 1.
+
+   ── LA LAVANDA NO ES DEL SISTEMA, Y HAY QUE DECIRLO ────────────────────────
+   El acento de Nuvlo es petróleo `#0f5f6b` y es lo único saturado de la página:
+   marca lo accionable. Una lavanda de marca distinta en el CTA del héroe es un
+   segundo acento, y el sitio pasa a tener dos. El brief la pide y el brief
+   manda, pero la consecuencia es de sistema, no de esta sección: si el slide 1
+   queda, hay que decidir si la lavanda entra a la paleta o si el CTA vuelve al
+   petróleo con el gradiente haciendo el color. */
+[data-var="5"] .i-portada {
+  font-size: 3.0625rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.028em;
+}
+
+[data-var="5"] .i-portada-frase:first-of-type {
+  color: rgb(255 255 255 / 0.65);
+}
+
+/* El CTA lavanda, con su link secundario del mismo tono. */
+[data-var="5"] .c-acciones .i-boton {
+  background: #c3b2f7;
+  color: #1a1235;
+  border-color: transparent;
+}
+
+[data-var="5"] .c-secundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #c3b2f7;
+}
+
+/* ── LOS TABS, COMO CARRUSEL ────────────────────────────────────────────────
+   Tres slides, uno por feature. El activo lleva una barra de progreso en su
+   canto de arriba; acá va congelada a mitad de recorrido porque esto es un
+   frame estático — el motion viene después, si la composición cierra. */
+[data-var="5"] .c-tab {
+  position: relative;
+  transition: color 0.3s var(--ease-nuvlo);
+}
+
+[data-var="5"] .c-tab[data-activo] {
+  color: rgb(255 255 255 / 0.78);
+}
+
+[data-var="5"] .c-tab[data-activo] strong {
+  color: #ffffff;
+}
+
+[data-var="5"] .c-tab[data-activo]::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 46%;
+  height: 2px;
+  background: #c3b2f7;
+}

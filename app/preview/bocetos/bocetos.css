@@ -1,0 +1,693 @@
+/**
+ * BOCETOS · C · PIEZAS
+ *
+ * Hoja del documento de bocetos, no del sitio. Lo que se aprueba acá es la
+ * COMPOSICIÓN de cada sección y el sistema visual; el sitio se construye después
+ * con su propia hoja.
+ *
+ * Los bloques esquemáticos llevan contorno punteado a propósito: un boceto tiene
+ * que verse como boceto.
+ */
+
+.bocetos {
+  /* ── EL SISTEMA VISUAL, DEFINIDO ACÁ Y NO HEREDADO DEL PANEL ──────────────
+     El dueño fijó que del panel sale sólo el producto. Estos valores son
+     nuevos, y el panel se acopla a ellos después. */
+
+  /* Campo: dos neutros cálidos y un negro que no es negro. Warm sin caer en
+     crema: la saturación no pasa de 4 puntos. */
+  --hueso: #f7f4f0;
+  --hueso-alto: #fdfbf9;
+  --hueso-bajo: #e9e4dd;
+  --hoja: #ffffff;
+
+  --carbon: #17140f;
+  --carbon-alto: #221e18;
+  --carbon-linea: #35302a;
+
+  --tinta: #17140f;
+  --tinta-media: #5d564c;
+  --tinta-suave: #6b6357;
+  --linea: #e2dcd3;
+  --linea-viva: #cec6ba;
+
+  --tinta-noche: #f7f4f0;
+  --tinta-noche-media: #b0a89b;
+  --tinta-noche-suave: #8d8578;
+
+  /* ACCIÓN: bermellón. Es el único color que empuja a hacer algo, y no lo usa
+     ningún estado del producto, así que nunca se confunde con uno. Alto croma,
+     cálido, y raro en B2B: ahí está la personalidad. */
+  --accion: #d93a11;
+  --accion-viva: #f04a1e;
+  --accion-tenue: #fdeee8;
+
+  /* ESTADOS DEL PRODUCTO. Salen del comportamiento real (`ReportStatus`), no de
+     la paleta. El ámbar se mantiene amarillo y de croma bajo justamente para no
+     pelearse con el bermellón de acción. */
+  --e-pendiente: #6b6357;
+  --e-procesando: #1f5fbf;
+  --e-borrador: #9a6b04;
+  --e-enviado: #0d6b4a;
+  --e-fallo: #a32a1c;
+
+  --r-objeto: 14px;
+  --r-superficie: 10px;
+  --r-control: 8px;
+  --r-pastilla: 999px;
+
+  --display: var(--f-display), system-ui, sans-serif;
+  --mono: var(--f-mono), ui-monospace, monospace;
+
+  background: var(--hueso);
+  color: var(--tinta);
+  font-family: var(--display);
+  font-variation-settings: "wdth" 100;
+  min-height: 100dvh;
+}
+
+body:has(.bocetos) {
+  background: #f7f4f0;
+}
+
+.bocetos .cifra {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Chrome del documento de bocetos ────────────────────────────────────────*/
+
+.bo-marco {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.bo-cab {
+  padding: 56px 0 8px;
+}
+
+.bo-kicker {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accion);
+}
+
+.bo-titulo {
+  margin: 14px 0 0;
+  font-size: clamp(2.25rem, 4.4vw, 3.5rem);
+  font-weight: 700;
+  font-variation-settings: "wdth" 112;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.bo-intro {
+  margin: 18px 0 0;
+  max-width: 34rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+.bo-aviso {
+  margin: 28px 0 0;
+  padding: 14px 16px;
+  border-left: 2px solid var(--accion);
+  background: var(--accion-tenue);
+  border-radius: 0 var(--r-superficie) var(--r-superficie) 0;
+  max-width: 40rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+/* ── El sistema ─────────────────────────────────────────────────────────────*/
+
+.bo-sistema {
+  margin-top: 64px;
+  padding: 36px 0 12px;
+  border-top: 1px solid var(--linea-viva);
+}
+
+.bo-h2 {
+  margin: 0 0 24px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variation-settings: "wdth" 108;
+  letter-spacing: -0.03em;
+}
+
+.bo-h3 {
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.bo-bloques {
+  display: grid;
+  gap: 40px;
+}
+@media (min-width: 900px) {
+  .bo-bloques {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px 56px;
+  }
+}
+
+/* Espécimen tipográfico */
+.bo-espec {
+  display: grid;
+  gap: 14px;
+}
+
+.bo-linea-tipo {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.bo-linea-tipo b {
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.bo-tipo-nota {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  color: var(--tinta-suave);
+  white-space: nowrap;
+}
+
+.bo-d1 {
+  font-size: 3rem;
+  font-variation-settings: "wdth" 112;
+}
+.bo-d2 {
+  font-size: 1.75rem;
+  font-variation-settings: "wdth" 108;
+}
+.bo-d3 {
+  font-size: 1.0625rem;
+  font-weight: 400 !important;
+}
+.bo-d4 {
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  font-weight: 400 !important;
+}
+
+/* Paleta */
+.bo-paleta {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+  gap: 10px;
+}
+
+.bo-tono {
+  border-radius: var(--r-superficie);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgb(23 20 15 / 0.08);
+}
+
+.bo-tono-muestra {
+  height: 56px;
+}
+
+.bo-tono-pie {
+  padding: 8px 10px 10px;
+  background: var(--hoja);
+}
+
+.bo-tono-nombre {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.bo-tono-rol {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  color: var(--tinta-suave);
+}
+
+/* Piezas de muestra del sistema */
+.bo-muestras {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.bo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--r-control);
+  background: var(--accion);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border: 0;
+  cursor: default;
+  transition:
+    background-color 160ms ease-out,
+    transform 120ms ease-out,
+    box-shadow 160ms ease-out;
+  box-shadow: 0 1px 2px rgb(23 20 15 / 0.1);
+}
+.bo-btn:hover {
+  background: var(--accion-viva);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px -6px rgb(217 58 17 / 0.5);
+}
+.bo-btn:active {
+  transform: translateY(0);
+}
+
+.bo-btn-2 {
+  background: var(--hoja);
+  color: var(--tinta);
+  box-shadow: 0 0 0 1px var(--linea-viva);
+}
+.bo-btn-2:hover {
+  background: var(--hoja);
+  box-shadow: 0 0 0 1px var(--tinta-media);
+}
+
+.bo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--r-pastilla);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--hoja);
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+.bo-chip i {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.bo-chip-pendiente {
+  color: var(--e-pendiente);
+}
+.bo-chip-procesando {
+  color: var(--e-procesando);
+}
+.bo-chip-borrador {
+  color: var(--e-borrador);
+}
+.bo-chip-enviado {
+  color: var(--e-enviado);
+}
+.bo-chip-fallo {
+  color: var(--e-fallo);
+}
+
+/* ── Los bocetos de sección ─────────────────────────────────────────────────*/
+
+.bo-secciones {
+  margin-top: 72px;
+  padding-top: 36px;
+  border-top: 1px solid var(--linea-viva);
+  padding-bottom: 120px;
+}
+
+.bo-sec {
+  margin-top: 56px;
+}
+
+.bo-sec-cab {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.bo-sec-n {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accion);
+}
+
+.bo-sec-nombre {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variation-settings: "wdth" 108;
+  letter-spacing: -0.025em;
+}
+
+.bo-sec-fondo {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--r-pastilla);
+  background: var(--hueso-bajo);
+  color: var(--tinta-suave);
+}
+.bo-sec-fondo[data-t="oscuro"] {
+  background: var(--carbon);
+  color: var(--tinta-noche-media);
+}
+
+.bo-sec-arg {
+  margin: 0 0 18px;
+  max-width: 44rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+/* El lienzo donde se dibuja la composición */
+.bo-lienzo {
+  position: relative;
+  padding: 22px;
+  border-radius: var(--r-objeto);
+  background: var(--hueso-alto);
+  box-shadow: inset 0 0 0 1px var(--linea);
+  overflow: hidden;
+}
+.bo-lienzo[data-t="oscuro"] {
+  background: var(--carbon);
+  box-shadow: inset 0 0 0 1px var(--carbon-linea);
+  color: var(--tinta-noche);
+}
+
+/* Pieza esquemática: el ladrillo de todo boceto. */
+.p {
+  position: relative;
+  border-radius: var(--r-superficie);
+  border: 1px dashed var(--linea-viva);
+  background: var(--hoja);
+  padding: 12px 14px;
+  min-height: 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  transition:
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 200ms ease-out;
+}
+.bo-lienzo[data-t="oscuro"] .p {
+  border-color: var(--carbon-linea);
+  background: var(--carbon-alto);
+}
+
+/* La interacción que va a tener el sitio, mostrada ya en el boceto. */
+.p:hover {
+  transform: translateY(-2px);
+  border-color: var(--accion);
+  box-shadow: 0 10px 24px -12px rgb(23 20 15 / 0.35);
+}
+
+.p-t {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.p-d {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--tinta-suave);
+}
+.bo-lienzo[data-t="oscuro"] .p-d {
+  color: var(--tinta-noche-suave);
+}
+
+/* Pieza que representa el objeto protagonista de la sección. */
+.p-fuerte {
+  border-style: solid;
+  border-color: var(--tinta);
+}
+.bo-lienzo[data-t="oscuro"] .p-fuerte {
+  border-color: var(--tinta-noche-media);
+}
+
+/* Pieza que en el sitio lleva el color de acción. */
+.p-accion {
+  border-style: solid;
+  border-color: var(--accion);
+  background: var(--accion-tenue);
+}
+.bo-lienzo[data-t="oscuro"] .p-accion {
+  background: rgb(217 58 17 / 0.14);
+  border-color: var(--accion-viva);
+}
+
+/* Texto simulado: barras, para que se lea la jerarquía y no el contenido. */
+.b {
+  display: block;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--linea-viva);
+}
+.bo-lienzo[data-t="oscuro"] .b {
+  background: var(--carbon-linea);
+}
+.b-xl {
+  height: 30px;
+  background: var(--tinta);
+}
+.bo-lienzo[data-t="oscuro"] .b-xl {
+  background: var(--tinta-noche);
+}
+.b-l {
+  height: 18px;
+  background: var(--tinta-media);
+}
+.bo-lienzo[data-t="oscuro"] .b-l {
+  background: var(--tinta-noche-media);
+}
+.b + .b {
+  margin-top: 7px;
+}
+
+/* Rótulo de anotación del boceto */
+.bo-nota {
+  margin: 12px 0 0;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: var(--tinta-suave);
+}
+.bo-nota b {
+  color: var(--accion);
+  font-weight: 500;
+}
+
+/* ── Composiciones ──────────────────────────────────────────────────────────*/
+
+.g {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 860px) {
+  .g-nav {
+    grid-template-columns: 130px 1fr 220px;
+    align-items: center;
+  }
+  .g-heroe {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 28px;
+    align-items: center;
+  }
+  .g-carriles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .g-modo {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 28px;
+    align-items: start;
+  }
+  .g-aprobar {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 28px;
+    align-items: center;
+  }
+  .g-desarmado {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: minmax(64px, auto);
+  }
+  .g-ia {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .g-correo {
+    grid-template-columns: minmax(0, 1fr) 210px;
+    gap: 32px;
+    align-items: center;
+  }
+  .g-limites {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .g-precios {
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  }
+  .g-faq {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.35fr);
+    gap: 32px;
+    align-items: start;
+  }
+  .g-pie {
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 28px;
+  }
+}
+
+/* La escena del héroe: piezas superpuestas en tres planos. */
+/* Las cinco piezas se superponen, que es el punto, pero ninguna tapa el
+   rótulo de otra: se solapan por las esquinas. Medido a 1440: con la version
+   anterior la pieza del modo cubría entero el título del KPI. */
+.escena {
+  position: relative;
+  min-height: 342px;
+}
+
+.escena .p {
+  position: absolute;
+  margin: 0;
+}
+
+.e1 {
+  top: 0;
+  left: 30%;
+  width: 62%;
+  z-index: 1;
+}
+.e2 {
+  top: 86px;
+  right: 0;
+  width: 50%;
+  z-index: 3;
+}
+.e3 {
+  top: 152px;
+  left: 0;
+  width: 42%;
+  z-index: 2;
+}
+.e4 {
+  bottom: 4px;
+  right: 4%;
+  width: 58%;
+  z-index: 4;
+}
+.e5 {
+  bottom: 74px;
+  left: 24%;
+  width: 34%;
+  z-index: 5;
+}
+
+@media (max-width: 859px) {
+  .escena {
+    min-height: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .escena .p {
+    position: static;
+    width: auto;
+  }
+}
+
+/* El desarmado del reporte: seis piezas con pesos distintos. */
+.d-cabeza {
+  grid-column: span 3;
+}
+.d-kpis {
+  grid-column: span 3;
+}
+.d-alerta {
+  grid-column: span 2;
+}
+.d-tabla {
+  grid-column: span 4;
+  min-height: 96px;
+}
+.d-acciones {
+  grid-column: span 4;
+}
+.d-pie {
+  grid-column: span 2;
+}
+
+.bo-cierre-wm {
+  margin: 4px 0 0;
+  font-size: clamp(3rem, 13vw, 9rem);
+  font-weight: 700;
+  font-variation-settings: "wdth" 118;
+  letter-spacing: -0.05em;
+  line-height: 0.86;
+  color: var(--tinta-noche);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p,
+  .bo-btn {
+    transition: none;
+  }
+  .p:hover,
+  .bo-btn:hover {
+    transform: none;
+  }
+}
+
+/* ── Teléfono ───────────────────────────────────────────────────────────────
+   El espécimen tipográfico desbordaba 3px a 390: la palabra de muestra a 48px
+   más la nota sin corte no entran en una fila. Se apilan. */
+
+@media (max-width: 639px) {
+  .bo-linea-tipo {
+    display: block;
+  }
+
+  .bo-tipo-nota {
+    display: block;
+    margin: 8px 0 0;
+    white-space: normal;
+  }
+
+  .bo-d1 {
+    font-size: 2.25rem;
+  }
+
+  .bo-d2 {
+    font-size: 1.5rem;
+  }
+
+  .bo-sec-cab {
+    gap: 10px;
+  }
+
+  .bo-cierre-wm {
+    letter-spacing: -0.04em;
+  }
+}

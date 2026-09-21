@@ -1,0 +1,612 @@
+/**
+ * DIRECCIÓN D — BASE.
+ *
+ * ── DE DÓNDE SALE ESTE MUNDO ────────────────────────────────────────────────
+ * La ronda de direcciones se cerró por la salida permanente: el estándar de la
+ * categoría, jugado derecho. La vara de acabado la fijó el dueño: Ramp, Attio y
+ * Stripe. La convención ES el compromiso; lo que hay que ganar es el rigor, no
+ * la originalidad del envase.
+ *
+ * ── LA PALETA ES CÁLIDA, Y ESO FUE UN CAMBIO DE RUMBO ───────────────────────
+ * La primera pasada resolvió esto con neutros fríos y un azul de tinta. Se
+ * descartó por el motivo correcto: el azul leía corporativo, los neutros fríos
+ * leían clínicos, y la página entera se sentía «el sitio de un centro médico».
+ * Un reporte que el trafficker entrega con su firma no puede verse impersonal.
+ *
+ * Los neutros de hoy están tinteados desde el papel —no son grises con un poco
+ * de amarillo, son marrones muy desaturados— y el campo lleva textura. Los
+ * valores:
+ *
+ *   campo #f7f4ef      el fondo de la página. Es papel, no pantalla, y por eso
+ *                      lleva grano de puntos: un blanco plano no tiene tacto.
+ *   hoja #fffdfa       la superficie de las piezas. Apenas más clara que el
+ *                      campo y SIN textura, así el documento se lee limpio
+ *                      apoyado sobre una superficie que sí la tiene.
+ *   panel #efeae2      la sección hundida. El tercer plano del sistema.
+ *   filete #e6ded2     el hairline, tinteado como el resto. Un filete gris
+ *                      sobre campo cálido se ve azul por contraste simultáneo.
+ *   tinta #1a1512      texto y tramos oscuros. Espresso, no negro: el negro
+ *                      frío al lado de un campo cálido se ve morado.
+ *   tinta-media #6b5f55  cuerpo secundario.
+ *   acento #c2540f     ÁMBAR QUEMADO. Vive en UN solo tipo de elemento y son
+ *                      los botones. No pinta chapas, ni bordes, ni íconos, ni
+ *                      gráficos: si aparece en dos lados deja de significar
+ *                      «acá se actúa».
+ *
+ * **Por qué naranja y no rojo:** adentro del reporte el rojo ya significa «esto
+ * empeoró». Un acento rojizo compite con esa semántica en la única página donde
+ * el dato manda. El ámbar quemado está lejos del `negativo` y sigue siendo
+ * cálido de verdad.
+ *
+ * Verde y rojo existen SÓLO adentro del reporte y los asigna el negocio, no la
+ * dirección: que la inversión suba no es verde; que el costo por conversación
+ * baje, sí (`lib/reporte-muestra.ts`, y `report-metrics.ts` en el panel).
+ *
+ * ── PARA PROMOVER A `@theme` ────────────────────────────────────────────────
+ * Cada `--x` pasa a ser `--color-x` dentro de `@theme` en `app/globals.css`
+ * cuando esta dirección salga de /preview, y de ahí es reutilizable en
+ * nuvlo-panel sin traducción.
+ */
+
+.dirD {
+  /* Las tres superficies. */
+  --campo: #f7f4ef;
+  --hoja: #fffdfa;
+  --panel: #efeae2;
+
+  /* Tinta y filete. */
+  --filete: #e6ded2;
+  --tinta: #1a1512;
+  --tinta-media: #5a4f45;
+  --acento: #b74d0b;
+
+  /* Tintes de esos mismos roles. */
+  --panel-hondo: #e7e0d5;
+  --filete-fuerte: #d8cdbc;
+  /**
+   * El tercer escalón de texto. Estuvo en #877a6d y medía **3,18:1** sobre la
+   * hoja: por debajo del mínimo legible, y lo usaba la columna del mes anterior
+   * de la tabla, que es un dato numérico. Es el mismo error que ya se había
+   * corregido con la paleta fría y que volvió al pasar a neutros cálidos, así
+   * que queda escrito: **cada vez que cambie la paleta hay que volver a medir
+   * los tres escalones de texto contra las tres superficies**, no estimarlos.
+   * En #736759 mide 5,39:1 sobre la hoja y 4,64:1 sobre el panel.
+   */
+  --tinta-suave: #736759;
+  --acento-tinta: #8f3c07;
+  --acento-campo: #fdf0e6;
+  --acento-filete: #f3d6bb;
+
+  /* Sólo dentro del reporte, y por significado de negocio. */
+  --positivo: #14664a;
+  --negativo: #a32a1a;
+  --positivo-campo: #e9f2ed;
+  --negativo-campo: #fbeae7;
+
+  /* Sobre tinta la rampa se invierte por opacidad, no con tokens nuevos. */
+  --sobre-tinta: #fffdfa;
+  --sobre-tinta-media: rgb(255 253 250 / 0.68);
+  --sobre-tinta-filete: rgb(255 253 250 / 0.15);
+
+  /**
+   * Radios por pertenencia, no por tamaño: 12px para lo que se apoya en el
+   * campo, 8px para lo que se apoya sobre una pieza. Sin tercer valor.
+   */
+  --r-obj: 12px;
+  --r-int: 8px;
+  --r-pastilla: 9999px;
+
+  /**
+   * Elevación mínima, en dos capas y tinteada con la tinta del sistema —una
+   * sombra gris sobre campo cálido se ve azul—. La profundidad de esta página
+   * la dan los PLANOS y la superposición, no las sombras.
+   */
+  --e1: 0 1px 2px rgb(26 21 18 / 0.05), 0 2px 4px -1px rgb(26 21 18 / 0.04);
+  --e2: 0 2px 4px rgb(26 21 18 / 0.05), 0 8px 18px -6px rgb(26 21 18 / 0.09);
+  --e3: 0 4px 8px rgb(26 21 18 / 0.06), 0 26px 52px -18px rgb(26 21 18 / 0.18);
+
+  --contenedor: 1200px;
+  --borde-x: 20px;
+
+  font-family: var(--f-sans), system-ui, sans-serif;
+  color: var(--tinta);
+  -webkit-font-smoothing: antialiased;
+
+  /**
+   * ── LA TEXTURA DEL CAMPO ──────────────────────────────────────────────────
+   * Un grano de puntos de 1px cada 20px, al 3,5%. Es papel milimetrado visto de
+   * lejos: no se lee como patrón, se lee como que la superficie tiene tacto. Va
+   * en el `background-image` del propio contenedor y no en una capa aparte, así
+   * que las piezas —que traen su propio fondo opaco— lo tapan y quedan limpias.
+   * Documento limpio sobre superficie con textura, que es la relación correcta.
+   *
+   * Encima, un lavado vertical dentro de la paleta: del panel al campo, sin
+   * pasar por ningún color que no esté en el sistema.
+   */
+  background-color: var(--campo);
+  background-image:
+    radial-gradient(rgb(26 21 18 / 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, var(--panel) 0%, var(--campo) 620px);
+  background-size: 20px 20px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+  background-attachment: scroll, scroll;
+}
+
+@media (min-width: 640px) {
+  .dirD {
+    --borde-x: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dirD {
+    --borde-x: 40px;
+  }
+}
+
+/**
+ * ── LA RUTA D NO HEREDA EL MUNDO RETIRADO ───────────────────────────────────
+ * `app/globals.css` pinta el <body> con el campo del sistema anterior y le
+ * apoya encima una capa de grano en `multiply` que multiplica sobre todo lo que
+ * haya debajo, incluida esta dirección. Se apaga sólo en esta ruta, con `:has`,
+ * sin tocar la hoja global ni la landing vigente. Cuando D se promueva, esto
+ * desaparece junto con el grano viejo.
+ */
+body:has(.dirD) {
+  background: #f7f4ef;
+}
+
+body:has(.dirD)::before {
+  display: none;
+}
+
+/* ── SUPERFICIES DEL NAVEGADOR ────────────────────────────────────────────────
+   Lo que no dibujamos igual lleva el diseño puesto. */
+
+.dirD ::selection {
+  background: var(--acento-campo);
+  color: var(--tinta);
+}
+
+.dirD {
+  caret-color: var(--acento);
+  scrollbar-color: var(--filete-fuerte) transparent;
+}
+
+.dirD :focus-visible {
+  outline: 2px solid var(--acento-tinta);
+  outline-offset: 2px;
+}
+
+.dirD .d-invertido :focus-visible {
+  outline-color: var(--sobre-tinta);
+}
+
+/* ── CONTENEDOR ─────────────────────────────────────────────────────────────── */
+
+.dirD .d-marco {
+  width: 100%;
+  max-width: var(--contenedor);
+  margin-inline: auto;
+  padding-inline: var(--borde-x);
+}
+
+/* ── TIPOGRAFÍA ──────────────────────────────────────────────────────────────
+   ── TRES PESOS, NO CINCO ────────────────────────────────────────────────────
+   700 para lo que domina —titulares y cifras—, 500 para lo que rotula y para
+   los controles, 400 para lo que se lee de corrido. El 600 se retiró entero: la
+   rampa tenía cinco pesos y el resultado era que ningún nivel se despegaba del
+   de al lado. El contraste entre escalones lo hace el peso Y el color, no el
+   tamaño solo. */
+
+.dirD .t-portada {
+  font-size: clamp(2.5rem, 6.1vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.dirD .t-display {
+  font-size: clamp(1.875rem, 3.9vw, 2.875rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.dirD .t-titular {
+  font-size: clamp(1.375rem, 2.5vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.dirD .t-titulo {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+}
+
+.dirD .t-bajada {
+  font-size: clamp(1.0625rem, 1.35vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--tinta-media);
+  text-wrap: pretty;
+}
+
+.dirD .t-cuerpo {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--tinta-media);
+  text-wrap: pretty;
+}
+
+.dirD .t-chico {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--tinta-media);
+}
+
+.dirD .t-fino {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--tinta-suave);
+}
+
+/**
+ * EL RÓTULO. Es encabezado de campo dentro de una pieza, nunca un copete arriba
+ * de un titular de página.
+ *
+ * **Se subordinó a propósito.** Estuvo en peso 600 con 0,075em de tracking, y a
+ * ese peso una etiqueta en mayúsculas espaciadas pelea de igual a igual con la
+ * cifra que tiene debajo: dos cosas gritando en la misma celda. Hoy va en 500,
+ * con 0,05em, y en `tinta-suave`. Un rótulo tiene que poder leerse cuando lo
+ * buscás y desaparecer cuando no.
+ */
+.dirD .t-rotulo {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.dirD .t-control {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/**
+ * LA REGLA DE LAS CIFRAS TABULARES. Todo número que pueda caer en columna la
+ * lleva, y Schibsted Grotesk tiene `tnum` de verdad en el archivo.
+ */
+.dirD .cifra {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.dirD .medida-prosa {
+  max-width: 31rem;
+}
+
+.dirD .medida-bajada {
+  max-width: 30rem;
+}
+
+/* ── EL ELEMENTO FIRMA: LA CÁPSULA DE VARIACIÓN ──────────────────────────────
+   Toda cifra que se compara contra algo lleva la suya. El tick lo decide el
+   signo; el color lo decide el negocio. Ver `Variacion.tsx`. */
+
+.dirD .v-capsula {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px 2px 5px;
+  border-radius: var(--r-pastilla);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.dirD .v-capsula[data-tamano="chica"] {
+  font-size: 0.6875rem;
+  padding: 1px 6px 1px 4px;
+}
+
+.dirD .v-tick {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dirD .v-capsula[data-sentido="bueno"] {
+  background: var(--positivo-campo);
+  color: var(--positivo);
+}
+
+.dirD .v-capsula[data-sentido="malo"] {
+  background: var(--negativo-campo);
+  color: var(--negativo);
+}
+
+.dirD .v-capsula[data-sentido="neutro"] {
+  background: var(--panel-hondo);
+  color: var(--tinta-media);
+}
+
+.dirD .d-invertido .v-capsula[data-sentido="neutro"] {
+  background: rgb(255 253 250 / 0.1);
+  color: var(--sobre-tinta-media);
+}
+
+/* ── RETÍCULA DE UN PÍXEL ────────────────────────────────────────────────────
+   Todo conjunto de cifras se arma con `gap: 1px` sobre el filete y celdas de
+   hoja: la separación es una línea, nunca un borde por celda. */
+
+.dirD .d-reticula {
+  display: grid;
+  gap: 1px;
+  background: var(--filete);
+  border: 1px solid var(--filete);
+  border-radius: var(--r-obj);
+  overflow: hidden;
+}
+
+/**
+ * `--superficie` existe para que una zona entera del reporte cambie de plano
+ * con una sola declaración: la variable hereda hacia adentro, así que las
+ * celdas de la retícula siguen a su zona sin saber que la zona existe.
+ *
+ * Se registra con `@property` y tipo `<color>` porque sin registrar, una
+ * custom property no interpola: el cambio de plano saltaría de golpe en vez de
+ * fundirse, y el revelado se leería como un parpadeo.
+ */
+@property --superficie {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fffdfa;
+}
+
+.dirD .d-reticula > * {
+  background: var(--superficie, var(--hoja));
+}
+
+.dirD .d-invertido .d-reticula {
+  background: var(--sobre-tinta-filete);
+  border-color: var(--sobre-tinta-filete);
+}
+
+.dirD .d-invertido .d-reticula > * {
+  background: var(--tinta);
+}
+
+/* ── PIEZA ─────────────────────────────────────────────────────────────────── */
+
+.dirD .d-pieza {
+  background: var(--hoja);
+  border: 1px solid var(--filete);
+  border-radius: var(--r-obj);
+}
+
+.dirD .d-pieza-cabeza {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--filete);
+}
+
+/* ── BOTONES — EL ÚNICO LUGAR DONDE VIVE EL ACENTO ───────────────────────────
+   Sólidos, sin borde, sin gradiente, sin ícono. Que el acento se gaste entero
+   acá es lo que lo convierte en señal: en esta página, ámbar quiere decir «acá
+   se actúa», y no quiere decir ninguna otra cosa. */
+
+.dirD .d-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--acento);
+  color: var(--hoja);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 13px 22px;
+  border-radius: var(--r-obj);
+  box-shadow: var(--e1);
+  transition:
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 180ms ease-out;
+}
+
+.dirD .d-boton:hover {
+  background: var(--acento-tinta);
+  transform: translateY(-1px);
+  box-shadow: var(--e2);
+}
+
+.dirD .d-boton-chico {
+  font-size: 0.875rem;
+  padding: 8px 15px;
+  border-radius: var(--r-int);
+}
+
+/* Sobre espresso el ámbar pierde contraste contra el fondo, así que el botón
+   se invierte a hoja: la superficie decide el color, no el capricho. */
+.dirD .d-invertido .d-boton {
+  background: var(--hoja);
+  color: var(--tinta);
+  box-shadow: none;
+}
+
+.dirD .d-invertido .d-boton:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+.dirD .d-enlace {
+  color: var(--tinta-media);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--filete-fuerte);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: color 160ms ease-out, text-decoration-color 160ms ease-out;
+}
+
+.dirD .d-enlace:hover {
+  color: var(--tinta);
+  text-decoration-color: var(--acento);
+}
+
+/* ── CHAPAS DE ESTADO ────────────────────────────────────────────────────────
+   Tres tonos que dicen en qué situación está el estado. **Ninguno usa el
+   acento**: el ámbar es de los botones. El estado que espera una decisión se
+   marca con la hoja levantada y un punto de tinta, no con color de marca. */
+
+.dirD .d-chapa {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 3px 10px 3px 8px;
+  border-radius: var(--r-pastilla);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.dirD .d-chapa::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: var(--r-pastilla);
+  background: currentColor;
+  flex: none;
+}
+
+.dirD .d-chapa[data-tono="espera"] {
+  background: var(--hoja);
+  border-color: var(--filete-fuerte);
+  color: var(--tinta);
+  box-shadow: var(--e1);
+}
+
+.dirD .d-chapa[data-tono="neutro"] {
+  background: transparent;
+  border-color: var(--filete-fuerte);
+  color: var(--tinta-media);
+}
+
+.dirD .d-chapa[data-tono="cerrado"] {
+  background: var(--tinta);
+  border-color: var(--tinta);
+  color: var(--hoja);
+}
+
+/* ── TRAMO INVERTIDO ─────────────────────────────────────────────────────────
+   El espresso puntual. Sobre tinta la rampa de texto se invierte por opacidad y
+   las sombras no se declaran: la hoja se separa por valor. */
+
+.dirD .d-invertido {
+  background: var(--tinta);
+  color: var(--sobre-tinta);
+}
+
+.dirD .d-invertido .t-bajada,
+.dirD .d-invertido .t-cuerpo,
+.dirD .d-invertido .t-chico {
+  color: var(--sobre-tinta-media);
+}
+
+.dirD .d-invertido .t-rotulo,
+.dirD .d-invertido .t-fino {
+  color: rgb(255 253 250 / 0.52);
+}
+
+.dirD .d-invertido .d-pieza {
+  background: transparent;
+  border-color: var(--sobre-tinta-filete);
+}
+
+.dirD .d-invertido .d-pieza-cabeza {
+  border-bottom-color: var(--sobre-tinta-filete);
+}
+
+/* ── RITMO VERTICAL ─────────────────────────────────────────────────────────── */
+
+.dirD .d-seccion {
+  padding-block: 80px;
+}
+
+.dirD .d-seccion-abre {
+  padding-block: 112px;
+}
+
+@media (min-width: 768px) {
+  .dirD .d-seccion {
+    padding-block: 104px;
+  }
+
+  .dirD .d-seccion-abre {
+    padding-block: 152px;
+  }
+}
+
+/* ── MOVIMIENTO ──────────────────────────────────────────────────────────────
+   Todo parte de un estado ya visible y se apaga entero con
+   `prefers-reduced-motion`. Sin JS la página se lee completa: `layout.tsx`
+   lleva la regla de `<noscript>` que lo garantiza. */
+
+@media (prefers-reduced-motion: reduce) {
+  .dirD *,
+  .dirD *::before,
+  .dirD *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ── EL REVELADO DE ENTRADA ──────────────────────────────────────────────────
+   El atributo lo pone `Revelar.tsx` recién en el cliente y sólo si el visitante
+   no pidió movimiento reducido; el observer agrega `data-visto` cuando el
+   bloque entra en cuadro. Sin JavaScript ningún nodo lleva `data-revelar`, así
+   que nada de esto aplica y la página se ve entera. */
+
+.dirD [data-revelar] {
+  opacity: 0;
+  transition:
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1) var(--demora, 0s),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1) var(--demora, 0s);
+}
+
+.dirD [data-revelar="abajo"] {
+  transform: translateY(16px);
+}
+
+.dirD [data-revelar="izquierda"] {
+  transform: translateX(-14px);
+}
+
+.dirD [data-revelar="escala"] {
+  transform: scale(0.985);
+}
+
+.dirD [data-revelar][data-visto] {
+  opacity: 1;
+  transform: none;
+}

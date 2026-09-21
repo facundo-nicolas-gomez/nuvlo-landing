@@ -1,0 +1,255 @@
+/**
+ * LA HOJA.
+ *
+ * El único objeto con luz de la página, y el único lugar donde el sistema usa
+ * una rampa de tinta sobre blanco. Todo lo de acá adentro está escrito para que
+ * el documento se lea como un documento —papel, no interfaz—: sin controles,
+ * sin botones, sin sombras internas, sin nada que sugiera que se puede tocar.
+ *
+ * La regla que gobierna el archivo: el cromo de la página no entra acá y el
+ * cromo del documento no sale. El ámbar de la mesa significa "interviene una
+ * persona" y adentro del reporte no interviene nadie; el verde y el rojo de las
+ * variaciones significan negocio y no tienen sentido fuera de la hoja.
+ */
+
+.doc {
+  background: var(--hoja);
+  color: var(--grafito);
+  border-radius: var(--r);
+  box-shadow: var(--apoyo);
+  padding: 30px 26px;
+  container-type: inline-size;
+}
+@media (min-width: 768px) {
+  .doc {
+    padding: 40px 38px;
+  }
+}
+
+/* Todo alineado a la izquierda, y el periodo DEBAJO del anunciante en vez de
+   enfrentado a la derecha.
+
+   No es preferencia: en la portada el documento sangra fuera de la ventana, y
+   con el periodo pegado al borde derecho el recorte cortaba una fecha al medio
+   ("1 jul 2026 -"). Un dato cortado se lee como bug, no como encuadre. Con la
+   cabecera acumulada a la izquierda, el corte cae siempre sobre espacio vacio y
+   el sangrado puede decir lo que tiene que decir. */
+.doc-cabeza {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--filete-hoja);
+}
+
+/* La agencia va ARRIBA y el anunciante abajo, en ese orden y con ese peso,
+   porque el documento es de la agencia: el trafficker se lo manda a su cliente
+   firmado con su propia marca. Invertirlo contaría otra historia sobre de quién
+   es el entregable, que es justo el punto que el producto vende. */
+.doc-agencia {
+  margin: 0 0 3px;
+  font-size: var(--t-fino);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grafito-medio);
+}
+
+.doc-cliente {
+  margin: 0;
+  font-size: var(--t-titulo);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.doc-periodo {
+  margin: 6px 0 0;
+  font-size: var(--t-fino);
+  color: var(--grafito-suave);
+}
+
+.doc-bloque {
+  margin-top: 24px;
+}
+
+.doc-rotulo {
+  margin: 0 0 10px;
+  font-size: var(--t-marca);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grafito-suave);
+}
+
+.doc-parrafo {
+  margin: 0 0 10px;
+  font-size: var(--t-chico);
+  line-height: 1.65;
+  color: var(--grafito-medio);
+  max-width: 62ch;
+}
+.doc-parrafo:last-child {
+  margin-bottom: 0;
+}
+
+/* La alerta es el único bloque condicional del reporte real: existe sólo si la
+   IA marcó una. Se distingue con un filete lateral y un fondo apenas cálido, no
+   con un ícono ni con color de alarma: es una observación, no un error. */
+.doc-alerta {
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-left: 2px solid var(--alerta-filete);
+  background: var(--alerta-campo);
+  border-radius: 0 var(--r) var(--r) 0;
+}
+
+/* ── KPI ────────────────────────────────────────────────────────────────────
+   Cuatro celdas separadas por filete, no cuatro tarjetas. El filete es el
+   recurso estructural del sistema y acá hace todo el trabajo de agrupar.
+   `container-type` en `.doc` permite que la grilla responda al ancho de la
+   HOJA y no al del viewport, que importa porque el mismo documento se muestra a
+   dos escalas distintas en la página. */
+.doc-kpis {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--filete-hoja);
+  border-left: 1px solid var(--filete-hoja);
+}
+@container (min-width: 520px) {
+  .doc-kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.doc-kpi {
+  padding: 14px 14px 16px;
+  border-right: 1px solid var(--filete-hoja);
+  border-bottom: 1px solid var(--filete-hoja);
+}
+
+.doc-kpi-etiqueta {
+  margin: 0 0 6px;
+  font-size: var(--t-marca);
+  line-height: 1.3;
+  color: var(--grafito-suave);
+}
+
+.doc-kpi-valor {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.doc-kpi-var {
+  margin: 4px 0 0;
+  font-size: var(--t-fino);
+  font-weight: 500;
+}
+
+/* ── Tabla ──────────────────────────────────────────────────────────────────*/
+
+.doc-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-chico);
+}
+
+.doc-tabla th,
+.doc-tabla td {
+  padding: 9px 0;
+  text-align: right;
+  border-bottom: 1px solid var(--filete-hoja);
+}
+
+.doc-tabla thead th {
+  font-size: var(--t-marca);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grafito-suave);
+  border-bottom-color: var(--grafito);
+}
+
+.doc-tabla th:first-child,
+.doc-tabla tbody th {
+  text-align: left;
+  font-weight: 500;
+}
+
+.doc-tabla tbody th {
+  color: var(--grafito);
+}
+
+.doc-anterior {
+  color: var(--grafito-suave);
+}
+
+/* ── Acciones ───────────────────────────────────────────────────────────────*/
+
+.doc-acciones {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  counter-reset: none;
+}
+
+.doc-acciones li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  font-size: var(--t-chico);
+  line-height: 1.6;
+  color: var(--grafito-medio);
+}
+
+.doc-orden {
+  font-size: var(--t-fino);
+  font-weight: 600;
+  color: var(--grafito-suave);
+  padding-top: 1px;
+}
+
+/* ── Pie ────────────────────────────────────────────────────────────────────*/
+
+.doc-pie {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--filete-hoja);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  font-size: var(--t-fino);
+  color: var(--grafito-suave);
+}
+.doc-pie p {
+  margin: 0;
+}
+.doc-pie strong {
+  color: var(--grafito);
+  font-weight: 600;
+}
+
+/* La franja del plan Estándar. Discreta a propósito: es exactamente lo que el
+   plan Marca Blanca saca, y exagerarla acá vendería mal los dos planes. */
+.doc-franja {
+  color: var(--grafito-suave);
+}
+
+/* ── Sentido de la variación ────────────────────────────────────────────────
+   Lo decide el negocio: que la inversión suba no es verde. Por eso la clase la
+   asigna el dato (`sentido`) y no el signo del número. */
+.var-bueno {
+  color: var(--positivo);
+}
+.var-malo {
+  color: var(--negativo);
+}
+.var-neutro {
+  color: var(--grafito-suave);
+}

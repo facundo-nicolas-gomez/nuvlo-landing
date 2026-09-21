@@ -1,0 +1,323 @@
+/**
+ * EL DOCUMENTO.
+ *
+ * Es el reporte como lo ve el trafficker en el panel, en borrador, con la barra
+ * de acción arriba. No lleva marco de navegador: el marco es verdad
+ * (`PRODUCT.md`) pero es el cromo de la página PÚBLICA, y lo que el héroe
+ * muestra es el momento anterior a que exista una página pública. Una hoja
+ * apoyada sobre la piedra, con su única sombra, y arriba la barra del panel.
+ *
+ * ── A ESCALA REAL, Y SE RECORTA ────────────────────────────────────────────
+ * Cuerpo de 13,5px, ningún dato por debajo de 11px. Si no entra, se muestra
+ * menos; nunca se encoge para que entre entero, que es la miniatura que el
+ * dueño ya rechazó.
+ *
+ * ── LAS REGIONES ───────────────────────────────────────────────────────────
+ * Cada bloque lleva `data-region`. El visor (`secciones.css`) usa esos nombres
+ * para llevar el documento hasta la región que la anotación está señalando y
+ * para bajar el resto. Acá sólo se dibujan.
+ */
+
+.n-hoja {
+  position: relative;
+  background: var(--hoja);
+  border: 1px solid rgb(19 19 18 / 0.07);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-hoja);
+  overflow: hidden;
+  color: var(--tinta);
+}
+
+/* ── LA BARRA DEL PANEL ────────────────────────────────────────────────────
+   Zona hundida dentro de la hoja. A la izquierda qué documento es y en qué
+   estado está —la barra dice qué, la chapa dice cómo, nunca las dos cosas—; a
+   la derecha la acción con el destinatario impreso debajo, que es el detalle
+   entero del argumento: quien aprueba ve a quién le llega. */
+.n-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px 12px 22px;
+  background: var(--hoja-hundida);
+  border-bottom: 1px solid var(--filete);
+}
+
+.n-barra-doc {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.n-barra-nombre {
+  font-size: 0.8438rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.n-barra-accion {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.n-barra-destino {
+  color: var(--tinta-3);
+  white-space: nowrap;
+}
+
+.n-barra-destino .n-cifra {
+  color: var(--tinta-2);
+}
+
+/* ── EL CUERPO DEL INFORME ─────────────────────────────────────────────── */
+
+.n-doc {
+  padding: 26px 30px 30px;
+  font-size: 0.8438rem;
+  line-height: 1.55;
+}
+
+.n-doc-region {
+  transition: opacity 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.n-doc-region + .n-doc-region {
+  margin-top: 22px;
+}
+
+.n-doc-bloque > .n-rotulo {
+  margin-bottom: 9px;
+}
+
+/* 1. Encabezado */
+.n-doc-cabeza {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--filete);
+}
+
+.n-doc-cliente {
+  margin: 6px 0 0;
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.n-doc-periodo {
+  margin: 5px 0 0;
+  font-size: 0.7813rem;
+  color: var(--tinta-2);
+}
+
+/* 2. Resumen ejecutivo */
+.n-doc-parrafo {
+  margin: 0;
+  color: var(--tinta);
+}
+
+.n-doc-parrafo + .n-doc-parrafo {
+  margin-top: 8px;
+}
+
+/* La alerta, como la emite `buildReportHtml()`: un filete de tinta a la
+   izquierda, sin caja y sin bullet. */
+.n-doc-alerta {
+  margin: 12px 0 0;
+  padding-left: 12px;
+  border-left: 2px solid var(--tinta);
+  color: var(--tinta-2);
+}
+
+/* 3. Resultados del período — la retícula de un píxel sobre el filete */
+.n-banco {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--filete);
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  overflow: hidden;
+}
+
+.n-kpi {
+  background: var(--hoja);
+  padding: 11px 13px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+/* Reserva dos líneas: «Costo por conversación» envuelve a este ancho y, sin
+   la reserva, empujaba su cifra un renglón por debajo de las otras tres. Las
+   cuatro cifras tienen que compartir línea de base. */
+.n-kpi-etiqueta {
+  margin: 0;
+  font-size: 0.7188rem;
+  color: var(--tinta-3);
+  line-height: 1.3;
+  min-height: 2.6em;
+  display: flex;
+  align-items: flex-end;
+}
+
+.n-kpi-valor {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+
+/* «$ 486.250»: el símbolo no es el dato y a igual cuerpo compite con él. */
+.n-kpi-afijo {
+  font-size: 0.75em;
+  font-weight: 500;
+  color: var(--tinta-3);
+  margin-right: 0.15em;
+}
+
+.n-kpi-pista {
+  margin: 1px 0 0;
+  font-size: 0.6875rem;
+  color: var(--tinta-3);
+  line-height: 1.35;
+}
+
+/* 4. Métricas detalladas */
+.n-tabla-envoltura {
+  overflow-x: auto;
+}
+
+.n-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.n-tabla th {
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--filete);
+}
+
+.n-tabla td {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--filete);
+  vertical-align: middle;
+}
+
+.n-tabla tr:last-child td {
+  border-bottom: 0;
+}
+
+.n-tabla th:not(:first-child),
+.n-tabla td:not(:first-child) {
+  text-align: right;
+  padding-left: 12px;
+}
+
+.n-tabla .n-anterior {
+  color: var(--tinta-2);
+}
+
+.n-doc-nota {
+  margin: 8px 0 0;
+  color: var(--tinta-3);
+}
+
+/* 5. Plan de acción */
+.n-acciones {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 7px;
+}
+
+.n-acciones li {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 6px;
+}
+
+.n-acciones .n-ordinal {
+  color: var(--tinta-3);
+  font-weight: 500;
+}
+
+/* 6. Cierre y pie */
+.n-doc-cierre {
+  padding-top: 18px;
+  border-top: 1px solid var(--filete);
+  color: var(--tinta-2);
+  font-size: 0.7813rem;
+}
+
+.n-doc-firma {
+  display: block;
+  margin-top: 2px;
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+.n-doc-pie {
+  margin: 14px 0 0;
+  color: var(--tinta-3);
+}
+
+/* Pantallas angostas: el banco a dos columnas; la tabla se desplaza dentro de
+   su propia envoltura y nunca empuja la página a lo ancho. */
+@media (max-width: 640px) {
+  .n-doc {
+    padding: 22px 20px 24px;
+  }
+
+  .n-banco {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* La barra se apila: a este ancho el nombre del documento y la acción no
+     entran en una fila, y el nombre —que es lo que dice QUÉ es esto— era lo
+     que se comprimía hasta desaparecer. */
+  .n-barra {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .n-barra-accion {
+    align-items: flex-start;
+  }
+
+  /* La tabla entra entera a cuerpo chico antes que cortarse a la mitad: una
+     columna «Anterior» fuera de pantalla se lee como tabla rota, no como
+     tabla desplazable. Medido a 390: cabe en 310px. */
+  .n-tabla {
+    font-size: 0.75rem;
+  }
+
+  .n-tabla th,
+  .n-tabla td {
+    white-space: nowrap;
+  }
+
+  .n-tabla th:not(:first-child),
+  .n-tabla td:not(:first-child) {
+    padding-left: 8px;
+  }
+}

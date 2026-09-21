@@ -1,0 +1,990 @@
+/**
+ * NUVLO — BASE DEL SISTEMA.
+ *
+ * ── LO QUE CAMBIÓ EN ESTA PASADA (04/09/2026) ───────────────────────────────
+ * La serif salió: una sola familia en toda la landing. Con ella se fue el
+ * elemento firma —«la cifra tiene voz»—, así que hay uno nuevo y está descrito
+ * abajo, en LA MARCA. El resto de la pasada corrige cinco cosas que el dueño
+ * marcó: la página se veía blanca y plana, el texto mínimo era demasiado chico,
+ * los tramos oscuros eran uno solo y cortaban en seco, los botones no tiraban
+ * del ojo, y el documento había perdido el piso.
+ *
+ * ── LO QUE SE ROMPIÓ A PROPÓSITO, Y HAY QUE SABERLO ─────────────────────────
+ * 1. **El acento salió del documento** (decisión del dueño, 06/09/2026). Antes
+ *    el punto naranja marcaba «lo que espera una decisión» y por eso vivía
+ *    adentro del informe: en la chapa de estado y en la alerta del resumen.
+ *    Ya no. El reparto de color es ahora:
+ *
+ *      adentro del reporte   sólo las cápsulas de variación, y su verde y su
+ *                            rojo los asigna el negocio. Nada más lleva color.
+ *      afuera, en la landing la acción, el punto de la marca sobre cosas
+ *                            nuestras, la volanta y los filetes. Ahí vive el
+ *                            acento y ahí puede gastarse.
+ *
+ *    El motivo es que el reporte es el entregable del trafficker y sale con SU
+ *    marca: un naranja nuestro impreso adentro del documento es marca nuestra
+ *    en la hoja de otro. Afuera del documento el mismo naranja es lo que hace
+ *    reconocible a la página, y ahí no molesta a nadie.
+ *
+ *    Los comentarios que quedaron afirmando lo contrario se corrigieron en el
+ *    mismo cambio; si aparece otro, está desactualizado y manda esto.
+ * 2. **Los neutros se fueron a cálido de verdad.** No vuelve el mundo de papel
+ *    con grano —eso se descartó por metafórico—: lo que se corrige es que un
+ *    blanco puro con grises neutros se veía barato y plano.
+ * 3. **La textura entró, pero SÓLO en los tramos oscuros.** Sobre claro
+ *    ensucia; sobre oscuro da profundidad. Y se dibuja con gradientes, no con
+ *    un archivo: la CSP tiene `img-src 'self'` sin `data:`, así que un SVG
+ *    embebido no cargaría en producción.
+ */
+
+.firma {
+  /* ══════════════════════════════════════════════════════════════════════════
+     SUPERFICIES CLARAS — EL CAMPO DEJÓ DE SER PAPEL (06/09/2026)
+
+     Hasta esta pasada el campo de la página y la hoja de una pieza eran EL
+     MISMO token, `--papel`, y de ahí venía el diagnóstico del dueño: «todo cae
+     en la misma franja de luminosidad, no hay contra qué recortar las piezas».
+     Era literal —no había un escalón, había un solo valor— y ninguna cantidad
+     de sombra lo arregla: una hoja blanca sobre un fondo blanco no se apoya
+     sobre nada.
+
+     Ahora son dos roles distintos y ése es el cambio de fondo de la pasada:
+
+       --campo   el fondo de la PÁGINA. Hueso cálido. Nada que sea una pieza lo
+                 usa nunca.
+       --papel   la superficie de una HOJA: el documento, el fantasma, el mail,
+                 la pastilla de la navegación. Es lo que se recorta contra el
+                 campo, y por eso se quedó casi blanco.
+
+     El escalón entre los dos es de 1,21:1 de luminancia relativa (papel 0,9855
+     contra campo 0,8037). Es un escalón de SUPERFICIE, no de texto: no se mide
+     contra 4,5 ni contra 3, se mide contra que el canto de una hoja se vea sin
+     ayuda de la sombra. Medido en pantalla: se ve.
+
+     --crema es la superficie hundida DENTRO de una hoja —la bandeja del marco
+     de navegador, la barra de acción, el cuerpo del mail—, así que sigue
+     estando entre papel y campo y no debajo de los dos.
+     ══════════════════════════════════════════════════════════════════════════ */
+  --papel: #fffdfb;
+
+  /**
+   * EL CAMPO SE ACLARÓ (07/09/2026).
+   *
+   * Venía de #eee7d9, que es hueso pero con bastante amarillo: sobre pantallas
+   * calibradas frías se leía como papel viejo y no como papel bueno. El valor
+   * nuevo saca amarillo y conserva la tibieza —sigue siendo un neutro tinteado
+   * desde el marrón, no un gris—, y el escalón contra la hoja baja de 1,21:1 a
+   * 1,13:1.
+   *
+   * Ese escalón más chico es el que obliga a lo de abajo: con tres superficies
+   * claras conviviendo —campo, lienzo y hoja— el reparto ya no lo puede hacer
+   * sólo la luminancia, y por eso el lienzo trae además filete propio. Los tres
+   * valores están medidos en pantalla con los tokens corriendo, no estimados.
+   */
+  --campo: #f4f1eb;
+
+  /**
+   * EL LIENZO: la superficie de trabajo, entre el campo y la hoja.
+   *
+   * Es un rol nuevo y no un tinte de otro. El canvas de «Se arma» no es una
+   * hoja —no lleva nada impreso, es donde las hojas se apoyan— ni es el campo,
+   * porque tiene canto propio. Sin este escalón el canvas sólo existía por su
+   * grilla de puntos, o sea por textura, que es exactamente lo que el sistema
+   * no hace: **la superficie distingue, la textura no**.
+   */
+  --lienzo: #fbf8f3;
+
+  --crema: #f8f3ea;
+  --crema-honda: #ece4d4;
+
+  /* El filete se oscureció DOS veces por el mismo motivo: cada vez que el campo
+     se aclara, un hairline que servía deja de verse. Contra el campo nuevo,
+     #ded5c3 daba 1,08:1 —invisible—; #d5cab5 da 1,20:1 contra el campo,
+     1,15:1 contra el lienzo y 1,32:1 contra el papel. */
+  --filete: #d5cab5;
+  --filete-fuerte: #c2b49a;
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     TINTA — DOS ESCALONES, NO TRES (06/09/2026)
+
+     Eran tres: tinta, tinta-media y tinta-suave. Hoy son DOS —uno oscuro y uno
+     gris— y `--tinta-suave` no existe más. Con tres, el escalón del medio y el
+     de abajo se separaban 0,7 puntos de contraste y ninguna jerarquía leía la
+     diferencia; lo que producían era un texto gris más oscuro y otro gris más
+     claro diciendo lo mismo.
+
+     Medidos sobre las superficies NUEVAS, que es la regla de la casa y ya se
+     rompió dos veces por estimar:
+
+       tinta       sobre papel 18,25:1 · sobre campo 15,05:1 · sobre crema 16,75:1
+       tinta-media sobre papel  6,70:1 · sobre campo  5,53:1 · sobre crema  6,16:1
+
+     Medidos en el navegador contra los tokens que están corriendo, no a mano:
+     el cálculo a mano de esta misma pasada daba 17,84 y 14,70 para la tinta.
+     No cambiaba ninguna decisión, y por eso mismo se corrigieron los números en
+     vez de dejarlos: un valor «medido» que no se midió envenena la próxima
+     revisión, que va a confiar en él.
+
+     El gris subió de #756c60 a #615a50 justamente por el campo: el valor viejo
+     daba 4,20:1 sobre hueso, o sea por debajo del piso para texto chico, y el
+     rótulo y el pie de una pieza son texto chico. Si vuelve a cambiar el campo,
+     se vuelven a medir los dos. No se estiman.
+     ══════════════════════════════════════════════════════════════════════════ */
+  --tinta: #16130f;
+  --tinta-media: #615a50;
+
+  /* ── SUPERFICIES OSCURAS ──────────────────────────────────────────────────
+     Dos, no una: el tramo (grafito hondo) y las piezas que se apoyan encima
+     (grafito). Un tramo oscuro con todas sus piezas del mismo valor no tiene
+     profundidad, tiene una sola capa pintada de negro. */
+  --grafito: #23201c;
+  --grafito-honda: #17140f;
+  --grafito-filete: rgb(255 255 255 / 0.11);
+  /* La misma rampa de dos escalones, invertida por opacidad y no con tokens de
+     color nuevos. `--sobre-oscuro-suave` se fue con `--tinta-suave`: es el
+     mismo tercer escalón visto desde el otro lado. Medido sobre grafito hondo:
+     sobre-oscuro 17,3:1 · sobre-oscuro-media 8,36:1. */
+  --sobre-oscuro: #fffdfb;
+  --sobre-oscuro-media: rgb(255 253 251 / 0.66);
+
+  /* ── EL ACENTO ────────────────────────────────────────────────────────────
+     Dos tonos y no uno: sobre claro el naranja tiene que ser oscuro para que el
+     blanco encima llegue a contraste; sobre oscuro puede subir a un tono vivo
+     que sobre papel sería estridente. Es la misma regla de siempre —la
+     superficie decide el color— aplicada al acento. */
+  --acento: #ea580c;
+  --acento-vivo: #ff8a2b;
+  --acento-campo: #fff2e6;
+  --acento-filete: #f6cfaa;
+  --acento-tinta: #8a3d05;
+
+  /**
+   * ── EL VERDE DE ESTADO (07/09/2026) ──────────────────────────────────────
+   * Un rol nuevo, y hay que decir de entrada qué regla levanta: el Don't «no
+   * usar verde o rojo fuera del reporte» queda acotado a **el dato**, y este
+   * verde queda habilitado para **el estado de un paso**.
+   *
+   * El motivo es que son dos cosas distintas que se veían iguales. Adentro del
+   * reporte el verde es una AFIRMACIÓN DE NEGOCIO —«esto mejoró»— y la asigna
+   * el negocio, nunca el signo. Acá el verde es una AFIRMACIÓN DE MÁQUINA
+   * —«este paso terminó»—, no la decide nadie y no admite discusión. Un tilde
+   * de proceso terminado es la convención más asentada que hay en software y
+   * dibujarlo en tinta para no gastar el verde lo volvía invisible entre los
+   * otros diez trazos de tinta del grafo.
+   *
+   * Los dos verdes no se cruzan porque no comparten superficie: el del dato
+   * vive adentro del informe, en una cápsula con texto; éste vive afuera, en el
+   * circuito, y siempre como tilde sin palabra. Si alguna vez uno de los dos
+   * entra en la superficie del otro, lo que sobra es ese, no el token.
+   *
+   * Es el mismo valor que `--positivo` a propósito: son dos roles, no dos
+   * colores, y duplicar el hex sería empezar a tener dos verdes distintos.
+   */
+  --estado-hecho: #0f6b45;
+
+  /* ── EL DATO. Sólo adentro del reporte, y lo asigna el negocio ──────────── */
+  --positivo: #0f6b45;
+  --positivo-campo: #f2faf6;
+  --positivo-filete: #d2e8dd;
+  --negativo: #a3261a;
+  --negativo-campo: #fdf4f2;
+  --negativo-filete: #efd6d1;
+
+  --contenedor: 1320px;
+  --borde-x: 20px;
+
+  /**
+   * El ancho del CONTENIDO: lo que queda del contenedor después de sus dos
+   * márgenes. Es exactamente la caja de texto de `.f-marco`, y de acá salen las
+   * columnas del sangrado, así que las dos cosas no pueden desalinearse.
+   *
+   * `--contenido-real` es el mismo valor topeado contra lo que hay disponible,
+   * y existe para las grillas que subdividen la columna de contenido en pistas
+   * de ancho fijo. Sin el tope, en una pantalla más angosta que el contenedor
+   * esas pistas sumarían más que la pantalla y empujarían la página a lo ancho.
+   * El `100%` se resuelve contra la grilla que lo usa, así que se declara donde
+   * se consume y no acá.
+   */
+  --contenido: calc(var(--contenedor) - var(--borde-x) * 2);
+
+  --radio-obj: 16px;
+  --radio-int: 10px;
+
+  /* Dos curvas y no una: la larga frena de verdad y es la de las entradas; la
+     corta es la de los controles, donde una curva lenta se siente pegajosa. */
+  --curva: cubic-bezier(0.16, 1, 0.3, 1);
+  --curva-control: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /**
+   * ── ELEVACIÓN ─────────────────────────────────────────────────────────────
+   * Cuatro niveles y todos tinteados con la tinta del sistema: una sombra gris
+   * neutra sobre un campo cálido se ve azul por contraste simultáneo. Cada una
+   * lleva dos capas —una de contacto, corta y dura, y una ambiental, larga y
+   * blanda—, que es como se comporta la luz real y lo que separa una sombra
+   * dibujada de una sombra puesta.
+   */
+  --e1: 0 1px 2px rgb(22 19 15 / 0.05), 0 2px 5px -2px rgb(22 19 15 / 0.06);
+  --e2: 0 2px 5px rgb(22 19 15 / 0.05), 0 12px 24px -10px rgb(22 19 15 / 0.12);
+  --e3: 0 3px 8px rgb(22 19 15 / 0.05), 0 24px 44px -20px rgb(22 19 15 / 0.16);
+  --e4: 0 6px 14px rgb(22 19 15 / 0.06), 0 38px 68px -28px rgb(22 19 15 / 0.22);
+
+  /**
+   * EL FUNDIDO DEL DOCUMENTO, DECLARADO UNA VEZ PARA TODA LA PÁGINA.
+   *
+   * Es el tramo con el que el fragmento del héroe se disuelve —79% opaco, nada
+   * a 94%— y sus dos números están razonados en `documento.css`, que es donde
+   * se calibraron. Sube acá porque dejó de tener un solo consumidor: la tabla
+   * de Anatomía se corta con EL MISMO tramo, no con uno nuevo.
+   *
+   * Lo que NO cambia es el contrato del héroe: `.f-navegador` sigue leyendo
+   * `--fundido`, que sólo existe adentro de `.f-escena`, así que un marco de
+   * navegador fuera de la escena sigue sin fundirse. Quien quiera el fundido lo
+   * pide por nombre.
+   */
+  --fundido-tramo: linear-gradient(to bottom, #000 0 79%, transparent 94%);
+
+  position: relative;
+  background: var(--campo);
+  color: var(--tinta);
+  font-family: var(--f-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-synthesis-weight: none;
+}
+
+@media (min-width: 640px) {
+  .firma {
+    --borde-x: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .firma {
+    --borde-x: 44px;
+  }
+}
+
+/* La hoja global de la landing vigente pinta el body del mundo retirado y le
+   apoya una capa de grano en multiply. Se apaga sólo en esta ruta.
+
+   Es el único lugar donde el campo va escrito como literal y no como token, y
+   no es un descuido: los tokens se declaran en `.firma`, que es un descendiente
+   del `body`, así que acá `var(--campo)` no existe todavía. Si cambia el campo,
+   cambia también este valor —es lo que se ve en el rebote del scroll—. */
+body:has(.firma) {
+  background: #f4f1eb;
+}
+
+body:has(.firma)::before {
+  display: none;
+}
+
+/* ── EL FONDO ────────────────────────────────────────────────────────────────
+   Dos halos que se oponen: uno cálido detrás del documento y uno frío abajo a
+   la izquierda que le da al primero contra qué existir. Un solo halo, por
+   fuerte que sea, se lee como una mancha; dos que se oponen se leen como luz.
+
+   La retícula de hairlines verticales que estuvo acá se retiró: seis líneas al
+   4% sobre un fondo casi blanco no daban rigor, daban suciedad. */
+
+.f-fondo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.f-fondo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      64rem 44rem at 78% -8%,
+      rgb(234 88 12 / 0.14),
+      transparent 62%
+    ),
+    radial-gradient(
+      48rem 36rem at 2% 30%,
+      rgb(35 32 28 / 0.05),
+      transparent 64%
+    ),
+    linear-gradient(to bottom, var(--crema), var(--campo) 620px);
+}
+
+/* ── SUPERFICIES DEL NAVEGADOR ───────────────────────────────────────────────
+   Selección, cursor, barra de scroll y anillo de foco salen del sistema y no de
+   la fábrica del navegador. Es lo más barato que separa una página construida
+   de una ensamblada. */
+
+.firma ::selection {
+  background: var(--acento-campo);
+  color: var(--acento-tinta);
+}
+
+.firma {
+  caret-color: var(--acento);
+  scrollbar-color: var(--filete-fuerte) transparent;
+}
+
+.firma :focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.f-oscuro :focus-visible {
+  outline-color: var(--acento-vivo);
+}
+
+/* ── CONTENEDOR ───────────────────────────────────────────────────────────── */
+
+.f-marco {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--contenedor);
+  margin-inline: auto;
+  padding-inline: var(--borde-x);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL SANGRADO — una superficie que se va del contenedor
+
+   ── LA REGLA QUE IMPLEMENTA ────────────────────────────────────────────────
+   «La superficie puede sangrar a lo ancho del viewport; el contenido nunca
+   cambia de margen.» Lo que se estira hasta el borde de la pantalla son las
+   superficies y las líneas; el texto sigue arrancando y terminando donde
+   arranca y termina el contenedor.
+
+   ── POR QUÉ UNA GRILLA Y NO UN MARGEN NEGATIVO ─────────────────────────────
+   El recurso se resuelve UNA vez acá y las secciones lo consumen. Las otras
+   dos salidas conocidas —`margin-inline: calc(50% - 50vw)` y `width: 100vw`—
+   se descartaron por el mismo motivo: las dos miden contra `vw`, que incluye
+   el ancho de la barra de scroll, así que en cuanto la página tiene scroll
+   vertical la superficie sobresale unos píxeles y aparece scroll horizontal.
+   `PRODUCT.md` fija que nada empuja la página a lo ancho.
+
+   La grilla no mide nada: declara tres columnas —canal, contenido, canal— y
+   deja que el navegador reparta. La columna del medio queda exactamente donde
+   `.f-marco` pone su contenido, porque sale de los mismos dos tokens.
+
+   ── CÓMO SE USA ────────────────────────────────────────────────────────────
+   El hijo sin clase cae en la columna de contenido, que es el caso corriente.
+   Los tres modificadores lo estiran hacia un lado, hacia el otro o hacia los
+   dos. Debajo de 1024px no sangra nada: todo vuelve a la columna de contenido,
+   porque un objeto sangrado en 390px se come el contenido.
+
+   Una grilla que subdivide la columna de contenido —Anatomía en tres celdas,
+   El momento en ventana y tira— no repite este mecanismo: declara sus propias
+   columnas interiores contra `--contenido-real`, que está definido abajo.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-sangra {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns:
+    [borde-inicio] minmax(var(--borde-x), 1fr)
+    [c-inicio] minmax(0, var(--contenido))
+    [c-fin] minmax(var(--borde-x), 1fr)
+    [borde-fin];
+}
+
+/* `min-width: 0` en todos: un ítem de grilla arranca en `min-width: auto` y no
+   baja del ancho de su contenido más largo, que es la vía por la que una tabla
+   o una cifra larga empujarían la página a lo ancho. */
+.f-sangra > * {
+  grid-column: c-inicio / c-fin;
+  min-width: 0;
+}
+
+.f-sangra > .f-sangra-todo {
+  grid-column: borde-inicio / borde-fin;
+}
+
+.f-sangra > .f-sangra-der {
+  grid-column: c-inicio / borde-fin;
+}
+
+.f-sangra > .f-sangra-izq {
+  grid-column: borde-inicio / c-fin;
+}
+
+@media (max-width: 1023px) {
+  .f-sangra > .f-sangra-todo,
+  .f-sangra > .f-sangra-der,
+  .f-sangra > .f-sangra-izq {
+    grid-column: c-inicio / c-fin;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TIPOGRAFÍA — UNA SOLA FAMILIA
+
+   Schibsted Grotesk. Es una grotesca de medios, dibujada para una redacción, y
+   ésa es exactamente la condición del encargo: tiene que aguantar un titular de
+   76px y una celda de tabla de 14px sin que ninguno de los dos se sienta
+   prestado. Trae peso real hasta 900 y —lo que decide la elección— CIFRAS
+   TABULARES DE VERDAD en el archivo, verificado por medición: «111» y «000»
+   rinden idéntico. El objeto que sostiene el sitio es un reporte y sus columnas
+   tienen que alinear.
+
+   ── EL PISO DE TAMAÑO SUBIÓ ────────────────────────────────────────────────
+   El rótulo estaba en 10px y el texto más chico en 12px, y era demasiado chico
+   para leer sin acercarse. Hoy el piso es 12px para rótulos y 13px para
+   cualquier texto corrido. Todo lo demás subió en consecuencia: el cuerpo de
+   15px a 16px y el chico de 13px a 14px.
+
+   ── LA FAMILIA CAMBIÓ POR UNA MÁS FINA ─────────────────────────────────────
+   Geist reemplaza a Schibsted Grotesk. Schibsted es una grotesca de medios y su
+   virtud es aguantar: astas sólidas, caja robusta, pensada para que un titular
+   de diario sobreviva a papel malo. Eso mismo la hacía verse gruesa acá, incluso
+   después de bajarle dos escalones de peso — el problema no era el peso sino el
+   DIBUJO.
+
+   Geist está dibujada para pantalla y para números: astas finas, terminales
+   rectas, contraformas abiertas, y cifras tabulares de verdad en el archivo, que
+   sigue siendo la condición no negociable de esta página.
+
+   ── DOS PESOS Y MEDIO ──────────────────────────────────────────────────────
+   600 para lo que domina, 500 para lo que rotula, 400 para lo que se lee de
+   corrido. Con una familia más fina, 600 alcanza donde antes hacían falta 700 u
+   800: la jerarquía la hacen el dibujo y el color, no la grasa de la letra.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * LA PORTADA.
+ *
+ * Subió a 4,75rem y bajó la interlínea a 1,05: más grande y menos apilado, que
+ * suena contradictorio y no lo es. Lo que hacía que el titular se viera apilado
+ * no era el cuerpo sino la MEDIDA: con 20ch entraban cuatro palabras por línea
+ * y la frase se cortaba en cinco renglones cortos. A 26ch entra el doble por
+ * línea y el bloque se lee en tres tramos largos, que es como se lee una frase.
+ */
+.f-portada {
+  margin: 0;
+  max-width: 25ch;
+  font-size: clamp(2.25rem, 4.4vw, 4rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+.f-display {
+  margin: 0;
+  font-size: clamp(1.625rem, 2.6vw, 2.375rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+.f-titular {
+  margin: 0;
+  font-size: 1.1875rem;
+  font-weight: 500;
+  line-height: 1.36;
+  letter-spacing: -0.012em;
+}
+
+.f-titulo {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+}
+
+.f-bajada {
+  margin: 0;
+  font-size: clamp(1rem, 0.9vw, 1.0625rem);
+  font-weight: 400;
+  line-height: 1.62;
+  color: var(--tinta-media);
+  text-wrap: pretty;
+}
+
+.f-cuerpo {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--tinta-media);
+}
+
+.f-chico {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--tinta-media);
+}
+
+.f-fino {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--tinta-media);
+}
+
+/**
+ * EL RÓTULO. Encabezado de campo dentro de una pieza —«Resumen ejecutivo»,
+ * «Preparado por»—, nunca un copete arriba de un titular para anunciarlo.
+ *
+ * Subió de 10px a 12px y el peso de 500 a 600. A 10px con tracking abierto era
+ * ilegible sin acercarse; a 12px se lee de un vistazo y sigue siendo
+ * claramente subordinado, porque lo que lo subordina es el color —tinta
+ * suave— y no el tamaño.
+ */
+.f-rotulo {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--tinta-media);
+}
+
+/* Toda cifra que pueda caer en columna lleva esto. Sin tnum la tabla se
+   desalinea fila contra fila y un comprador de medios lo ve en tres segundos. */
+.f-cifra {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA MARCA — EL ELEMENTO FIRMA
+
+   ── LA MARCA SE REDUJO A UNA SOLA ESCALA: EL PUNTO ─────────────────────────
+   Llegó a estar declarada a tres —el punto, una barra bajo la frase clave del
+   titular y una regla de 52px que abría cada sección—. De las tres queda una,
+   y las dos que se fueron se fueron por motivos distintos que conviene no
+   confundir.
+
+   **La barra la sacó el dueño, dos veces, viéndola construida** (PRODUCT.md,
+   04/09/2026): el titular se apoya sólo en lo que dice la frase.
+
+   **La regla nunca existió.** Estaba escrita como `<span>` sin `display`, así
+   que era un elemento inline y `width`/`height` no le aplicaban: las ocho
+   instancias medían 0×0 y ningún visitante la vio jamás. El archivo afirmaba
+   que la marca «aparece más de veinte veces» y en pantalla aparecía siete. Se
+   retiró en vez de arreglarse, con una razón de diseño y no de mantenimiento:
+   el héroe —que el dueño aprobó como referencia del sistema— abre con el
+   titular pelado, y arreglar la regla habría dejado al héroe como la única
+   sección sin marcador, o le habría agregado uno que no pidió.
+
+   ── QUÉ SOSTIENE LA FIRMA AHORA ────────────────────────────────────────────
+   El punto, y el hecho de que el naranja aparezca en muy pocos lugares y
+   siempre por el mismo motivo. Tapá todo lo naranja de una pantalla y lo que
+   desaparece es lo que la página quería señalar. Un acento que aparece veinte
+   veces no señala: decora.
+
+   ── Y NO ENTRA AL DOCUMENTO (06/09/2026) ───────────────────────────────────
+   El punto marca cosas de la LANDING: el paso que espera una decisión en El
+   momento, la nota flotante del héroe, un ítem de una lista nuestra. Salió de
+   los dos lugares donde estaba impreso adentro del informe —la chapa de estado
+   del encabezado y la alerta del resumen—, porque el informe sale con la marca
+   del trafficker y no con la nuestra. Adentro del documento el único color son
+   las cápsulas de variación, y lo asigna el negocio.
+
+   Sobre oscuro sube al tono vivo, que ahí rinde mucho más y sobre papel sería
+   estridente. La superficie decide el color, como todo lo demás del sistema.
+
+   ═══════════════════════════════════════════════════════════════════════════
+   EL ACENTO SON TRES USOS, NO UNO (07/09/2026)
+   ═══════════════════════════════════════════════════════════════════════════
+
+   Este archivo decía «el acento vive en un solo tipo de elemento» y después
+   nombraba tres —la acción, el punto y los filetes—, así que la regla ya estaba
+   contradicha antes de esta pasada. Se reescribe para que diga lo que el
+   sistema hace de verdad, y se amplía con un tercer uso que el grafo de «Se
+   arma» necesitaba:
+
+     LA ACCIÓN          el botón. Es el destino de la página.
+     EL PUNTO           la marca sobre cosas nuestras: un ítem, una nota, un
+                        paso que espera una decisión.
+     EL ESTADO EN CURSO el nodo que está corriendo AHORA, y la arista que le
+                        llega. Filete y título en acento; al completarse, los
+                        dos vuelven a tinta.
+
+   Los tres comparten una sola idea y por eso son un solo elemento firma: **el
+   naranja dice dónde mirar ahora**. Un botón es dónde mirar cuando terminaste
+   de leer; un punto es dónde mirar dentro de una lista; un nodo en curso es
+   dónde está pasando algo en un dibujo con nueve nodos quietos. Ninguno de los
+   tres decora, y ninguno es permanente: el estado en curso dura 1,6 segundos y
+   se apaga solo.
+
+   ── LO QUE SIGUE PROHIBIDO, Y ES LA MITAD DE LA REGLA ──────────────────────
+   El acento NO pinta una chapa terminada, ni un ícono decorativo, ni un
+   gráfico, ni una alerta, ni un borde de sección, ni un estado permanente. Un
+   estado que no cambia no necesita que lo señalen: se lee solo. Y el acento
+   sigue sin entrar al documento, que es la regla de arriba y no se toca.
+
+   ── EL COMPLETADO NO ES ACENTO: ES VERDE ───────────────────────────────────
+   Un paso terminado se dice con un tilde verde de 14px, sin palabra, y nada
+   más. Ver `--estado-hecho` arriba, donde está escrito qué Don't levanta y por
+   qué el verde del estado y el verde del dato no se pisan.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * La clase de la frase clave sobrevive sin dibujo: marca en el marcado cuál es
+ * la parte de la frase que carga el argumento, y lo único que hace es impedir
+ * que se parta en dos líneas.
+ */
+.f-marca-frase {
+  white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+  .f-marca-frase {
+    white-space: normal;
+  }
+}
+
+.f-marca-punto {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--acento);
+}
+
+.f-oscuro .f-marca-punto {
+  background: var(--acento-vivo);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA ACCIÓN
+
+   ── DE DÓNDE SALE QUE TIRE DEL OJO ─────────────────────────────────────────
+   Cuatro cosas y ninguna es un color más fuerte: más aire adentro (17px × 30px
+   contra 15 × 26), un filo claro de 1px arriba por dentro —la luz pegando en el
+   canto superior de un objeto—, una sombra en dos capas donde la de contacto es
+   corta y dura y la ambiental larga y blanda, y una flecha que se mueve.
+
+   ── LA FLECHA ──────────────────────────────────────────────────────────────
+   No es decoración: es lo que convierte un rectángulo en una salida. Se
+   desplaza 3px en hover con la curva de control, y en reposo respira sola cada
+   4 segundos con un desplazamiento de 2px —lo suficiente para que el ojo la
+   registre en una página quieta, no tanto como para pedir atención—. El
+   respiro se apaga entero con prefers-reduced-motion.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* El radio es el mismo que el de las piezas del reporte (`--radio-int`): la
+   acción y la navegación son de la misma familia de formas que el documento
+   que la página vende, no pastillas de otro sistema. */
+.f-boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: var(--radio-int);
+  padding: 14px 25px;
+  background: var(--tinta);
+  color: var(--papel);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.008em;
+  text-decoration: none;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    0 1px 2px rgb(22 19 15 / 0.14),
+    0 8px 18px -10px rgb(22 19 15 / 0.3);
+  transition:
+    background-color 260ms var(--curva-control),
+    transform 260ms var(--curva-control),
+    box-shadow 260ms var(--curva-control);
+}
+
+.f-boton:hover {
+  background: #2c2721;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.2),
+    0 2px 5px rgb(22 19 15 / 0.16),
+    0 16px 32px -14px rgb(22 19 15 / 0.36);
+}
+
+.f-boton:active {
+  transform: translateY(0);
+}
+
+/* EL DISCO DE LA FLECHA. Un aro claro sobre la tinta del botón —no un segundo
+   relleno sólido— para que el círculo se lea sin partir el botón en dos
+   bloques de color. Sobre papel (tramo oscuro) el aro se invierte solo, porque
+   los dos valores salen de `currentColor`. */
+.f-boton-disco {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  margin-right: -7px;
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.14);
+}
+
+.f-oscuro .f-boton .f-boton-disco {
+  background: rgb(22 19 15 / 0.1);
+}
+
+.f-boton-flecha {
+  display: block;
+  transition: transform 260ms var(--curva-control);
+}
+
+.f-boton:hover .f-boton-flecha {
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .f-boton-flecha {
+    animation: f-respira 4s var(--curva-control) infinite;
+  }
+
+  .f-boton:hover .f-boton-flecha {
+    animation: none;
+  }
+}
+
+@keyframes f-respira {
+  0%,
+  72%,
+  100% {
+    transform: translateX(0);
+  }
+  84% {
+    transform: translateX(2px);
+  }
+}
+
+/* Sólo cambia el relleno: todo lo demás lo hereda, y ésa es la regla. La CTA de
+   la barra y la del héroe tienen que pesar lo mismo. */
+.f-boton-chico {
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 0.875rem;
+}
+
+.f-boton-chico .f-boton-disco {
+  width: 22px;
+  height: 22px;
+  margin-right: -5px;
+}
+
+/* Sobre oscuro la acción se invierte a papel: el naranja sobre grafito no llega
+   a contraste con texto blanco encima, y pintarla de acento gastaría la marca
+   en una superficie grande, que es justo lo que no hay que hacer. */
+.f-oscuro .f-boton {
+  background: var(--papel);
+  color: var(--tinta);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.6),
+    0 10px 30px -12px rgb(0 0 0 / 0.6);
+}
+
+.f-oscuro .f-boton:hover {
+  background: #ffffff;
+}
+
+.f-accion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA NAVEGACIÓN
+
+   Creció: 72px de alto contra 56px, con la CTA y el wordmark respirando. Una
+   barra flotante que va apretada se lee como un widget; con aire se lee como el
+   cromo del sitio.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-nav {
+  position: sticky;
+  top: 16px;
+  z-index: 20;
+  margin-top: 16px;
+}
+
+.f-nav-pastilla {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 60px;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  padding: 8px 8px 8px 24px;
+  background: rgb(255 253 251 / 0.8);
+  backdrop-filter: blur(16px) saturate(1.5);
+  box-shadow: var(--e2);
+  transition: box-shadow 400ms var(--curva);
+}
+
+.f-nav-pastilla:hover {
+  box-shadow: var(--e3);
+}
+
+/**
+ * EL WORDMARK.
+ *
+ * La «o» final se reemplaza por un anillo dibujado del mismo diámetro que su
+ * caja tipográfica. No es un adorno colgado al costado del nombre: es una letra
+ * del nombre, y por eso el wordmark sigue leyéndose «Nuvlo» aunque el anillo
+ * esté vacío.
+ *
+ * El anillo es la misma forma que la marca —un estadio, acá cerrado en
+ * círculo— y toma el naranja en hover, así que el logo participa del sistema en
+ * vez de ser una isla. Es también lo único de la página que puede escalar a
+ * favicon sin perder identidad.
+ */
+.f-marca-nombre {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--tinta);
+  text-decoration: none;
+}
+
+.f-marca-o {
+  position: relative;
+  display: inline-block;
+  width: 0.62em;
+  height: 0.62em;
+  border: 0.14em solid currentColor;
+  border-radius: 9999px;
+  translate: 0 -0.02em;
+  transition: border-color 400ms var(--curva);
+}
+
+.f-marca-nombre:hover .f-marca-o {
+  border-color: var(--acento);
+}
+
+.f-oscuro .f-marca-nombre {
+  color: var(--sobre-oscuro);
+}
+
+.f-oscuro .f-marca-nombre:hover .f-marca-o {
+  border-color: var(--acento-vivo);
+}
+
+.f-nav-enlaces {
+  display: none;
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  gap: 26px;
+}
+
+@media (min-width: 940px) {
+  .f-nav-enlaces {
+    display: flex;
+  }
+}
+
+/**
+ * El subrayado de los enlaces crece desde el centro. Es la misma forma de la
+ * marca —un estadio de 2px— apareciendo donde el visitante apunta, así que la
+ * navegación usa el mismo vocabulario que el resto de la página en vez de tener
+ * un hover propio.
+ */
+.f-nav-enlaces a {
+  position: relative;
+  padding-block: 4px;
+  color: var(--tinta-media);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 320ms var(--curva);
+}
+
+.f-nav-enlaces a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--acento);
+  transition:
+    left 380ms var(--curva),
+    right 380ms var(--curva);
+}
+
+.f-nav-enlaces a:hover {
+  color: var(--tinta);
+}
+
+.f-nav-enlaces a:hover::after {
+  left: 0;
+  right: 0;
+}
+
+.f-nav-cta {
+  margin-left: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOVIMIENTO
+
+   ── EL ESTADO POR DEFECTO ES VISIBLE ───────────────────────────────────────
+   El servidor emite los nodos pelados. Las reglas que ocultan cuelgan de
+   [data-entra="oculto"], un atributo que sólo existe después de que corre el
+   efecto del cliente. Sin JavaScript no hay atributo, no hay regla que aplique
+   y la página se ve entera por construcción.
+
+   ── Y DESPUÉS MÁS CORTO OTRA VEZ (06/09/2026) ──────────────────────────────
+   Estuvieron en 900ms con un desenfoque de 8px, de una pasada donde se pidió
+   «más lentas». El pedido posterior lo contradice —«timing corto, nada de 800ms
+   dramáticos: lo que se siente profesional es rápido y preciso»— y manda el
+   posterior.
+
+   Ahora 460ms con escalón de 70ms, y el desenfoque afuera. El blur era lo que
+   más las hacía sentir pesadas, y encima es la más cara de animar de las tres
+   propiedades que había: obliga a rasterizar de nuevo el bloque entero en cada
+   cuadro, mientras que opacidad y transform se resuelven en la composición.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .firma [data-entra="oculto"] {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  .firma [data-entra="visto"] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 460ms var(--curva),
+      transform 460ms var(--curva);
+  }
+
+  /* Las filas heredan el estado del bloque y sacan su demora de --orden. Un
+     observador por fila dejaba invisibles para siempre las que viven adentro
+     del recorte del documento, porque un elemento clipeado por un ancestro
+     nunca intersecta el viewport. */
+  .firma [data-entra="oculto"] .f-escalon {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .firma [data-entra="visto"] .f-escalon {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 420ms var(--curva),
+      transform 420ms var(--curva);
+    transition-delay: calc(70ms + var(--orden, 0) * 70ms);
+  }
+}

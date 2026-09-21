@@ -1,0 +1,702 @@
+/**
+ * TRES REGISTROS DEL MISMO MUNDO — BASE COMPARTIDA.
+ *
+ * Esto NO es una dirección nueva. El mundo lo fijó el dueño el 03/09/2026 y
+ * está escrito en `PRODUCT.md`: estándar de la categoría jugado derecho, vara
+ * de acabado Ramp / Attio / Stripe, registro CLARO CON NEGRO PUNTUAL. Después
+ * de rechazar siete mundos con metáfora, volver a abrir una ronda de concepto
+ * sería el cuarto rediseño descartado por lo mismo.
+ *
+ * Lo que quedó abierto es otra cosa, y es lo único que se prueba acá: **de
+ * dónde sale la presencia cuando no hay textura**. La instrucción fue textual
+ * —«que ninguno sea liso; presencia por tipografía, contraste y escala, no por
+ * textura»— así que los tres registros comparten paleta, datos y copy, y se
+ * diferencian en un solo eje:
+ *
+ *   escala   manda el TITULAR. Presencia por cuerpo tipográfico.
+ *   masa     manda el VALOR. Presencia por un corte duro de negro a blanco.
+ *   objeto   manda el DOCUMENTO. Presencia por densidad de dato real.
+ *
+ * Copy, datos y acción son idénticos en los tres a propósito: si cambia el
+ * texto, el que elige no está eligiendo el registro.
+ *
+ * ── LA PALETA ───────────────────────────────────────────────────────────────
+ * Blanco de verdad, tinta casi negra, cero color de marca. La acción es negro
+ * sólido, que es lo que «negro puntual» significa cuando se ejecuta en serio.
+ * Verde y rojo existen SÓLO adentro del reporte y los asigna el negocio, no la
+ * dirección: que la inversión suba no es verde (`lib/reporte-muestra.ts`, misma
+ * regla que `report-metrics.ts` en el panel).
+ *
+ * Los tres escalones de texto están MEDIDOS contra las dos superficies, no
+ * elegidos a ojo:
+ *
+ *   tinta-media #4a515b   8,02:1 sobre blanco
+ *   tinta-suave #676e79   5,14:1 sobre blanco · 4,75:1 sobre panel
+ *   positivo    #0f6b45   5,76:1 sobre su campo
+ *   negativo    #a3261a   6,32:1 sobre su campo
+ */
+
+.reg {
+  --blanco: #ffffff;
+  --panel: #f5f6f7;
+  --panel-hondo: #eceef1;
+
+  --filete: #e2e4e7;
+  --filete-fuerte: #cfd2d7;
+
+  --tinta: #0b0d0f;
+  --tinta-media: #4a515b;
+  --tinta-suave: #676e79;
+
+  /* Los dos escalones de hover de la acción. No son colores nuevos: son el
+     negro que se levanta y el blanco que se hunde, y viven en el token para que
+     un hover no se resuelva con un literal suelto. */
+  --tinta-hover: #23282e;
+  --blanco-hover: #e8eaed;
+
+  /* Sobre el tramo negro la rampa se invierte POR OPACIDAD, no con tokens
+     nuevos. Un segundo juego de grises sería un sistema paralelo. */
+  --sobre-tinta: #ffffff;
+  --sobre-tinta-media: rgb(255 255 255 / 0.66);
+  --sobre-tinta-filete: rgb(255 255 255 / 0.16);
+
+  /**
+   * LA SUPERFICIE COMO VARIABLE HEREDADA.
+   *
+   * El cambio de plano se declara en un solo lugar y hereda hacia adentro, así
+   * que la retícula y la cápsula siguen a su zona sin saber que la zona existe.
+   * Es lo que permite que un documento CLARO viva adentro de un tramo negro sin
+   * una sola regla de excepción: el objeto redeclara estas tres variables y todo
+   * lo que tiene adentro lo obedece.
+   *
+   * Se escribió después de romperlo: con las reglas como descendientes
+   * (`.rg-oscuro .rg-reticula > *`), el banco de KPI del documento heredaba
+   * fondo negro del tramo mientras el texto seguía en tinta, y las cuatro cifras
+   * —el único dato duro del primer viewport— quedaban negras sobre negro.
+   */
+  --sup: var(--blanco);
+  --sup-filete: var(--filete);
+  --cap-neutro-campo: var(--panel-hondo);
+  --cap-neutro-tinta: var(--tinta-media);
+
+  /* Sólo adentro del reporte. */
+  --positivo: #0f6b45;
+  --positivo-campo: #e8f3ee;
+  --negativo: #a3261a;
+  --negativo-campo: #fbeae7;
+
+  --contenedor: 1200px;
+  --borde-x: 20px;
+
+  --radio-obj: 10px;
+  --radio-int: 6px;
+
+  /* Tres elevaciones y ninguna grande. La profundidad la dan los planos. */
+  --e1: 0 1px 2px rgb(11 13 15 / 0.05), 0 2px 4px -1px rgb(11 13 15 / 0.04);
+  --e2: 0 2px 4px rgb(11 13 15 / 0.05), 0 8px 18px -6px rgb(11 13 15 / 0.09);
+  --e3: 0 4px 8px rgb(11 13 15 / 0.06), 0 26px 52px -18px rgb(11 13 15 / 0.18);
+
+  background: var(--blanco);
+  color: var(--tinta);
+  font-family: var(--f-reg), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-synthesis-weight: none;
+}
+
+@media (min-width: 640px) {
+  .reg {
+    --borde-x: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .reg {
+    --borde-x: 40px;
+  }
+}
+
+/**
+ * La hoja global de la landing vigente pinta el `body` con el campo cálido del
+ * mundo retirado y le apoya encima una capa de grano en `multiply`. Se apaga
+ * sólo en esta ruta, con `:has`, sin tocar la landing pública.
+ */
+body:has(.reg) {
+  background: #ffffff;
+}
+
+body:has(.reg)::before {
+  display: none;
+}
+
+/* ── SUPERFICIES DEL NAVEGADOR ───────────────────────────────────────────────
+   Lo que no dibujamos igual lleva el diseño puesto: selección, cursor, barra de
+   scroll y anillo de foco salen del sistema y no de la fábrica del navegador. */
+
+.reg ::selection {
+  background: var(--tinta);
+  color: var(--blanco);
+}
+
+.reg {
+  caret-color: var(--tinta);
+  scrollbar-color: var(--filete-fuerte) transparent;
+}
+
+.reg :focus-visible {
+  outline: 2px solid var(--tinta);
+  outline-offset: 2px;
+}
+
+.reg .rg-oscuro :focus-visible {
+  outline-color: var(--sobre-tinta);
+}
+
+/* ── CONTENEDOR ───────────────────────────────────────────────────────────── */
+
+.rg-marco {
+  width: 100%;
+  max-width: var(--contenedor);
+  margin-inline: auto;
+  padding-inline: var(--borde-x);
+}
+
+/* ── TIPOGRAFÍA ──────────────────────────────────────────────────────────────
+   Tres pesos y nada más. El contraste entre escalones lo hacen el peso Y el
+   color, no el tamaño solo. Cada registro sube o baja el escalón de portada en
+   su propia hoja; el resto de la rampa es común. */
+
+.rg-bajada {
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--tinta-media);
+  text-wrap: pretty;
+}
+
+.rg-titulo {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.rg-cuerpo {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+.rg-chico {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--tinta-media);
+}
+
+.rg-fino {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--tinta-suave);
+}
+
+/**
+ * El rótulo es encabezado de campo DENTRO de una pieza —«Inversión», «Preparado
+ * por»—, nunca un copete arriba de un titular para anunciarlo. Va subordinado a
+ * propósito: a peso alto una etiqueta en versalitas espaciadas pelea de igual a
+ * igual con la cifra que tiene debajo.
+ */
+.rg-rotulo {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+/**
+ * Toda cifra que pueda caer en columna lleva esto. Sin `tnum` la tabla del
+ * reporte se desalinea fila contra fila y se ve al instante: el visitante es un
+ * comprador de medios y lee estas columnas todos los días.
+ */
+.cifra {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ── ACCIÓN ──────────────────────────────────────────────────────────────────
+   Negro sólido. Sin ícono, sin gradiente, sin borde. Es la única acción
+   primaria del sistema y «negro puntual» es exactamente esto: el único objeto
+   verdaderamente negro de una página clara es el botón. */
+
+.rg-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--radio-obj);
+  padding: 13px 22px;
+  background: var(--tinta);
+  color: var(--blanco);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  box-shadow: var(--e1);
+  transition:
+    background-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rg-boton:hover {
+  background: #23282e;
+  transform: translateY(-1px);
+  box-shadow: var(--e2);
+}
+
+.rg-boton-chico {
+  border-radius: var(--radio-int);
+  padding: 8px 15px;
+  font-size: 0.875rem;
+}
+
+/* Sobre el tramo negro el botón se invierte: la superficie decide el color, no
+   el componente. Y ahí no se declara sombra —las tres elevaciones son
+   `rgb(11 13 15 / …)` y sobre negro no existen—. */
+.rg-oscuro .rg-boton {
+  background: var(--blanco);
+  color: var(--tinta);
+  box-shadow: none;
+}
+
+.rg-oscuro .rg-boton:hover {
+  background: #e8eaed;
+  box-shadow: none;
+}
+
+/* La única acción secundaria del sistema es un enlace de texto subrayado con el
+   filete. No hay botón fantasma ni botón con borde. */
+.rg-enlace {
+  color: var(--tinta-media);
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-decoration-color: var(--filete-fuerte);
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+}
+
+.rg-enlace:hover {
+  color: var(--tinta);
+  text-decoration-color: var(--tinta);
+}
+
+/* ── NAVEGACIÓN ───────────────────────────────────────────────────────────── */
+
+.rg-nav {
+  border-bottom: 1px solid var(--filete);
+  background: var(--blanco);
+}
+
+.rg-oscuro .rg-nav {
+  border-bottom-color: var(--sobre-tinta-filete);
+  background: transparent;
+}
+
+.rg-nav-fila {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 64px;
+}
+
+.rg-marca {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: inherit;
+  text-decoration: none;
+}
+
+.rg-nav-enlaces {
+  display: none;
+  margin: 0 auto;
+  gap: 26px;
+}
+
+@media (min-width: 900px) {
+  .rg-nav-enlaces {
+    display: flex;
+  }
+}
+
+.rg-nav-enlaces a {
+  color: var(--tinta-media);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.rg-nav-enlaces a:hover {
+  color: var(--tinta);
+}
+
+.rg-oscuro .rg-nav-enlaces a {
+  color: var(--sobre-tinta-media);
+}
+
+.rg-oscuro .rg-nav-enlaces a:hover {
+  color: var(--sobre-tinta);
+}
+
+.rg-nav-cta {
+  margin-left: auto;
+}
+
+/* ── LA RETÍCULA DE UN PÍXEL ─────────────────────────────────────────────────
+   Todo conjunto de cifras se arma así: una grilla con `gap: 1px` sobre el
+   filete, celdas con fondo propio, `overflow: hidden` para respetar el radio.
+   Las líneas son el fondo asomando por el gap: NO hay bordes por celda. Un
+   reporte es una grilla de celdas, y que la página entera comparta esa retícula
+   hace que cualquier cifra se lea como parte del mismo documento. */
+
+.rg-reticula {
+  display: grid;
+  gap: 1px;
+  border: 1px solid var(--sup-filete);
+  border-radius: var(--radio-obj);
+  background: var(--sup-filete);
+  overflow: hidden;
+}
+
+.rg-reticula > * {
+  background: var(--sup);
+}
+
+/**
+ * LAS DOS ZONAS DEL SISTEMA.
+ *
+ * `rg-oscuro` invierte; `rg-claro` vuelve. Se declaran como variables y no como
+ * reglas descendientes para que un documento claro adentro de un tramo negro no
+ * necesite una sola excepción.
+ */
+.rg-oscuro {
+  --sup: var(--tinta);
+  --sup-filete: var(--sobre-tinta-filete);
+  --cap-neutro-campo: rgb(255 255 255 / 0.1);
+  --cap-neutro-tinta: var(--sobre-tinta-media);
+}
+
+.rg-claro {
+  --sup: var(--blanco);
+  --sup-filete: var(--filete);
+  --cap-neutro-campo: var(--panel-hondo);
+  --cap-neutro-tinta: var(--tinta-media);
+
+  color: var(--tinta);
+}
+
+/* ── EL REPORTE ─────────────────────────────────────────────────────────────
+   Una sola superficie partida por la retícula, con borde único y `overflow:
+   hidden`. No es un collage de piezas sueltas: es UN objeto, que es lo que el
+   producto entrega. Es siempre una hoja clara, esté apoyado donde esté. */
+
+/**
+ * El objeto es su propio contenedor de consulta. Es lo que le permite ser el
+ * MISMO componente en los tres registros y en anchos muy distintos —1120px a
+ * todo el marco, ~600px en una columna— sin que ninguno lo trate como un caso
+ * especial. Las medidas de adentro miran el ancho del documento, no el del
+ * viewport, que es la pregunta correcta: al banco de KPI no le importa cuánto
+ * mide la pantalla, le importa cuánto mide el papel.
+ */
+.rg-reporte {
+  container-type: inline-size;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-obj);
+  background: var(--blanco);
+  overflow: hidden;
+}
+
+.rg-r-cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px 16px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--filete);
+}
+
+.rg-r-quien {
+  min-width: 0;
+}
+
+.rg-r-cliente {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.rg-r-periodo {
+  margin: 3px 0 0;
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+.rg-r-chapa {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  border: 1px solid var(--filete-fuerte);
+  border-radius: 9999px;
+  padding: 3px 10px 3px 8px;
+  background: var(--blanco);
+  box-shadow: var(--e1);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/**
+ * Lo que espera una decisión se marca LEVANTANDO la superficie —hoja con `e1` y
+ * filete cerrado—, no con color de marca. Es la regla del énfasis sin color: si
+ * el estado se pintara, competiría con la única acción de la página.
+ */
+.rg-r-chapa::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: currentColor;
+}
+
+/* ── BANCO DE KPI ─────────────────────────────────────────────────────────── */
+
+.rg-banco {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@container (min-width: 560px) {
+  .rg-banco {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.rg-kpi {
+  padding: 15px 16px 16px;
+}
+
+/**
+ * La caja del rótulo reserva dos líneas SIEMPRE, entre o no en una. Sin esto
+ * «Costo por conversación» envuelve, empuja su cifra un renglón, y las cuatro
+ * quedan escalonadas: el bloque entero se lee torcido. La reserva la hace la
+ * caja, no un salto de línea escrito a mano, así que sobrevive a que cambie el
+ * nombre de una métrica.
+ */
+.rg-kpi .rg-rotulo {
+  min-height: calc(2 * 1.3em);
+}
+
+/**
+ * La cifra se mide contra el ancho del DOCUMENTO y no del viewport. Con `vw`
+ * «$ 486.250» a 28px medía 145px dentro de una celda de 150px y se montaba
+ * encima de la celda de al lado en cuanto el objeto entraba en una columna:
+ * el número más importante de la página, pisado.
+ */
+.rg-kpi-valor {
+  margin: 8px 0 0;
+  font-size: clamp(1.125rem, 3.6cqi, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.rg-kpi-pie {
+  margin-top: 7px;
+}
+
+/* ── LA CÁPSULA DE VARIACIÓN ─────────────────────────────────────────────────
+   El tick lo decide el SIGNO; el color lo decide el NEGOCIO, y nunca se infiere
+   del signo. Una flecha para abajo en verde no es un error: es el caso que el
+   sistema tiene que saber expresar —el costo por conversación bajó y eso está
+   bien—. */
+
+.rg-capsula {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 9999px;
+  padding: 2px 7px 2px 5px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.rg-capsula svg {
+  display: block;
+  flex: none;
+}
+
+.rg-capsula[data-sentido="bueno"] {
+  background: var(--positivo-campo);
+  color: var(--positivo);
+}
+
+.rg-capsula[data-sentido="malo"] {
+  background: var(--negativo-campo);
+  color: var(--negativo);
+}
+
+.rg-capsula[data-sentido="neutro"] {
+  background: var(--cap-neutro-campo);
+  color: var(--cap-neutro-tinta);
+}
+
+/* ── TABLA DE MÉTRICAS ────────────────────────────────────────────────────── */
+
+.rg-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.rg-tabla th {
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--filete);
+  background: var(--panel);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.rg-tabla th:first-child,
+.rg-tabla td:first-child {
+  text-align: left;
+}
+
+.rg-tabla td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--filete);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.rg-tabla tr:last-child td {
+  border-bottom: 0;
+}
+
+.rg-tabla td:first-child {
+  font-weight: 500;
+}
+
+/* La columna del mes anterior es un dato numérico, no una nota al pie: va en el
+   escalón medido, nunca apagada con `opacity`. */
+.rg-tabla .rg-anterior {
+  color: var(--tinta-suave);
+}
+
+.rg-tabla tbody tr:hover {
+  background: var(--panel);
+}
+
+/* ── LA PROSA DEL REPORTE ───────────────────────────────────────────────────
+   El resumen y las acciones son filas del objeto, separadas por el filete: no
+   son piezas sueltas apoyadas al lado. */
+
+.rg-r-prosa {
+  padding: 16px 18px 18px;
+  border-top: 1px solid var(--filete);
+}
+
+.rg-r-parrafo {
+  margin-top: 9px;
+  max-width: 42rem;
+}
+
+/**
+ * LA ALERTA, SIN COLOR.
+ *
+ * Sube la superficie y cierra el filete. Nada de borde grueso a la izquierda y
+ * nada de pintarla: en esta página el color de marca es de la acción, y adentro
+ * del reporte el rojo ya significa «esto empeoró». Una alerta roja competiría
+ * con la única semántica de color que el documento tiene.
+ */
+.rg-r-alerta {
+  margin-top: 13px;
+  border: 1px solid var(--filete-fuerte);
+  border-radius: var(--radio-int);
+  padding: 11px 13px;
+  background: var(--panel);
+  max-width: 42rem;
+}
+
+.rg-r-acciones {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 9px;
+  max-width: 42rem;
+}
+
+.rg-r-acciones li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* El ordinal es una marca, no una superficie: pastilla completa con filete y
+   nada de fondo. */
+.rg-r-ordinal {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  margin-top: 1px;
+  border: 1px solid var(--filete-fuerte);
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--tinta-media);
+}
+
+/* ── MOVIMIENTO ──────────────────────────────────────────────────────────────
+   Un solo momento por página y apagable entero. El estado por defecto de todo
+   bloque es VISIBLE: el servidor emite el nodo pelado y ocultar es una acción
+   del cliente. Sin JavaScript no hay atributo, no hay regla que aplique, y la
+   página se ve completa por construcción y no por un parche que la destapa. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .reg [data-entra="oculto"] {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  .reg [data-entra="visto"] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}

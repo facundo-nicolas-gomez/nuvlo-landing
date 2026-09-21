@@ -1,0 +1,119 @@
+/**
+ * REGISTRO 2 — MASA.
+ *
+ * El corte de valor es el elemento. Todo lo demás lo sirve.
+ */
+
+.r-masa {
+  font-family: var(--f-schibsted), system-ui, sans-serif;
+}
+
+/**
+ * EL TRAMO NEGRO.
+ *
+ * A sangre a lo ancho del viewport, pero el contenido nunca cambia de margen:
+ * la superficie sangra, el marco no. `--overhang` es lo que el documento
+ * sobresale por abajo, declarado UNA vez y consumido en tres lugares —el
+ * relleno del tramo, el margen negativo de la escena y el relleno del blanco de
+ * abajo— para que la frontera cierre exacta si alguien lo toca.
+ */
+.m-tramo {
+  --overhang: clamp(200px, 32vw, 470px);
+
+  /**
+   * `flow-root` no es cosmético: sin él el margen negativo de la escena se
+   * COLAPSA hacia afuera del tramo en vez de acortarlo. El resultado observado
+   * fue que el negro terminaba exactamente en el borde inferior del documento
+   * —sobresaliente real: 16px— y todo el efecto del registro desaparecía,
+   * mientras el blanco de abajo se subía 460px y dejaba la nota pegada al
+   * corte. Un contexto de formato propio hace que el margen del hijo quede
+   * adentro y sí descuente altura.
+   */
+  display: flow-root;
+  background: var(--tinta);
+  color: var(--sobre-tinta);
+}
+
+.m-heroe {
+  padding-top: clamp(48px, 6.5vw, 88px);
+}
+
+.m-titular {
+  max-width: 20ch;
+  margin: 0;
+  font-size: clamp(2.25rem, 5.1vw, 4rem);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+/* Sobre el tramo negro la rampa se invierte por OPACIDAD, no con un segundo
+   juego de grises. Un token nuevo acá sería un sistema paralelo. */
+.m-bajada {
+  max-width: 34rem;
+  margin-top: clamp(18px, 2.2vw, 26px);
+  color: var(--sobre-tinta-media);
+}
+
+.rg-accion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.m-accion {
+  margin-top: clamp(24px, 3vw, 34px);
+}
+
+.m-accion .rg-chico {
+  color: var(--sobre-tinta-media);
+}
+
+/**
+ * LA ESCENA QUE CRUZA LA FRONTERA.
+ *
+ * El margen negativo saca el documento del tramo negro por abajo. Sale DESDE SU
+ * PROPIA CELDA —no en posicionamiento absoluto— así que la fila sigue
+ * reservando su espacio y el objeto sobresale sin taparle nada a nadie.
+ *
+ * Sin sombra: las tres elevaciones del sistema son tinta sobre claro y sobre
+ * negro no existen. Declarar una acá sería código muerto que aparenta
+ * profundidad. Lo que separa la hoja del negro es el valor, que alcanza y
+ * sobra.
+ */
+.m-escena {
+  margin-top: clamp(44px, 5.5vw, 72px);
+  margin-bottom: calc(-1 * var(--overhang));
+}
+
+.m-doc {
+  background: var(--blanco);
+  color: var(--tinta);
+  border-color: var(--filete);
+}
+
+.m-banco {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--filete);
+}
+
+/**
+ * El blanco de abajo. Su relleno superior es exactamente el sobresaliente del
+ * documento más el aire que sigue, así que la nota empieza donde termina el
+ * objeto y el tramo no queda con un hueco a medio llenar.
+ *
+ * ── LA CUENTA, ESCRITA PORQUE YA SE ROMPIÓ UNA VEZ ──────────────────────────
+ * El borde inferior del documento cae en `borde_del_tramo + margen_negativo −
+ * relleno_inferior_del_tramo`. Con los dos valores iguales el resultado es
+ * CERO: el documento terminaba exactamente donde terminaba el negro, no cruzaba
+ * nada, y abajo quedaban cuatrocientos píxeles de blanco vacío. El tramo no
+ * lleva relleno inferior propio; el sobresaliente lo declara el margen negativo
+ * y nada más.
+ */
+.m-resto {
+  padding-top: calc(clamp(200px, 32vw, 470px) + 24px);
+  padding-bottom: 44px;
+}

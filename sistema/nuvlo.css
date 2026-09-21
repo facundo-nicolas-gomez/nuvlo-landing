@@ -1,0 +1,550 @@
+/**
+ * NUVLO — EL SISTEMA VISUAL, UNA SOLA FUENTE.
+ *
+ * ── QUÉ ES ESTE ARCHIVO ─────────────────────────────────────────────────────
+ * Los tokens que comparten la landing, el panel y el reporte público: un
+ * `@theme` de Tailwind v4 con nombres `--color-x`, `--radius-x`, `--shadow-x`,
+ * `--text-x`, `--spacing-x`, `--ease-x` y `--duracion-x`. Los valores son los que
+ * el dueño aprobó en la fase 3 del trabajo de diseño (14/09/2026), página por
+ * página y con lo que cambiaba de lo ya decidido escrito al lado.
+ *
+ * ── QUIÉN MANDA ─────────────────────────────────────────────────────────────
+ * **Este archivo es la fuente de los VALORES, y la landing es la que los
+ * decide.** No son lo mismo y confundirlos costó caro el 18/09/2026.
+ *
+ * Hasta la fase 3 este archivo era una derivación de `app/estilos/base.css`;
+ * desde ahí es la fuente, y la copia del panel (`nuvlo-panel/src/app/nuvlo.css`)
+ * tiene que ser byte-idéntica —lo verifica `verificar-sistema` en el CI del
+ * panel—. La landing lo importa desde el 19/09/2026, en `app/globals.css`, y lee
+ * los tokens con estos nombres; `base.css` dejó de repetirlos con nombres cortos
+ * y se quedó sólo con el escenario de la landing.
+ *
+ * Acá decía «si no coinciden, el que está mal es `base.css`», y eso es falso en
+ * el único caso en que importa. El orden lo fija `CLAUDE.md` de la landing y es
+ * **landing elige → el sistema adopta después, nunca al revés**: la landing es
+ * donde el dueño mira y decide. Cuando el 18/09/2026 enfrió el campo, neutralizó
+ * el cromo y las sombras, tomó los tonos de Retool y afiló la escala, este
+ * archivo quedó con el mundo del día anterior y su propia regla decía que el
+ * equivocado era el otro. Eran 20 tokens.
+ *
+ * Hasta el 19/09/2026 la regla era «si no coinciden, `base.css` tiene la
+ * decisión y este archivo la adopta». Desde que la landing importa este archivo,
+ * ya no hay dos copias que puedan no coincidir: **la landing decide editando
+ * este archivo**, y el cambio se copia entero al panel. Lo que manda acá es que
+ * un valor exista una sola vez y que el panel no lo redefina.
+ *
+ * ── LO QUE VARÍA ENTRE SUPERFICIES ──────────────────────────────────────────
+ * La densidad y el peso visual, nunca un valor. Una superficie elige qué roles,
+ * qué escalones de control y qué sombras usa; no redefine ninguno. Por eso acá
+ * hay roles que el panel no usa (`portada`, `display`) y aires que un tablero no
+ * necesita (`bloque`, `seccion`): viajan igual, para que no existan dos escalas.
+ *
+ * ── QUÉ NO ESTÁ ACÁ, Y NO ES UN OLVIDO ──────────────────────────────────────
+ * La escenografía de la landing: los lavados del héroe, la bandeja teñida, los
+ * brillos, el canto de la ventana dibujada, el verde de WhatsApp. Un token que
+ * sólo existe para poner en escena el informe en una página de marketing no es
+ * sistema. La lista, con el motivo de cada exclusión, está en
+ * `sistema/SISTEMA.md`, «Lo que se queda en la landing».
+ *
+ * ── CÓMO SE USA ─────────────────────────────────────────────────────────────
+ *   @import "tailwindcss";
+ *   @import "./nuvlo.css";
+ *
+ * `@theme static` y no `@theme` a secas: Tailwind emite sólo las variables que ve
+ * usadas en la misma compilación, y la landing las lee con `var()` desde hojas que
+ * no pasan por la suya. Con `static` salen todas, siempre. Lo único que el archivo
+ * espera de afuera es `--fuente-nuvlo`, que cada repo declara con `next/font`.
+ */
+
+@theme static {
+  /* ══════════════════════════════════════════════════════════════════════════
+     SUPERFICIES — LA SEPARACIÓN ES POR FILETE, NO POR VALOR
+
+     El escalón entre el campo y la hoja mide 1,02:1, o sea que no se ve. Lo que
+     separa una hoja del campo es su filete de un píxel (1,22:1 contra el campo).
+     Es el mecanismo de Attio y fue un pedido con objetivo dicho: que la hoja del
+     informe se vea más blanca. Con separación por valor, el campo tenía que
+     quedarse oscuro para que la hoja se despegara, y eso le ponía un techo al
+     blanco del documento.
+
+     **La regla que viaja con estos tokens: toda hoja que se apoye en el campo
+     lleva filete.** Si un objeto nuevo aparece sin borde, no se lo arregla
+     oscureciendo el campo.
+     ══════════════════════════════════════════════════════════════════════════ */
+  /* ── EL CAMPO SE ENFRIÓ (dueño, 18/09/2026) ────────────────────────────────
+     Estos cinco eran cálidos, del hue del marfil. El dueño pidió un campo «un
+     poco más frío, como tiene Stripe» y con él se movieron las superficies que
+     lo acompañan. El mecanismo de Attio y la regla del filete no cambian: lo
+     que cambió es la temperatura, no la separación. */
+  --color-campo: #fbfcfd;
+  --color-hoja: #ffffff;
+  --color-hoja-hundida: #f1f3f6;
+  --color-filete: #e5e8ec;
+  --color-filete-fuerte: #ccd2da;
+
+  /* ── TINTA ─────────────────────────────────────────────────────────────────
+     Tres escalones **fríos desde el 18/09/2026** —eran cálidos, del hue del
+     campo viejo—, del mismo hue que el campo nuevo. **Una tinta se mide donde
+     se usa, no donde podría usarse**: la terciaria se mide contra la hoja
+     hundida —la superficie más oscura donde escribe— y da 4,83:1, no contra el
+     campo, que le daría 5,23. Enfriar movió esas dos cifras tres centésimas:
+     la separación estaba elegida por valor, y lo que cambió fue el hue. */
+  --color-tinta: #101519;
+  --color-tinta-2: #474c52;
+  --color-tinta-3: #666b72;
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     EL PETRÓLEO — LA ACCIÓN, Y EL ÚNICO SATURADO
+
+     7,32:1 con el blanco encima; 7,16:1 como texto sobre el campo. Vive en el
+     botón, el enlace, el foco, la selección y los marcadores de lista.
+
+     **No pinta fondos, ni gráficos, ni chapas de estado.** Si el acento aparece
+     donde no hay nada que hacer, está decorando.
+
+     El vino (#8b2b3f) ocupó este lugar dos días y se fue por una medición:
+     estaba a 34,1 del rojo de falla, y sobre la noche del login los dos se
+     aclaraban hasta encontrarse. El petróleo queda a 89,3 del rojo de falla y a
+     103,6 del naranja de espera; lo que le queda cerca es el verde de `hecho`, a
+     39,5, y conviven en la tabla del tablero.
+
+     `acento-luz` subió de #f1f5f6 a #e6f1f1 (13/09/2026): el viejo medía 1,04:1
+     contra la hoja y la fila teñida no se distinguía del campo.
+     ══════════════════════════════════════════════════════════════════════════ */
+  --color-acento: #0f5f6b;
+  --color-acento-tinta: #0b444d;
+  --color-acento-campo: #cfdfe1;
+  --color-acento-filete: #b2ccd0;
+  --color-acento-luz: #e6f1f1;
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     LO OSCURO — EL GRAFITO DEL OBJETO Y LA NOCHE DE LA PÁGINA
+
+     Dos materiales y no uno. El **grafito** vive adentro de los objetos que
+     citan algo —el cromo del navegador que muestra el informe—: **neutro de
+     verdad desde el 18/09/2026**, que antes decía «frío y neutro» y tenía las
+     dos cosas (`#1c2126` llevaba +10 de azul sobre el rojo). El dueño preguntó
+     si ese era el fondo real del navegador de Apple, y no lo es: el cromo de
+     macOS es un MATERIAL translúcido que el sistema tiñe con el escritorio de
+     atrás, y Safari además toma el color de la propia página. No hay un hex que
+     copiar, así que lo fiel es ser neutro, que es el promedio de esos estados.
+     La **noche** es
+     casi negra y es superficie: los tramos oscuros de la landing y la pantalla
+     de entrar del panel. El grafito queda más claro que la noche, como una
+     ventana en modo oscuro sobre un escritorio negro.
+
+     **La Regla del Oscuro Adentro del Objeto**: en el panel el grafito entra
+     sólo en superficies que citan algo —una vista previa con cromo, un tooltip,
+     un toast— y nunca en el sidebar ni en una barra propia. No hay modo oscuro
+     en ninguno de los repos.
+
+     ── LA NOCHE TOMA LOS TONOS DE RETOOL (dueño, 18/09/2026) ─────────────────
+     Era `#0d0f10`, casi negra y con su propio azul. El dueño marcó la página de
+     Retool y pidió replicar sus tonos: la noche sube y se vuelve neutra tibia,
+     y el texto de encima deja el blanco por un hueso —`#e9ebdf`—, que es el
+     cambio que más se nota. El filete de la noche pasa del blanco al 10% a ese
+     mismo hueso al 18%: un filete se tiñe del texto que acompaña, no del papel.
+
+     Medido sobre la noche nueva: `sobre-noche` 15,1:1, `sobre-noche-2` 7,1:1,
+     el acento aclarado 9,4:1. Bajaron —la noche es más clara— y los tres siguen
+     muy por encima del piso. El crema dejó de ser rosado (#fbf2f2) cuando se
+     fue el vino, y dejó de ser crema cuando llegó Retool.
+     ══════════════════════════════════════════════════════════════════════════ */
+  --color-grafito: #202020;
+  --color-grafito-alto: #2d2d2d;
+  --color-noche: #151515;
+  --color-noche-2: #1e1e1d;
+  --color-noche-filete: rgb(233 235 223 / 0.18);
+  --color-sobre-noche: #e9ebdf;
+  --color-sobre-noche-2: rgb(233 235 223 / 0.66);
+  --color-acento-sobre-noche: #8fc3c9;
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     LOS DOS COLORES DEL NEGOCIO — SÓLO ADENTRO DEL REPORTE
+
+     Verde y rojo significan «mejoró» y «empeoró», los asigna el negocio desde
+     los datos y **nunca se infieren del signo**: que la inversión suba no es
+     verde. No salen del documento y no se usan por estética.
+     ══════════════════════════════════════════════════════════════════════════ */
+  --color-bueno: #157a4a;
+  --color-bueno-campo: #e3f2e9;
+  --color-malo: #b5311e;
+  --color-malo-campo: #fbe8e4;
+
+  /* ── LAS SEÑALES DE MÁQUINA ────────────────────────────────────────────────
+     La excepción sancionada a la regla de arriba, con tokens propios para que la
+     excepción no se confunda con la regla. Un paso terminado o un reporte
+     enviado es una afirmación de MÁQUINA, no la decide nadie.
+
+     `hecho` pinta todo lo que diga «Enviado», por decisión del dueño.
+     `espera` pinta lo que espera una decisión: la chapa «Borrador», el hito
+     pendiente. **No es rojo**, porque adentro del reporte el rojo ya significa
+     «empeoró». */
+  --color-hecho: #1e9a60;
+  --color-hecho-campo: #ddf3e6;
+  --color-hecho-tinta: #136a41;
+  --color-espera: #ea6a10;
+  --color-espera-tinta: #a8430a;
+
+  /* ── LA FALLA ──────────────────────────────────────────────────────────────
+     Sancionada por el dueño el 11/09/2026. Un error de la aplicación es una
+     afirmación de MÁQUINA, así que no es un rojo nuevo: es **la misma tinta que
+     `malo` bajo otro nombre**, y el nombre es lo que carga la regla.
+
+     Medido: 6,14:1 sobre hoja, 6,00:1 sobre campo, 5,49:1 sobre hoja hundida y
+     5,19:1 sobre `falla-campo`.
+
+     `falla-sobre-noche` es su versión para la noche, donde el rojo de hoja no
+     llega: los errores de la pantalla de entrar. */
+  --color-falla: #b5311e;
+  --color-falla-campo: #fbe8e4;
+  --color-falla-sobre-noche: #f08a63;
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     FORMA — LOS RADIOS
+
+     Las superficies llevan el radio por lo que son. **Bandeja** es lo más grande
+     que se apoya en el campo (sólo la landing). **Hoja** es lo que se apoya en
+     el campo: card, panel, sidebar, diálogo. **Interior** es lo que va adentro
+     de una hoja: celda, alerta. **Pastilla** es lo que se rotula: chapa, cápsula.
+
+     ── UN SOLO RADIO DE CONTROL, Y UN PASO MÁS FILOSA (dueño, 18/09/2026) ────
+     El control llevaba el radio **por su escalón**: 16 en el de 52, 10 en los
+     de 40 y 32. Ya no: 16 era el MISMO valor que la hoja, así que el botón que
+     aprueba un informe tenía la esquina del informe, y el argumento que había
+     bajado el compacto a 10 —«sobre 32px de alto, 16 se lee como pastilla»— no
+     se vuelve falso porque el botón crezca. Queda igualado al interior.
+
+     Y la escala entera bajó un paso, de 22 / 16 / 10 a 18 / 13 / 8: «apenas más
+     filosos». Se probó antes 10 / 7 / 4 —un 55%— y el dueño lo revirtió por
+     filoso, así que lo rechazado fue el grado y no la dirección; éste es un 18%.
+     Los saltos entre peldaños se conservan (1,38 y 1,63), que es lo que deja
+     leer la pertenencia. `fino` y `chico` no participan: son marcas, no
+     superficies, y no tienen nada adentro con lo que ser concéntricos.
+
+     **Un radio concéntrico es una resta, no un valor**: lo que va adentro de
+     una superficie con relleno lleva el radio del padre MENOS ese relleno,
+     escrito con `calc()`. Escrito a mano se desfasa en el próximo paso de la
+     escala, y en la landing se desfasaron tres el mismo día.
+
+     `fino` y `chico` entraron en la fase 3 porque ya existían sueltos: rayas y
+     marcas a 2px, piezas de 16px —una casilla, un marcador— a 6.
+
+     Los bordes son siempre de un píxel: no hay bordes de 2px ni callouts con
+     borde grueso de color.
+     ══════════════════════════════════════════════════════════════════════════ */
+  --radius-fino: 2px;
+  --radius-chico: 6px;
+  --radius-int: 8px;
+  --radius-control: 8px;
+  --radius-hoja: 13px;
+  --radius-bandeja: 18px;
+  --radius-pastilla: 9999px;
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     PROFUNDIDAD — EL PLANO POR DELANTE
+
+     **La Regla del Escalón.** Primero el escalón de superficie —campo → hoja →
+     hoja hundida—, después la sombra. Si un objeto no se distingue con el
+     escalón, se revisa el objeto; no se sube la sombra.
+
+     **La Regla del Desplazamiento.** Toda sombra lleva desplazamiento vertical y
+     desenfoque. Una sombra sin desplazamiento es un halo, y el halo no existe
+     acá; el canto de un objeto se resuelve con un borde de un píxel.
+
+     Todas se tiñen desde la tinta o desde el objeto que las proyecta, nunca en
+     gris. Sobre la noche se declaran con negro puro a más alfa, porque la tinta
+     al 5% ahí no existe.
+
+     ── EL PLANO LARGO DEJA EL PETRÓLEO (dueño, 18/09/2026) ───────────────────
+     Decía «el plano largo lleva petróleo», y llevaba `rgb(6 44 51)` —+45 de
+     tinte—. Tenía un motivo: caía sobre una bandeja de ese color. Esa bandeja
+     se retiró, el haz del héroe también y el campo quedó casi neutro, así que
+     lo que quedaba era la sombra de un mundo que ya no existe. Pasa a
+     `rgb(20 20 20)`. **Una sombra se tiñe desde el objeto que la proyecta y
+     desde la superficie que la recibe**; cuando una de las dos se va, la tinta
+     de la sombra se revisa. El tramo de contacto conserva su `rgb(22 20 31)`,
+     que tiene +9 y acompaña a un campo levemente frío.
+     ══════════════════════════════════════════════════════════════════════════ */
+  --shadow-hoja: 0 1px 2px rgb(22 20 31 / 0.05), 0 6px 16px -6px rgb(22 20 31 / 0.1);
+  /* El objeto que la pantalla existe para mostrar, y los diálogos. */
+  --shadow-ventana: 0 2px 4px rgb(22 20 31 / 0.06), 0 28px 56px -18px rgb(20 20 20 / 0.24);
+  /* Lo que se superpone a otra cosa: menús, avisos, las piezas que flotan. */
+  --shadow-flota: 0 4px 8px rgb(22 20 31 / 0.08), 0 24px 48px -12px rgb(20 20 20 / 0.28);
+  --shadow-hoja-noche: 0 1px 2px rgb(0 0 0 / 0.2);
+  --shadow-hoja-noche-alta: 0 2px 4px rgb(0 0 0 / 0.2);
+
+  /* LA SOMBRA DEL BOTÓN ES PESO, Y EL PESO ES DE LA LANDING. El primario de la
+     landing la lleva; el del panel no, porque el panel es denso y el peso lo
+     carga el color. Se tiñe desde el petróleo que la proyecta. Sobre la noche el
+     botón se invierte a hoja y lleva la suya, más larga, que es lo que lo separa
+     del negro. */
+  --shadow-boton: 0 1px 2px rgb(6 44 51 / 0.28), 0 6px 14px -6px rgb(15 95 107 / 0.45);
+  --shadow-boton-noche: inset 0 -1px 0 rgb(22 20 31 / 0.08), 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 24px -10px rgb(0 0 0 / 0.7);
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     TIPOGRAFÍA — UNA FAMILIA, CUATRO PESOS
+
+     400 lee, 500 controla lo que no es botón, 600 titula y acciona, 700 firma
+     el wordmark. El contraste entre escalones lo hacen el peso y el color tanto
+     como el cuerpo.
+
+     **Geist, por decisión del dueño (12/09/2026).** No tiene eje `opsz`: lo que
+     carga la diferencia entre escalones es el peso, el tracking y el cuerpo.
+     Condición medida y no leída de la ficha: «111111», «000000» y «444444»
+     rinden el mismo ancho con `tabular-nums`.
+
+     Cada repo llena `--fuente-nuvlo` con `next/font`, sin ejes.
+     ══════════════════════════════════════════════════════════════════════════ */
+  --font-sans: var(--fuente-nuvlo), "Geist", system-ui, sans-serif;
+
+  /* ── LOS ROLES ─────────────────────────────────────────────────────────────
+     Los mismos en las tres superficies. **El piso subió un escalón el
+     13/09/2026** («hay textos que quedaron demasiado chicos», dueño): rótulo 12,
+     fino 13, chico 14, cuerpo 16, título 20. Nada que se lea baja de 13px; los
+     12 quedan para versalitas, que se leen por forma y no por palabra.
+
+     Un valor que cae entre dos pasos de la escala o se corrige, o falta un rol y
+     se documenta. */
+
+  /* La voz de titular de una página que persuade. Viajan aunque el panel no los
+     use: un titular de 72px no tiene trabajo en un tablero. */
+  --text-portada: clamp(2.625rem, 5.4vw, 4.5rem);
+  --text-portada--line-height: 1;
+  --text-portada--font-weight: 600;
+  --text-portada--letter-spacing: -0.038em;
+
+  /* La bajada del héroe: crece con la columna y en un teléfono no crece nada. */
+  --text-portada-bajada: clamp(1.125rem, 1.9vw, 1.4375rem);
+  --text-portada-bajada--line-height: 1.45;
+  --text-portada-bajada--font-weight: 400;
+  --text-portada-bajada--letter-spacing: -0.012em;
+
+  --text-display: clamp(2rem, 3.5vw, 3rem);
+  --text-display--line-height: 1.04;
+  --text-display--font-weight: 600;
+  --text-display--letter-spacing: -0.032em;
+
+  /* La cifra grande de un dato: el total del reporte, la métrica del tablero.
+     Siempre con `tabular-nums`. */
+  --text-total: 1.75rem;
+  --text-total--line-height: 1.1;
+  --text-total--font-weight: 600;
+  --text-total--letter-spacing: -0.025em;
+
+  /* El título de una pantalla del panel. */
+  --text-vista: 1.5rem;
+  --text-vista--line-height: 1.2;
+  --text-vista--font-weight: 600;
+  --text-vista--letter-spacing: -0.02em;
+
+  /* Titula una hoja, una card, una fila. */
+  --text-titulo: 1.25rem;
+  --text-titulo--line-height: 1.3;
+  --text-titulo--font-weight: 600;
+  --text-titulo--letter-spacing: -0.012em;
+
+  /* La bajada de un título: explica, no lee largo. Fluida en las dos
+     superficies; a 1280px de ancho mide 18,6. */
+  --text-bajada: clamp(1.125rem, 1.45vw, 1.3125rem);
+  --text-bajada--line-height: 1.55;
+  --text-bajada--font-weight: 400;
+
+  /* El cuerpo de lectura. */
+  --text-cuerpo: 1rem;
+  --text-cuerpo--line-height: 1.6;
+  --text-cuerpo--font-weight: 400;
+
+  /* El texto del botón, uno por escalón de control. Línea a 1 porque un control
+     se centra por su alto y no por su interlínea. */
+  --text-boton: 1rem;
+  --text-boton--line-height: 1;
+  --text-boton--font-weight: 600;
+  --text-boton--letter-spacing: -0.012em;
+
+  --text-boton-medio: 0.9375rem;
+  --text-boton-medio--line-height: 1;
+  --text-boton-medio--font-weight: 600;
+  --text-boton-medio--letter-spacing: -0.012em;
+
+  --text-boton-compacto: 0.875rem;
+  --text-boton-compacto--line-height: 1;
+  --text-boton-compacto--font-weight: 600;
+  --text-boton-compacto--letter-spacing: -0.008em;
+
+  /* Lo que se toca y no es un botón: enlace de navegación, etiqueta de campo. */
+  --text-control: 0.9375rem;
+  --text-control--line-height: 1;
+  --text-control--font-weight: 500;
+  --text-control--letter-spacing: -0.005em;
+
+  /* Lo secundario que acompaña a un dato, y el cuerpo de densidad: filas de
+     tabla, listas largas, celdas. Eran dos roles (`chico` y `compacto`) y con la
+     subida del piso quedaron idénticos. */
+  --text-chico: 0.875rem;
+  --text-chico--line-height: 1.5;
+  --text-chico--font-weight: 400;
+
+  /* Lo terciario: pie de celda, hora, nota. */
+  --text-fino: 0.8125rem;
+  --text-fino--line-height: 1.5;
+  --text-fino--font-weight: 400;
+
+  /* Encabezado de campo: rotula lo que tiene DEBAJO y adentro de un objeto —una
+     tabla, un formulario, un reporte—. **Nunca es un copete arriba de un
+     titular**, que es el uso que lo convierte en decoración. */
+  --text-rotulo: 0.75rem;
+  --text-rotulo--line-height: 1.3;
+  --text-rotulo--font-weight: 600;
+  --text-rotulo--letter-spacing: 0.07em;
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     MEDIDA — EL ESPACIO
+
+     La unidad es la de Tailwind, 4px (`--spacing`), con medios pasos abajo. La
+     escala permitida es 2 · 4 · 6 · 8 · 10 · 12 · 14 · 16 · 20 · 24 · 28 · 32 ·
+     36 · 40 · 48 · 56 · 64 · 80 · 96: no se declara paso por paso porque la
+     unidad ya los da (`gap-2.5` son 10px). Lo que sí tiene nombre son los tres
+     aires y los tres escalones de control.
+     ══════════════════════════════════════════════════════════════════════════ */
+
+  /* Entre un título y su bajada, o entre líneas de un mismo bloque. */
+  --spacing-linea: 14px;
+  /* Entre bloques y entre secciones de una página larga. Un panel mide su
+     densidad por fila y por hoja, no por sección, así que no los usa.
+
+     `round(…, 1px)` desde el 19/09/2026, adoptado de la landing: un `clamp` en
+     `vw` da fracciones de píxel, y las líneas de la grilla que se apilan con
+     estos aires caían en fracción —84 de 105 horizontales, medido—, o sea
+     borrosas o un píxel corridas según la pantalla. Redondeado, el aire sigue
+     siendo fluido y el filete cae en entero. */
+  --spacing-bloque: round(clamp(32px, 3.4vw, 52px), 1px);
+  --spacing-seccion: round(clamp(64px, 6.4vw, 96px), 1px);
+
+  /* LOS TRES ESCALONES DE CONTROL. Un botón y el campo que envía miden lo mismo.
+     **Grande** para lo que vive en una columna —el CTA, el login, un formulario
+     de una columna—. **Medio** para lo que acompaña —la barra de la landing, los
+     encabezados, diálogos y filtros del panel—. **Compacto** para lo que vive en
+     una grilla —una fila de tabla, una barra de índice—, y sin campos: un campo
+     de 32 no se toca bien.
+
+     Con puntero grueso, medio y compacto crecen a 44px de área táctil sin
+     cambiar el dibujo, con un pseudoelemento. La única medida fuera de la
+     escala es la del botón con el logo de Mercado Pago, que su guía de marca no
+     deja achicar, y vive con su motivo en el panel. */
+  --spacing-control: 52px;
+  --spacing-control-medio: 40px;
+  --spacing-control-compacto: 32px;
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     MOVIMIENTO — DOS CURVAS, SEIS DURACIONES
+
+     `nuvlo` es la de los controles: la respuesta tiene que ser inmediata.
+     `entrada` es una salida exponencial más larga, para lo que aparece: arranca
+     con decisión y se toma su tiempo para asentarse.
+
+     Con `prefers-reduced-motion` no se desplaza nada: lo que se mueve pasa a un
+     fundido de `lenta`, y lo que espera late en vez de girar.
+     ══════════════════════════════════════════════════════════════════════════ */
+  --ease-nuvlo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-entrada: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Respuesta inmediata. */
+  --duracion-instante: 100ms;
+  /* Hover, foco, apretar, color. */
+  --duracion-rapida: 160ms;
+  /* Lo que viaja: la flecha del botón, un menú. */
+  --duracion-media: 240ms;
+  /* Un cambio de estado; el fundido de movimiento reducido. */
+  --duracion-lenta: 400ms;
+  /* El revelado de la landing, con la curva de entrada. */
+  --duracion-entrada: 1000ms;
+  /* Lo que espera: el botón pendiente, los esqueletos de carga. */
+  --duracion-latido: 1400ms;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LO QUE NO DIBUJAMOS NOSOTROS
+
+   Selección, foco, caret y barra de scroll vienen del navegador y no pertenecen
+   a ningún sistema; se tiñen desde la paleta y punto. Va en `base` para que
+   cualquier utilidad lo pueda pisar.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer base {
+  :root {
+    /* **El anillo se elige por SUPERFICIE, no por sección.** Una variable que
+       hereda: vale petróleo sobre el campo, su versión clara sobre la noche, y
+       vuelve a petróleo en cualquier hoja clara que viva adentro de la noche.
+
+       El antipatrón, que ya costó una falla real: escribirlo con un selector de
+       descendencia pinta por árbol y no por fondo, y deja el anillo claro sobre
+       una hoja clara — medido en 2,57:1, bajo el mínimo de 3:1 de WCAG 1.4.11, y
+       justo en el único botón que su sección existía para que se apretara. */
+    --anillo: var(--color-acento);
+
+    /* Los dos repos son claros por decisión, no por omisión. Declararlo evita
+       que un control nativo o la barra de scroll de un contenedor salgan oscuros
+       adentro de una hoja blanca cuando el sistema del visitante está en oscuro. */
+    color-scheme: light;
+
+    scrollbar-color: var(--color-filete-fuerte) transparent;
+    caret-color: var(--color-acento);
+  }
+
+  ::selection {
+    background: var(--color-acento-campo);
+    color: var(--color-tinta);
+  }
+
+  /* 3px de separación y 2 de trazo. **Sin halo**: un `box-shadow` alrededor del
+     anillo trae un color que no está en esta paleta, y con el `outline-offset`
+     el anillo ya se separa solo, sobre hoja y sobre campo. */
+  :focus-visible {
+    outline: 2px solid var(--anillo);
+    outline-offset: 3px;
+    box-shadow: none;
+  }
+
+  /* Toda cifra que pueda caer en columna. */
+  .cifra {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Tailwind v4 quitó el `cursor: pointer` por defecto de los botones, y la
+     convención web esperada sigue siendo manito en lo clickeable. */
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LAS SUPERFICIES OSCURAS NO SE FILTRAN HACIA ADENTRO
+
+   **La Regla de la Hoja Clara en la Noche.** Una hoja clara adentro de una
+   superficie oscura recupera todo: sus tintas, su acento y su anillo. La noche
+   no se filtra dentro del objeto que sostiene.
+
+   Y vale igual para el botón: el petróleo sobre la noche no llega al mínimo de
+   3:1 de un control, así que se invierte a hoja con texto en tinta en lugar de
+   aclararse.
+
+   ── EL ANILLO VIAJA CON LA SUPERFICIE ─────────────────────────────────────
+   `.hoja` declara `--anillo` **sin ningún selector de contexto delante**. Es la
+   diferencia entre «acordate de redeclarar el anillo en cada hoja clara» y «no
+   hay forma de hacer una hoja clara sin él». La landing llegó acá después de
+   fallar dos veces enumerando islas: una superficie clara nueva vuelve a empezar
+   sin anillo.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@layer base {
+  .sobre-oscuro {
+    --anillo: var(--color-acento-sobre-noche);
+    color: var(--color-sobre-noche);
+  }
+
+  .hoja {
+    --anillo: var(--color-acento);
+    background: var(--color-hoja);
+    color: var(--color-tinta);
+    border-radius: var(--radius-hoja);
+  }
+}

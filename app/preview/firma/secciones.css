@@ -1,0 +1,4490 @@
+/**
+ * LAS SECCIONES.
+ *
+ * ═══════════════════════════════════════════════════════════════════════════
+ * EL RITMO ES DESPAREJO A PROPÓSITO (06/09/2026)
+ * ═══════════════════════════════════════════════════════════════════════════
+ *
+ * Hasta esta pasada las nueve secciones usaban el mismo ancho y el mismo
+ * intervalo vertical, y por eso la página se leía como una pila de bloques
+ * iguales aunque cada sección tuviera adentro una composición distinta. El aire
+ * parejo no es neutral: dice que todo pesa lo mismo.
+ *
+ * ── TRES ANCHOS, ELEGIDOS POR LO QUE CADA SECCIÓN NECESITA ─────────────────
+ *   angosto  46rem   una columna de lectura. Lo que se lee de corrido.
+ *   medio    68rem   un objeto y su texto, sin que el ojo tenga que barrer.
+ *   ancho    1320px  dos columnas, o un objeto que tiene que dominar.
+ *
+ * Y dos que arrancan DESPLAZADAS —el análisis y las preguntas— para que el
+ * borde izquierdo de la página deje de ser una línea recta de arriba abajo.
+ *
+ * ── CUATRO INTERVALOS, NO UNO ──────────────────────────────────────────────
+ *   --aire-tema     antes de un cambio de tema. Es el más grande y el que hace
+ *                   el trabajo: separa el producto del dinero, el entregable
+ *                   del control.
+ *   --aire-seccion  el corriente, entre secciones que siguen hablando de lo
+ *                   mismo.
+ *   --aire-bloque   entre un titular y el objeto que lo sigue.
+ *   --aire-linea    entre un titular y su bajada. Es el más chico de todos: son
+ *                   la misma frase dicha dos veces, y separarlas las convierte
+ *                   en dos cosas.
+ *
+ * ── LO QUE EL HÉROE FIJA, Y NO CAMBIA ──────────────────────────────────────
+ * Una sección es UN objeto, no una fila de tarjetas. Dos familias de objeto:
+ * cromo de ventana para lo que es PRODUCTO, superficie simple para lo que es
+ * ARGUMENTO. Dos radios, 16 y 10. La profundidad sale de planos. El naranja
+ * marca y no decora, en una sola escala: el punto.
+ *
+ * ── NINGÚN RECURSO SE REPITE ───────────────────────────────────────────────
+ *
+ * La lista son las secciones que `components/preview/firma/Pagina.tsx` monta, en
+ * su orden. **Ése archivo manda**: acá hubo una lista vieja que nombraba cuatro
+ * secciones ya desmontadas —Lo que dice, Cómo sale, Control, La cuenta— y no
+ * nombraba tres de las que sí estaban en pantalla. Un inventario copiado
+ * envejece sin avisar; si vuelven a no coincidir, lo que está mal es esto.
+ *
+ *   héroe          el documento en fragmento, disolviéndose
+ *   Se arma        el grafo ejecutándose solo
+ *   La máquina     tramo oscuro: dos piezas que se pisan, con el banco adelante
+ *   El momento     la tira de cuatro pasos y la ventana del panel
+ *   El entregable  el teléfono, y el mail escribiéndose
+ *   Límites        pura tipografía sobre campo crema: el respiro
+ *   Precios        el hover que enciende el pie del informe
+ *   Preguntas      acordeón nativo, desplazado
+ *   Cierre         el wordmark subiendo desde el corte
+ *
+ * Los estilos de las secciones desmontadas siguen más abajo, rotulados como
+ * tales: el borrado lo confirma el dueño aparte.
+ */
+
+.firma {
+  --aire-tema: clamp(96px, 11vw, 168px);
+  --aire-seccion: clamp(52px, 5.4vw, 80px);
+  --aire-bloque: clamp(26px, 3vw, 42px);
+  --aire-linea: 13px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ANDAMIAJE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-seccion {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--aire-seccion);
+}
+
+/* Los dos anchos que no son el del contenedor. Se aplican sobre `.f-marco`, que
+   sigue poniendo el relleno lateral y el centrado. */
+.f-marco-medio {
+  max-width: 68rem;
+}
+
+.f-marco-angosto {
+  max-width: 46rem;
+}
+
+.f-cabeza {
+  margin-bottom: var(--aire-bloque);
+}
+
+/* La medida del titular se fijó midiendo: a 22ch «Tu cliente no ve Nuvlo. Te ve
+   a vos.» se partía después de «no ve» y dejaba el verbo separado de su objeto
+   en la frase que carga el argumento. Es medida de TITULAR; un párrafo a este
+   ancho sería ilegible y por eso la bajada declara la suya.
+
+   El titular era el de El entregable, que ya no lo tiene: esa sección abre con
+   un rótulo desde el 06/09/2026. La regla se queda porque la frase que la
+   calibró sigue siendo la que mejor la explica. */
+.f-cabeza .f-display,
+.f-lq-cabeza .f-display {
+  max-width: 28ch;
+}
+
+.f-cabeza-bajada,
+.f-lq-bajada,
+.f-en-bajada {
+  margin-top: var(--aire-linea);
+  max-width: 34rem;
+}
+
+/* Un nodo que se lee y no se ve. */
+.f-solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL OBJETO DE ARGUMENTO
+
+   El documento del héroe sin el cromo de ventana: misma regla de filetes, mismo
+   radio, misma densidad. El filete entre bloques se declara UNA vez y en el
+   contenedor.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-superficie {
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-obj);
+  background: var(--papel);
+  box-shadow: var(--e2);
+  overflow: hidden;
+}
+
+.f-superficie > * + * {
+  border-top: 1px solid var(--filete);
+}
+
+.f-oscuro .f-superficie {
+  border-color: var(--grafito-filete);
+  background: var(--grafito);
+  box-shadow: none;
+}
+
+.f-oscuro .f-superficie > * + * {
+  border-top-color: var(--grafito-filete);
+}
+
+/**
+ * LA HOJA QUE SE APOYA SOBRE EL TRAMO OSCURO.
+ *
+ * Un modificador de `.f-superficie`, no una superficie nueva: deshace la
+ * inversión a grafito de las dos reglas de acá arriba y devuelve la hoja clara.
+ * Existe porque hay UNA cosa que sobre el tramo oscuro tiene que seguir siendo
+ * blanca —un pedazo del documento— y el documento es el entregable del
+ * trafficker, no cromo de la página. Un banco de KPI pintado de grafito sería
+ * un informe que el producto no genera.
+ *
+ * Sobre espresso no se declara sombra: las cuatro elevaciones son
+ * `rgb(22 19 15 / …)` y ahí no existen. La hoja se separa POR VALOR, que es lo
+ * que el sistema pide en los tramos oscuros y lo que acá sobra —papel casi
+ * blanco sobre grafito hondo es el escalón más grande de toda la página—.
+ *
+ * ── Y HAY QUE DEVOLVER LA RAMPA DE TEXTO ──────────────────────────────────
+ * `.f-oscuro` retiñe cinco roles de texto para la rampa invertida, y esas
+ * reglas alcanzan por descendencia a lo que viva adentro de la hoja: un rótulo
+ * en `--sobre-oscuro-media` sobre papel queda en 1,3:1, o sea invisible. Los
+ * cinco vuelven a `--tinta-media` de una vez, que es el valor que tienen sobre
+ * claro. La tinta plena la pone el contenedor y se hereda.
+ */
+.f-oscuro .f-superficie-hoja {
+  border-color: var(--filete);
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+.f-oscuro .f-superficie-hoja > * + * {
+  border-top-color: var(--filete);
+}
+
+.f-oscuro .f-superficie-hoja .f-rotulo,
+.f-oscuro .f-superficie-hoja .f-fino,
+.f-oscuro .f-superficie-hoja .f-chico,
+.f-oscuro .f-superficie-hoja .f-cuerpo,
+.f-oscuro .f-superficie-hoja .f-bajada {
+  color: var(--tinta-media);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA ANATOMÍA DEL INFORME — cuatro piezas del documento, en dos planos
+
+   Va inmediatamente después del héroe, así que hereda su corte: el fundido del
+   fragmento termina contra el relleno superior de esta sección, no contra un
+   margen. Por eso el intervalo de arriba es el de cambio de tema y no el
+   corriente —el héroe cierra un movimiento y acá empieza otro—.
+
+   ── SE PROBÓ COMO VISTA DESPIEZADA Y SE REVIRTIÓ (06/09/2026) ──────────────
+   Hubo una pasada con el fantasma del informe completo detrás y cuatro líneas
+   de llamada medidas. Está en la rama `rediseno/anatomia-despiece` (af5234e) y
+   el motivo del descarte está escrito en `Anatomia.tsx`: no fue de ejecución,
+   fue que el despiece obliga a ordenar las piezas por su lugar en el documento
+   y ese orden choca con el que la sección necesita por escala y por argumento.
+
+   Con esa pasada se fueron `.f-an-escena`, `.f-an-raya`, `.f-an-fantasma` y las
+   reglas de las líneas. `Despiece.tsx` sigue en el repo desmontado, sin estilos:
+   si alguna vez se remonta, las reglas se recuperan de ese commit.
+
+   Lo que NO se fue son las cuatro correcciones de sistema de esa misma pasada
+   —el campo en hueso, los dos escalones de texto, la alerta sin caja y el
+   fundido de la tabla—, porque son de paleta y de forma y no de composición.
+
+   ── LA COMPOSICIÓN ────────────────────────────────────────────────────────
+   Una retícula sangrada de tres celdas con las piezas ampliadas, y la tabla
+   apoyada ADELANTE, cruzando la retícula y cortándose contra el borde derecho
+   de la pantalla.
+
+   Tres cosas hacían que la franja se leyera como una tarjeta partida en tres, y
+   las tres están corregidas:
+
+     el fondo de las celdas   cada celda pintaba un rectángulo de papel encima
+                              del campo. Hoy las celdas no tienen fondo: lo que
+                              se ve son las cuatro líneas y las piezas apoyadas
+                              sobre el campo, con el lavado y el halo de la
+                              página corriendo por debajo sin interrupción.
+                              Desde que el campo es hueso y la hoja es papel,
+                              además, la única superficie de la sección se
+                              recorta de verdad contra el fondo.
+     un solo plano            todo vivía a la misma altura. Hoy hay dos: la
+                              tabla se apoya adelante, con superficie propia y
+                              desfase.
+     ningún borde cruzado     nada tocaba a nada. Hoy la tabla tapa el final del
+                              filete vertical de la tercera celda, cruza el
+                              filete horizontal de abajo y se corta contra el
+                              borde derecho de la pantalla.
+
+   ── LA RETÍCULA NO ES `f-reticula`, Y ES A PROPÓSITO ──────────────────────
+   El device del sistema —`gap: 1px` sobre un contenedor pintado de filete—
+   dibuja las líneas como el FONDO asomando por el hueco, y para eso cada celda
+   tiene que traer superficie opaca. Es exactamente lo que esta sección no puede
+   tener: sin fondo en las celdas, el hueco no se ve porque no hay nada que lo
+   tape, y la franja entera quedaría pintada de filete.
+
+   Así que acá las líneas son filetes de 1px declarados en las celdas —el
+   `border-left` de la segunda y la tercera, el `border-bottom` de las cinco
+   pistas de la fila— y el `border-top` del contenedor. Es el mismo hairline de
+   1px del mismo color y la misma retícula a la vista; lo que cambia es quién lo
+   dibuja, porque el device pide una superficie que la composición no tiene.
+
+   No contradice «la regla de la celda sin borde»: esa regla prohíbe resolver un
+   conjunto como tarjetas hermanas con borde propio, y acá no hay ninguna caja
+   cerrada —hay dos líneas verticales entre tres bloques de contenido abierto—.
+
+   ── LOS TRES ANCHOS SON DISTINTOS Y ESTÁN ELEGIDOS ─────────────────────────
+   0,76 / 1,16 / 1,32. No son tercios y no pueden serlo: tres columnas iguales
+   se leen como una fila de features, que es exactamente lo que esta sección no
+   es. Cada ancho sale de lo que la pieza necesita, medido en 1440 y no
+   estimado —el contenido da 1232px útiles, así que las celdas salen 289 / 441 /
+   502—:
+
+     el KPI      una sola cifra y dos líneas cortas debajo. Es la pieza más
+                 angosta del conjunto: 289 de celda, 259 de caja después del
+                 relleno, contra los 201 que mide «$ 1.558» renderizado. Esos
+                 58px de aire son los que hacen falta para que un símbolo de
+                 moneda más largo entre sin romper nada —el panel formatea con
+                 `account_currency`—.
+     la alerta   prosa con un filete al costado, y por eso se lleva más ancho:
+                 un párrafo encajonado en poco ancho se parte en renglones
+                 cortos y el filete queda alto y flaco.
+     el párrafo  medida de lectura, la más ancha de las tres.
+
+   Debajo de 1024px la tira apila en celdas enteras, sin `grid-template`
+   declarado: una sola columna es el estado por defecto de la grilla, y la tabla
+   pasa a ser un bloque más de la pila, sin desfase ni corte. Un segundo plano
+   en 390px no es profundidad, es una pieza tapando otra.
+
+   ── LA REGLA VA PEGADA A SU PIEZA, EN FLUJO ────────────────────────────────
+   La celda mide lo que mide su contenido, la regla va inmediatamente debajo de
+   su pieza a una distancia fija e igual en las tres, y el sobrante cae al pie
+   de la celda. Se probó lo contrario —repartir cada celda en `1fr auto` para
+   que las tres reglas terminaran contra el mismo borde— y el render lo
+   desmintió: terminaban juntas pero arrancaban en 587, 568 y 607, y el ojo lee
+   el ARRANQUE de un párrafo, no su final. La banda no existía; el aire muerto
+   repartido hacia arriba, sí.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-an-seccion {
+  padding-block: var(--aire-tema);
+}
+
+.f-an-rotulo {
+  margin-bottom: var(--aire-bloque);
+}
+
+/**
+ * LA TIRA.
+ *
+ * El filete de arriba es del contenedor, así que cruza la pantalla entera. El
+ * de abajo no puede serlo —abajo del contenedor está la segunda fila, la del
+ * plano de adelante— y por eso lo dibujan las cinco pistas de la primera fila:
+ * las tres celdas y los dos canales. La línea sale igual de continua y termina
+ * donde tiene que terminar, que es debajo de las piezas y no debajo de todo.
+ */
+.f-an-tira {
+  display: grid;
+  border-top: 1px solid var(--filete);
+}
+
+/**
+ * LA MEDIDA DE LA SUPERPOSICIÓN, DECLARADA UNA VEZ.
+ *
+ * `--an-desfase` es cuánto sube la tabla sobre la fila de las piezas, y es
+ * también el relleno que las celdas reservan abajo para que suba sobre espacio
+ * VACÍO y no sobre una palabra. Las dos cosas salen del mismo valor a propósito:
+ * si alguna vez cambia una, cambia la otra sola, y por construcción queda
+ * siempre un respiro entre la última línea de una celda y el canto de la pieza.
+ *
+ * ── LAS CINCO PISTAS ──────────────────────────────────────────────────────
+ * canal · celda · celda · celda · canal. Las tres del medio suman
+ * `--contenido-real`, así que sus bordes caen donde caen los del contenedor y
+ * el contenido no se mueve de su margen; los dos canales se quedan con el
+ * resto. El tope de `--contenido-real` contra el `100%` de la propia grilla es
+ * lo que evita que, en una pantalla más angosta que el contenedor, las tres
+ * pistas fijas sumen más que la pantalla.
+ *
+ * El canal de la derecha no es decorativo aunque esté vacío: es el tramo por el
+ * que la pieza de adelante sale del contenido y llega al borde de la pantalla.
+ * Sin esa quinta pista la grilla tiene cuatro, el `1fr` de la izquierda se come
+ * todo el sobrante y la sección entera aparece corrida 96px a la derecha. Pasó,
+ * y se ve al instante: el rótulo queda alineado con un margen y las piezas con
+ * otro.
+ */
+@media (min-width: 1024px) {
+  .f-an-tira {
+    --contenido-real: min(var(--contenido), calc(100% - var(--borde-x) * 2));
+    --an-desfase: clamp(40px, 4.4vw, 72px);
+
+    grid-template-columns:
+      [borde-i] minmax(var(--borde-x), 1fr)
+      [a-i] minmax(0, calc(var(--contenido-real) * 0.76 / 3.24))
+      [a-f b-i] minmax(0, calc(var(--contenido-real) * 1.16 / 3.24))
+      [b-f c-i] minmax(0, calc(var(--contenido-real) * 1.32 / 3.24))
+      [c-f] minmax(var(--borde-x), 1fr)
+      [borde-f];
+  }
+}
+
+/* Los canales no son superficie: son el tramo de la línea de abajo que va del
+   contenido al borde de la pantalla. Debajo de 1024px no existen, porque ahí no
+   hay sangrado y la línea la cierra la última celda. */
+.f-an-canal {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .f-an-canal {
+    display: block;
+    grid-row: 1;
+    border-bottom: 1px solid var(--filete);
+  }
+
+  .f-an-canal-izq {
+    grid-column: borde-i / a-i;
+  }
+
+  .f-an-canal-der {
+    grid-column: c-f / borde-f;
+  }
+}
+
+/* `align-content: start` es lo que impide el aire muerto: sin él una grilla con
+   filas automáticas y espacio de sobra las ESTIRA, y el sobrante se reparte
+   entre la pieza y su regla en vez de caer entero abajo. */
+.f-an-celda {
+  display: grid;
+  align-content: start;
+  gap: clamp(24px, 2.4vw, 32px);
+  border-bottom: 1px solid var(--filete);
+  padding: clamp(26px, 2.6vw, 34px) 0;
+}
+
+/**
+ * A la primera celda le sobra relleno a la izquierda y a la última a la
+ * derecha: sin eso el texto de la primera no arrancaría en la misma vertical
+ * que el rótulo de la sección. Hacia adentro, contra el filete, todas conservan
+ * el suyo.
+ *
+ * El relleno de abajo es el que reserva el aire que la tabla se come. Es
+ * `--an-desfase` más un respiro, así que por construcción la pieza de adelante
+ * nunca llega al texto de la de atrás.
+ */
+@media (min-width: 1024px) {
+  .f-an-celda {
+    grid-row: 1;
+    padding-bottom: calc(var(--an-desfase) + clamp(22px, 2.2vw, 34px));
+  }
+
+  .f-an-celda-a {
+    grid-column: a-i / a-f;
+    padding-right: clamp(22px, 2.2vw, 30px);
+  }
+
+  .f-an-celda-b {
+    grid-column: b-i / b-f;
+    border-left: 1px solid var(--filete);
+    padding-inline: clamp(22px, 2.2vw, 30px);
+  }
+
+  .f-an-celda-c {
+    grid-column: c-i / c-f;
+    border-left: 1px solid var(--filete);
+    padding-left: clamp(22px, 2.2vw, 30px);
+  }
+}
+
+/* Un ítem de grilla arranca en `min-width: auto`, o sea que no baja del ancho
+   de su contenido más largo: sin esto la cifra de 66px del KPI ensancharía su
+   columna y se llevaría puestas las proporciones de las otras dos. */
+.f-an-pieza {
+  min-width: 0;
+}
+
+/* La regla es texto fino: subordinada a propósito. Lo que la sección muestra es
+   la pieza; el texto dice por qué está así. Si compitiera en cuerpo con lo que
+   tiene arriba, la sección volvería a ser una lista de afirmaciones con un
+   dibujo al lado. */
+.f-an-regla {
+  max-width: 30rem;
+  text-wrap: pretty;
+}
+
+/* ── 1. EL KPI ──────────────────────────────────────────────────────────────
+   Reusa `CifraKpi` y la cápsula del documento; lo único que cambia es la
+   escala. Medido en 1440: la cifra pasa de 22,3px en el fragmento del héroe a
+   66,2px acá, o sea 2,97×. La misma pieza, mirada de cerca.
+
+   El rótulo NO lleva la reserva de dos líneas del banco (`.f-kpi .f-rotulo`):
+   esa reserva existe para que cuatro KPI en fila compartan línea de base, y acá
+   hay uno solo. Un hueco reservado contra nada es aire muerto. */
+
+.f-an-kpi .f-kpi-valor {
+  margin-top: 16px;
+  font-size: clamp(2.25rem, 4.6vw, 4.25rem);
+  letter-spacing: -0.034em;
+}
+
+.f-an-kpi-pie {
+  margin-top: 18px;
+}
+
+/* La cápsula sube con la cifra: a 12px al lado de un número de 66px se leería
+   como una nota al pie, y es el elemento que la regla de al lado explica. El
+   tick escala solo porque el SVG trae `viewBox`. */
+.f-an-kpi .f-capsula {
+  gap: 7px;
+  padding: 4px 12px 4px 9px;
+  font-size: 0.875rem;
+}
+
+.f-an-kpi .f-capsula svg {
+  width: 11px;
+  height: 11px;
+}
+
+.f-an-kpi .f-kpi-pista {
+  margin-top: 16px;
+  font-size: 0.875rem;
+}
+
+/* ── 2. LA ALERTA ───────────────────────────────────────────────────────────
+   Hereda `.f-r-alerta` entera del documento —el filete de tinta degradado a la
+   izquierda, el relleno, sin caja y sin bullet— y sólo sube de escala. Nada de
+   eso se redeclara: si la alerta cambia en el reporte, cambia acá.
+
+   ── EL CUERPO ES MENOR QUE EL DEL PÁRRAFO, Y ESO ES DEL DOCUMENTO ──────────
+   Adentro del informe la alerta va en 13px contra los 15px del cuerpo del
+   resumen: es una nota al costado del análisis, no su titular. Ampliar las dos
+   piezas al mismo cuerpo habría borrado esa relación y las habría dejado
+   compitiendo. Acá van 20px contra 24px, que es la misma proporción.
+
+   El filete sube a 4px y el relleno a 26px porque la pieza está al doble de
+   escala: a 3px sobre un texto de 20px se lee como una raya olvidada. Son las
+   dos únicas medidas que la ampliación cambia. */
+
+.f-an-alerta {
+  margin: 0;
+  max-width: 34rem;
+  padding: 2px 0 2px 26px;
+  background-size: 4px 100%;
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--tinta);
+}
+
+/* ── 3. EL PÁRRAFO ──────────────────────────────────────────────────────────
+   Cuerpo de lectura ampliado, en tinta plena y no en el escalón gris: acá el
+   párrafo no acompaña a nada, es la pieza.
+
+   ── ES EL ÚNICO DE LOS TRES QUE NO LLEGA A 2× ──────────────────────────────
+   24px contra los 15px del fragmento del héroe: 1,6×, no 2–3× como el KPI. Es
+   deliberado y es el techo. La medida se declara en rem y se verifica contra
+   los caracteres que rinde —medidos en 1440: 37/40/39/42—, y a 2× la misma
+   celda caería a ~28 caracteres por línea, que ya no es prosa sino una cita
+   partida. Un párrafo tiene un tamaño máximo antes de dejar de leerse de
+   corrido, y una cifra no. */
+
+.f-an-parrafo {
+  margin: 18px 0 0;
+  max-width: 30rem;
+  font-size: clamp(1.0625rem, 1.7vw, 1.5rem);
+  line-height: 1.6;
+  letter-spacing: -0.008em;
+  color: var(--tinta);
+  text-wrap: pretty;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ── 4. LA TABLA: EL SEGUNDO PLANO ──────────────────────────────────────────
+
+   La única pieza de la sección con superficie propia. Reusa `.f-superficie`
+   —filete, radio de objeto, papel— y adentro va `Metricas` sin ajuste de
+   escala: es la tabla al tamaño que tiene en el informe, que es lo que la
+   vuelve la referencia contra la que se verifican las otras tres piezas
+   ampliadas.
+
+   ── EL PLANO LO HACEN EL DESFASE Y EL APILADO ──────────────────────────────
+   Sube `--an-desfase` sobre el relleno inferior de las celdas, que está
+   reservado para eso y está vacío; en esa franja tapa el tramo final del filete
+   vertical que separa la segunda celda de la tercera, y cruza el filete
+   horizontal de abajo, que le pasa por detrás. La sombra confirma ese plano, no
+   lo crea.
+
+   ── ARRANCA SOBRE UNA LÍNEA DE LA RETÍCULA, NO EN CUALQUIER LADO ───────────
+   Su canto izquierdo cae exactamente en `b-i`, que es el filete entre la
+   primera celda y la segunda. Se probó arrancando a mitad de camino, con un
+   margen negativo, y quedaba flotando: una pieza que se apoya sobre una
+   retícula tiene que apoyarse EN la retícula, no al lado. Anclada a la línea
+   cruza igual —le pasa por encima a la otra vertical y a la horizontal—, y
+   además deja la primera columna entera libre para el texto que la explica.
+
+   Sale de su propia celda de grilla con margen negativo y no en posicionamiento
+   absoluto: la segunda fila sigue reservando su lugar, así que la pieza
+   sobresale hacia arriba sin que nada se le monte abajo.
+
+   ── SUBE A `e3`, Y NO ES UN CAPRICHO ───────────────────────────────────────
+   `e3` es del protagonista de una sección y no se reparte entre pares; acá no
+   hay pares, porque es el único objeto con superficie de toda la sección.
+
+   Con el campo en hueso hace menos falta que antes —la hoja ya se recorta
+   contra el fondo por valor, que es justamente lo que el campo blanco no
+   permitía— pero se queda: la pieza cruza dos filetes y una superposición sin
+   sombra sobre las líneas que tapa se lee plana.
+
+   ── EL CORTE ES DE LA SUPERFICIE ───────────────────────────────────────────
+   Llega hasta `borde-f`, o sea el borde de la pantalla, y ahí pierde el canto
+   derecho y sus dos radios: la misma resolución que el bloque del prompt en La
+   máquina. La tabla entra entera del lado de adentro, así que no se pierde una
+   cifra. Y no hay un solo píxel de más: `borde-f` es la última línea de la
+   grilla, no un margen negativo contra `100vw`, que es lo que empujaría la
+   página a lo ancho.
+
+   ── Y SE DISUELVE HACIA ABAJO ──────────────────────────────────────────────
+   `--fundido-tramo` es la misma declaración con la que el fragmento del héroe
+   se disuelve —opaco hasta el 79%, nada a partir del 94%—, declarada una vez en
+   `base.css`. Acá se pide por nombre; no hay una máscara nueva.
+
+   Se puso porque la pieza se cortaba seca contra el aire, y una tabla que
+   termina en un canto recto afirma que ahí se terminaron las métricas. El
+   informe sigue: abajo de la tabla van el plan de acción y el cierre. El
+   fundido es lo que dice «esto continúa» sin escribirlo, y es el mismo gesto
+   con el que la página ya cortó el documento en el héroe.
+
+   Va con prefijo además de sin prefijo por lo mismo que `.f-navegador`:
+   `mask-image` sin prefijo es reciente en Chrome, y donde no aplique la tabla
+   se corta seca, que es exactamente el estado del que venimos.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-an-origen {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(30px, 4vw, 44px);
+  -webkit-mask-image: var(--fundido-tramo);
+  mask-image: var(--fundido-tramo);
+}
+
+@media (min-width: 1024px) {
+  .f-an-origen {
+    grid-row: 2;
+    grid-column: b-i / borde-f;
+    margin-top: calc(var(--an-desfase) * -1);
+    box-shadow: var(--e3);
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  /**
+   * LA TABLA NO SE ESTIRA HASTA EL CORTE.
+   *
+   * La pieza mide más de 1000px porque tiene que cruzar la retícula y llegar al
+   * borde; la tabla, no. Estirada a ese ancho las cuatro columnas se separan y
+   * entre «Impresiones» y «1.284.902» quedan 250px de nada: deja de leerse como
+   * la tabla del informe y pasa a leerse como una planilla ensanchada. Con el
+   * tope, las columnas conservan la densidad que tienen adentro del documento y
+   * lo que sigue hasta el corte es SUPERFICIE.
+   *
+   * Es la regla de la casa, la misma que usa el bloque del prompt en La
+   * máquina: la superficie puede irse del contenedor, el contenido no.
+   */
+  .f-an-origen .f-tabla {
+    max-width: 58rem;
+  }
+}
+
+/**
+ * LA REGLA DE LA TABLA VA AL COSTADO, NO DEBAJO.
+ *
+ * Es la única de las cuatro que no va debajo de su pieza, y el motivo es la
+ * composición: debajo de la tabla está el borde inferior de la sección, y a la
+ * izquierda queda libre la primera columna entera, porque la pieza arranca en
+ * la segunda. Puesta ahí, el texto ocupa ese hueco —que si no sería aire muerto
+ * al lado de lo más denso de la sección— y cae a la altura de las filas que
+ * nombra.
+ *
+ * Toma la columna del KPI, con su mismo borde izquierdo y su misma medida, así
+ * que las dos reglas de la izquierda arman una vertical en vez de dos bloques
+ * sueltos. Y arranca DEBAJO del filete horizontal, no encima: un texto fino
+ * montado sobre una línea de un píxel se lee como un error de maquetado.
+ */
+.f-an-origen-regla {
+  margin-top: clamp(16px, 2vw, 22px);
+}
+
+@media (min-width: 1024px) {
+  .f-an-origen-regla {
+    grid-row: 2;
+    grid-column: a-i / a-f;
+    margin-top: clamp(22px, 2.4vw, 34px);
+    padding-right: clamp(22px, 2.2vw, 30px);
+  }
+}
+
+/**
+ * LA TABLA EN PANTALLA CHICA.
+ *
+ * Cuatro columnas de cifras con `white-space: nowrap` no entran en 390px con el
+ * relleno del documento, y el relleno del documento es lo que la hace parecer
+ * un pedazo del informe. Así que se aprieta el relleno en vez de tocar el
+ * cuerpo del texto, que es la rampa y no se negocia.
+ *
+ * Y queda la red de seguridad de El momento: si en algún ancho igual no
+ * entrara, el bloque se scrollea solo en vez de quedar recortado por la hoja
+ * —`.f-superficie` trae `overflow: hidden`—. Un dato al que no se llega es peor
+ * que un dato que hay que arrastrar.
+ */
+@media (max-width: 639px) {
+  .f-an-origen .f-r-bloque {
+    padding-inline: 10px;
+  }
+
+  .f-an-origen .f-tabla th,
+  .f-an-origen .f-tabla td {
+    padding-inline: 3px;
+  }
+
+  .f-an-origen .f-tabla th:first-child,
+  .f-an-origen .f-tabla td:first-child {
+    padding-left: 8px;
+  }
+
+  .f-an-origen .f-tabla th:last-child,
+  .f-an-origen .f-tabla td:last-child {
+    padding-right: 8px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .f-an-origen .f-r-bloque-plano {
+    overflow-x: auto;
+  }
+}
+
+/* El pie cierra la sección y dice de dónde sale cada cosa: los datos son del
+   ejemplo, las reglas son del producto. Va después del objeto y no antes,
+   porque antes sería un copete. */
+.f-an-pie {
+  margin-top: clamp(28px, 3.2vw, 46px);
+  max-width: 44rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SE ARMA — el circuito de generación sobre un canvas de workflow
+
+   Va inmediatamente después del héroe, en el lugar que ocupaba Anatomía.
+
+   ── EL CANVAS ES UN COMPONENTE ADAPTADO, NO UNO PROPIO ────────────────────
+   `components/ui/lienzo-flujo.tsx` es el bloque de workflow de n8n de
+   shadcn/21st, adaptado a modo claro y a los tokens de esta dirección. De ahí
+   salen la cabecera con chapa y acción, la caja con scroll propio, los nodos
+   arrastrables, las curvas calculadas desde las posiciones y el pie con las
+   cuentas. Ese archivo documenta qué se conservó y qué se cambió.
+
+   Lo que queda acá es sólo cómo se ve dentro de este sistema:
+
+     el modo claro   el original pinta sobre `bg-background/60` con
+                     `backdrop-blur` y un color por categoría de nodo —emerald,
+                     blue, amber, indigo—. Acá la superficie es `--lienzo`, el
+                     rol nuevo entre el campo y la hoja, y **el color dice
+                     estado y nada más**: acento para lo que corre, verde para
+                     lo hecho. Un color por categoría gastaría la paleta en
+                     decorar, que es lo que el sistema no hace.
+     el nodo         una sola línea con el título del paso. El original trae
+                     ícono, chapa de tipo, título y descripción; la descripción
+                     es exactamente lo que el dueño sacó de estos nodos en la
+                     pasada anterior, así que no vuelve.
+     el arrastre     se conserva, y con él el pie que lo anuncia. Es lo que
+                     convierte al dibujo en un canvas de verdad y no en una
+                     imagen de un canvas.
+
+   ── EL FLUJO CORRE DERECHO Y EL LIENZO SE DESPLAZA ────────────────────────
+   Es el cambio de fondo que trae el componente. Las dos versiones anteriores
+   doblaban el circuito para que entrara en el ancho disponible; un canvas de
+   workflow no hace eso. El costo, con el número: a 1440 se ven unos 950 de los
+   2148px que mide el circuito. El scroll es del contenedor y no de la página
+   —que es lo que `DESIGN.md` pide para el contenido ancho—, pero la mitad
+   derecha no se ve sin arrastrar.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-sa-seccion {
+  position: relative;
+  padding-block: var(--aire-tema);
+
+  /* 20rem: el escenario del grafo mide 872 y es fijo, así que la columna es lo
+     único que puede ceder para que los nodos entren a escala 1 y los títulos
+     no se corten. */
+  --f-sa-indice: 20rem;
+}
+
+.f-sa-fila {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(28px, 3vw, 40px);
+  width: 100%;
+  max-width: var(--contenedor);
+  margin-inline: auto;
+  padding-inline: var(--borde-x);
+}
+
+@media (min-width: 1024px) {
+  .f-sa-fila {
+    align-items: start;
+    grid-template-columns: var(--f-sa-indice) minmax(0, 1fr);
+  }
+}
+
+/* ── LA COLUMNA ÍNDICE ───────────────────────────────────────────────────── */
+
+.f-sa-titular {
+  max-width: 14ch;
+}
+
+.f-sa-bajada {
+  margin-top: var(--aire-linea);
+  max-width: 30rem;
+}
+
+/**
+ * LAS PESTAÑAS DEL MODO.
+ *
+ * Son un control de verdad: cambian el disparador y el final de la rama que sale
+ * bien. La activa se dice con superficie levantada y filete cerrado —papel sobre
+ * crema—, que es la salida del sistema para el énfasis sin color.
+ *
+ * Apiladas y no en línea porque los dos textos miden 23 y 22 caracteres: en fila
+ * cada pestaña quedaría en dos renglones.
+ */
+.f-sa-modos {
+  display: grid;
+  gap: 1px;
+  margin-top: var(--aire-bloque);
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  padding: 3px;
+  background: var(--crema);
+}
+
+.f-sa-modo {
+  border: 0;
+  border-radius: 7px;
+  padding: 11px 14px;
+  background: transparent;
+  color: var(--tinta-media);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 400ms var(--curva),
+    color 400ms var(--curva);
+}
+
+.f-sa-modo:hover {
+  color: var(--tinta);
+}
+
+.f-sa-modo[aria-selected="true"] {
+  background: var(--papel);
+  box-shadow: var(--e1);
+  color: var(--tinta);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL LIENZO Y EL GRAFO
+
+   El modelo es el del bloque de workflow de n8n, reescrito acá: nodos con
+   posición absoluta, aristas calculadas desde esas posiciones y un SVG detrás.
+   Nada de eso vive en `components/ui`, no hay una línea de Tailwind ni de
+   shadcn en la sección, y no se instaló ninguna dependencia.
+
+   ── LO QUE NO SE TRAJO DEL COMPONENTE, Y ES LA MITAD DE LA DECISIÓN ───────
+   El color por tipo de nodo —sus `colorClasses`—, los íconos, la descripción,
+   la línea «Connected», el punteado, el `backdrop-blur`, el arrastre y la
+   cabecera con el pie de cuentas. Lo que queda del nodo es lo mínimo que
+   informa: de qué TIPO es y qué paso es. El circuito se mira; no se lee.
+
+   ── EL LIENZO ────────────────────────────────────────────────────────────
+   Un contenedor relativo con alto fijo —el del nodo más bajo—, sin scroll y sin
+   `overflow`. Se distingue por SUPERFICIE: `--lienzo`, el rol entre el campo y
+   la hoja, más un filete apenas visible. Sin grilla y sin textura, que es la
+   regla de la casa.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-sa-lienzo {
+  position: relative;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-obj);
+  background: var(--lienzo);
+  container-type: inline-size;
+}
+
+/* ── LAS ARISTAS ─────────────────────────────────────────────────────────────
+   Un solo SVG detrás de los nodos. `pointer-events: none` para que no se coma
+   ningún clic, aunque hoy no haya ninguno que comerse.
+
+   Trazo CONTINUO de 1,5px. El color dice el estado y son tres:
+
+     pendiente    --filete
+     en curso     --acento
+     completada   --tinta-media
+
+   ── EL DIBUJO ──────────────────────────────────────────────────────────────
+   `pathLength="1"` hace que cada trazo mida 1 sin importar su largo real, así
+   que un solo par de valores sirve para las nueve: el desfase va de 1 a 0 en
+   900ms. El `dasharray` de 1 está para eso y sólo para eso —es el mecanismo del
+   trazado, no un estilo punteado—: con el desfase en cero la línea queda
+   entera.
+
+   Es la única propiedad que la sección anima fuera de `transform`, `opacity` y
+   `clip-path`, y no hay alternativa: dibujar una línea es exactamente eso. */
+
+.f-sa-cables {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.f-sa-cable {
+  fill: none;
+  stroke: var(--tinta-media);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  vector-effect: non-scaling-stroke;
+  transition:
+    stroke-dashoffset 900ms var(--curva),
+    stroke 400ms var(--curva);
+}
+
+.f-sa-cable[data-fase="oculto"] {
+  stroke: var(--filete);
+  stroke-dashoffset: 1;
+}
+
+/* El ramal que este ciclo no toma: dibujado y en filete. Sin él a la vista, la
+   bifurcación del If tendría una sola salida y dejaría de leerse como tal. */
+.f-sa-cable[data-fase="pendiente"] {
+  stroke: var(--filete);
+}
+
+.f-sa-cable[data-fase="dibujando"] {
+  stroke: var(--acento);
+}
+
+/* ── EL NODO ─────────────────────────────────────────────────────────────────
+   Rótulo de tipo arriba y título en una línea. Nada más. Filete de 1px, radio
+   interior, papel.
+
+   Las medidas van en `cqw` —unidades del contenedor— porque el lienzo se achica
+   con la pantalla y las cajas tienen que achicarse con él; el `max()` con la
+   medida en px es el piso, para que el texto deje de encoger antes de volverse
+   ilegible. */
+
+.f-sa-nodo {
+  position: absolute;
+}
+
+.f-sa-tarjeta {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: max(2px, 0.25cqw);
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  padding: max(8px, 1cqw) max(11px, 1.3cqw);
+  background: var(--papel);
+  box-shadow: var(--e1);
+  transition:
+    border-color 400ms var(--curva),
+    box-shadow 400ms var(--curva);
+}
+
+.f-sa-tipo {
+  margin: 0;
+  font-size: max(10px, 0.78cqw);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-media);
+  transition: color 400ms var(--curva);
+}
+
+.f-sa-titulo {
+  margin: 0;
+  font-size: max(12px, 1.35cqw);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  color: var(--tinta);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 400ms var(--curva);
+}
+
+/* El nodo que todavía no llegó baja el contraste de su título. NO se apaga con
+   opacidad: un paso pendiente igual tiene que poder leerse. */
+.f-sa-nodo[data-estado="espera"] .f-sa-titulo {
+  color: var(--tinta-media);
+}
+
+/**
+ * EL NODO EN CURSO ES LO ÚNICO NARANJA DEL LIENZO.
+ *
+ * Filete y título en acento, y la curva que le llega también. Es el tercero de
+ * los tres usos del acento que fija `base.css` —la acción, el punto, el estado
+ * en curso—, y los tres dicen lo mismo: dónde mirar ahora. Dura 1,6 segundos y
+ * se apaga solo; un estado permanente no lleva acento.
+ */
+.f-sa-nodo[data-estado="curso"] .f-sa-tarjeta {
+  border-color: var(--acento);
+  box-shadow:
+    var(--e2),
+    0 0 0 3px var(--acento-campo);
+}
+
+.f-sa-nodo[data-estado="curso"] .f-sa-titulo,
+.f-sa-nodo[data-estado="curso"] .f-sa-tipo {
+  color: var(--acento-tinta);
+}
+
+.f-sa-respuesta {
+  color: var(--tinta-media);
+}
+
+/* Los dos textos del disparador y de la salida feliz conviven en el marcado y el
+   modo decide cuál se ve. No es «ocultar por defecto»: el modo viene declarado
+   desde el servidor, así que lo que se renderiza es un estado completo. */
+.f-sa-seccion[data-modo="manual"] .f-sa-solo-auto,
+.f-sa-seccion[data-modo="auto"] .f-sa-solo-manual {
+  display: none;
+}
+
+/* ── EL TILDE ────────────────────────────────────────────────────────────────
+   Flota sobre la esquina superior derecha del nodo y cruza su filete. Verde y
+   sin palabra: el verde es `--estado-hecho` y levanta, acotado, el Don't de no
+   usar verde fuera del reporte —adentro del informe el verde es una afirmación
+   de negocio, un tilde de proceso terminado es una afirmación de máquina—.
+   Está escrito en `base.css`. */
+
+.f-sa-tilde {
+  position: absolute;
+  top: 0;
+  right: max(9px, 1.1cqw);
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: max(16px, 1.9cqw);
+  height: max(16px, 1.9cqw);
+  border-radius: 9999px;
+  background: var(--papel);
+  color: var(--estado-hecho);
+  opacity: 0;
+  transition: opacity 400ms var(--curva);
+}
+
+.f-sa-tilde svg {
+  width: 78%;
+  height: 78%;
+}
+
+.f-sa-nodo[data-estado="hecho"] .f-sa-tilde {
+  opacity: 1;
+}
+
+/* La rama que cayó al respaldo usa el mismo tilde en el rojo del dato: es el
+   mismo objeto diciendo otro resultado. */
+.f-sa-nodo[data-estado="fallo"] .f-sa-tilde {
+  opacity: 1;
+  color: var(--negativo);
+}
+
+/* ── LOS PUERTOS ─────────────────────────────────────────────────────────────
+   Un punto de 6px en el borde del que sale o al que entra cada curva. Sin ellos
+   la línea muere contra el filete y el nodo deja de leerse como nodo de un
+   grafo. */
+
+.f-sa-puerto {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--filete-fuerte);
+  transition: background-color 400ms var(--curva);
+}
+
+.f-sa-puerto-izq {
+  left: 0;
+  translate: -50% -50%;
+}
+
+.f-sa-puerto-der {
+  right: 0;
+  translate: 50% -50%;
+}
+
+.f-sa-nodo[data-estado="hecho"] .f-sa-puerto {
+  background: var(--tinta-media);
+}
+
+.f-sa-nodo[data-estado="curso"] .f-sa-puerto {
+  background: var(--acento);
+}
+
+/* ── LAS DOS PIEZAS DE PRODUCTO ────────────────────────────────────────────
+   Otra escala y otra altura que los pasos, que es lo que las separa sin
+   necesidad de un color. Son capturas del entregable —las cifras y el
+   documento—, no pasos del circuito, y por eso son las únicas con cromo. */
+
+.f-sa-pieza {
+  position: relative;
+  height: 100%;
+  border: 1px solid var(--filete-fuerte);
+  border-radius: var(--radio-int);
+  background: var(--crema);
+  box-shadow: var(--e2);
+  overflow: hidden;
+  transition: opacity 600ms var(--curva);
+}
+
+[data-oculto="si"] .f-sa-pieza {
+  opacity: 0;
+}
+
+.f-sa-barra {
+  display: flex;
+  gap: 3px;
+  padding: max(5px, 0.6cqw) max(7px, 0.8cqw) max(3px, 0.4cqw);
+}
+
+.f-sa-barra span {
+  width: max(5px, 0.6cqw);
+  height: max(5px, 0.6cqw);
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.09);
+}
+
+.f-sa-barra span:nth-child(1) { background: #ff5f57; }
+.f-sa-barra span:nth-child(2) { background: #febc2e; }
+.f-sa-barra span:nth-child(3) { background: #28c840; }
+
+.f-sa-hoja {
+  margin: 0 3px 3px;
+  border-radius: 7px;
+  padding: max(6px, 0.75cqw) max(8px, 0.95cqw) max(8px, 1cqw);
+  background: var(--papel);
+}
+
+.f-sa-cifras {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  padding: 0;
+  background: var(--filete);
+}
+
+.f-sa-cifra {
+  padding: max(6px, 0.75cqw) 2px;
+  background: var(--papel);
+  font-size: max(10px, 1.15cqw);
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--tinta);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.f-sa-prosa-cuerpo {
+  position: relative;
+  margin-top: max(5px, 0.6cqw);
+}
+
+.f-sa-parrafo {
+  margin: 0;
+  font-size: max(10px, 1.2cqw);
+  line-height: 1.5;
+  color: var(--tinta);
+}
+
+/* LA COLA DEL TIPEO. Sigue ocupando su lugar: el bloque mide exactamente lo
+   mismo con la frase a medio escribir que terminada, y por eso la sección no
+   aporta un solo píxel de salto mientras corre. */
+.f-sa-cola {
+  visibility: hidden;
+}
+
+/* El caret existe sólo mientras se escribe. Que su estado por defecto sea
+   ausente no es ocultar contenido: el estado final —el que emite el servidor y
+   el que ve quien pide menos movimiento— es un texto terminado, y un texto
+   terminado no tiene cursor. */
+.f-sa-caret {
+  display: none;
+  width: 2px;
+  height: 1em;
+  margin-left: 1px;
+  translate: 0 0.16em;
+  background: var(--acento);
+}
+
+[data-tipeando="si"] .f-sa-caret {
+  display: inline-block;
+}
+
+.f-sa-respaldo {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  font-size: max(10px, 1.2cqw);
+  line-height: 1.5;
+  color: var(--tinta);
+}
+
+/* ── DEBAJO DE 1024 SE APAGA EL LIENZO ───────────────────────────────────────
+   Las posiciones absolutas se desactivan, los nodos vuelven al flujo normal y
+   apilan en el orden del marcado —que es el orden del circuito—, y las aristas
+   y los puertos se apagan: en una columna la secuencia la dice el orden. */
+
+@media (max-width: 1023px) {
+  .f-sa-lienzo {
+    aspect-ratio: auto !important;
+    display: grid;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .f-sa-nodo {
+    position: static;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .f-sa-cables,
+  .f-sa-puerto {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .f-sa-lienzo {
+    padding: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LO QUE DICE — el análisis, no el documento
+
+   RETIRADA DE LA PÁGINA el 05/09/2026: la reemplaza «La anatomía del informe»,
+   que está acá arriba. El componente y estos estilos siguen en el repo a la
+   espera de que el dueño confirme el borrado, y no los usa nadie.
+
+   La sección más angosta de la página, y desplazada. Es la única que se lee de
+   corrido, así que es la única que tiene medida de lectura; y arranca corrida
+   hacia adentro porque después del héroe —que ocupa el ancho entero— un bloque
+   angosto pegado al margen izquierdo se lee como un descuido, no como una
+   decisión.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-lq-seccion {
+  padding-block: var(--aire-tema) var(--aire-tema);
+}
+
+.f-lq-cabeza .f-display {
+  max-width: 20ch;
+}
+
+.f-lq-cuerpo {
+  margin-top: clamp(34px, 4vw, 56px);
+  max-width: 40rem;
+}
+
+@media (min-width: 900px) {
+  .f-lq-cabeza,
+  .f-lq-cuerpo {
+    margin-left: clamp(0px, 14vw, 260px);
+  }
+}
+
+.f-lq-resumen .f-rotulo {
+  margin-bottom: 16px;
+}
+
+/* La prosa del informe va a cuerpo de lectura y no de nota al pie: es lo que la
+   sección viene a demostrar que se puede leer. */
+.f-lq-parrafo {
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.66;
+  color: var(--tinta);
+}
+
+.f-lq-parrafo + .f-lq-parrafo {
+  margin-top: 16px;
+}
+
+/* La alerta lleva el punto de la marca: es lo único del informe que pide una
+   decisión, y ésa es la definición del marcador. El filete de la izquierda es
+   de 1px como todos —un borde de color grueso es el recurso más gastado de la
+   categoría para decir «atención»—. */
+.f-lq-alerta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  margin-top: clamp(28px, 3vw, 40px);
+  border-left: 1px solid var(--acento-filete);
+  padding: 4px 0 4px 20px;
+}
+
+.f-lq-alerta .f-marca-punto {
+  margin-top: 9px;
+}
+
+/* Sin `font-size`: el párrafo lleva `.f-bajada` en el marcado y toma el
+   escalón de la rampa. Un literal acá inventaba un tamaño que ya existía. */
+.f-lq-alerta p {
+  margin: 0;
+}
+
+.f-lq-acciones {
+  display: grid;
+  gap: 0;
+  margin: clamp(28px, 3vw, 40px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.f-lq-accion {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  padding-block: 18px;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+.f-lq-accion + .f-lq-accion {
+  border-top: 1px solid var(--filete);
+}
+
+.f-lq-numero {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  color: var(--tinta-media);
+}
+
+.f-lq-pie {
+  margin-top: 22px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL MOMENTO — la tira de cuatro pasos y la ventana del panel
+
+   ── LA COMPOSICIÓN ES LA CUARTA, Y SE VERIFICÓ CONTRA LAS OTRAS TRES ──────
+   Anatomía es una retícula de tres celdas de ancho desigual; La máquina, una
+   columna angosta centrada; El entregable, objeto a la izquierda con notas en
+   columna a la derecha. Ésta es una tira horizontal de texto arriba y UN objeto
+   grande abajo, y lo que la separa de las tres es la inversión de anchos: la
+   explicación va en el ancho medio y el objeto en el del contenedor. El objeto
+   es más ancho que su propia explicación, así que la jerarquía se lee antes de
+   leer una palabra.
+
+   ── LA TIRA NO ES UNA FILA DE TARJETAS ────────────────────────────────────
+   Cuatro pasos en fila es, de forma, lo mismo que cuatro tarjetas hermanas, y
+   eso está prohibido. Lo que lo evita: los pasos no tienen superficie, ni
+   borde, ni fondo, ni sombra. Son cuatro bloques de texto con su ordinal, sobre
+   el papel de la página. Un conjunto se resuelve con una lista o con la
+   retícula; acá no hace falta ninguna de las dos porque no hay nada que
+   encerrar.
+
+   ── SIN TITULAR DE DISPLAY ────────────────────────────────────────────────
+   Los tres display de la página son La máquina, El trato y el Cierre. Ésta abre
+   con un rótulo corto —el mismo recurso que Anatomía— y con la tira. Un cuarto
+   display gastaría el escalón que hace que los otros tres pesen.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* El aire de la sección es el corriente y no el de cambio de tema: con
+   `--aire-tema` a los dos lados eran 158px arriba y 158 abajo, y la sección
+   respiraba de más para lo que tiene adentro. Anatomía ya cierra con aire de
+   tema arriba de ésta, y abajo el manto oscuro de La máquina sube tapando, así
+   que un intervalo grande antes de él no separa nada: lo tapa. */
+.f-mo-seccion {
+  padding-block: var(--aire-seccion);
+}
+
+.f-mo-rotulo {
+  margin-bottom: clamp(18px, 2vw, 28px);
+}
+
+/**
+ * LA FILA — LA VENTANA SANGRA A LA IZQUIERDA, LA TIRA QUEDA A LA DERECHA.
+ *
+ * Es el espejo del héroe: allá el texto va a la izquierda y el documento se
+ * corta contra el borde derecho.
+ *
+ * ── DEBAJO DE 1024PX NO SANGRA ────────────────────────────────────────────
+ * La fila es el marco de siempre —ancho de contenedor, márgenes laterales— y
+ * los dos hijos apilan en el orden del marcado: primero la tira, después la
+ * ventana. Un objeto sangrado en 390px se come el contenido.
+ *
+ * ── ARRIBA DE 1024PX SON CUATRO PISTAS ────────────────────────────────────
+ * canal · ventana · tira · canal. Las dos del medio suman `--contenido-real`,
+ * así que la tira termina exactamente donde termina el contenedor y el rótulo
+ * de la sección; la ventana se queda además con el canal de la izquierda y por
+ * eso llega al borde de la pantalla. Sin `gap`: el aire entre las dos lo pone
+ * el relleno de la tira, porque un `gap` de grilla también separaría la última
+ * pista del canal y correría el margen derecho.
+ */
+.f-mo-fila {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(28px, 3.2vw, 44px);
+  width: 100%;
+  max-width: var(--contenedor);
+  margin-inline: auto;
+  padding-inline: var(--borde-x);
+}
+
+@media (min-width: 1024px) {
+  .f-mo-fila {
+    --contenido-real: min(
+      var(--contenido),
+      calc(100% - var(--borde-x) * 2)
+    );
+
+    align-items: start;
+    gap: 0;
+    max-width: none;
+    padding-inline: 0;
+    grid-template-columns:
+      [borde-inicio] minmax(var(--borde-x), 1fr)
+      [c-inicio] minmax(0, calc(var(--contenido-real) * 0.615))
+      [t-inicio] minmax(0, calc(var(--contenido-real) * 0.385))
+      [c-fin] minmax(var(--borde-x), 1fr) [borde-fin];
+  }
+
+  /* `grid-row: 1` en los dos: con sólo `grid-column`, la colocación automática
+     igual los manda a filas distintas y la tira quedaba 189px arriba de la
+     ventana en vez de al lado. */
+  .f-mo-fila > .f-mo-ventana {
+    grid-column: borde-inicio / t-inicio;
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  .f-mo-fila > .f-mo-tira {
+    grid-column: t-inicio / c-fin;
+    grid-row: 1;
+    min-width: 0;
+    padding-left: clamp(28px, 3.2vw, 48px);
+  }
+}
+
+/* ── LA TIRA, QUE ES UNA FRASE Y NO UNA GRILLA ──────────────────────────────
+   Estuvo en `repeat(4, minmax(0, 1fr))` —cuatro celdas de 226px, misma
+   estructura, misma altura— y ésa es, de forma, la fila de cuatro features que
+   la regla de las tarjetas hermanas prohíbe. Los pies encima quedaban
+   desalineados, porque cuatro textos de largo distinto en cuatro cajas iguales
+   no alinean por abajo nunca.
+
+   Ahora es un párrafo. La interlínea es ancha porque adentro conviven dos
+   cuerpos y el renglón del grande no puede pisar al de arriba. */
+
+/* La medida se declara en `rem` y se verifica contra los caracteres que rinde,
+   nunca en `ch`. Estuvo en 58rem y rendía 118 caracteres por renglón, que no es
+   medida de lectura de nada. Y queda más angosta que la ventana a propósito: el
+   objeto es más ancho que su propia explicación, así que la jerarquía entre los
+   dos se lee antes de leer una palabra. */
+.f-mo-tira {
+  max-width: 38rem;
+}
+
+@media (min-width: 1024px) {
+  /* En la fila de dos columnas la medida la fija la pista, no un tope propio:
+     la tira ocupa su columna entera. */
+  .f-mo-tira {
+    max-width: none;
+  }
+}
+
+.f-mo-corrida {
+  margin: 0;
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
+  line-height: 1.9;
+  color: var(--tinta-media);
+  text-wrap: pretty;
+}
+
+/* Cada paso es una frase con su ordinal colgado adelante. El `inline-block`
+   impide que un paso se parta entre su número y su primera palabra. */
+/* Sin `margin-right` para separar las frases ni el ordinal de su texto: los
+   espacios son caracteres y viven en el marcado. Se resolvía con márgenes y se
+   rompió apenas una pasada tocó uno —quedó «sale.04 O lo dejás»—, porque el
+   margen pinta un hueco que el texto no tiene. */
+.f-mo-ordinal {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--tinta-media);
+}
+
+/**
+ * EL PASO QUE ESPERA UNA DECISIÓN.
+ *
+ * SIN `font-size`, y ésa es la regla, no un olvido. Pasó dos veces por un cuerpo
+ * más grande —primero inline a 23,8px dentro de un renglón calculado para
+ * 16,6px, después parado en su propio bloque— y las dos veces el recurso
+ * equivocado era el mismo: el tamaño. La escala tipográfica de este sistema dice
+ * de qué NIVEL es un texto; los cuatro pasos son el mismo nivel, así que
+ * distinguir uno con un cuerpo propio le pide a la rampa un trabajo que no es
+ * el suyo. Lo que ordena acá es el peso y el color.
+ *
+ * Tres diferencias contra sus hermanos, ninguna de tamaño: tinta plena contra
+ * tinta media, 500 contra 400, y el punto de la marca. `font-weight` explícito
+ * porque es un `<strong>` y el navegador lo pondría en 700, que no existe en
+ * este sistema.
+ */
+.f-mo-clave {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.f-mo-clave .f-mo-ordinal {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* El punto es inline adentro de la frase, así que necesita `inline-block`: como
+   inline puro, `width` y `height` no le aplican y mediría 0×0 —es el error que
+   dejó la regla de sección invisible durante toda una pasada—. */
+.f-mo-clave .f-marca-punto {
+  display: inline-block;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+
+/* ── LA VENTANA DEL PANEL ───────────────────────────────────────────────────
+   `.f-ventana` trae el cromo entero —las tres luces, el título, la hoja de
+   adentro y la elevación de protagonista, que es la única de la sección—. Acá
+   sólo se declara el aire que la separa de la tira. */
+
+.f-mo-ventana {
+  max-width: 47rem;
+  margin-top: clamp(26px, 3vw, 44px);
+}
+
+/**
+ * SANGRADA, LA VENTANA NO LLEVA TOPE NI MARGEN PROPIO.
+ *
+ * El ancho lo pone la pista y el aire de arriba lo pone la fila, porque la
+ * ventana ya no va debajo de la tira sino al lado. Y pierde el borde y los dos
+ * radios de la izquierda, que es por donde se va de la pantalla: un objeto
+ * cortado no tiene canto de ese lado.
+ *
+ * ── LO QUE ESTO LE CUESTA A LA BARRA DE ACCIÓN ────────────────────────────
+ * La ventana pasa de 752px a ~900. Una barra de acción es «estado a la
+ * izquierda, acción a la derecha», así que su hueco crece con ella. Se sabía al
+ * elegir el ancho de la pista y está medido en el informe de la pasada: es el
+ * precio del corte, y el corte es lo que saca a la sección de la silueta de
+ * tarjeta que tenían las tres.
+ */
+@media (min-width: 1024px) {
+  .f-mo-ventana {
+    max-width: none;
+    margin-top: 0;
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    /**
+     * AIRE DEL LADO QUE SE CORTA.
+     *
+     * Sin esto la tabla arrancaba a 27px del borde de la pantalla y el objeto
+     * se sentía apretado contra el canto. En el héroe el documento se corta y
+     * no molesta porque lo que se corta es su FINAL; acá se corta el principio,
+     * así que la primera columna y los rótulos quedan del lado del filo.
+     *
+     * Va como RELLENO de la ventana y no como margen: un margen la desplazaría
+     * y dejaría de cortarse, que es justo el recurso de la sección. Con relleno
+     * la superficie sigue naciendo en x=0 y lo que se corre es lo de adentro.
+     */
+    padding-left: clamp(28px, 3.4vw, 56px);
+  }
+}
+
+/**
+ * EL INFORME ADENTRO, CORTADO CON EL MISMO RECURSO QUE EL HÉROE.
+ *
+ * Alto fijo y no máximo, por lo mismo que está escrito en `.f-recorte`: contra
+ * una altura indefinida el `min-height: 100%` del documento no resuelve, el
+ * porcentaje se ignora y el corte vuelve a depender de cuánto texto entró.
+ *
+ * El fundido lo hace una máscara y no un degradado encima: encima habría que
+ * pintarlo del color de la hoja, y entonces sería una capa que hay que mantener
+ * sincronizada con el fondo. Con máscara, el documento se disuelve y abajo
+ * asoma lo que haya. Va con prefijo además de sin prefijo porque `mask-image`
+ * sin prefijo es reciente en Chrome, y donde no aplique el documento se cortaría
+ * seco.
+ */
+/* ── LA FILA DE CONTEXTO ────────────────────────────────────────────────────
+   Cromo de la aplicación: va sobre la crema de la ventana, fuera de la hoja,
+   porque no es contenido del documento. Fina a propósito —una línea de 13px y
+   una chapa—: identifica sin competir con lo que hay adentro de la hoja. */
+
+.f-mo-contexto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  padding: 2px 16px 12px;
+}
+
+.f-mo-ctx {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  min-width: 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--tinta-media);
+}
+
+.f-mo-ctx-cliente {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.f-mo-ctx-sep {
+  color: var(--filete-fuerte);
+}
+
+/* `.f-chapa` viene del documento y trae `margin-left: auto`, que acá hace
+   exactamente lo que hace falta: empujar el estado contra el borde derecho. Se
+   deja escrito para que no se lo lea como herencia accidental. */
+.f-mo-chapa {
+  margin-left: auto;
+}
+
+/**
+ * EL DOCUMENTO ADENTRO DE LA HOJA — SIN RECORTE Y SIN FUNDIDO.
+ *
+ * ── POR QUÉ YA NO HAY MÁSCARA ─────────────────────────────────────────────
+ * La había cuando adentro iba el PRINCIPIO del informe: un documento que empieza
+ * y sigue tiene que cortarse contra algo. Ahora adentro va el FINAL —métricas
+ * detalladas y plan de acción—, y el final no sigue: termina. Los dos bloques
+ * entran completos, así que no hay nada que recortar y una máscara sería un
+ * efecto sobre un documento que no se está cortando.
+ *
+ * Es también lo que pedía el encargo en primer lugar: que el bloque de métricas
+ * arranque por su propio rótulo, sin cortar. El plan de sobra queda entero, que
+ * era la prioridad dura —es el último bloque del informe y lo que se está por
+ * aprobar—.
+ *
+ * ── Y POR ESO TAMPOCO HAY ALTURA FIJA ─────────────────────────────────────
+ * Sin recorte, el alto lo pone el contenido. Es lo contrario de la regla del
+ * héroe —allá la altura es fija justamente para que el corte no dependa de cómo
+ * envuelva el texto—, y acá vale la contraria porque no hay corte que proteger:
+ * si el texto envuelve distinto, la hoja crece y el documento se sigue viendo
+ * entero, que es lo único que esta ventana promete.
+ */
+.f-mo-doc {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/**
+ * LA TABLA EN ANCHO DE TELÉFONO.
+ *
+ * A 327px de documento la tabla pedía ~417px —sus cuatro columnas más los 20px
+ * de relleno por lado de cada celda— y la hoja, que recorta, se comía la
+ * columna de VARIACIÓN entera. O sea que en teléfono desaparecía la cápsula,
+ * que es el elemento firma del sistema y lo único que da el sentido del dato.
+ * No se veía midiendo el desborde de la tabla porque la tabla no desborda: la
+ * clipea un ancestro.
+ *
+ * Se corrige con lo más barato que alcanza —el relleno de las celdas y un
+ * escalón de cuerpo— y no tocando las columnas: sacar «Anterior» habría hecho
+ * entrar la tabla mostrando un informe que el producto no emite.
+ *
+ * La consulta es de CONTENEDOR y no de viewport, así que la mide contra el
+ * ancho del documento y no contra el de la pantalla: es la misma tabla que en
+ * el héroe y allá no cambia nada, porque allá el contenedor es otro.
+ */
+@container (max-width: 520px) {
+  .f-mo-doc .f-tabla {
+    font-size: 0.8125rem;
+  }
+
+  .f-mo-doc .f-tabla th,
+  .f-mo-doc .f-tabla td {
+    padding-inline: 6px;
+  }
+
+  .f-mo-doc .f-tabla th:first-child,
+  .f-mo-doc .f-tabla td:first-child {
+    padding-left: 12px;
+  }
+
+  .f-mo-doc .f-tabla th:last-child,
+  .f-mo-doc .f-tabla td:last-child {
+    padding-right: 12px;
+  }
+
+  /* La cápsula también se aprieta, y es lo último que se toca: el cuerpo del
+     texto se queda en 13px, que es el piso declarado del sistema para texto
+     corrido. Antes que bajar de ahí se recorta relleno. */
+  .f-mo-doc .f-tabla .f-capsula {
+    gap: 4px;
+    padding: 3px 7px 3px 5px;
+  }
+}
+
+/**
+ * EL SEGUNDO ESCALÓN, PARA ANCHO DE TELÉFONO.
+ *
+ * El primero no alcanzaba y el motivo estaba afuera de la tabla: el BLOQUE que
+ * la contiene tiene 20px de relleno por lado, así que en un documento de 323px
+ * la tabla dispone de 283 y su ancho mínimo era 318. Como las celdas no bajan
+ * de su contenido —van en `nowrap`—, `width: 100%` no las comprime y la tabla
+ * se salía 35px, con la columna de variación entera del lado de afuera.
+ *
+ * Se recorta el relleno del bloque y el de las celdas, en ese orden: primero lo
+ * que no es dato. La medición de las tres columnas de texto es la que fija el
+ * piso y no se toca.
+ */
+@container (max-width: 400px) {
+  .f-mo-doc .f-r-bloque {
+    padding-inline: 10px;
+  }
+
+  .f-mo-doc .f-tabla th,
+  .f-mo-doc .f-tabla td {
+    padding-inline: 4px;
+  }
+
+  .f-mo-doc .f-tabla th:first-child,
+  .f-mo-doc .f-tabla td:first-child {
+    padding-left: 10px;
+  }
+
+  .f-mo-doc .f-tabla th:last-child,
+  .f-mo-doc .f-tabla td:last-child {
+    padding-right: 10px;
+  }
+}
+
+/* Red de seguridad: si en algún ancho la tabla igual no entrara, se scrollea en
+   su bloque en vez de quedar recortada por la hoja. Un dato al que no se llega
+   es peor que un dato que hay que arrastrar. */
+.f-mo-doc .f-r-bloque-plano {
+  overflow-x: auto;
+}
+
+/**
+ * LA BARRA DE ACCIÓN.
+ *
+ * Va sobre `--crema` y separada por un filete: en el panel real la barra de
+ * acción es cromo de la aplicación y no contenido del informe, y la superficie
+ * hundida es lo que dice eso sin escribirlo.
+ *
+ * Los estados a la izquierda y la acción a la derecha, que es el reparto que
+ * usa el producto: dónde está contra qué lo mueve.
+ *
+ * ── SE PROBÓ QUE CRUZARA EL BORDE DE LA HOJA, Y NO ENTRÓ ──────────────────
+ * Construida y mirada: la barra como plano propio con `margin-top` negativo de
+ * 36px, pisando 46px de relleno vacío al pie de la hoja, con superficie opaca,
+ * filete y `e2`. Cumplía las reglas de la casa —caía sobre relleno vacío, no
+ * sobre contenido, y sobresalía desde su lugar en el flujo y no en absoluto— y
+ * aun así no daba profundidad.
+ *
+ * El motivo es de material y no de medida: la hoja y la barra son las dos papel
+ * claro con filete de 1px, así que superponerlas no produce dos planos, produce
+ * dos rectángulos anidados. La profundidad necesita una diferencia de VALOR
+ * entre lo que está adelante y lo que está atrás, y acá no la hay. Encima el
+ * borde de la hoja asomando 18px a cada lado se leía como un desalineado y no
+ * como un documento que sigue por debajo del control.
+ *
+ * La sección ya tiene dos planos de verdad y bastan: la ventana sobre el campo
+ * con `e3`, y la hoja hundida adentro con su sombra de contacto. Una tercera
+ * superposición que hay que explicar no se lee como profundidad.
+ *
+ * ── SE VOLVIÓ A EVALUAR CON LA VENTANA SANGRADA, Y SIGUE SIN ENTRAR ───────
+ * La composición cambió —la ventana ahora se corta contra el borde izquierdo—
+ * así que la pregunta se hizo de nuevo, y la respuesta es la misma por un
+ * motivo más: el material no cambió (papel sobre crema, filete de 1px contra
+ * filete de 1px) y la ventana perdió su canto izquierdo, o sea que del lado del
+ * corte ya no hay borde que cruzar.
+ *
+ * El otro candidato de esta composición sería la tira pisando la ventana. No
+ * sirve: la tira es texto sin superficie, así que para superponerse tendría que
+ * traer una opaca —la regla del plano que trae su propia superficie— y eso la
+ * convierte en la tarjeta que las tres secciones acaban de dejar de ser.
+ *
+ * El recurso de profundidad de esta sección es el CORTE, y ya está gastado ahí.
+ */
+.f-mo-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 28px;
+  border-top: 1px solid var(--filete);
+  padding: clamp(22px, 2.6vw, 30px) clamp(24px, 2.8vw, 40px);
+  background: var(--crema);
+}
+
+/* ── LOS ESTADOS ────────────────────────────────────────────────────────────
+   Dos, no tres: entre Borrador y Enviado no hay un estado «Aprobado», hay una
+   acción.
+
+   El que falta se distingue por FORMA y por contraste de texto, nunca por
+   opacidad: el alcanzado cierra su filete y toma la tinta plena, el pendiente
+   se queda con el filete flojo y la tinta suave. Y ninguno lleva el naranja: el
+   marcador ya está gastado arriba, en la chapa, que es donde la decisión
+   espera. Pintar también el estado alcanzado diría que hay dos cosas
+   esperándote. */
+
+.f-mo-estados {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.f-mo-estado {
+  position: relative;
+  border: 1px solid var(--filete);
+  border-radius: 9999px;
+  padding: 7px 18px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--tinta-media);
+  white-space: nowrap;
+}
+
+.f-mo-estado[data-alcanzado="true"] {
+  border-color: var(--filete-fuerte);
+  color: var(--tinta);
+}
+
+/* La línea que va de uno al otro. Se dibuja desde el primero hacia afuera y no
+   como un elemento propio: un separador entre dos hermanos que existe sólo para
+   unirlos no necesita un nodo. */
+.f-mo-estado[data-alcanzado="true"]::after {
+  content: "";
+  position: absolute;
+  left: calc(100% + 1px);
+  top: 50%;
+  width: 24px;
+  height: 1px;
+  translate: 0 -50%;
+  background: var(--filete-fuerte);
+}
+
+/* ── LA ACCIÓN, CON EL DESTINATARIO DEBAJO ─────────────────────────────────
+   `justify-items: end` alinea el botón y su línea contra el margen derecho de
+   la barra, que es donde vive la acción en el panel. En pantalla angosta la
+   barra envuelve y el bloque cae a la izquierda con todo lo demás. */
+
+.f-mo-accion {
+  display: grid;
+  gap: 9px;
+  justify-items: start;
+}
+
+@media (min-width: 720px) {
+  .f-mo-accion {
+    justify-items: end;
+    text-align: right;
+  }
+}
+
+/* El botón del producto DIBUJADO, no la CTA del sitio: por eso no toma
+   `.f-boton` —que trae el disco, la flecha que respira y el `href` al panel— ni
+   el ámbar. Es tinta sólida, que es lo que el panel usa. */
+.f-mo-boton {
+  border-radius: var(--radio-int);
+  padding: 15px 30px;
+  background: var(--tinta);
+  color: var(--papel);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+}
+
+.f-mo-destinatario {
+  font-size: 0.875rem;
+}
+
+.f-mo-destinatario strong {
+  font-weight: 500;
+  color: var(--tinta-media);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CÓMO SALE — RETIRADA DE LA PÁGINA el 06/09/2026, la reemplaza «El momento»
+
+   El componente y estos estilos siguen en el repo a la espera de que el dueño
+   confirme el borrado. Con ellos quedan sin usar `useProgreso.ts`, la escena
+   `[data-escena="anclada"]` y la función de banda `.f-banda` de
+   `movimiento.css`: era la única sección atada al scroll de toda la página.
+
+   ── índice fijo con progreso, y el panel por estados
+
+   La ÚNICA sección atada al scroll de la página, y por eso también la más
+   corta de las que se anclan: 220vh. Qué paso está activo lo decide `--p` con
+   la función de banda de `movimiento.css`; no hay estado en JavaScript, así que
+   frenar a la mitad deja el estado a la mitad.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-fl-seccion {
+  padding-block: var(--aire-seccion) 0;
+}
+
+.f-anclada {
+  height: 220vh;
+}
+
+.f-anclada-vista {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  align-content: center;
+  overflow: clip;
+}
+
+.f-fl-fila {
+  display: grid;
+  gap: clamp(28px, 3.2vw, 48px);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .f-fl-fila {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  }
+}
+
+.f-fl-indice {
+  position: relative;
+  padding-left: 30px;
+}
+
+/* El riel: el indicador de progreso sale del mismo número que decide el paso
+   activo, así que los dos no pueden desincronizarse. */
+.f-fl-riel {
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  border-radius: 9999px;
+  background: var(--filete);
+  overflow: hidden;
+}
+
+.f-fl-riel-lleno {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--acento);
+  transform: scaleY(var(--p));
+  transform-origin: top;
+}
+
+.f-fl-pasos {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.f-fl-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 14px;
+  border-radius: var(--radio-int);
+  padding: 16px 18px;
+}
+
+/* La superficie del paso activo se enciende por OPACIDAD sobre un
+   pseudo-elemento, no cambiando el color de fondo: así el cambio no cuesta un
+   recálculo de estilo por cuadro de scroll. */
+.f-fl-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--crema);
+  opacity: var(--a);
+}
+
+/**
+ * El número es lo único que cambia de color. El texto NO se atenúa: un paso que
+ * todavía no llegó igual tiene que poder leerse.
+ *
+ * ── EL EXTREMO ENCENDIDO ES `--acento-tinta`, NO `--acento` ─────────────────
+ * El acento pleno está calibrado para llevar blanco encima, no para ser texto
+ * sobre papel: a 13px medía **3,51:1**, debajo del 4,5 que pide un texto chico.
+ * `--acento-tinta` es el mismo naranja en su tono de TEXTO —el que ya usa la
+ * chapa de borrador— y mide 7,5:1. Se sigue leyendo como el acento; lo que
+ * cambia es que ahora se lee.
+ */
+.f-fl-numero {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  color: color-mix(
+    in srgb,
+    var(--acento-tinta) calc(var(--a) * 100%),
+    var(--tinta-media)
+  );
+}
+
+.f-fl-item-texto {
+  display: grid;
+  gap: 7px;
+}
+
+.f-fl-item-cuerpo {
+  max-width: 34rem;
+}
+
+.f-fl-panel-movil {
+  grid-column: 1 / -1;
+  margin-top: 14px;
+}
+
+@media (min-width: 1024px) {
+  .f-fl-panel-movil {
+    display: none;
+  }
+}
+
+.f-fl-columna {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  /* Los cuatro paneles apilados en una celda: la caja mide lo que mide el más
+     alto y no cambia nunca. Montarlos y desmontarlos hacía que la pieza
+     pegajosa saltara 86px entre estados. */
+  .f-fl-columna {
+    display: grid;
+  }
+
+  .f-fl-capa {
+    grid-area: 1 / 1;
+    opacity: var(--a);
+  }
+}
+
+/* ── EL PANEL, QUE ES UN OBJETO DE PRODUCTO ─────────────────────────────────
+   Cromo de ventana como el reporte, pero SIN barra de direcciones: el reporte
+   es una página pública con URL y esto es la aplicación. */
+
+.f-ventana {
+  border: 2px solid rgb(20 16 12 / 0.09);
+  border-radius: var(--radio-obj);
+  background: var(--crema);
+  box-shadow: var(--e3);
+  overflow: hidden;
+}
+
+.f-ventana-barra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px 4px;
+}
+
+.f-ventana-titulo {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.006em;
+  color: var(--tinta-media);
+}
+
+.f-ventana-hoja {
+  margin: 4px 4px 11px;
+  border: 1px solid rgb(20 16 12 / 0.05);
+  border-radius: var(--radio-int);
+  background: var(--papel);
+  box-shadow: 0 3px 6px -2px rgb(20 16 12 / 0.16);
+  overflow: hidden;
+}
+
+.f-fl-cuerpo {
+  display: grid;
+  gap: 14px;
+  padding: 20px 22px 22px;
+}
+
+.f-fl-nota {
+  margin-top: -2px;
+}
+
+.f-fl-fechas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* `nowrap` y relleno corto: en 390px «31 jul 2026» se partía en dos líneas y
+   dejaba las dos pastillas de distinto alto. */
+.f-fl-fecha {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  padding: 9px 10px;
+  background: var(--papel);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.f-fl-flecha {
+  flex: none;
+  width: 14px;
+  height: 1px;
+  background: var(--filete-fuerte);
+}
+
+.f-fl-barra {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--filete);
+  margin: 4px -22px -22px;
+  padding: 14px 22px;
+  background: var(--crema);
+}
+
+.f-fl-boton {
+  border-radius: var(--radio-int);
+  padding: 9px 16px;
+  background: var(--tinta);
+  color: var(--papel);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* ── EL BORRADOR HOJEADO (paso 02) ──────────────────────────────────────────
+   Renglones sin texto, a propósito: lo que ese paso dice es que el informe está
+   ENTERO y todavía no salió, no qué dice. El informe de verdad se lee dos
+   secciones más arriba. */
+
+.f-fl-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.f-fl-chapa {
+  flex: none;
+  border: 1px solid var(--acento-filete);
+  border-radius: 9999px;
+  padding: 4px 10px;
+  background: var(--acento-campo);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--acento-tinta);
+}
+
+.f-fl-hojeada {
+  display: grid;
+  gap: 9px;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  padding: 16px;
+  background: var(--crema);
+}
+
+.f-fl-renglon {
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--filete-fuerte);
+  opacity: 0.7;
+}
+
+.f-fl-renglon-corto {
+  width: 62%;
+}
+
+.f-fl-mini {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 5px 0;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  background: var(--filete);
+  overflow: hidden;
+}
+
+.f-fl-mini span {
+  height: 26px;
+  background: var(--papel);
+}
+
+.f-fl-aprobar {
+  display: grid;
+  gap: 9px;
+  justify-items: start;
+}
+
+.f-fl-destinatario strong {
+  font-weight: 500;
+  color: var(--tinta-media);
+}
+
+/* Los estados son los del enum real. Dos, no tres: entre Borrador y Enviado no
+   hay un estado «Aprobado», hay una ACCIÓN. */
+.f-fl-estados {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid var(--filete);
+  padding-top: 14px;
+}
+
+.f-fl-estado {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--filete);
+  border-radius: 9999px;
+  padding: 5px 11px;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--tinta-media);
+}
+
+.f-fl-estado[data-hecho="true"] {
+  border-color: var(--acento-filete);
+  background: var(--acento-campo);
+  color: var(--acento-tinta);
+}
+
+.f-fl-hacia {
+  position: absolute;
+  left: calc(100% + 5px);
+  top: 50%;
+  width: 10px;
+  height: 1px;
+  translate: 0 -50%;
+  background: var(--filete-fuerte);
+}
+
+.f-fl-frecuencias {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  background: var(--filete);
+  overflow: hidden;
+}
+
+.f-fl-frecuencias li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  background: var(--papel);
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--tinta-media);
+}
+
+.f-fl-frecuencias li[data-elegida="true"] {
+  background: var(--crema);
+  color: var(--tinta);
+}
+
+.f-fl-radio {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--filete-fuerte);
+  border-radius: 9999px;
+  background: var(--papel);
+}
+
+.f-fl-frecuencias li[data-elegida="true"] .f-fl-radio {
+  border-color: var(--tinta);
+  border-width: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA MÁQUINA — el tramo oscuro, y dos piezas que se pisan
+
+   ── LO QUE HEREDA Y NO SE TOCA ─────────────────────────────────────────────
+   El corte que sube tapando el claro es el de Control y se conserva entero:
+   `.f-c-corte` y `.f-c-manto`, más abajo, más el bloque de `movimiento.css`
+   que los anima en 620ms, más el `.f-pasaje-sube` de salida. Esas reglas ahora
+   las gasta esta sección: **si se borra el CSS de Control, tienen que
+   sobrevivir**. El resto de `f-c-` sí se va con ella.
+
+   ── POR QUÉ SE REHIZO (06/09/2026) ────────────────────────────────────────
+   La versión anterior eran dos bandas de texto sin superficie separadas por
+   filetes, con un fragmento de banco apoyado al costado. El dueño la rechazó y
+   el diagnóstico fue de composición, no de copy: «demasiado texto, dos bloques
+   de prosa del mismo género, el visual no carga nada, y la banda blanca se ve
+   vacía y flota». Los tres síntomas eran uno solo: la sección no tenía un
+   objeto.
+
+   Lo que había que corregir, en orden:
+
+     sin objeto      el bloque del prompt era texto suelto sobre el tramo. Ahora
+                     es una pieza física con superficie propia.
+     sin proporción  el argumento —lo que la IA ve es poco, lo que el cliente
+                     tiene delante es mucho— lo decía sólo el copy. Ahora lo
+                     dice el tamaño de las dos superficies.
+     la banda vacía  tres celdas a tamaño de documento repartidas en una
+                     superficie grande son tres números flotando. Las cifras
+                     suben al escalón Display y las celdas se llenan.
+
+   ── LA COMPOSICIÓN ────────────────────────────────────────────────────────
+   Dos piezas, dos cortes opuestos y un hueco:
+
+     la hoja del prompt   grafito, apaisada, cortada contra el borde IZQUIERDO.
+     la banda de cifras   hoja plena y opaca, más grande, cruzando el canto
+                          inferior y el derecho de la hoja del prompt, y cortada
+                          contra el borde DERECHO.
+     el hueco             la escuadra que queda abajo a la izquierda, donde vive
+                          el párrafo. No es sobrante: es el negativo de la
+                          superposición.
+
+   Dos piezas cortadas contra bordes opuestos es lo que hace legible el formato
+   full-bleed de esta sección sin repetir la retícula de Anatomía, que corta una
+   sola pieza y contra un solo borde.
+
+   ── LOS TRES VALORES ──────────────────────────────────────────────────────
+   grafito hondo (el tramo) · grafito (la hoja del prompt) · papel (la banda).
+   El orden de los planos lo dice el valor y nada más: sobre espresso no se
+   declara sombra —las cuatro elevaciones del sistema son `rgb(22 19 15 / …)` y
+   ahí no existen— ni anillo. Y las dos piezas no pueden ser claras al mismo
+   valor: papel sobre papel es como esta superposición ya fracasó una vez.
+
+   ── Y NO ENTRA EL NARANJA ─────────────────────────────────────────────────
+   El acento vive en lo que es de la landing —la acción, la volanta, el punto
+   sobre cosas nuestras—. Acá no hay una acción ni un estado esperando una
+   decisión: hay una cañería mostrada.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-mq-seccion {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: center;
+  min-height: 100vh;
+  padding-block: clamp(96px, 11vw, 168px);
+}
+
+.f-mq-cabeza {
+  margin-bottom: var(--aire-bloque);
+}
+
+/* El titular del tramo oscuro es el único de la página que puede subir de
+   cuerpo: sobre oscuro un cuerpo grande no aplasta lo que tiene al lado. */
+.f-mq-cabeza .f-display {
+  max-width: 20ch;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  letter-spacing: -0.028em;
+}
+
+.f-mq-bajada {
+  margin-top: var(--aire-linea);
+  max-width: 40rem;
+}
+
+/**
+ * LA ESCENA.
+ *
+ * ── LAS CINCO PISTAS ──────────────────────────────────────────────────────
+ * canal · hueco · cruce · resto · canal. Las tres del medio suman
+ * `--contenido-real`, así que sus bordes caen donde caen los del contenedor y
+ * el contenido no se mueve de su margen; los dos canales se quedan con el
+ * resto. El tope de `--contenido-real` contra el `100%` de la propia grilla
+ * evita que, en una pantalla más angosta que el contenedor, las pistas fijas
+ * sumen más que la pantalla y empujen la página a lo ancho.
+ *
+ * Y las tres no son tercios, son 0,28 / 0,22 / 0,50, porque cada una tiene un
+ * trabajo distinto:
+ *
+ *   hueco  0,28   la columna del párrafo. En 1440 da 345px, que a 15px rinde
+ *                 unos 47 caracteres por línea: medida de lectura, verificada
+ *                 contra los caracteres que rinde y no en `ch`, que en español
+ *                 miente ~30%.
+ *   cruce  0,22   la zona donde las dos piezas se pisan. Es el ancho del
+ *                 solape, o sea el que decide que la superposición se lea: en
+ *                 1440 son 271px, un tercio del ancho de la hoja de atrás.
+ *   resto  0,50   lo que la banda necesita para pasar de largo a la hoja del
+ *                 prompt y llegar al borde.
+ *
+ * ── EL DESFASE ────────────────────────────────────────────────────────────
+ * `--mq-desfase` es cuánto sube la banda sobre la hoja del prompt, y es también
+ * el relleno que esa hoja reserva abajo para que la banda suba sobre espacio
+ * VACÍO y no sobre una palabra. Las dos cosas salen del mismo valor a propósito:
+ * si alguna vez cambia una, cambia la otra sola, y por construcción queda
+ * siempre un respiro entre la última línea del bloque y el canto de la banda.
+ */
+.f-mq-escena {
+  display: grid;
+}
+
+/**
+ * LA COMPOSICIÓN ENTRA EN 1280 Y NO EN 1024, Y EL NÚMERO ESTÁ MEDIDO.
+ *
+ * Abajo de eso las dos piezas se apilan, como en móvil. No es prudencia: es que
+ * la superposición deja de decir lo que tiene que decir, y por dos motivos que
+ * empujan igual.
+ *
+ * ── LA PROPORCIÓN SE DA VUELTA ────────────────────────────────────────────
+ * El alto de la hoja del prompt crece cuando su ancho baja —el bloque es una
+ * cantidad fija de texto, así que envuelve más— mientras que el de la banda se
+ * queda casi igual. Razón de área banda/hoja, medida en el navegador:
+ *
+ *   1920 → 1,28   1600 → 1,25   1440 → 1,22   1366 → 1,22   1280 → 1,22
+ *   1024 → 0,99   (medido con la composición forzada a ese ancho)
+ *
+ * Se sostiene plana hasta 1280 y se da vuelta abajo: en 1024 la hoja es MÁS
+ * GRANDE que la banda que la cruza, o sea que la composición afirma exactamente
+ * lo contrario de lo que la sección dice. El salto está en `--contenido-real`,
+ * que cae de 1192 a 936 entre esos dos anchos y deja la hoja en 512px, donde
+ * las tres líneas de campaña envuelven el doble.
+ *
+ * ── Y EL HUECO DEJA DE SER UNA MEDIDA DE LECTURA ──────────────────────────
+ * La columna del párrafo es el 28% del contenido: 345px en 1440 y 334 en 1280
+ * —unos 45 caracteres por línea a 15px, el piso de una medida de prosa— y 262
+ * en 1024, que son 36. Un párrafo a 36 caracteres no es un párrafo, es una
+ * columna de diario partida.
+ *
+ * Entre 1024 y 1280 la escena ya sangra por `.f-sangra-todo` pero todavía no
+ * tiene composición, así que el relleno le devuelve los márgenes del contenido.
+ */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .f-mq-escena {
+    padding-inline: var(--borde-x);
+  }
+}
+
+@media (min-width: 1280px) {
+  .f-mq-escena {
+    --contenido-real: min(var(--contenido), calc(100% - var(--borde-x) * 2));
+    --mq-desfase: clamp(34px, 3.6vw, 56px);
+
+    grid-template-columns:
+      [borde-i] minmax(var(--borde-x), 1fr)
+      [c-i] minmax(0, calc(var(--contenido-real) * 0.28))
+      [b] minmax(0, calc(var(--contenido-real) * 0.22))
+      [h] minmax(0, calc(var(--contenido-real) * 0.5))
+      [c-f] minmax(var(--borde-x), 1fr)
+      [borde-f];
+  }
+}
+
+/* ── 1. LA HOJA DEL PROMPT ──────────────────────────────────────────────────
+   Reusa `.f-superficie`, que adentro de `.f-oscuro` ya se invierte sola a
+   grafito con filete traslúcido y sin sombra. Acá no se redeclara nada.
+
+   ── CIERRA EN SUS CUATRO CANTOS ────────────────────────────────────────────
+   Sangraba hacia la izquierda —iba de `borde-i` a `h`— y se sacó el 06/09/2026
+   por dos motivos que empujan igual:
+
+     de composición   sangraban las dos piezas, cada una por un lado. Dos
+                      objetos que se van por bordes opuestos dejan de leerse
+                      como una decisión sobre ellos: la simetría se lee como el
+                      contenedor imponiendo su regla.
+     de contenido     un corte contra el borde dice «esto sigue». El bloque del
+                      prompt NO sigue: es el string completo, y que esté completo
+                      es literalmente lo que la sección afirma.
+
+   Ahora va de `c-i` a `h`, o sea del margen del contenido hasta el final de la
+   zona de cruce, con su filete y sus dos radios de ese lado. */
+
+.f-mq-hoja {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 1280px) {
+  .f-mq-hoja {
+    grid-row: 1;
+    grid-column: c-i / h;
+  }
+}
+
+/**
+ * EL CUERPO DE LA HOJA.
+ *
+ * Relleno propio y parejo en los cuatro lados. Llevaba `padding-left:
+ * var(--borde-x)` mientras la hoja sangraba, para que el rótulo cayera en la
+ * misma vertical que el titular de la sección; ahora que la hoja arranca EN el
+ * margen del contenido, ese relleno la corría de más y el texto quedaba
+ * indentado contra todo lo demás de la página.
+ *
+ * El de abajo es el que reserva el aire que la banda se come: `--mq-desfase`
+ * más un respiro, así que la pieza de adelante nunca llega al texto de la de
+ * atrás.
+ */
+.f-mq-hoja-cuerpo {
+  padding: clamp(20px, 2vw, 26px) clamp(22px, 2.2vw, 30px);
+}
+
+@media (min-width: 1280px) {
+  .f-mq-hoja-cuerpo {
+    padding-bottom: calc(var(--mq-desfase) + clamp(20px, 2vw, 28px));
+  }
+}
+
+/**
+ * EL TEXTO DEL BLOQUE, A TAMAÑO DE LECTURA.
+ *
+ * Estuvo en 17px, que era el bloque AMPLIADO, y ampliar un fragmento de prompt
+ * no dice nada: no es una cifra que haya que poder leer de lejos, es un archivo
+ * que hay que poder creer. A 14px —el escalón Chico, el de una celda de tabla o
+ * un punteo— la hoja se vuelve apaisada en vez de alta, que es lo que la deja
+ * más chica que la banda que la cruza. La proporción entre las dos piezas es el
+ * argumento de la sección, así que el cuerpo del bloque no es una preferencia:
+ * es lo que la hace posible.
+ *
+ * El encabezado va en tinta plena porque es la mitad que carga el argumento
+ * —«Sin cifras a propósito»— y conserva medida de prosa: es una FRASE, y a lo
+ * ancho de la hoja rendiría ~110 caracteres por renglón.
+ */
+.f-mq-encabezado {
+  margin: clamp(12px, 1.2vw, 15px) 0 0;
+  max-width: 40rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--sobre-oscuro);
+  text-wrap: pretty;
+}
+
+/**
+ * ── SIN FILETES ENTRE LÍNEAS, Y NO ES UN OLVIDO ────────────────────────────
+ * El bloque es UN string de texto plano que se manda al prompt. Un separador
+ * entre ítems lo convierte en una lista de interfaz —tres filas de un
+ * componente— y la sección se apoya en lo contrario: en que se lea como una
+ * cita literal de algo que existe. La separación la hace el espacio, que es lo
+ * que separa dos renglones en un texto.
+ *
+ * Lo que SÍ se queda es el ordinal colgado y el nombre en tinta plena: ninguno
+ * de los dos agrega nada que el string no tenga —los caracteres son los
+ * mismos—, cambia dónde se apoyan. Y el ordinal colgado es lo que permite sacar
+ * los filetes sin perder nada, porque marca dónde empieza cada entrada mejor de
+ * lo que lo hacía la raya.
+ */
+.f-mq-lineas {
+  display: grid;
+  gap: clamp(8px, 0.8vw, 11px);
+  margin: clamp(13px, 1.3vw, 17px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* La línea se ensancha con la hoja y no lleva medida propia: la regla de los
+   ~60 caracteres es la de la PROSA, y esto no es prosa —son las líneas de un
+   string que el sistema le manda al modelo—. En un archivo de verdad envuelven
+   donde termina la caja. El ordinal sigue colgando en su columna, que es lo que
+   mantiene alineado el renglón de continuación cuando una línea larga envuelve. */
+.f-mq-linea {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 9px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--sobre-oscuro-media);
+  text-wrap: pretty;
+}
+
+.f-mq-ordinal {
+  color: var(--sobre-oscuro-media);
+}
+
+.f-mq-nombre {
+  color: var(--sobre-oscuro);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ── 2. LA BANDA DE CIFRAS ──────────────────────────────────────────────────
+
+   La pieza de adelante, y la única con superficie opaca clara. Reusa
+   `.f-superficie` con el modificador de hoja —papel, filete claro, radio de
+   objeto— y adentro va `Resultados` con las tres celdas que el párrafo nombra.
+
+   ── EL PLANO LO HACEN EL VALOR Y EL DESFASE ────────────────────────────────
+   Sobre espresso no se declara sombra, así que lo que separa la pieza es que es
+   casi blanca sobre grafito y que sube `--mq-desfase` sobre el relleno inferior
+   de la hoja del prompt, que está reservado para eso y está vacío.
+
+   Sale de su propia celda de grilla con margen negativo y no en posicionamiento
+   absoluto: la segunda fila sigue reservando su lugar, así que la pieza
+   sobresale hacia arriba sin que nada se le monte abajo.
+
+   ── CRUZA DOS CANTOS ──────────────────────────────────────────────────────
+   El inferior de la hoja del prompt, por donde sube, y el derecho, porque
+   arranca en `b` —adentro de la hoja— y sigue hasta `borde-f`. Ésa es la
+   diferencia con la versión anterior, donde la banda tocaba una línea de un
+   píxel y nada más: acá le pasa por encima a una superficie.
+
+   ── ARRANCA SOBRE UNA LÍNEA DE LA GRILLA ──────────────────────────────────
+   Su canto izquierdo cae en `b`, que es la misma línea donde termina la columna
+   del hueco. Una pieza que se apoya sobre una composición reticulada tiene que
+   apoyarse EN una línea de esa composición, no al lado.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-mq-banda {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(26px, 3vw, 40px);
+}
+
+@media (min-width: 1280px) {
+  .f-mq-banda {
+    grid-row: 2;
+    grid-column: b / borde-f;
+    align-self: start;
+    margin-top: calc(var(--mq-desfase) * -1);
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+/**
+ * LAS CELDAS SE LLENAN, Y ÉSE ERA EL DEFECTO.
+ *
+ * A tamaño de documento, tres celdas repartidas en una superficie de casi mil
+ * píxeles son tres números flotando, que es literalmente lo que el dueño vio.
+ * La cifra se amplía y el relleno de la celda con ella —el del documento está
+ * calibrado para un número de 22px—, y de paso la banda gana el alto que la
+ * proporción de la sección necesita.
+ *
+ * ── POR QUÉ NO LA AMPLIACIÓN DE ANATOMÍA ──────────────────────────────────
+ * Allá el KPI va a `clamp(2.25rem, 4.6vw, 4.25rem)`, o sea 66px en 1440, y acá
+ * NO entra: es una celda sola contra tres en fila. Medido: «$ 486.250» a 66px
+ * rinde unos 281px y la caja de una celda de esta banda da 264 en 1440 y 185 en
+ * 1024. El tope baja a 3,25rem y el coeficiente a 3,6vw para que la cifra se
+ * angoste con la celda —52px en 1440, 37 en 1024— y en los dos casos sobre
+ * caja. Es la misma decisión que Anatomía, tomada contra otro ancho.
+ */
+.f-mq-banda .f-kpi-valor {
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  letter-spacing: -0.028em;
+}
+
+.f-mq-banda .f-kpi {
+  padding: clamp(32px, 3.2vw, 46px) clamp(16px, 1.4vw, 22px)
+    clamp(34px, 3.4vw, 50px);
+}
+
+.f-mq-banda .f-kpi-pie {
+  margin-top: clamp(14px, 1.4vw, 18px);
+}
+
+/* La cápsula sube con la cifra: a 12px al lado de un número de 52px se leería
+   como una nota al pie. Es la misma proporción que le puso Anatomía a la suya, y
+   el tick escala solo porque el SVG trae `viewBox`. */
+.f-mq-banda .f-capsula {
+  gap: 7px;
+  padding: 4px 11px 4px 9px;
+  font-size: 0.8125rem;
+}
+
+.f-mq-banda .f-capsula svg {
+  width: 10px;
+  height: 10px;
+}
+
+/**
+ * LAS CELDAS TIENEN ANCHO FIJO, Y LA CUARTA SE DESBORDA A PROPÓSITO.
+ *
+ * Éste es el arreglo del sangrado que no decía nada. Con tres columnas de `1fr`
+ * las celdas se repartían el ancho de la banda y la última terminaba 20px antes
+ * del filete: medido, quedaban 165px de blanco entre «$ 1.558» y el corte. Un
+ * sangrado dice «esto sigue» sólo si hay CONTENIDO corriendo hasta el borde; si
+ * lo último que se ve es superficie vacía, dice «esto es una superficie grande
+ * que se cortó», que es lo contrario.
+ *
+ * Ahora las cuatro celdas del banco miden lo mismo y ese ancho no depende de la
+ * banda, así que la fila es más ancha que la pieza y la cuarta queda partida por
+ * el `overflow: hidden` de `.f-superficie`, cuyo canto derecho es el filo del
+ * viewport. Las tres que el párrafo cita entran enteras; la que se corta es CTR,
+ * que el párrafo no nombra, y eso no es una casualidad afortunada: es el orden
+ * del informe, donde CTR ya va cuarta.
+ *
+ * ── EL ANCHO SALE DE LA CIFRA MÁS LARGA ───────────────────────────────────
+ * `19vw` da 273,6px en 1440, y la celda tiene que aguantar «$ 486.250», que
+ * renderiza 220,6px a 51,84px —medido en el navegador, no estimado—. Con el
+ * relleno de 1,4vw a cada lado quedan 233px de caja útil: 12px de sobra. El
+ * relleno bajó de 1,8vw a 1,4vw justamente para conseguir ese margen sin achicar
+ * la cifra, que está aprobada y no se toca. Si cambia la moneda o el cuerpo de
+ * la cifra, este número se vuelve a medir.
+ *
+ * ── `width: max-content` NO ES DECORATIVO ─────────────────────────────────
+ * Las líneas de la retícula son el fondo del contenedor asomando por el `gap`.
+ * Sin esto el contenedor mide lo que le da su caja y el filete entre la tercera
+ * y la cuarta celda cae afuera de ese fondo, o sea que no se dibuja: la cuarta
+ * celda aparecería pegada a la tercera sin separación.
+ */
+.f-mq-banda .f-banco {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/**
+ * ── APILADA, LAS COLUMNAS SE REPARTEN EL ANCHO ────────────────────────────
+ * Abajo de 1280 la banda no sangra, así que no hay filo contra el que cortar y
+ * las cuatro celdas tienen que entrar enteras. Los dos escalones salen de la
+ * cifra, que es lo que fija el ancho mínimo de una celda: «$ 486.250» rinde
+ * 136px en el piso del clamp (32px) y la celda necesita eso más 32 de relleno,
+ * o sea 169. Con cuatro columnas eso pide una banda de 679px de caja, que
+ * recién aparece cerca de los 800px de viewport; el quiebre se puso en 900,
+ * que además es uno de los reales del sistema, para no dejarlo al filo.
+ */
+@media (min-width: 640px) {
+  .f-mq-banda .f-banco {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .f-mq-banda .f-banco {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .f-mq-banda .f-banco {
+    grid-template-columns: repeat(4, clamp(240px, 19vw, 330px));
+    width: max-content;
+  }
+}
+
+/* ── 3. EL HUECO ────────────────────────────────────────────────────────────
+   La escuadra que dejan las dos piezas: debajo de la hoja del prompt y a la
+   izquierda de la banda. El párrafo entra ahí entero —medido: seis renglones en
+   1440— así que no hace falta la máscara de disolución. Si algún día no
+   entrara, el recurso está declarado en `base.css` como `--fundido-tramo` y se
+   pide por nombre.
+
+   Arranca donde termina la hoja de arriba y no lleva relleno propio a la
+   izquierda: es la columna de contenido, no una pieza. */
+
+.f-mq-hueco {
+  padding-top: clamp(26px, 2.6vw, 36px);
+}
+
+@media (min-width: 1280px) {
+  .f-mq-hueco {
+    grid-row: 2;
+    grid-column: c-i / b;
+    padding-right: clamp(22px, 2.2vw, 32px);
+  }
+}
+
+/**
+ * EL PÁRRAFO, AL CUERPO CORRIENTE.
+ *
+ * Estuvo en 24px —el mismo escalón al que Anatomía amplía el suyo— y ahí era el
+ * segundo muro de texto de la sección: dos bloques de prosa del mismo género,
+ * uno arriba y otro abajo, que fue exactamente el diagnóstico del rechazo. Acá
+ * el párrafo no es la pieza; las piezas son las dos superficies. El párrafo es
+ * lo que se lee en el hueco que dejan.
+ *
+ * Va en `--sobre-oscuro` y no en el escalón medio: es prosa del informe citada,
+ * no una nota nuestra.
+ */
+.f-mq-parrafo {
+  margin-top: 14px;
+  /* La medida sólo hace falta cuando la escena está apilada: ahí el hueco es el
+     ancho entero del contenido y el párrafo rendiría ~140 caracteres por línea.
+     Desde 1280 la columna del hueco mide 345px y el tope no llega a aplicar. */
+  max-width: 34rem;
+  color: var(--sobre-oscuro);
+  text-wrap: pretty;
+}
+
+/* El cierre: la nota del ancla y el pie de la versión anterior, fundidos. Texto
+   fino y subordinado a propósito, como las reglas de Anatomía: lo que la
+   sección muestra son las dos piezas; esto dice por qué están así. */
+.f-mq-cierre {
+  margin-top: clamp(20px, 2.2vw, 28px);
+  max-width: 32rem;
+  text-wrap: pretty;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONTROL — RETIRADA DE LA PÁGINA el 06/09/2026, la reemplaza «La máquina»
+
+   El componente y estos estilos siguen en el repo a la espera de que el dueño
+   confirme el borrado. OJO con dos de ellos: `.f-c-corte` y `.f-c-manto` NO
+   son de Control, son el corte oscuro, y hoy los usa «La máquina». Ésos se
+   quedan pase lo que pase.
+
+   ── LE FALTABA PRESENCIA ───────────────────────────────────────────────────
+
+   ── LE FALTABA PRESENCIA ───────────────────────────────────────────────────
+   Medía 865px y su trabajo es cortar el blanco y dar respiro. Un tramo oscuro
+   que dura menos de una pantalla no corta nada: pasa. Ahora ocupa como mínimo
+   el viewport entero y su relleno es casi el doble del de una sección clara,
+   porque el cambio de valor necesita tiempo para registrarse antes de que
+   empiece a hablar.
+
+   El titular también sube: es el único de la página que puede, porque sobre
+   oscuro un cuerpo grande no aplasta lo que tiene al lado.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-c-corte {
+  position: relative;
+  isolation: isolate;
+}
+
+.f-c-manto {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(
+      70rem 42rem at 76% 0%,
+      rgb(234 88 12 / 0.14),
+      transparent 64%
+    ),
+    radial-gradient(
+      circle at 1px 1px,
+      rgb(255 253 251 / 0.035) 1px,
+      transparent 0
+    ),
+    var(--grafito-honda);
+  background-size:
+    auto,
+    22px 22px,
+    auto;
+}
+
+/* El manto pinta; la sección sólo aporta los tokens de color sobre oscuro. */
+.f-c-corte .f-oscuro {
+  background: transparent;
+}
+
+.f-c-corte .f-oscuro::before {
+  display: none;
+}
+
+.f-c-seccion {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: center;
+  min-height: 100vh;
+  padding-block: clamp(110px, 13vw, 190px);
+}
+
+.f-c-cabeza {
+  margin-bottom: clamp(44px, 5vw, 72px);
+}
+
+.f-c-cabeza .f-display {
+  max-width: 20ch;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  letter-spacing: -0.028em;
+}
+
+.f-c-bajada {
+  margin-top: var(--aire-linea);
+  max-width: 38rem;
+}
+
+.f-c-via {
+  display: grid;
+  gap: 16px;
+  padding: 26px 22px;
+}
+
+@media (min-width: 860px) {
+  .f-c-via {
+    grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+    align-items: center;
+    gap: 36px;
+    padding: 34px 30px;
+  }
+}
+
+.f-c-via-voz {
+  display: grid;
+  gap: 10px;
+}
+
+.f-c-nota {
+  max-width: 30rem;
+}
+
+.f-c-diagrama {
+  min-width: 0;
+}
+
+.f-c-riel {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 560px) {
+  .f-c-riel {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  /* La línea arranca y termina en el centro del primer y del último nodo: una
+     línea que sobresale por los extremos promete un paso más que no existe. */
+  .f-c-riel::before,
+  .f-c-riel::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 6px;
+    left: 16.66%;
+    right: 16.66%;
+    height: 1px;
+    background: var(--grafito-filete);
+  }
+
+  /* La capa de pintura del hover, encima de la línea apagada. */
+  .f-c-riel::after {
+    background: var(--acento-vivo);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 260ms var(--curva-control);
+  }
+}
+
+.f-c-nodo {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+@media (min-width: 560px) {
+  .f-c-nodo {
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+/* Apilado la línea la dibuja cada nodo contra su propia caja: una línea única
+   tendría que ir del centro del primer marcador al del último, y esos dos
+   puntos dependen del alto del texto de cada nodo. */
+@media (max-width: 559px) {
+  .f-c-nodo:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 13px;
+    left: 6px;
+    width: 1px;
+    height: calc(100% + 1px);
+    background: var(--grafito-filete);
+  }
+}
+
+.f-c-nodo-marca {
+  display: grid;
+  place-items: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 9999px;
+  background: var(--grafito);
+  box-shadow: inset 0 0 0 1px var(--grafito-filete);
+  transition:
+    background-color 220ms var(--curva-control),
+    box-shadow 220ms var(--curva-control);
+}
+
+/* El nodo de la IA es el único con punto: es el único lugar del recorrido donde
+   el producto le entrega algo a una pieza que no computa. */
+.f-c-nodo-marca:has(.f-marca-punto) {
+  background: color-mix(in srgb, var(--acento-vivo) 14%, transparent);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--acento-vivo) 34%, transparent);
+}
+
+.f-c-nodo-texto {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.006em;
+  color: var(--sobre-oscuro);
+}
+
+/* ── EL HOVER REVELA ────────────────────────────────────────────────────────
+   Los tres textos están siempre en el DOM, apilados en la misma celda, y el
+   hover cruza cuál se ve. El alto lo fija el más largo, así que pasar el mouse
+   no mueve un píxel. */
+
+.f-c-revelado {
+  display: grid;
+  margin: 16px 0 0;
+  min-height: 2.9em;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--sobre-oscuro-media);
+}
+
+.f-c-revelado > span {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translate3d(0, 3px, 0);
+  transition:
+    opacity 200ms var(--curva-control),
+    transform 200ms var(--curva-control);
+}
+
+@media (min-width: 560px) {
+  .f-c-revelado {
+    text-align: center;
+  }
+}
+
+.f-c-diagrama:has(.f-c-nodo:nth-child(1):hover)
+  .f-c-revelado
+  > span:nth-child(1),
+.f-c-diagrama:has(.f-c-nodo:nth-child(2):hover)
+  .f-c-revelado
+  > span:nth-child(2),
+.f-c-diagrama:has(.f-c-nodo:nth-child(3):hover)
+  .f-c-revelado
+  > span:nth-child(3) {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 560px) {
+  .f-c-diagrama:has(.f-c-nodo:nth-child(2):hover) .f-c-riel::after {
+    transform: scaleX(0.5);
+  }
+
+  .f-c-diagrama:has(.f-c-nodo:nth-child(3):hover) .f-c-riel::after {
+    transform: scaleX(1);
+  }
+}
+
+.f-c-nodo:hover .f-c-nodo-marca {
+  background: var(--acento-vivo);
+  box-shadow: inset 0 0 0 1px var(--acento-vivo);
+}
+
+.f-c-hechos {
+  display: grid;
+}
+
+@media (min-width: 720px) {
+  .f-c-hechos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .f-c-hechos > * + * {
+    border-left: 1px solid var(--grafito-filete);
+  }
+}
+
+@media (max-width: 719px) {
+  .f-c-hechos > * + * {
+    border-top: 1px solid var(--grafito-filete);
+  }
+}
+
+.f-c-hecho {
+  display: grid;
+  gap: 8px;
+  padding: 26px 22px;
+}
+
+@media (min-width: 720px) {
+  .f-c-hecho {
+    padding: 32px 30px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL ENTREGABLE — el teléfono adelante, y las otras dos formas del informe
+
+   Formato asignado: OBJETO ÚNICO. El objeto es el teléfono; la página pública y
+   el PDF entran a otra escala y por detrás.
+
+   ── POR QUÉ SE REHIZO (06/09/2026) ─────────────────────────────────────────
+   Era la única de las cuatro secciones nuevas que nunca se revisó contra el
+   criterio de composición, y a 1440 medía: la misma estructura que El momento
+   —que pasó a ser la sección de arriba—, un solo plano, nada sangrando, el
+   teléfono flotando en una columna de 503px con un aparato de 320, 96px muertos
+   entre las notas y el margen, y 1041px de alto para una sola pieza.
+
+   Las piezas que faltaban no había que inventarlas: `PRODUCT.md` fija que el
+   entregable vive en TRES formas, y las otras dos ya existían como primitivas
+   —el marco de navegador del héroe con la URL real, y el documento—.
+
+   ── LA COMPOSICIÓN, Y POR QUÉ NO ES NINGUNA DE LAS OTRAS TRES ──────────────
+   Anatomía es una retícula sangrada de tres celdas; La máquina, dos piezas que
+   se pisan sobre el tramo oscuro con una sangrando; El momento, un objeto
+   cortado contra el borde izquierdo con la explicación en columna al lado.
+
+   Ésta es la única donde **el objeto tapa a la pieza de atrás**. Las otras tres
+   cortan con el viewport y con nada más; acá el corte lo hacen dos cosas —el
+   borde de la pantalla por la derecha y el teléfono por la izquierda— y el
+   objeto que manda es el único que está entero.
+
+     el teléfono         320 × 640. Plano de adelante. Es el único objeto que se
+                         ve completo, y el único con sombra propia.
+     la página pública   la más grande y la de más atrás. Arranca DEBAJO del
+                         teléfono, que le tapa el canto izquierdo, y se corta
+                         contra el borde derecho de la pantalla.
+     el PDF              234 × 303. Plano del medio. Sube sobre la franja vacía
+                         que la página pública reserva abajo y le cruza el canto
+                         inferior.
+
+   ── EL CRUCE DEL TELÉFONO CAE SOBRE EL MARGEN DE LA PÁGINA, NO SOBRE TEXTO ─
+   La pieza de atrás no es una superficie vacía: es un documento. Así que el
+   tramo que el teléfono tapa —`--en-cruce`, la pista entre `g-i` y `t-f`— es
+   exactamente el relleno izquierdo de la vista, que existe para eso. El
+   documento arranca después, con aire de sobra, y por construcción el aparato
+   no llega nunca a una palabra.
+
+   Y ese relleno no es un truco de maquetado: la ventana está cortada por la
+   derecha, o sea que es más ancha que lo que se ve. Lo que queda a la izquierda
+   es el margen de la página, que es lo que se ve de verdad cuando un informe se
+   abre en un navegador ancho.
+
+   ── EL DOCUMENTO SÍ LLEGA AL FILO ──────────────────────────────────────────
+   Es la lección de La máquina: un sangrado dice «esto sigue» sólo si hay
+   CONTENIDO corriendo hasta el borde. Por eso el documento pierde su margen y
+   su borde derechos y termina en el corte, en vez de dejar una franja de
+   bandeja antes del filo.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * EL AIRE DE ARRIBA BAJÓ A `--aire-seccion`.
+ *
+ * Estaba en `--aire-tema` con este motivo escrito al lado: «viene saliendo del
+ * tramo oscuro y necesita que se note el cambio de tema». Ya no es cierto —La
+ * máquina se movió antes de El momento en la misma pasada—, y con la
+ * justificación vencida quedaban 236px entre dos secciones que cuentan el mismo
+ * ritual: aprobás, y llega. El corte de tema real está abajo, contra Límites,
+ * que además trae su propio fondo crema.
+ */
+.f-en-seccion {
+  padding-block: var(--aire-seccion);
+}
+
+.f-en-rotulo {
+  margin-bottom: var(--aire-linea);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA ESCENA
+
+   ── LAS CINCO PISTAS ───────────────────────────────────────────────────────
+   canal · cruce · resto · canal, con el teléfono a caballo de las dos primeras
+   pistas de contenido. Las tres del medio suman `--contenido-real`, así que sus
+   bordes caen donde caen los del contenedor y el texto de arriba no se mueve de
+   su margen; los dos canales se quedan con el resto. El tope de
+   `--contenido-real` contra el `100%` de la propia grilla evita que, en una
+   pantalla más angosta que el contenedor, las pistas fijas sumen más que la
+   pantalla y empujen la página a lo ancho.
+
+     t-i → g-i   0,159   lo que se ve del teléfono antes de que empiece la
+                         ventana. En 1440 son 196px.
+     g-i → t-f   0,101   `--en-cruce`: el tramo donde el teléfono tapa a la
+                         página pública. 124px en 1440, y es también el relleno
+                         izquierdo de la vista.
+     t-f → c-f   0,740   donde viven el PDF, las notas y el resto de la ventana.
+
+   Las dos primeras suman 0,26, o sea 320px en 1440: el ancho del teléfono, que
+   es su tope. El aparato llena su pista, así que entre 1280 y 1440 se angosta
+   con ella —310px en 1280— y nunca pasa de 320. Si alguna vez cambia el tope
+   del aparato, cambian las dos pistas.
+
+   ── LAS DOS FILAS ──────────────────────────────────────────────────────────
+   La primera la mide la ventana; la segunda, las notas. El teléfono y el PDF
+   cruzan las dos: el teléfono anclado arriba, el PDF anclado abajo. Con eso la
+   escena mide lo que mide el teléfono —que es la pieza más alta— y las notas
+   caen solas en la escuadra que dejan la ventana y el PDF, sin una posición
+   absoluta y sin un alto escrito a mano.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-en-escena {
+  display: grid;
+  gap: clamp(26px, 3vw, 40px);
+  margin-top: var(--aire-bloque);
+}
+
+/**
+ * ENTRE 640 Y 1280 — DOS COLUMNAS, PARA QUE LA PILA NO SEA UNA ESCALERA.
+ *
+ * Apilada de punta a punta la sección medía 1800px en 1024 —ventana, PDF,
+ * teléfono y notas, uno abajo del otro—, contra los 945 que medía con una sola
+ * pieza. Tres objetos apilados no son una composición: son una escalera, y
+ * encima obligan a scrollear dos pantallas para un argumento que se ve de un
+ * vistazo.
+ *
+ * Desde 640 la ventana toma el ancho entero —es la pieza apaisada— y abajo se
+ * abren dos columnas: el teléfono a la izquierda y, a la derecha, el PDF con
+ * las notas debajo. Es la misma repartición que tiene la composición de 1280,
+ * sin los planos: el objeto de un lado, la pieza chica y su texto del otro.
+ *
+ * El teléfono cruza las dos filas de la derecha a propósito. Con el PDF solo al
+ * lado quedaban 340px de aire abajo de una hoja de 300 contra un aparato de
+ * 640; con las notas ahí, la columna se llena y la sección bajó de 1466 a
+ * ~1210 en 1024.
+ */
+@media (min-width: 640px) and (max-width: 1279px) {
+  .f-en-escena {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .f-en-pagina {
+    grid-row: 1;
+    grid-column: 1 / -1;
+  }
+
+  .f-en-tel {
+    grid-row: 2 / 4;
+    grid-column: 1;
+    align-self: start;
+  }
+
+  .f-en-pdf {
+    grid-row: 2;
+    grid-column: 2;
+    align-self: start;
+  }
+
+  .f-en-notas {
+    grid-row: 3;
+    grid-column: 2;
+    align-content: start;
+  }
+}
+
+/* Apilado o en dos columnas, el PDF va centrado en su caja como el teléfono: a
+   ancho fijo y alineado al arranque quedaba con 116px de aire muerto a la
+   derecha en 390. */
+@media (max-width: 1279px) {
+  .f-en-pdf {
+    justify-self: center;
+  }
+}
+
+/**
+ * LA COMPOSICIÓN ENTRA EN 1280 Y NO EN 1024.
+ *
+ * Debajo de eso las tres piezas se apilan. El número no es prudencia: es que en
+ * 1024 `--contenido-real` cae a 936 y la ventana queda en 842px de ancho, de los
+ * cuales 94 se los lleva el cruce del teléfono. Lo que sobra para el documento
+ * son 748, y ahí el banco de KPI del informe cruza su propio umbral de
+ * contenedor —620px de caja útil— y se parte en dos filas de dos. La pieza deja
+ * de ser «el informe en un navegador ancho» y pasa a ser el informe en una
+ * ventana angosta, que es lo que ya muestra el héroe.
+ *
+ * Entre 1024 y 1280 la escena ya sangra por `.f-sangra-todo` pero todavía no
+ * tiene composición, así que el relleno le devuelve los márgenes del contenido.
+ */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .f-en-escena {
+    padding-inline: var(--borde-x);
+  }
+}
+
+@media (min-width: 1280px) {
+  .f-en-escena {
+    --contenido-real: min(var(--contenido), calc(100% - var(--borde-x) * 2));
+    --en-cruce: calc(var(--contenido-real) * 0.101);
+
+    gap: 0;
+    grid-template-rows: auto auto;
+    grid-template-columns:
+      [borde-i] minmax(var(--borde-x), 1fr)
+      [t-i] minmax(0, calc(var(--contenido-real) * 0.159))
+      [g-i] minmax(0, var(--en-cruce))
+      [t-f] minmax(0, calc(var(--contenido-real) * 0.74))
+      [c-f] minmax(var(--borde-x), 1fr)
+      [borde-f];
+  }
+}
+
+/* ── 1. LA PÁGINA PÚBLICA ───────────────────────────────────────────────────
+
+   Reusa `.f-navegador` entero —el marco crema de 2px, el radio de objeto, el
+   recorte de la altura— y `BarraNavegador` con la URL real. La máscara de
+   `.f-navegador` lee `--fundido`, que sólo existe adentro de `.f-escena` del
+   héroe: acá cae en `none`, que es lo correcto, porque lo que se disuelve es el
+   documento de adentro y no el marco.
+
+   ── LA FRANJA DE ABAJO ES RELLENO RESERVADO ────────────────────────────────
+   `padding-bottom` deja crema visible debajo de la vista. No es adorno: es el
+   espacio VACÍO sobre el que sube el PDF, la misma cuenta que hace `.r-riel`
+   con sus 44px. Sin él, el PDF cruzaría sobre el final del documento.
+
+   ── Y NO ES EL PROTAGONISTA, AUNQUE SEA LA MÁS GRANDE ──────────────────────
+   Está atrás, le falta el canto izquierdo —lo tapa el teléfono—, le falta el
+   derecho —lo corta la pantalla— y su documento se disuelve. Sombra: `e1`, el
+   mínimo que despega una superficie de la que tiene debajo. El único objeto que
+   se ve entero y el único con sombra grande es el teléfono. */
+
+.f-en-pagina {
+  z-index: 1;
+  box-shadow: var(--e1);
+  padding-bottom: clamp(24px, 2.8vw, 42px);
+}
+
+@media (min-width: 1280px) {
+  .f-en-pagina {
+    grid-row: 1;
+    grid-column: g-i / borde-f;
+    align-self: start;
+    margin-top: clamp(26px, 3.2vw, 48px);
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+/**
+ * LA VISTA.
+ *
+ * Extiende `.f-recorte`, que trae el alto fijo y el `overflow`. Fijo y no
+ * máximo, por lo mismo que está escrito allá: contra una altura indefinida el
+ * `min-height: 100%` del documento no resuelve y el corte vuelve a depender de
+ * cuánto texto entró.
+ *
+ * ── EL ALTO LO MANDA EL PDF, NO CUÁNTO DOCUMENTO ENTRA ─────────────────────
+ * La condición dura es que el tramo del fundido TERMINE antes de donde arranca
+ * el PDF, para que el canto superior del PDF caiga sobre documento ya disuelto
+ * y no sobre una palabra. Medido a 1440: la vista mide 288, el fundido se acaba
+ * en el 94% —a 271px, o sea en y=5247— y el PDF empieza en 5265. Quedan 18px de
+ * margen y 41px de cruce contra el canto inferior de la ventana. Si cambia el
+ * alto del PDF o el relleno de abajo de la ventana, este valor se vuelve a
+ * medir.
+ *
+ * Lo que la ventana alcanza a mostrar con eso son el encabezado y el resumen, y
+ * alcanza: lo que esta pieza prueba no es cuánto informe entra —eso ya lo hacen
+ * el héroe y Anatomía— sino DÓNDE vive, y eso lo dice la barra de direcciones.
+ *
+ * El relleno izquierdo es el margen de la página, y su medida es `--en-cruce`
+ * más un respiro: por construcción el teléfono nunca llega al documento.
+ */
+.f-en-vista {
+  height: clamp(212px, 20vw, 288px);
+}
+
+/**
+ * LA BARRA DE DIRECCIONES SE CORRE CON EL DOCUMENTO, Y NO ES SIMETRÍA.
+ *
+ * Se hizo con el relleno sólo en la vista y en pantalla se veía el error de una:
+ * el teléfono le tapaba las tres luces y el arranque de la URL. La URL es
+ * literalmente la prueba de esta pieza —el cliente abre el informe en
+ * `r.nuvloapp.com/r/{token}`—, así que taparla no es un defecto de maquetado, es
+ * borrar el argumento.
+ *
+ * Las dos declaraciones salen de `--en-cruce`, que es la pista donde el aparato
+ * se monta: si cambia el cruce, se corren las dos juntas.
+ */
+@media (min-width: 1280px) {
+  .f-en-vista,
+  .f-en-pagina .f-navegador-barra {
+    padding-left: calc(var(--en-cruce) + clamp(22px, 2.4vw, 34px));
+  }
+
+  /**
+   * Y DEL OTRO LADO LA BARRA PIERDE SU RELLENO, PARA QUE LA CORTE LA PANTALLA.
+   *
+   * El campo de dirección tiene `flex: 1`, así que con los 16px de siempre
+   * terminaba 16px antes del filo y lo último que se veía en el corte era
+   * superficie. Es la lección de La máquina —un sangrado dice «esto sigue» sólo
+   * si hay contenido corriendo hasta el borde—, y acá se paga barato: el campo
+   * llega al filo y lo parte el viewport, que es exactamente lo que le pasa a
+   * una ventana más ancha que la pantalla.
+   *
+   * Lo que se corta del campo es su mitad vacía: la URL vive a la izquierda,
+   * después del tramo que tapa el teléfono, y se lee entera.
+   */
+  .f-en-pagina .f-navegador-barra {
+    padding-right: 0;
+  }
+}
+
+/**
+ * EL FUNDIDO VA EN LA VISTA, NO EN EL DOCUMENTO, Y SE APRENDIÓ MIDIENDO.
+ *
+ * `--fundido-tramo` es el tramo declarado una vez en `base.css` con el que se
+ * cortan el fragmento del héroe y la tabla de Anatomía —opaco hasta el 79%, nada
+ * a partir del 94%—. Sus porcentajes se resuelven contra la caja del elemento
+ * que lleva la máscara, y ahí está la trampa: el documento adentro del recorte
+ * mide 555px y el recorte 288, así que puesta en el documento la máscara empieza
+ * a disolver en el píxel 438 —150px POR DEBAJO del corte— y en pantalla la
+ * página se cortaba seca igual que antes. Medido, no supuesto.
+ *
+ * En la vista, la caja de la máscara es la del recorte y el fundido cae donde
+ * tiene que caer. Es la misma relación que en el héroe, donde la máscara vive en
+ * `.f-navegador` y no en el documento de adentro.
+ *
+ * Hace dos trabajos a la vez: dice que la página sigue abajo del pliegue, y deja
+ * limpia la franja por la que sube el PDF.
+ *
+ * Va con prefijo además de sin prefijo por lo mismo que `.f-navegador`:
+ * `mask-image` sin prefijo es reciente en Chrome, y donde no aplique el
+ * documento se corta seco, que es el estado del que venimos.
+ */
+.f-en-vista {
+  -webkit-mask-image: var(--fundido-tramo);
+  mask-image: var(--fundido-tramo);
+}
+
+/* El documento pierde el canto derecho: `.f-reporte` trae `margin: 4px 4px 11px`,
+   así que sin esto quedaría una franja de bandeja de 4px justo en el filo del
+   viewport —o sea que lo último antes del corte sería superficie vacía, que es
+   lo que La máquina ya corrigió una vez—. */
+@media (min-width: 1280px) {
+  .f-en-vista .f-reporte {
+    margin-right: 0;
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ── 2. EL PDF ──────────────────────────────────────────────────────────────
+
+   Una página, no una tarjeta: proporción de hoja, radio interior, y el
+   documento adentro a escala de impresión.
+
+   ── LOS TRES NÚMEROS SON UNO SOLO ──────────────────────────────────────────
+   `234 = 624 × 0,375`. El ancho de la hoja, el ancho al que se maqueta el
+   documento y la escala a la que se lo reduce son la misma medida escrita de
+   tres formas, y cambiar una sin las otras dos deja el documento sobrando o
+   faltando dentro de la página.
+
+   El ancho natural es 624 y no 640 por una razón del propio documento:
+   `.f-reporte` es un contenedor de consulta y su banco de KPI pasa a cuatro
+   columnas recién en 620px de caja. A 624 el PDF muestra el banco como lo
+   muestra el informe; un píxel menos y lo muestra en dos filas de dos, que es
+   un documento que el producto no genera.
+
+   El ancho de la hoja es FIJO y no un `clamp`, y eso tampoco es pereza: la
+   escala tiene que ser el cociente exacto de dos anchos, y `calc()` no puede
+   dividir una longitud por otra para devolver un número. Con el ancho fijo la
+   cuenta se hace una vez acá y no depende del viewport. El teléfono, que es el
+   otro objeto retratado de la página, también mide fijo.
+
+   ── QUÉ SE LEE A ESA ESCALA, Y POR QUÉ ALCANZA ─────────────────────────────
+   No las palabras: las SECCIONES —encabezado, resumen, los cuatro números, la
+   tabla—. Que es exactamente lo que la nota de al lado afirma, y lo que un
+   cliente reconoce cuando abre el archivo. Es el documento de verdad reducido,
+   no un dibujo de un documento: si cambia el informe, cambia esta hoja.
+
+   La nota al pie de la tabla se pide en `false` porque a esta escala es una
+   línea de 5px que no se lee y que sí ensucia el pie de la página.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-en-pdf {
+  --en-pdf-ancho: 234px;
+  --en-pdf-natural: 624px;
+  --en-pdf-escala: 0.375;
+
+  z-index: 2;
+  position: relative;
+  width: var(--en-pdf-ancho);
+  aspect-ratio: 1 / 1.294;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  background: var(--papel);
+  box-shadow: var(--e2);
+  overflow: hidden;
+}
+
+/* En 390 la hoja de 234 medía el 67% del ancho del contenido contra los 320 del
+   teléfono: dos piezas casi del mismo tamaño, que es exactamente lo que esta
+   sección no puede ser. Baja un escalón de escala, y con él la sección baja
+   60px. Los tres números siguen siendo uno solo: 187,2 = 624 × 0,3.
+
+   Va DESPUÉS de la regla base y no arriba con las otras dos consultas de la
+   escena: son la misma declaración a la misma especificidad, así que la que
+   manda es la última escrita. Puesta antes, no aplicaba —medido: la hoja seguía
+   en 234 en 390—. */
+@media (max-width: 639px) {
+  .f-en-pdf {
+    --en-pdf-ancho: 187.2px;
+    --en-pdf-escala: 0.3;
+  }
+}
+
+@media (min-width: 1280px) {
+  .f-en-pdf {
+    grid-row: 1 / 3;
+    grid-column: t-f / c-f;
+    justify-self: start;
+    align-self: end;
+    margin-left: clamp(20px, 2.2vw, 32px);
+  }
+}
+
+/* El documento se maqueta a su ancho natural y recién después se reduce.
+   `transform-origin` arriba a la izquierda para que la hoja se llene desde su
+   canto y no desde su centro, y `position: absolute` para que la caja sin
+   reducir no le pida alto a la página: el alto lo fija la proporción de hoja. */
+.f-en-pdf-doc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--en-pdf-natural);
+  transform: scale(var(--en-pdf-escala));
+  transform-origin: top left;
+}
+
+/* La hoja ES la página. El documento adentro pierde su propio marco —margen,
+   borde, radio y sombra de contacto—, porque si no serían dos rectángulos
+   anidados: una hoja dibujada adentro de otra hoja. */
+.f-en-pdf-doc .f-reporte {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ── 3. EL TELÉFONO ─────────────────────────────────────────────────────────
+   El objeto. Va arriba de todo y no lleva ni superficie ni borde propios: la
+   silueta y la sombra las trae `.f-tel`. Ancho fijo de 320px, que es de donde
+   salen las dos primeras pistas de la grilla.
+
+   ── EL ANCHO LO DECLARA EL ENVOLTORIO, Y ES OBLIGATORIO ────────────────────
+   `.f-tel` mide `min(320px, 100%)` y sus tres capas —chasis, pantalla e isla—
+   están todas en posición absoluta, o sea que su contenido en flujo mide CERO.
+   Cualquier caja de ancho ajustado al contenido alrededor del teléfono lo
+   colapsa a 0×0: pasó con `justify-self: start` y se ve al instante, porque el
+   aparato desaparece. El envoltorio declara los 320 y el teléfono los llena. */
+
+.f-en-tel {
+  z-index: 3;
+  position: relative;
+  justify-self: center;
+  width: min(320px, 100%);
+}
+
+@media (min-width: 1280px) {
+  .f-en-tel {
+    grid-row: 1 / 3;
+    grid-column: t-i / t-f;
+    justify-self: start;
+    align-self: start;
+  }
+}
+
+/* ── LAS NOTAS ──────────────────────────────────────────────────────────────
+   Una por pieza de apoyo, más el pie. El mail no lleva la suya: la bajada de la
+   sección ya la dice, y la pieza se explica sola porque no hay nada nuestro
+   adentro que haya que señalar.
+
+   Van apiladas y separadas por filete, no en dos columnas: dos bloques iguales
+   en fila, aunque no tengan superficie, son de forma la fila de tarjetas
+   hermanas que el sistema no usa. Apiladas son una lista, que es como este
+   sistema resuelve un conjunto.
+
+   Y viven ADENTRO de la escena, en la escuadra que dejan la ventana y el PDF.
+   Ahí no le cuestan alto a la sección y matan el hueco que si no sería aire
+   muerto al lado de lo más denso; es la misma cuenta que hace el hueco de La
+   máquina, con la diferencia de que allá el negativo es una columna y acá es la
+   franja de abajo. */
+
+.f-en-notas {
+  display: grid;
+  align-content: end;
+  max-width: 36rem;
+}
+
+@media (min-width: 1280px) {
+  .f-en-notas {
+    grid-row: 2;
+    grid-column: t-f / c-f;
+    justify-self: end;
+    align-self: end;
+    padding-left: clamp(24px, 2.6vw, 40px);
+  }
+}
+
+.f-en-nota {
+  display: grid;
+  gap: 6px;
+  padding-block: clamp(13px, 1.4vw, 17px);
+}
+
+.f-en-nota + .f-en-nota {
+  border-top: 1px solid var(--filete);
+}
+
+.f-en-pie {
+  margin-top: clamp(13px, 1.4vw, 17px);
+  border-top: 1px solid var(--filete);
+  padding-top: clamp(13px, 1.4vw, 17px);
+}
+
+
+/* ── EL TELÉFONO ────────────────────────────────────────────────────────────
+   La silueta sale del mockup «iPhone 16 Pro» de designali-in en 21st.dev: se
+   tomó la geometría y se le cambiaron los colores por los tokens. Las tres
+   capas —chasis, pantalla, isla— comparten el mismo `viewBox`, así que se
+   alinean solas a cualquier tamaño.
+
+   Los dos radios del aparato (24,62 y 29,95 en unidades del viewBox) son la
+   única excepción a la regla de dos radios del sistema, y no es deriva: el
+   teléfono no es una superficie de la página, es un OBJETO RETRATADO. Con las
+   esquinas de una tarjeta deja de leerse como teléfono, y entonces la sección
+   pierde lo único que la hace distinta. Adentro de la pantalla todo vuelve a 16
+   y 10. */
+
+.f-tel {
+  --tel-canto: color-mix(in srgb, var(--tinta) 76%, var(--papel));
+  --tel-cuerpo: var(--tinta);
+  /* La lente NO lleva acento: sobre el cuerpo negro un punto naranja se lee
+     como una notificación, y el naranja de esta página marca lo que espera una
+     decisión y nada más. Un gris medio es lo que parece una lente. */
+  --tel-lente: color-mix(in srgb, var(--tinta) 52%, var(--papel));
+
+  position: relative;
+  width: min(320px, 100%);
+  aspect-ratio: 200 / 400;
+  filter: drop-shadow(0 26px 44px rgb(22 19 15 / 0.24));
+}
+
+.f-tel-chasis,
+.f-tel-isla {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* La isla va POR ENCIMA de la pantalla: la pantalla es HTML y si no, la taparía.
+   Es la razón por la que son dos SVG y no uno. */
+.f-tel-isla {
+  z-index: 2;
+}
+
+/**
+ * La pantalla, calcada del rectángulo del SVG. Los porcentajes salen de las
+ * coordenadas del mockup sobre su `viewBox` de 200×400: x 14,08 → 7,04%, y
+ * 12,81 → 3,2%, ancho 171,98 → 85,99%, alto 374,37 → 93,59%. El radio es
+ * 24,62/200 del ANCHO del teléfono, así que se calcula contra el ancho y no
+ * contra un porcentaje, que en `border-radius` se resolvería por eje y
+ * deformaría la curva.
+ */
+.f-tel-pantalla {
+  position: absolute;
+  z-index: 1;
+  left: 7.04%;
+  top: 3.2%;
+  width: 85.99%;
+  height: 93.59%;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  border-radius: calc(min(320px, 100%) * 0.1231);
+  overflow: hidden;
+}
+
+.f-tel-estado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px 4px;
+  color: var(--tinta);
+}
+
+.f-tel-hora {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.f-tel-senales {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.f-tel-acciones {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  color: var(--tinta-media);
+}
+
+.f-tel-acciones-der {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.f-tel-hilo {
+  display: grid;
+  grid-template-rows: repeat(3, auto) minmax(0, 1fr);
+  gap: 10px;
+  padding: 0 16px;
+  min-height: 0;
+}
+
+.f-tel-asunto-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+}
+
+.f-tel-asunto {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -0.014em;
+  color: var(--tinta);
+}
+
+.f-tel-estrella {
+  color: var(--tinta-media);
+}
+
+.f-tel-etiqueta {
+  display: inline-block;
+  border-radius: var(--radio-int);
+  padding: 3px 9px;
+  background: var(--crema-honda);
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  color: var(--tinta-media);
+}
+
+.f-tel-quien {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.f-tel-avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: var(--tinta);
+  color: var(--papel);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.f-tel-quien-texto {
+  min-width: 0;
+}
+
+.f-tel-remitente {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--tinta);
+}
+
+.f-tel-para {
+  margin: 1px 0 0;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--tinta-media);
+}
+
+.f-tel-cuando {
+  font-size: 0.75rem;
+  color: var(--tinta-media);
+}
+
+/* El cuerpo del mail va sobre un campo más hundido que la bandeja, como en
+   cualquier cliente: es contenido de otro, no cromo del aparato. */
+.f-tel-cuerpo {
+  margin: 4px -16px 0;
+  padding: 14px 14px 18px;
+  background: var(--crema);
+  min-height: 0;
+}
+
+.f-tel-tarjeta {
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  padding: 18px 16px;
+  background: var(--papel);
+}
+
+.f-tel-saludo {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--tinta);
+}
+
+.f-tel-parrafo {
+  margin: 10px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--tinta-media);
+}
+
+.f-tel-parrafo strong {
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.f-tel-boton-fila {
+  margin-top: 16px;
+}
+
+.f-tel-boton {
+  display: inline-block;
+  border-radius: var(--radio-int);
+  padding: 10px 16px;
+  background: var(--tinta);
+  color: var(--papel);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.2;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
+}
+
+/* La firma es el nombre de la agencia y nada más, con su separador: es
+   exactamente lo que emite el template. No hay pie, no hay logo, no hay una
+   línea de Nuvlo. */
+.f-tel-firma {
+  margin: 14px 0 0;
+  border-top: 1px solid var(--filete);
+  padding-top: 12px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--tinta-media);
+}
+
+.f-tel-pie {
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid var(--filete);
+  padding: 12px 16px 16px;
+  background: var(--papel);
+}
+
+.f-tel-pastilla {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--filete);
+  border-radius: 9999px;
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  color: var(--tinta-media);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA CUENTA — el balance desparejo
+
+   El argumento no es «pedimos un permiso»: es la DESPROPORCIÓN. Se lee en la
+   tipografía antes que en el texto —una línea chica y sólida contra tres
+   grandes y casi transparentes— y sólo después en las palabras.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-cu-seccion {
+  padding-block: var(--aire-seccion) var(--aire-tema);
+}
+
+.f-cu-cabeza {
+  margin-bottom: clamp(40px, 4.6vw, 68px);
+}
+
+.f-cu-cabeza .f-display {
+  max-width: 24ch;
+}
+
+.f-cu-balance {
+  display: grid;
+  gap: clamp(34px, 4vw, 56px);
+  align-items: start;
+}
+
+@media (min-width: 860px) {
+  /* El lado chico ocupa un tercio y el grande dos: la proporción de la grilla
+     dice lo mismo que dice el texto. */
+  .f-cu-balance {
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
+    gap: clamp(40px, 5vw, 88px);
+  }
+}
+
+.f-cu-pide {
+  border-top: 1px solid var(--tinta);
+  padding-top: 18px;
+}
+
+.f-cu-pide-linea {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 14px 0 0;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.012em;
+  color: var(--tinta);
+}
+
+.f-cu-pide-nota {
+  margin-top: 12px;
+  max-width: 20rem;
+}
+
+.f-cu-nopide {
+  border-top: 1px solid var(--filete);
+  padding-top: 18px;
+}
+
+.f-cu-lista {
+  display: grid;
+  gap: clamp(4px, 1vw, 12px);
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/**
+ * ── GRANDES Y FANTASMALES, PERO LEGIBLES ───────────────────────────────────
+ * Cuerpo de titular y tono muy claro. Ocupan cuatro veces más espacio que la
+ * línea de al lado y pesan la mitad, y esa contradicción ES el argumento: de
+ * todo lo que se puede pedir sobre una cuenta, Nuvlo deja afuera lo más
+ * grande.
+ *
+ * ── EL TONO SE FRENA EN EL MÍNIMO, NO EN LO QUE QUEDABA LINDO ──────────────
+ * La primera versión iba en `--filete-fuerte`, que sobre papel da **1,7:1**.
+ * Se veía perfecto y era inaceptable: estos tres nombres son CONTENIDO —dicen
+ * cuáles son los permisos que el producto no pide— y no una ilustración, así
+ * que alguien con poca visión tiene que poder leerlos.
+ *
+ * A 24px o más rige el umbral de texto grande, 3:1, y esta mezcla mide
+ * **3,3:1** medida sobre lo renderizado. Sigue leyéndose como un fantasma al
+ * lado de la línea sólida, que está arriba de 15:1.
+ */
+/* El cuerpo sale de `.f-display`, que va en el marcado: es el escalón de
+   titular de la rampa y no hacía falta uno nuevo. Acá sólo se corrigen el peso
+   —500, no 600, porque estas líneas tienen que pesar menos que un titular de
+   verdad— y el tono. */
+.f-cu-item .f-display {
+  font-weight: 500;
+  line-height: 1.24;
+  color: color-mix(in srgb, var(--tinta-media) 78%, var(--papel));
+  transition: color 240ms var(--curva-control);
+}
+
+.f-cu-item:hover .f-display {
+  color: var(--tinta-media);
+}
+
+/* ── EL HOVER PINTA EL TACHADO ──────────────────────────────────────────────
+   El tachado dibujándose de izquierda a derecha es lo que la línea afirma. Se
+   dibuja con `scaleX`, así que no dispara layout. Es un recurso distinto del de
+   Control: allá el hover revela texto, acá pinta una marca y no aparece una
+   sola palabra nueva. */
+
+.f-cu-nombre {
+  position: relative;
+  display: inline-block;
+}
+
+.f-cu-nombre::after {
+  content: "";
+  position: absolute;
+  top: 54%;
+  left: -0.06em;
+  right: -0.06em;
+  height: 2px;
+  border-radius: 9999px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms var(--curva-control);
+}
+
+.f-cu-item:hover .f-cu-nombre::after {
+  transform: scaleX(1);
+}
+
+.f-cu-hechos {
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+  margin-top: clamp(48px, 5.4vw, 80px);
+  border-top: 1px solid var(--filete);
+  padding-top: clamp(28px, 3vw, 40px);
+}
+
+@media (min-width: 720px) {
+  .f-cu-hechos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.f-cu-hecho {
+  display: grid;
+  gap: 7px;
+  align-content: start;
+}
+
+.f-cu-hecho p {
+  max-width: 30rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LÍMITES — el respiro
+
+   La única sección sin objeto y sin movimiento, y es deliberado: viene después
+   del tramo oscuro y su trabajo es dejar respirar. El campo sube un escalón a
+   `--crema` —un escalón, no un cambio de registro— y el titular pierde peso sin
+   perder tamaño: es la sección más liviana de la página.
+
+   Lo que la sostiene es la RAYA en grande, que no es un adorno tipográfico: es
+   el marcador de dato faltante que emite el panel, y `PRODUCT.md` lo fija como
+   regla de producto.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-li-seccion {
+  background: var(--crema);
+  padding-block: clamp(72px, 8vw, 128px);
+}
+
+.f-li-fila {
+  display: grid;
+  gap: clamp(30px, 3.4vw, 56px);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .f-li-fila {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .f-li-voz {
+    position: sticky;
+    top: 108px;
+  }
+}
+
+.f-li-raya {
+  display: block;
+  width: clamp(52px, 6vw, 84px);
+  height: 3px;
+  margin-bottom: clamp(20px, 2.4vw, 30px);
+  border-radius: 9999px;
+  background: var(--tinta);
+}
+
+/* El respiro lo hace el PESO, no un tamaño nuevo: bajar de 600 a 500 al mismo
+   cuerpo se lee como una sección más liviana sin inventar un escalón que la
+   rampa no tiene. */
+.f-li-voz .f-display {
+  max-width: 12ch;
+  font-weight: 500;
+  letter-spacing: -0.026em;
+}
+
+.f-li-bajada {
+  margin-top: var(--aire-linea);
+  max-width: 26rem;
+}
+
+.f-li-grupos {
+  display: grid;
+  gap: clamp(28px, 3vw, 40px);
+}
+
+@media (min-width: 720px) {
+  .f-li-grupos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(28px, 3vw, 44px);
+  }
+}
+
+.f-li-lista {
+  margin: 14px 0 0;
+  display: grid;
+}
+
+.f-li-item {
+  display: grid;
+  gap: 6px;
+  padding-block: 18px;
+}
+
+/* Sobre crema el filete normal casi no se ve: acá va el fuerte. */
+.f-li-item + .f-li-item {
+  border-top: 1px solid var(--filete-fuerte);
+}
+
+.f-li-item:first-child {
+  padding-top: 0;
+}
+
+.f-li-def {
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRECIOS — la diferencia se toca
+
+   Ancho medio y mucho aire arriba: es el cambio de tema más grande de la página
+   —del producto al dinero— y el único lugar donde el visitante decide.
+
+   El único cambio visible entre planes es el pie del informe, y el HOVER lo
+   enciende: pasar por un plan ilumina su pie y atenúa el del otro.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-p-seccion {
+  padding-block: var(--aire-tema) var(--aire-seccion);
+}
+
+.f-p-superficie {
+  display: grid;
+}
+
+@media (min-width: 860px) {
+  .f-p-superficie {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .f-p-plan + .f-p-plan {
+    border-top: 0;
+    border-left: 1px solid var(--filete);
+  }
+
+  .f-p-comun {
+    grid-column: 1 / -1;
+  }
+}
+
+.f-p-plan {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 30px 28px;
+  transition: opacity 240ms var(--curva-control);
+}
+
+.f-p-plan + .f-p-plan {
+  border-top: 1px solid var(--filete);
+}
+
+.f-p-superficie:has(.f-p-plan:hover) .f-p-plan:not(:hover) {
+  opacity: 0.5;
+}
+
+.f-p-cifra {
+  margin: 8px 0 0;
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.f-p-unidad {
+  margin: 4px 0 0;
+  color: var(--tinta-media);
+}
+
+.f-p-nota {
+  margin-top: 14px;
+  max-width: 22rem;
+}
+
+/**
+ * La macro del pie del informe: una cita del documento adentro de otra pieza,
+ * así que va en `--crema` y con el filete fino, no como objeto propio.
+ *
+ * Los dos miden lo mismo aunque uno diga menos. Si el más corto midiera menos
+ * parecería que le falta algo, y lo que le falta es justamente el punto.
+ */
+.f-p-macro {
+  display: grid;
+  align-content: center;
+  min-height: 76px;
+  margin-top: 20px;
+  border: 1px solid var(--filete);
+  border-radius: var(--radio-int);
+  padding: 14px 16px;
+  background: var(--crema);
+  transition:
+    background-color 240ms var(--curva-control),
+    border-color 240ms var(--curva-control);
+}
+
+.f-p-plan:hover .f-p-macro {
+  border-color: var(--filete-fuerte);
+  background: var(--papel);
+}
+
+.f-p-macro-pie {
+  margin: 0;
+  transition: color 240ms var(--curva-control);
+}
+
+.f-p-plan:hover .f-p-macro-pie {
+  color: var(--tinta);
+}
+
+.f-p-comun {
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+  border-top: 1px solid var(--filete);
+  padding: 30px 28px;
+  background: var(--crema);
+}
+
+.f-p-lista {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 26px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.f-p-lista li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--tinta-media);
+}
+
+.f-p-lista li::before {
+  content: "";
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--filete-fuerte);
+}
+
+.f-p-accion {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.f-p-pie {
+  max-width: 36rem;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREGUNTAS — acordeón nativo, desplazado
+
+   Angosta y corrida hacia la derecha: sigue a Precios sin cambiar de tema, así
+   que lleva poco aire arriba, y el desplazamiento la separa sin necesidad de
+   un intervalo grande.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-q-seccion {
+  padding-block: var(--aire-seccion) var(--aire-tema);
+}
+
+.f-q-fila {
+  display: grid;
+  gap: clamp(30px, 3.4vw, 56px);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .f-q-fila {
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
+    margin-left: clamp(0px, 8vw, 150px);
+  }
+
+  .f-q-voz {
+    position: sticky;
+    top: 108px;
+  }
+}
+
+.f-q-voz .f-display {
+  max-width: 13ch;
+}
+
+.f-q-bajada {
+  margin-top: var(--aire-linea);
+  max-width: 24rem;
+}
+
+.f-q-item summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 22px;
+  cursor: pointer;
+  list-style: none;
+  transition: background-color 200ms var(--curva-control);
+}
+
+.f-q-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.f-q-item summary::marker {
+  content: "";
+}
+
+.f-q-item summary:hover {
+  background: var(--crema);
+}
+
+/* El signo es un más que se vuelve menos: la barra vertical rota y desaparece.
+   Dos glifos distintos harían saltar el ancho de la caja. */
+.f-q-signo {
+  position: relative;
+  flex: none;
+  width: 13px;
+  height: 13px;
+  margin-top: 4px;
+}
+
+.f-q-signo::before,
+.f-q-signo::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 13px;
+  height: 1.5px;
+  border-radius: 9999px;
+  background: var(--tinta-media);
+  translate: 0 -50%;
+  transition: rotate 260ms var(--curva-control);
+}
+
+.f-q-signo::after {
+  rotate: 90deg;
+}
+
+.f-q-item details[open] .f-q-signo::after {
+  rotate: 0deg;
+}
+
+.f-q-respuesta {
+  margin: 0;
+  padding: 0 22px 20px;
+  max-width: 46rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL CIERRE Y EL PIE
+
+   El segundo y último tramo oscuro. No agrega una promesa: repite la acción del
+   héroe. Si hiciera falta un argumento más acá abajo, el problema estaría
+   arriba.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.f-cierre {
+  position: relative;
+  z-index: 1;
+  padding-top: clamp(72px, 8vw, 120px);
+  overflow: clip;
+}
+
+.f-cierre-texto {
+  max-width: 34rem;
+}
+
+.f-cierre-texto .f-display {
+  max-width: 18ch;
+}
+
+.f-cierre-bajada {
+  margin-top: var(--aire-linea);
+}
+
+.f-cierre-accion {
+  margin-top: 30px;
+}
+
+/**
+ * EL WORDMARK DE CIERRE. Su cuerpo sale del ancho del viewport y no de la rampa
+ * tipográfica, porque no es un titular: es una firma. Se recorta contra el borde
+ * inferior con la mitad de abajo de las letras fuera del corte.
+ */
+.f-firma-grande {
+  margin-top: clamp(40px, 5vw, 72px);
+  height: clamp(3.25rem, 9.5vw, 8rem);
+  overflow: clip;
+  user-select: none;
+}
+
+.f-firma-grande span {
+  display: block;
+  text-align: center;
+  font-size: clamp(5rem, 19vw, 16rem);
+  font-weight: 600;
+  line-height: 0.78;
+  letter-spacing: -0.055em;
+  color: rgb(255 253 251 / 0.09);
+}
+
+.f-pie {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--grafito-filete);
+  padding-block: clamp(44px, 5vw, 64px) 34px;
+}
+
+.f-pie-fila {
+  display: grid;
+  gap: 34px;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .f-pie-fila {
+    grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  }
+}
+
+.f-pie-nota {
+  margin-top: 12px;
+  max-width: 20rem;
+}
+
+.f-pie-columna ul {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.f-pie-columna a {
+  color: var(--sobre-oscuro-media);
+  text-decoration: none;
+  transition: color 260ms var(--curva);
+}
+
+.f-pie-columna a:hover {
+  color: var(--sobre-oscuro);
+}
+
+.f-pie-legal {
+  margin-top: clamp(38px, 4vw, 56px);
+  padding-top: 22px;
+  border-top: 1px solid var(--grafito-filete);
+  max-width: 46rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CUANDO NO SE ANCLA
+
+   Debajo de 1024px y con `prefers-reduced-motion`, la única sección anclada
+   vuelve a medir lo que mide y muestra su contenido de corrido. En 390px una
+   pieza pegada al viewport se come el contenido, y quien pide menos movimiento
+   tiene derecho a la página entera.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1023px), (prefers-reduced-motion: reduce) {
+  .f-anclada {
+    height: auto;
+  }
+
+  .f-anclada-vista {
+    position: static;
+    height: auto;
+    overflow: visible;
+    padding-block: clamp(24px, 4vw, 48px) var(--aire-seccion);
+  }
+
+  .f-fl-columna {
+    display: none;
+  }
+
+  .f-fl-panel-movil {
+    display: block;
+  }
+}

@@ -1,0 +1,408 @@
+/**
+ * NETO — BASE DEL SISTEMA.
+ *
+ * ── LA DIRECCIÓN, EN UNA FRASE ──────────────────────────────────────────────
+ * Piedra y tinta. La página no tiene un color de acento: lo único cromático
+ * en toda la landing son el verde y el rojo de negocio que el reporte imprime
+ * en sus variaciones, y esos no son nuestros, son del anunciante. Lo que hace
+ * de acento es el negro —el botón, los dos tramos oscuros— y lo que carga la
+ * personalidad es la tipografía y un solo movimiento: el documento que viaja
+ * bajo las anotaciones.
+ *
+ * ── POR QUÉ SIN ACENTO, Y NO ES AUSTERIDAD ─────────────────────────────────
+ * Las cinco direcciones anteriores tuvieron un color: cobalto, ámbar, azul de
+ * tinta, ámbar quemado, naranja. Ninguna fue rechazada POR el color, pero en
+ * todas el color era lo primero que se veía, y el dueño pidió «cara,
+ * minimalista y con personalidad propia». Sacarlo obliga a que la
+ * personalidad salga de otro lado —del dibujo de la letra, de la escala, de la
+ * composición— que es donde Ramp, Attio y Vercel la ponen. Y deja una cosa
+ * dicha sin decirla: el único color de la página es el que el negocio le pone
+ * a los números. Es la afirmación de `PRODUCT.md` puesta en la paleta.
+ *
+ * ── LO QUE SÍ SE CONSERVA DE LAS PASADAS ANTERIORES ────────────────────────
+ * No es una decisión visual, es lo que el dueño ya juzgó y no se vuelve a
+ * abrir: claro con negro puntual (dos tramos, un paréntesis), el reporte con
+ * presencia y no centrado y contenido, revelado progresivo, y un fondo que no
+ * es liso. Cada una está resuelta más abajo con su porqué.
+ *
+ * ── TOKENS BAJO `.neto`, NO EN `:root` ─────────────────────────────────────
+ * Los prototipos conviven en `/preview` y cada uno scopea los suyos. Cuando
+ * esta dirección se promueva, cada `--x` de acá pasa a `--color-x` en el
+ * `@theme` de `app/globals.css` (CLAUDE.md).
+ */
+
+.neto {
+  /* ── SUPERFICIES CLARAS ──────────────────────────────────────────────────
+     Tres roles, no tres tintes: el campo es la página, la hoja es lo que se
+     apoya encima, la hoja hundida es una zona rebajada DENTRO de una hoja (la
+     barra de acción del panel, el encabezado del mail). El campo es piedra:
+     un neutro tinteado desde el marrón, que es lo que evita el «centro
+     médico» de los grises fríos sin irse al papel amarillo. */
+  --campo: #f0eee9;
+  --campo-luz: #f7f6f2;
+  --hoja: #fdfcfa;
+  --hoja-hundida: #f5f3ee;
+  --filete: #e4e1da;
+  --filete-fuerte: #cfcbc2;
+
+  /* ── TINTA ──────────────────────────────────────────────────────────────
+     Tres escalones y nada más. La tercera está medida contra el campo, que es
+     la superficie más oscura sobre la que se escribe: 5,1:1. Sobre la hoja da
+     5,7:1. Un escalón más claro cae por debajo de 4,5 sobre el campo, y ya
+     pasó dos veces en esta rama que un gris «de apoyo» terminara escribiendo
+     un dato numérico ilegible. */
+  --tinta: #131312;
+  --tinta-2: #514f4a;
+  --tinta-3: #68655e;
+
+  /* ── EL TRAMO OSCURO ────────────────────────────────────────────────────
+     Casi negro con un grado de calidez, para que no vire a violeta al lado
+     de la piedra. Lo que se escribe encima se declara con alfa sobre el
+     mismo hueso claro, así el texto secundario sobre oscuro es el mismo
+     material que el principal, sólo más transparente. */
+  --negro: #0f0f0e;
+  --negro-2: #1a1a19;
+  --negro-filete: rgb(255 255 255 / 0.09);
+  --sobre-negro: #f4f3ef;
+  --sobre-negro-2: rgb(244 243 239 / 0.62);
+
+  /* ── LOS DOS COLORES DEL NEGOCIO ────────────────────────────────────────
+     Sólo viven adentro del reporte, en las cápsulas de variación, y los
+     asigna `sentido` desde `lib/reporte-muestra.ts`: que la inversión suba no
+     es verde. Fuera del documento no se usan para nada. */
+  --bueno: #156b45;
+  --bueno-campo: #e3f0e8;
+  --malo: #b2301f;
+  --malo-campo: #f9e7e3;
+
+  /* ── FORMA ──────────────────────────────────────────────────────────────
+     Un radio para lo que se apoya (hoja, objeto), otro para lo que va adentro
+     de una hoja (celda, cita), y pastilla para lo que se toca o rotula (botón,
+     chapa, cápsula). Es la regla entera; un cuarto radio es un error. */
+  --radio: 14px;
+  --radio-int: 8px;
+  --pastilla: 9999px;
+
+  /* ── LA ÚNICA SOMBRA ────────────────────────────────────────────────────
+     La lleva la hoja y nadie más. Tres capas tinteadas con la tinta: contacto,
+     ambiente corto y ambiente largo. Los objetos de argumento (los planes, el
+     acordeón) van con filete y sin sombra: no son hojas, son superficies. */
+  --sombra-hoja:
+    0 1px 2px rgb(19 19 18 / 0.05),
+    0 14px 36px -14px rgb(19 19 18 / 0.2),
+    0 48px 90px -36px rgb(19 19 18 / 0.18);
+
+  --marco: 1200px;
+  --borde-x: clamp(20px, 4vw, 48px);
+
+  font-family: var(--n-sans), system-ui, sans-serif;
+  color: var(--tinta);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+  position: relative;
+  min-height: 100dvh;
+}
+
+/* El fondo global lo pone `app/globals.css` para el mundo retirado. Acá se pisa
+   sólo mientras esta ruta esté montada; la promoción borra este selector. */
+body:has(.neto) {
+  background: var(--campo);
+}
+
+/* Ancla suave sólo si el visitante no pidió lo contrario. Trampa conocida de
+   esta rama: al medir con scroll programático, usar `behavior: "instant"`. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.neto) {
+    scroll-behavior: smooth;
+  }
+}
+
+/**
+ * EL FONDO NO ES LISO, Y NO ES PAPEL.
+ *
+ * «Plano se lee barato» fue el diagnóstico del dueño el 04/09/2026, y el grano
+ * se descartó antes por metafórico. Lo que queda es luz: un lavado que aclara
+ * el campo arriba, donde está el documento, y lo deja asentarse hacia abajo.
+ * Es un gradiente de dos paradas dentro de la propia paleta —no hay un archivo,
+ * no hay `data:`, que la CSP de producción no admite— y va en una capa fija
+ * sin eventos, así el desplazamiento no lo repinta.
+ */
+.n-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      110% 70% at 62% -10%,
+      var(--campo-luz) 0%,
+      rgb(247 246 242 / 0) 62%
+    ),
+    linear-gradient(to bottom, var(--campo) 0%, #ebe8e2 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TIPOGRAFÍA — UNA FAMILIA, TRES PESOS, UNA RAMPA
+   400 lee, 500 controla y rotula, 600 titula. No hay 700: con esta familia el
+   600 ya tiene el peso de un titular y el 700 engorda las contraformas.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.n-portada {
+  font-size: clamp(2.5rem, 4.2vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.n-display {
+  font-size: clamp(1.875rem, 3.1vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.n-titulo {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  margin: 0;
+}
+
+.n-bajada {
+  font-size: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--tinta-2);
+  text-wrap: pretty;
+  margin: 0;
+}
+
+.n-cuerpo {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+  margin: 0;
+}
+
+.n-chico {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.n-fino {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* El rótulo es encabezado de campo o etiqueta de un objeto: vive ADENTRO del
+   reporte, del mail y del pie. Nunca arriba de un titular de sección como
+   copete; ése es un error ya registrado en DESIGN.md y se conserva. */
+.n-rotulo {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+  margin: 0;
+}
+
+.n-cifra {
+  font-variant-numeric: tabular-nums;
+}
+
+.n-tinta-2 {
+  color: var(--tinta-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ANDAMIAJE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.n-marco {
+  max-width: var(--marco);
+  margin-inline: auto;
+  padding-inline: var(--borde-x);
+}
+
+.n-marco-angosto {
+  max-width: 46rem;
+}
+
+.n-seccion {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(80px, 9vw, 128px);
+}
+
+.n-cabeza-bajada {
+  margin-top: 14px;
+  max-width: 34rem;
+}
+
+.n-solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL BOTÓN
+   Tinta sólida, pastilla, sin ícono. El negro ES el acento de esta dirección,
+   así que la acción no necesita otra cosa para tirar del ojo: es lo único
+   negro sobre la piedra hasta que empieza el tramo oscuro.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.n-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: var(--pastilla);
+  background: var(--tinta);
+  color: var(--hoja);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    transform 120ms ease;
+}
+
+.n-boton:hover {
+  background: #2b2b29;
+}
+
+.n-boton:active {
+  transform: translateY(1px);
+}
+
+.n-boton-chico {
+  padding: 9px 16px;
+  font-size: 0.875rem;
+}
+
+/* Sobre oscuro el botón se invierte: hoja sobre negro. Es la misma pieza, y la
+   inversión es lo que dice que el tramo cambió de valor sin cambiar de sistema. */
+.n-oscuro .n-boton {
+  background: var(--hoja);
+  color: var(--tinta);
+}
+
+.n-oscuro .n-boton:hover {
+  background: #ffffff;
+}
+
+/* ── LA CHAPA DE ESTADO ────────────────────────────────────────────────────
+   «Borrador». Superficie levantada con filete cerrado, sin color: que el
+   estado espera una decisión lo dice la forma, no un punto de acento que esta
+   dirección no tiene. */
+.n-chapa {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: var(--pastilla);
+  border: 1px solid var(--filete-fuerte);
+  background: var(--hoja);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--tinta-2);
+  white-space: nowrap;
+}
+
+/* ── LA CÁPSULA DE VARIACIÓN ───────────────────────────────────────────────
+   El tick lo decide el signo; el color lo decide el negocio (`sentido`). Los
+   dos únicos colores de la página viven acá. */
+.n-capsula {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px 2px 6px;
+  border-radius: var(--pastilla);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  background: var(--hoja-hundida);
+  color: var(--tinta-2);
+}
+
+.n-capsula[data-sentido="bueno"] {
+  background: var(--bueno-campo);
+  color: var(--bueno);
+}
+
+.n-capsula[data-sentido="malo"] {
+  background: var(--malo-campo);
+  color: var(--malo);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FOCO — TODA PARADA DE TABULACIÓN SE VE
+   Piso del proyecto (`PRODUCT.md`). Cada tramo afina el color; ninguno lo saca.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.neto :focus-visible {
+  outline: 2px solid var(--tinta);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.n-oscuro :focus-visible {
+  outline-color: var(--sobre-negro);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REVELADO PROGRESIVO
+   El servidor emite los nodos visibles. `data-entra="oculto"` lo escribe el
+   cliente después de montar, así que sin JavaScript la página se ve entera por
+   construcción. Con movimiento reducido no se oculta nada.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .neto [data-entra="oculto"] {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  .neto [data-entra="visto"] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 720ms cubic-bezier(0.16, 1, 0.3, 1) var(--demora, 0ms),
+      transform 720ms cubic-bezier(0.16, 1, 0.3, 1) var(--demora, 0ms);
+  }
+}
+
+/* Imágenes y SVG nunca empujan la página a lo ancho (piso del proyecto). */
+.neto img,
+.neto svg,
+.neto video {
+  max-width: 100%;
+}
+
+/* Sólo los enlaces sin clase heredan la tinta: el botón y los de la barra
+   declaran su propio color, y esta regla no puede pisarlos. */
+.neto a:not([class]) {
+  color: inherit;
+}

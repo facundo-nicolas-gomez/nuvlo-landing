@@ -1,0 +1,1261 @@
+/**
+ * DIRECCIÓN "C · PIEZAS" · SISTEMA Y SECCIONES 00 A 04
+ *
+ * ── LA IDEA ORGANIZADORA ────────────────────────────────────────────────────
+ * La landing no muestra una captura del producto: muestra sus PIEZAS. Cada
+ * componente real del panel se dibuja a escala como objeto propio, con su
+ * borde, su fondo, su sombra y su plano, y se componen para hacer un argumento.
+ * Por eso no hay una hoja grande con todo apilado adentro flotando en el medio.
+ *
+ * ── DE DÓNDE SALE CADA COSA ─────────────────────────────────────────────────
+ * Del repo del panel sale SÓLO producto: estados (`ReportStatus`), modos
+ * (`ReportingMode`), frecuencias (`ScheduleFrequency`), los textos literales de
+ * `send-report-button`, `reporting-mode-select` y `schedule-config`, y las
+ * reglas del prompt de `report-generator`. Ni un valor de diseño: el sistema
+ * visual se define acá y el panel se acopla después.
+ *
+ * ── CANDADO DE COLOR ────────────────────────────────────────────────────────
+ * El bermellón es la ACCIÓN y nada más. Ningún estado del producto lo usa, así
+ * que un botón nunca se confunde con un estado. Los otros cinco colores no son
+ * paleta: son comportamiento real, y sólo aparecen dentro de piezas de producto.
+ *
+ * ── CANDADO DE FORMA ────────────────────────────────────────────────────────
+ * Objeto 14, superficie 10, control 8, pastilla completa. Cuatro valores.
+ */
+
+.dirP {
+  /* Campo: neutros cálidos de croma bajo. Cálido sin caer en crema. */
+  --hueso: #f7f4f0;
+  --hueso-alto: #fdfbf9;
+  --hueso-bajo: #e9e4dd;
+  --hoja: #ffffff;
+
+  --carbon: #17140f;
+  --carbon-alto: #221e18;
+  --carbon-linea: #35302a;
+
+  --tinta: #17140f;
+  /* Medidos contra #e9e4dd, el valor más oscuro del campo claro: 5,15:1 y
+     4,71:1. */
+  --tinta-media: #5d564c;
+  --tinta-suave: #6b6357;
+  --linea: #e2dcd3;
+  --linea-viva: #cec6ba;
+
+  /* Medidos contra #17140f: 12,1:1, 7,9:1 y 5,3:1. */
+  --tinta-noche: #f7f4f0;
+  --tinta-noche-media: #b0a89b;
+  --tinta-noche-suave: #8d8578;
+
+  --accion: #d93a11;
+  --accion-viva: #f04a1e;
+  --accion-tenue: #fdeee8;
+  --accion-noche: #ff6a3d;
+  /* El bermellón como TEXTO necesita su propia versión: #d93a11 sobre el fondo
+     teñido da 4,07:1 y no llega a AA. Este da 5,67:1 sobre el teñido y 5,85:1
+     sobre el campo. En superficies (botones) sigue yendo el vivo. */
+  --accion-texto: #b32d09;
+
+  /* Estados reales de `ReportStatus`. */
+  --e-pendiente: #6b6357;
+  --e-procesando: #1f5fbf;
+  --e-borrador: #9a6b04;
+  --e-enviado: #0d6b4a;
+  --e-fallo: #a32a1c;
+  /* Los estados sobre carbon necesitan su propia version: el verde y el azul de
+     campo claro miden 2,1:1 y 2,6:1 contra #17140f. Estos dan 6,4:1 y 5,9:1. */
+  --e-procesando-noche: #6aa5ff;
+  --e-enviado-noche: #4fbf90;
+  --e-borrador-noche: #e0a32b;
+
+  --r-objeto: 14px;
+  --r-superficie: 10px;
+  --r-control: 8px;
+  --r-pastilla: 999px;
+
+  --sombra-pieza:
+    0 0 0 1px rgb(23 20 15 / 0.08), 0 1px 2px rgb(23 20 15 / 0.04),
+    0 18px 36px -18px rgb(23 20 15 / 0.22);
+  --sombra-pieza-alta:
+    0 0 0 1px rgb(23 20 15 / 0.1), 0 2px 4px rgb(23 20 15 / 0.05),
+    0 30px 60px -24px rgb(23 20 15 / 0.3);
+
+  --display: var(--f-display), system-ui, sans-serif;
+  --mono: var(--f-mono), ui-monospace, monospace;
+
+  --curva: cubic-bezier(0.16, 1, 0.3, 1);
+
+  background: var(--hueso);
+  color: var(--tinta);
+  font-family: var(--display);
+  font-variation-settings: "wdth" 100;
+  min-height: 100dvh;
+  overflow-x: clip;
+}
+
+body:has(.dirP) {
+  background: #17140f;
+}
+
+.dirP .cifra {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.dirP :focus-visible {
+  outline: 2px solid var(--accion);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.p-marco {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (min-width: 1024px) {
+  .p-marco {
+    padding: 0 48px;
+  }
+}
+
+/* ── Tipografía ─────────────────────────────────────────────────────────────*/
+
+.p-titular {
+  margin: 0;
+  font-weight: 700;
+  font-variation-settings: "wdth" 112;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.p-titulo-sec {
+  margin: 0;
+  max-width: 22rem;
+  font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+  font-weight: 700;
+  font-variation-settings: "wdth" 108;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.p-bajada {
+  margin: 20px 0 0;
+  max-width: 30rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+  text-wrap: pretty;
+}
+
+.p-bajada-noche {
+  color: var(--tinta-noche-media);
+}
+
+/* ── Controles ──────────────────────────────────────────────────────────────*/
+
+.p-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: var(--r-control);
+  background: var(--accion);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 0;
+  box-shadow: 0 1px 2px rgb(23 20 15 / 0.12);
+  transition:
+    background-color 160ms ease-out,
+    transform 140ms var(--curva),
+    box-shadow 180ms var(--curva);
+}
+.p-btn:hover {
+  background: var(--accion-viva);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px rgb(217 58 17 / 0.55);
+}
+.p-btn:active {
+  transform: translateY(0);
+}
+
+.p-btn-chico {
+  padding: 9px 16px;
+  font-size: 0.875rem;
+}
+
+.p-btn-fantasma {
+  background: transparent;
+  color: var(--tinta);
+  box-shadow: inset 0 0 0 1px var(--linea-viva);
+}
+.p-btn-fantasma:hover {
+  background: var(--hoja);
+  box-shadow: inset 0 0 0 1px var(--tinta-media);
+  transform: translateY(-1px);
+}
+
+.p-icono {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ── Chips de estado. Etiquetas textuales de `STATUS_STYLES`. ───────────────*/
+
+.p-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: var(--r-pastilla);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--hoja);
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+.p-chip i {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.p-chip-pendiente {
+  color: var(--e-pendiente);
+}
+.p-chip-procesando {
+  color: var(--e-procesando);
+}
+.p-chip-borrador {
+  color: var(--e-borrador);
+}
+.p-chip-enviado {
+  color: var(--e-enviado);
+}
+.p-chip-fallo {
+  color: var(--e-fallo);
+}
+
+/* ── LA PIEZA. El ladrillo de toda la página. ───────────────────────────────
+   Un componente real del panel, a escala, con su propio plano. Responde al
+   mouse: 2px de elevación y el canto que se aviva. */
+
+.pz {
+  position: relative;
+  border-radius: var(--r-superficie);
+  background: var(--hoja);
+  box-shadow: var(--sombra-pieza);
+  transition:
+    transform 260ms var(--curva),
+    box-shadow 260ms var(--curva);
+}
+
+@media (hover: hover) {
+  .pz:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-pieza-alta);
+  }
+}
+
+/* LAS PIEZAS SON CLARAS, SIEMPRE, TAMBIÉN SOBRE CARBÓN.
+   Estuvieron oscuras sobre campo oscuro y daban 1,11:1 contra el fondo: el
+   objeto no se separaba del campo y la pantalla se leía vacía. La referencia
+   que se pidió igualar pone el cuerpo del email en blanco sobre negro, que es
+   19:1. Acá una pieza blanca sobre carbón da 18,4:1, y ese salto es lo que hace
+   que el producto se vea. */
+.p-noche .pz {
+  background: var(--hoja);
+  color: var(--tinta);
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.5),
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 4px 8px rgb(0 0 0 / 0.3),
+    0 34px 68px -24px rgb(0 0 0 / 0.75);
+}
+@media (hover: hover) {
+  .p-noche .pz:hover {
+    box-shadow:
+      0 0 0 1px rgb(217 58 17 / 0.55),
+      inset 0 1px 0 rgb(255 255 255 / 0.9),
+      0 6px 12px rgb(0 0 0 / 0.34),
+      0 44px 88px -26px rgb(0 0 0 / 0.8);
+  }
+}
+
+.pz-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--linea);
+}
+
+
+.pz-titulo {
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.pz-dato {
+  font-size: 0.6875rem;
+  color: var(--tinta-suave);
+}
+
+
+/* ── Revelado por scroll. Sin JavaScript y sin librería. ────────────────────*/
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .p-revela {
+      animation: p-entrar linear both;
+      animation-timeline: view();
+      animation-range: entry 4% entry 58%;
+    }
+  }
+}
+
+@keyframes p-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz,
+  .p-btn,
+  .p-modo-op {
+    transition: none;
+  }
+  .pz:hover,
+  .p-btn:hover {
+    transform: none;
+  }
+}
+
+/* ═══ 00 · NAVBAR ═══════════════════════════════════════════════════════════
+   Fija, 68px, sobre el carbón del héroe. El hairline aparece recién cuando la
+   página se movió, que es cuando hace falta separar. */
+
+.p-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--carbon);
+  color: var(--tinta-noche);
+}
+
+.p-nav-fila {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 68px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease-out;
+}
+
+/* El centinela de scroll: cuando sale del viewport, la barra ya no está arriba
+   de todo. Es el mismo truco de Attio, hecho con CSS y sin escuchar scroll. */
+.p-centinela {
+  position: absolute;
+  top: 0;
+  height: 1px;
+  width: 1px;
+}
+
+.p-wordmark {
+  font-size: 1.375rem;
+  font-weight: 700;
+  font-variation-settings: "wdth" 112;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  color: inherit;
+}
+
+.p-nav-links {
+  display: none;
+  margin-left: 12px;
+  gap: 4px;
+}
+@media (min-width: 900px) {
+  .p-nav-links {
+    display: flex;
+  }
+}
+
+.p-nav-link {
+  position: relative;
+  padding: 8px 12px;
+  border-radius: var(--r-control);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--tinta-noche-media);
+  text-decoration: none;
+  transition: color 160ms ease-out;
+}
+.p-nav-link:hover {
+  color: var(--tinta-noche);
+}
+
+/* El subrayado entra desde la izquierda: responde al mouse sin mover el texto. */
+.p-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 3px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--accion-noche);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 260ms var(--curva);
+}
+.p-nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.p-nav-der {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.p-nav-sesion {
+  display: none;
+  padding: 9px 12px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--tinta-noche-media);
+  text-decoration: none;
+  transition: color 160ms ease-out;
+}
+.p-nav-sesion:hover {
+  color: var(--tinta-noche);
+}
+@media (min-width: 640px) {
+  .p-nav-sesion {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-nav-link::after {
+    transition: none;
+  }
+}
+
+/* ═══ 01 · HÉROE ════════════════════════════════════════════════════════════
+   Cinco piezas reales del producto, superpuestas en planos distintos. */
+
+.p-heroe {
+  position: relative;
+  background: var(--carbon);
+  color: var(--tinta-noche);
+  padding: 56px 0 72px;
+  overflow: hidden;
+}
+
+/* La luz del campo. Se reemplaza por el render cuando esté el archivo: el slot
+   está marcado en el marcado. */
+.p-heroe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      52% 44% at 68% 34%,
+      rgb(255 106 61 / 0.1),
+      rgb(255 106 61 / 0) 70%
+    ),
+    radial-gradient(
+      70% 50% at 40% 0%,
+      rgb(255 255 255 / 0.07),
+      rgb(255 255 255 / 0) 72%
+    );
+}
+
+.p-heroe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("/grano.svg");
+  background-size: 180px 180px;
+  opacity: 0.26;
+}
+
+.p-heroe > .p-marco {
+  position: relative;
+  z-index: 1;
+}
+
+/* EL TITULAR OCUPA TODO EL ANCHO Y LA ESCENA VA DEBAJO, TAMBIÉN ENTERA.
+   En dos columnas el titular tenía 578px y no pasaba de 60px sin partirse en
+   cuatro líneas, así que la voz salía chica. A ancho completo entra en UNA línea
+   a 104px, y la escena pasa de 646px a 1224: casi el doble de producto en
+   pantalla. */
+.p-heroe-voz {
+  max-width: 68rem;
+}
+
+.p-heroe-titular {
+  font-size: clamp(2.75rem, 7.4vw, 6.5rem);
+  color: var(--tinta-noche);
+}
+
+.p-heroe-acciones {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.p-btn-noche {
+  background: transparent;
+  color: var(--tinta-noche);
+  box-shadow: inset 0 0 0 1px var(--carbon-linea);
+}
+.p-btn-noche:hover {
+  background: var(--carbon-alto);
+  box-shadow: inset 0 0 0 1px var(--tinta-noche-suave);
+}
+
+/* ── La escena: cinco planos a ancho completo ───────────────────────────────*/
+
+.p-escena {
+  position: relative;
+  min-width: 0;
+  margin-top: 56px;
+}
+
+@media (min-width: 1024px) {
+  .p-escena {
+    height: 452px;
+  }
+  .p-escena > * {
+    position: absolute;
+  }
+  /* Cinco planos que se PISAN, y el solape cae siempre sobre relleno y nunca
+     sobre texto. */
+  .pe-recorrido {
+    top: 62px;
+    left: 0;
+    width: 47%;
+    z-index: 3;
+  }
+  .pe-fila {
+    top: 0;
+    left: 42%;
+    width: 46%;
+    z-index: 1;
+  }
+  .pe-modo {
+    top: 150px;
+    left: 60%;
+    width: 28%;
+    z-index: 5;
+  }
+  .pe-kpi {
+    top: 195px;
+    left: 10%;
+    width: 22%;
+    z-index: 4;
+  }
+  .pe-enviar {
+    top: 300px;
+    left: 28%;
+    width: 46%;
+    z-index: 6;
+  }
+}
+
+/* Apilado no hay planos: las piezas van en fila y ninguna se superpone. */
+@media (max-width: 1023px) {
+  .p-escena {
+    display: grid;
+    gap: 14px;
+  }
+}
+
+/* Apilado no hay planos: las piezas se ponen en fila y ninguna se superpone. */
+@media (max-width: 1023px) {
+  .p-escena {
+    display: grid;
+    gap: 14px;
+  }
+}
+
+/* ── Pieza: fila del listado ────────────────────────────────────────────────*/
+
+.pz-fila {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+}
+
+.pz-avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: var(--r-control);
+  background: var(--hueso-bajo);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--tinta-media);
+}
+
+.pz-fila-texto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.pz-fila-nombre {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pz-fila-cuenta {
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pz-fila-der {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.pz-fila-periodo {
+  display: none;
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+@media (min-width: 420px) {
+  .pz-fila-periodo {
+    display: inline;
+  }
+}
+
+/* ── Pieza: recorrido de estados ────────────────────────────────────────────*/
+
+.pz-rec-cuerpo {
+  padding: 16px 15px 18px;
+}
+
+.pz-rec-fila {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 560px) {
+  .pz-rec-fila {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+  }
+}
+
+.pz-rec-riel {
+  display: flex;
+  align-items: center;
+  height: 14px;
+}
+
+.pz-rec-nodo {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--hoja);
+  box-shadow: inset 0 0 0 2px var(--tinta-suave);
+}
+
+.pz-rec-tramo {
+  flex: 1;
+  height: 1px;
+  background: var(--linea-viva);
+}
+
+.pz-rec-tramo-vacio {
+  background: transparent;
+}
+
+/* El único tramo que necesita a una persona. */
+.pz-rec-tramo-humano {
+  background: transparent;
+  height: 0;
+  border-top: 1px dashed var(--e-borrador);
+}
+
+.pz-paso-humano .pz-rec-nodo {
+  box-shadow:
+    inset 0 0 0 2px var(--e-borrador),
+    0 0 0 4px rgb(154 107 4 / 0.2);
+}
+
+/* El estado al que el reporte todavía no llegó. */
+.pz-paso-pendiente .pz-rec-cuerpo-paso {
+  opacity: 0.45;
+}
+.pz-paso-pendiente .pz-rec-nodo {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--linea-viva);
+}
+
+.pz-rec-cuerpo-paso {
+  padding: 10px 14px 0 0;
+}
+
+.pz-rec-hora {
+  display: block;
+  margin-top: 7px;
+  font-size: 0.6875rem;
+  color: var(--tinta-suave);
+}
+
+
+/* ── Pieza: KPI ─────────────────────────────────────────────────────────────*/
+
+.pz-kpi {
+  padding: 14px 16px 16px;
+}
+
+.pz-kpi-et {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+.pz-kpi-val {
+  display: block;
+  margin-top: 6px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.pz-kpi-var {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--e-enviado);
+}
+
+/* ── Pieza: selector de modo ────────────────────────────────────────────────*/
+
+.pz-modo {
+  padding: 13px 15px;
+}
+
+.pz-modo-et {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--tinta-suave);
+}
+
+.pz-modo-valor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 9px 11px;
+  border-radius: var(--r-control);
+  background: var(--hueso);
+  box-shadow: inset 0 0 0 1px var(--linea-viva);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+/* ── Pieza: aprobar y enviar ────────────────────────────────────────────────*/
+
+.pz-enviar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 15px 16px;
+}
+
+.pz-enviar-texto {
+  min-width: 0;
+}
+
+.pz-enviar-destino {
+  display: block;
+  margin-top: 7px;
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+.pz-enviar-destino b {
+  font-weight: 600;
+  color: var(--tinta-media);
+}
+
+/* ═══ 02 · QUÉ HACE SOLO, QUÉ HACÉS VOS ═════════════════════════════════════
+   Dos carriles paralelos. El corte entre uno y otro es el argumento. */
+
+.p-reparto {
+  padding: 104px 0 112px;
+}
+
+.p-reparto-cab {
+  max-width: 46rem;
+}
+
+/* ── El carril de Nuvlo: riel fino, tecnico, sin cajas ──────────────────────*/
+
+.p-riel {
+  margin-top: 52px;
+}
+
+.p-riel-et,
+.p-tuyos-et {
+  display: block;
+  margin-bottom: 18px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--tinta-suave);
+}
+
+.p-tuyos-et {
+  color: var(--accion-texto);
+}
+
+.p-riel-pasos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 28px;
+  border-top: 1px solid var(--linea-viva);
+}
+@media (min-width: 760px) {
+  .p-riel-pasos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 36px;
+  }
+}
+
+.p-riel-paso {
+  position: relative;
+  padding-top: 22px;
+}
+
+/* La marca sobre la linea: el riel es continuo y los pasos lo puntean. */
+.p-riel-marca {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--hueso);
+  box-shadow: inset 0 0 0 1.5px var(--tinta-media);
+  transition: box-shadow 220ms var(--curva);
+}
+
+.p-riel-paso:hover .p-riel-marca {
+  box-shadow: inset 0 0 0 3.5px var(--tinta);
+}
+
+.p-riel-titulo {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.p-riel-texto {
+  margin: 7px 0 0;
+  max-width: 17rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+/* ── Lo tuyo: tres frases grandes, sin una sola caja ────────────────────────*/
+
+.p-tuyos {
+  margin-top: 80px;
+}
+
+.p-tuyos-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.p-tuyo {
+  display: grid;
+  gap: 4px 20px;
+  padding: 26px 0;
+  border-top: 1px solid var(--linea-viva);
+  transition: border-color 220ms var(--curva);
+}
+@media (min-width: 760px) {
+  .p-tuyo {
+    grid-template-columns: 46px minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0 32px;
+    padding: 30px 0;
+  }
+}
+
+.p-tuyo:hover {
+  border-top-color: var(--accion);
+}
+
+.p-tuyo-n {
+  font-size: 0.8125rem;
+  color: var(--accion-texto);
+}
+
+.p-tuyo-frase {
+  margin: 0;
+  font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+  font-weight: 700;
+  font-variation-settings: "wdth" 106;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.p-tuyo-apoyo {
+  margin: 0;
+  max-width: 26rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+/* ═══ 03 · VOS ELEGÍS CÓMO SALE ═════════════════════════════════════════════
+   Los dos modos son piezas conmutables: se aprieta una y la sección cambia. */
+
+.p-control {
+  padding: 8px 0 112px;
+}
+
+.p-control-grilla {
+  display: grid;
+  gap: 32px;
+  margin-top: 40px;
+}
+@media (min-width: 1000px) {
+  .p-control-grilla {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 48px;
+    align-items: start;
+  }
+}
+
+.p-modo-ops {
+  display: grid;
+  gap: 10px;
+}
+
+.p-modo-op {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 16px 18px;
+  border: 0;
+  border-radius: var(--r-superficie);
+  background: var(--hoja);
+  box-shadow: 0 0 0 1px var(--linea);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition:
+    box-shadow 220ms var(--curva),
+    transform 220ms var(--curva),
+    background-color 220ms ease-out;
+}
+@media (hover: hover) {
+  .p-modo-op:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px var(--linea-viva),
+      0 14px 28px -14px rgb(23 20 15 / 0.22);
+  }
+}
+
+.p-modo-op[aria-pressed="true"] {
+  background: var(--accion-tenue);
+  box-shadow:
+    0 0 0 1.5px var(--accion),
+    0 14px 28px -14px rgb(217 58 17 / 0.3);
+}
+
+.p-modo-op-t {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.p-modo-marca {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1.5px var(--linea-viva);
+  transition:
+    box-shadow 220ms var(--curva),
+    background-color 220ms ease-out;
+}
+.p-modo-op[aria-pressed="true"] .p-modo-marca {
+  background: var(--accion);
+  box-shadow:
+    inset 0 0 0 1.5px var(--accion),
+    inset 0 0 0 4px var(--accion-tenue);
+}
+
+/* Bloque, no inline: como span, el margen izquierdo sangraba sólo la primera
+   línea y la segunda volvía al borde. */
+.p-modo-op-d {
+  display: block;
+  margin: 8px 0 0 26px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+/* El panel que responde al modo elegido. */
+.p-modo-panel {
+  padding: 22px 24px 24px;
+  border-radius: var(--r-objeto);
+  background: var(--hoja);
+  box-shadow: var(--sombra-pieza);
+}
+
+.p-modo-panel-t {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.p-modo-panel-d {
+  margin: 8px 0 0;
+  max-width: 34rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--tinta-media);
+}
+
+.p-frecuencias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.p-frec {
+  padding: 7px 13px;
+  border-radius: var(--r-pastilla);
+  background: var(--hueso);
+  box-shadow: inset 0 0 0 1px var(--linea-viva);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.p-frec[data-elegida] {
+  background: var(--tinta);
+  box-shadow: none;
+  color: var(--hueso-alto);
+}
+
+.p-proximo {
+  margin: 16px 0 0;
+  font-size: 0.8125rem;
+  color: var(--tinta-suave);
+}
+
+.p-frenos {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--linea);
+}
+@media (min-width: 620px) {
+  .p-frenos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.p-freno-t {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.p-freno-d {
+  margin: 6px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+/* ═══ 04 · ANTES DE QUE SALGA ═══════════════════════════════════════════════*/
+
+.p-aprobar {
+  padding: 8px 0 120px;
+}
+
+.p-aprobar-grilla {
+  display: grid;
+  gap: 28px;
+  margin-top: 40px;
+}
+@media (min-width: 1000px) {
+  .p-aprobar-grilla {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: 40px;
+    align-items: center;
+  }
+}
+
+/* La pieza protagonista de la sección va a escala grande. */
+.p-envio {
+  padding: 30px 32px 32px;
+  border-radius: var(--r-objeto);
+  background: var(--hoja);
+  box-shadow: var(--sombra-pieza-alta);
+}
+
+.p-envio-doc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.p-envio-nombre {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.p-envio-acciones {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.p-envio-destino {
+  margin: 14px 0 0;
+  font-size: 0.8125rem;
+  color: var(--tinta-suave);
+}
+
+.p-envio-destino b {
+  font-weight: 600;
+  color: var(--tinta-media);
+}
+
+/* El estado deshabilitado es producto, no adorno: sin email el envío falla con
+   400 en el servidor, y el panel lo dice antes en vez de después. */
+.p-envio-bloqueado {
+  padding: 22px 24px;
+  border-radius: var(--r-objeto);
+  background: var(--hueso-bajo);
+  box-shadow: inset 0 0 0 1px var(--linea-viva);
+}
+
+.p-btn-inerte {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: var(--r-control);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--linea-viva);
+  color: var(--tinta-suave);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.p-envio-bloqueado-nota {
+  margin: 12px 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+/* ── Teléfono ───────────────────────────────────────────────────────────────*/
+
+@media (max-width: 639px) {
+  .p-heroe {
+    padding: 40px 0 64px;
+  }
+
+  .p-reparto {
+    padding: 72px 0 80px;
+  }
+
+  .p-control,
+  .p-aprobar {
+    padding-bottom: 80px;
+  }
+
+  .p-hitos-tres {
+    max-width: none;
+  }
+
+  .p-envio {
+    padding: 22px 20px 24px;
+  }
+
+  .p-envio-doc {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

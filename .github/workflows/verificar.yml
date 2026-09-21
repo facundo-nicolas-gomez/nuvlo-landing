@@ -1,0 +1,128 @@
+# Verificación antes de publicar.
+#
+# ── POR QUÉ EXISTE ───────────────────────────────────────────────────────────
+# Vercel buildea y publica desde `main`, pero un build que pasa no dice que el
+# código esté sano: Next compila igual con errores de tipo que nunca se
+# ejecutan, y `eslint` no corre nunca en el camino de deploy.
+#
+# El costo de no tenerlo es asimétrico. Esta landing tiene un solo objetivo
+# —que el visitante se registre— así que una regresión que rompa el CTA o el
+# layout en mobile cuesta registros directamente, y nadie la ve hasta que
+# alguien entra desde un teléfono.
+#
+# ── PUBLICA, Y SÓLO EN VERDE ────────────────────────────────────────────────
+# Producción sale de acá: el job `publicar`, al final, corre sólo si
+# `verificar` terminó bien. `vercel.json` le apaga a Vercel el deploy automático
+# de `main` (`git.deploymentEnabled`), porque mientras Vercel publicaba por su
+# cuenta este workflow avisaba y no bloqueaba: un rojo llegaba igual a
+# `nuvloapp.com`. En el panel ya había pasado.
+#
+# ── QUÉ NO HACE ──────────────────────────────────────────────────────────────
+# No corre tests, porque el proyecto no tiene: para una landing estática sin
+# backend es una decisión defendible. Tampoco mira los precios contra el panel:
+# ese chequeo vive en el CI del panel (`cruza-repos`) y corre sólo en pushes de
+# ese repo.
+#
+# Sí mira la tarjeta social, y no es un test: es un chequeo de consistencia entre
+# dos archivos del repo, como los `verificar-*` del panel. Existe porque la
+# tarjeta copia la paleta a mano y se publicó tres veces con un mundo retirado.
+
+name: Verificar
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# En un PR interesa el estado final de la rama: el commit nuevo cancela al viejo.
+# En `main` no, porque cada corrida termina publicando: cancelar a mitad de
+# `publicar` corta el CLI pero no necesariamente el build remoto, que podría
+# terminar DESPUÉS que el del commit nuevo y pisarlo. Así que en `main` las
+# corridas van en fila; si se acumulan, GitHub deja sólo la última pendiente, y
+# ésa lleva todo lo anterior.
+concurrency:
+  group: verificar-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          # 22 LTS. El desarrollo local corre en 24, pero Vercel resuelve la
+          # versión por su cuenta, así que acá conviene el LTS y no la última.
+          node-version: 22
+          cache: npm
+
+      # `ci` y no `install`: instala exactamente lo del lockfile y falla si el
+      # lockfile y el `package.json` se despegaron. Eso último es justamente lo
+      # que se quiere detectar.
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # El build de Next ya corre TypeScript, pero por separado el error se lee
+      # de una: si falla acá, es de tipos y no de compilación.
+      #
+      # `typecheck` corre `next typegen` antes de `tsc`: `next-env.d.ts` está en
+      # .gitignore y lo genera Next, así que en un checkout limpio no existe hasta
+      # que algo de Next corre. Sin él faltan las declaraciones de
+      # `next/image-types/global` y `tsc` falla sobre código sano en cuanto se
+      # importa un `.svg` o una imagen. Al panel ya le pasó: su CI dio rojo sobre
+      # un commit que en local y en Vercel compilaba. Acá todavía no, porque la
+      # landing no importa ninguno.
+      - name: Tipos
+        run: npm run typecheck
+
+      # La tarjeta social copia los tokens a mano —satori no tiene cascada— y se
+      # shippeó tres veces con un mundo que el sitio ya había retirado. Va antes
+      # del build porque es instantáneo y no necesita compilar nada.
+      - name: Tarjeta social
+        run: npm run verificar-tarjeta
+
+      - name: Build
+        run: npm run build
+
+  # LA PUERTA A PRODUCCIÓN. La salida de emergencia es «Redeploy» o «Promote»
+  # desde el dashboard de Vercel, que no pasa por acá.
+  #
+  # El build NO corre en este runner: `vercel deploy --prod` sube el checkout y
+  # Vercel buildea igual que cuando publicaba desde Git. Se sube el commit que se
+  # verificó en esta misma corrida, no la punta de `main` en el momento de
+  # publicar.
+  publicar:
+    needs: [verificar]
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      # No son secretos: identifican la cuenta y el proyecto, no dan acceso.
+      VERCEL_ORG_ID: team_hQuhy51A6WD8ZcNJkHUZ4nUa
+      VERCEL_PROJECT_ID: prj_gSVfAcyucZ4QJ60dMyneVv32PeAU
+    steps:
+      # La falta del secret pinta de rojo: un verde que no publicó dejaría
+      # producción atrás sin que nadie lo note.
+      - name: Está el token de Vercel
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "Falta el secret VERCEL_TOKEN: no se publica. Cargalo en Settings → Secrets → Actions."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      # Versión fija, la misma que el panel: un cambio de flags del CLI no tiene
+      # que poder frenar un deploy sin un commit que lo explique. Sale con error
+      # si el build de Vercel falla, así que el job refleja el deploy.
+      - name: Publicar en producción
+        run: npx --yes vercel@59.16.0 deploy --prod --yes

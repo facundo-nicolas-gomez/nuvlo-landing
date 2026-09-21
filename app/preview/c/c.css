@@ -1,0 +1,808 @@
+/**
+ * DIRECCIÓN C - "ESTADOS". Clara, sin metáfora de objeto físico.
+ *
+ * No hay mesa, ni papel, ni luz sobre nada. Lo único que organiza la página es
+ * el pipeline real del reporte, y el vocabulario es puramente de interfaz:
+ * chip, hora, riel, ventana. Nada representa una cosa del mundo.
+ *
+ * ── SEGUNDA PASADA: POR QUÉ CAMBIÓ LA COMPOSICIÓN ───────────────────────────
+ * La primera pasada se medía chica al lado de Attio, Resend y Superhuman, y la
+ * medición dijo por qué. A 1440x900: titular de 46px en tres líneas dentro de
+ * una columna de 425px (Attio: 64px en una línea sobre 805px), primer píxel de
+ * texto en y=321 (Superhuman: y=162), y una maqueta de 801px cuyo texto interno
+ * tenía mediana de 11px contra los 14px de la de Attio. Es decir: la app no
+ * estaba mostrada, estaba miniaturizada para que entrara.
+ *
+ * El arreglo es de composición, no de tamaño de fuente. El héroe pasa de dos
+ * columnas a vertical: el titular se queda con todo el ancho y la maqueta baja
+ * entera, a escala real, sangrando por el borde inferior del viewport. Con dos
+ * columnas siempre se está repartiendo 1440px entre la voz y el producto, y las
+ * dos pierden.
+ *
+ * Vertical pero alineado a la izquierda, no centrado: el titular no llena su
+ * contenedor y ahí está la asimetría (DESIGN_VARIANCE 6).
+ *
+ * ── LA ESCALA DE LA MAQUETA ES UNA REGLA, NO UN GUSTO ───────────────────────
+ * El cuerpo de la maqueta es 13px y ningún dato baja de 11px. Si el contenido
+ * no entra, se muestra menos contenido: se recorta, no se encoge. Una captura
+ * de producto de verdad se corta contra el borde del cuadro; una maqueta
+ * dibujada se achica hasta que entra todo, y eso es lo que el ojo detecta.
+ *
+ * ── CANDADO DE RADIOS ───────────────────────────────────────────────────────
+ * Cuatro valores y una regla: ventana 12, superficie 8, control 8, pastilla
+ * completa. La pasada anterior tenía 6, 7, 8, 10 y 999 mezclados sin criterio.
+ *
+ * ── CANDADO DE ACENTO ───────────────────────────────────────────────────────
+ * El ámbar marca UN punto: el estado donde interviene una persona. No pinta el
+ * campo, no pinta la pastilla del titular, no pinta el foco. El campo modula
+ * valor, nunca matiz, y el resto del color sale de los estados reales del
+ * producto (azul procesando, verde enviado), que es de donde lo saca Attio.
+ */
+
+.dirC {
+  /* El campo ya no es un valor plano: se declara claro arriba y asentado abajo,
+     con una luz detrás del objeto. Un solo valor de borde a borde es lo que se
+     lee como "gris y viejo", y ninguna de las tres referencias lo hace. */
+  /* TEMPERATURA SIN PERDER LUMINOSIDAD. La paleta era fría (#eff2f6, matiz
+     azul) y se leía clínica. Ahora los neutros están corridos al cálido con la
+     MISMA luminancia: el campo medio pasa de L 95,2 a L 95,1, sólo cambia el
+     matiz. No es crema ni papel: es luz cálida sobre gris neutro, que es lo que
+     mantiene el registro de sistema en vez de volverse artesanal.
+
+     El campo llega asentado ANTES de donde apoya la ventana: con la caída
+     repartida hasta el 100% del alto quedaban 7 puntos de separación contra el
+     blanco y el objeto se fundía con el fondo. */
+  --campo-alto: #fdfcfb;
+  --campo-medio: #f1efec;
+  --campo-bajo: #e5e1dc;
+  --hoja: #ffffff;
+  --hoja-hundida: #fbfaf8;
+
+  --tinta: #1a1917;
+  /* Medidos contra el valor más oscuro del campo (#e5e1dc), no contra el medio:
+     5,17:1 y 4,72:1. */
+  --tinta-media: #5f5b55;
+  --tinta-suave: #666158;
+  --linea: #e6e2dc;
+  --linea-viva: #d6d1c9;
+
+  --senal: #b45309;
+  --senal-campo: #fdf3e5;
+  --senal-linea: #efd7b0;
+
+  --e-espera: #666158;
+  --e-proceso: #1d63c9;
+  --e-listo: #0b6b4f;
+  --e-falla: #a52a1f;
+
+  --positivo: #0b6b4f;
+  --negativo: #a52a1f;
+
+  --r-ventana: 12px;
+  --r-superficie: 8px;
+  --r-control: 8px;
+  --r-pastilla: 999px;
+
+  --sans: var(--f-sans), system-ui, sans-serif;
+  --mono: var(--f-mono), ui-monospace, monospace;
+
+  position: relative;
+  color: var(--tinta);
+  font-family: var(--sans);
+  min-height: 100dvh;
+  overflow-x: clip;
+}
+
+/* El campo, en capa fija y sin eventos: es la única forma de tener una luz que
+   no se repita ni se estire con el alto del documento, y al estar fija no
+   repinta con el scroll. */
+.dirC::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(64% 46% at 48% 44%, #ffffff 0%, rgb(255 255 255 / 0) 76%),
+    linear-gradient(
+      180deg,
+      var(--campo-alto) 0%,
+      var(--campo-medio) 34%,
+      var(--campo-bajo) 76%
+    );
+}
+
+body:has(.dirC) {
+  background: #f1efec;
+}
+
+.dirC .cifra {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* El foco es tinta, no ámbar: el ámbar significa "acá interviene una persona" y
+   un anillo de foco no es eso. */
+.dirC :focus-visible {
+  outline: 2px solid var(--tinta);
+  outline-offset: 3px;
+}
+
+/* El marco es la única medida horizontal de la página. Las secciones son de
+   ancho completo -si no, la banda oscura no puede llegar al borde- y cada una
+   mete su contenido acá adentro. */
+.c-marco {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+@media (min-width: 1024px) {
+  .c-marco {
+    padding: 0 48px;
+  }
+}
+
+.c-portada {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Cabecera ───────────────────────────────────────────────────────────────
+   Sin hairline abajo: cortaba el campo justo donde tiene que sentirse continuo.
+   La navegación entra cuando exista el resto de la página; inventar tres ítems
+   que no llevan a ningún lado sería peor que no tenerlos. */
+
+.c-cab {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.c-wordmark {
+  font-size: 1.3125rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+/* ── El bloque de voz ───────────────────────────────────────────────────────*/
+
+.c-texto {
+  padding-top: 60px;
+}
+@media (min-width: 1080px) {
+  .c-texto {
+    padding-top: 72px;
+  }
+}
+
+/* La pastilla dice un hecho de producto que estaba tirado en 13px grises al
+   lado del botón, que es donde nadie lo lee. Neutra a propósito. */
+.c-pastilla {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 13px;
+  border-radius: var(--r-pastilla);
+  background: var(--hoja);
+  box-shadow:
+    0 0 0 1px rgb(26 25 23 / 0.07),
+    0 1px 2px rgb(26 25 23 / 0.03);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--tinta-media);
+}
+
+.c-titular {
+  margin: 22px 0 0;
+  max-width: 60rem;
+  font-size: clamp(2.5rem, 4.6vw, 4rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.038em;
+  text-wrap: balance;
+}
+
+.c-bajada {
+  margin: 22px 0 0;
+  max-width: 30rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--tinta-media);
+}
+
+.c-acciones {
+  margin-top: 32px;
+}
+
+.c-boton {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 22px;
+  border-radius: var(--r-control);
+  background: var(--tinta);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 140ms ease-out,
+    transform 90ms ease-out;
+}
+.c-boton:hover {
+  background: #33302b;
+}
+/* Empuje físico: el único movimiento de la página es respuesta a un acto. */
+.c-boton:active {
+  transform: translateY(1px);
+}
+.c-boton-chico {
+  padding: 9px 15px;
+  font-size: 0.875rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-boton {
+    transition: none;
+  }
+  .c-boton:active {
+    transform: none;
+  }
+}
+
+/* ── La escena ──────────────────────────────────────────────────────────────
+   Un solo objeto. La pasada anterior tenía una segunda ventana enmascarada
+   detrás que asomaba mostrando "Mue...", "Ace...", "Est..." cortados: eso no se
+   lee como un plano que se va, se lee como texto tapado por error.
+
+   La ventana arranca alineada al borde izquierdo del texto y se va por abajo
+   del viewport. El corte lo hace el borde de la pantalla, así que el documento
+   ya no necesita su propio desvanecido: un objeto se corta una vez. */
+
+/* La ventana queda POR ENCIMA de la banda oscura que viene abajo: su tramo
+   final se apoya sobre negro. Es una de las dos superposiciones de la página
+   que cruzan un cambio de valor. */
+.c-escena {
+  position: relative;
+  z-index: 2;
+  margin-top: 44px;
+  min-width: 0;
+}
+@media (min-width: 1080px) {
+  .c-escena {
+    margin-top: 56px;
+  }
+}
+
+/* La ventana cierra sus cuatro esquinas: ya no se corta contra el borde del
+   viewport sino que termina apoyada sobre la banda oscura de abajo, que es lo
+   que hace Resend con la suya. Un objeto entero sobre negro dice más que uno
+   cortado sobre gris. */
+.vent {
+  border-radius: var(--r-ventana);
+  overflow: hidden;
+  background: var(--hoja);
+}
+
+/* Tres capas, no cinco. La sombra de la pasada anterior terminaba en 0.22 de
+   alfa; la de Attio en 0.024 sobre un contorno de 0.06. Sombra fuerte sobre
+   campo claro es la firma de 2018. */
+/* El anillo interior claro no se ve sobre campo claro y es lo único que separa
+   al objeto cuando su tramo final cae sobre la banda oscura. Una declaración
+   que sirve a los dos fondos. */
+.vent-frente {
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgb(26 25 23 / 0.07),
+    inset 0 0 0 1px rgb(255 255 255 / 0.06),
+    0 1px 2px rgb(26 25 23 / 0.03),
+    0 40px 80px -32px rgb(26 25 23 / 0.1);
+}
+
+/* ── Chrome ─────────────────────────────────────────────────────────────────
+   El problema nunca fueron las luces de colores: Attio las usa y Superhuman
+   también. Lo que delataba era el resto que tenían encima -barra de 40px con
+   gradiente, título centrado y un chip de estado en la esquina-. La de Attio
+   son 32px, tres puntos, fondo plano y nada más.
+
+   La identidad del documento no se pierde: baja al encabezado de la aplicación,
+   que es donde el panel real la tiene. */
+
+.vent-barra {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 13px;
+  border-bottom: 1px solid var(--linea);
+  background: #f6f7f9;
+}
+
+.luces {
+  display: flex;
+  gap: 6px;
+}
+
+.luz {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--r-pastilla);
+  box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.08);
+}
+.luz-roja {
+  background: #ff5f57;
+}
+.luz-amarilla {
+  background: #febc2e;
+}
+.luz-verde {
+  background: #28c840;
+}
+
+/* ── El encabezado de la pantalla de detalle del reporte ────────────────────
+   Nombre del documento a la izquierda y su estado a la derecha, que es la forma
+   que tiene esa pantalla en el panel. */
+
+.c-app-cabeza {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 22px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.c-app-titulo {
+  margin: 0;
+  min-width: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── EL RECORRIDO, COMO PIEZA DE INTERFAZ ───────────────────────────────────
+   Riel horizontal con los nodos SOBRE la línea, y debajo de cada nodo un bloque
+   con su chip, su hora y su detalle. Es la forma del seguimiento de estados de
+   Resend, con jerarquía interna en cada hito.
+
+   EL TRAMO PUNTEADO ES INFORMACIÓN. Tres de las cuatro transiciones las hace
+   Nuvlo solo y su tramo es continuo. La que va de Borrador a Enviado es la única
+   que necesita a una persona, y por eso es la única punteada. El corte en la
+   línea ES el argumento del producto. */
+
+/* EL RIEL ES UN COMPONENTE, NO UN ESQUEMA PEGADO. Antes era una grilla suelta
+   apoyada sobre el cuerpo de la ventana: sin marco, sin encabezado y sin nada
+   que la atara a la aplicacion, se leia como un diagrama de la landing puesto
+   encima de una captura. Un seguimiento de estados en un panel real es una
+   pieza con su barra, su titulo, su contorno y su dato de resumen. */
+.rec {
+  margin: 18px 22px 22px;
+  border-radius: var(--r-superficie);
+  background: var(--hoja);
+  box-shadow: 0 0 0 1px var(--linea);
+  overflow: hidden;
+}
+
+.rec-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--linea);
+  background: var(--hoja-hundida);
+}
+
+.rec-titulo {
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.rec-resumen {
+  font-size: 0.6875rem;
+  color: var(--tinta-suave);
+}
+
+.rec-fila {
+  list-style: none;
+  margin: 0;
+  padding: 20px 18px 18px;
+  display: grid;
+  gap: 0;
+}
+@media (min-width: 640px) {
+  .rec-fila {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.rec-riel {
+  display: flex;
+  align-items: center;
+  height: 16px;
+}
+
+/* El nodo va al BORDE IZQUIERDO de su celda, no centrado en ella. Con el nodo
+   centrado y el bloque alineado a la izquierda, medido a 1440 el nodo caía
+   148px a la derecha de su propio chip: volvía a leerse como un punto flotando
+   sobre una raya que no une nada, que es justo el defecto que esta pieza vino a
+   arreglar. Con el nodo primero, el tramo que sigue cubre exactamente la
+   distancia hasta el nodo de la celda siguiente. */
+@media (min-width: 640px) {
+  .rec-tramo-izq {
+    display: none;
+  }
+}
+
+.rec-tramo {
+  flex: 1;
+  height: 1px;
+  background: var(--linea-viva);
+}
+
+.rec-tramo-vacio {
+  background: transparent;
+}
+
+/* El único tramo que no es automático. */
+.rec-tramo-humano {
+  background: transparent;
+  height: 0;
+  border-top: 1px dashed var(--senal);
+}
+
+.rec-nodo {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: var(--r-pastilla);
+  background: var(--hoja);
+  box-shadow: inset 0 0 0 2px var(--tinta-media);
+}
+
+.rec-paso-humano .rec-nodo {
+  box-shadow:
+    inset 0 0 0 2px var(--senal),
+    0 0 0 4px var(--senal-campo);
+}
+
+.rec-cuerpo {
+  padding: 14px 20px 18px 0;
+}
+
+.rec-cabeza {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 9px;
+}
+
+.rec-hora {
+  font-size: 0.6875rem;
+  color: var(--tinta-suave);
+}
+
+.rec-detalle {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--tinta-media);
+}
+
+.rec-marca {
+  margin: 9px 0 0;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--senal);
+}
+
+/* ── La vista previa del informe, dentro de la misma pantalla ───────────────
+   Sin rótulo y sin máscara. El rótulo era una etiqueta de más sobre un
+   documento que ya se presenta solo ("ESTUDIO BRAVO / Mueblería Lombardi"), y
+   la máscara era un segundo corte sobre un objeto que ya se corta contra el
+   borde del viewport. */
+
+.c-vista {
+  border-top: 1px solid var(--linea);
+  background: var(--hoja-hundida);
+  padding: 20px 22px 24px;
+}
+
+/* ── El documento, a escala de captura ──────────────────────────────────────*/
+
+.docm {
+  background: var(--hoja);
+  border-radius: var(--r-superficie);
+  box-shadow:
+    0 0 0 1px var(--linea),
+    0 1px 2px rgb(26 25 23 / 0.02);
+  padding: 22px 24px 24px;
+}
+
+.docm-cabeza {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--linea);
+}
+
+.docm-agencia {
+  margin: 0 0 4px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-media);
+}
+
+.docm-cliente {
+  margin: 0;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.docm-periodo {
+  margin: 5px 0 0;
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+.docm-resumen {
+  margin: 16px 0 0;
+  max-width: 46rem;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--tinta-media);
+}
+
+.docm-alerta {
+  margin-top: 16px;
+  padding: 13px 15px;
+  border-left: 2px solid var(--senal-linea);
+  border-radius: 0 var(--r-superficie) var(--r-superficie) 0;
+  background: var(--senal-campo);
+}
+
+.docm-alerta p {
+  margin: 0;
+  max-width: 46rem;
+  font-size: 0.78125rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+}
+
+.docm-rotulo {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--senal);
+}
+
+.docm-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 18px;
+  background: var(--linea);
+  box-shadow: 0 0 0 1px var(--linea);
+  border-radius: var(--r-superficie);
+  overflow: hidden;
+}
+
+.docm-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 13px 15px;
+  background: var(--hoja);
+}
+
+.docm-kpi-et {
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  color: var(--tinta-suave);
+}
+
+.docm-kpi-val {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.docm-kpi-var {
+  font-size: 0.6875rem;
+}
+
+.docm-tabla {
+  width: 100%;
+  margin-top: 18px;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.docm-tabla th,
+.docm-tabla td {
+  padding: 9px 0;
+  text-align: right;
+  border-bottom: 1px solid var(--linea);
+}
+
+.docm-tabla thead th {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  border-bottom-color: var(--tinta-media);
+}
+
+.docm-tabla th:first-child,
+.docm-tabla tbody th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--tinta);
+}
+
+.docm-ant {
+  color: var(--tinta-suave);
+}
+
+/* ── Chips ──────────────────────────────────────────────────────────────────
+   El punto de color es estado real (`ReportStatus`), no adorno. */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: var(--r-pastilla);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgb(26 25 23 / 0.045);
+  box-shadow: inset 0 0 0 1px rgb(26 25 23 / 0.08);
+  color: var(--tinta-media);
+}
+
+.chip-punto {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--r-pastilla);
+  background: currentColor;
+}
+
+.chip-pendiente {
+  color: var(--e-espera);
+}
+.chip-procesando {
+  color: var(--e-proceso);
+  background: rgb(29 99 201 / 0.07);
+  box-shadow: inset 0 0 0 1px rgb(29 99 201 / 0.2);
+}
+.chip-borrador {
+  color: var(--senal);
+  background: var(--senal-campo);
+  box-shadow: inset 0 0 0 1px var(--senal-linea);
+}
+.chip-enviado {
+  color: var(--e-listo);
+  background: rgb(11 107 79 / 0.07);
+  box-shadow: inset 0 0 0 1px rgb(11 107 79 / 0.2);
+}
+.chip-fallo {
+  color: var(--e-falla);
+}
+.chip-respaldo {
+  color: var(--senal);
+  background: var(--senal-campo);
+  box-shadow: inset 0 0 0 1px var(--senal-linea);
+}
+
+/* Sentido de la variación: lo decide el negocio, no el signo del número. */
+.var-bueno {
+  color: var(--positivo);
+}
+.var-malo {
+  color: var(--negativo);
+}
+.var-neutro {
+  color: var(--tinta-suave);
+}
+
+/* ── Teléfono ───────────────────────────────────────────────────────────────
+   La escala del documento no baja para que entre: bajan los paddings y las
+   cuadrículas se reacomodan. Lo único que cede es el cuerpo de la tabla, que a
+   13px con cuatro columnas se desborda a 390px de ancho. */
+
+@media (max-width: 639px) {
+  /* En teléfono la ventana toma el ancho completo del viewport: contenida entre
+     los paddings, una captura de 334px de ancho vuelve a ser un diagramita. */
+  .c-escena {
+    margin-inline: -28px;
+  }
+
+  .vent {
+    border-radius: 0;
+  }
+
+  .rec {
+    padding: 20px 18px 8px;
+  }
+
+  .rec-paso {
+    display: grid;
+    grid-template-columns: 12px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .rec-riel {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 12px;
+  }
+
+  .rec-tramo {
+    width: 1px;
+    height: auto;
+    flex: 1;
+    min-height: 8px;
+  }
+
+  /* El tramo de arriba es fijo y corto para que el nodo quede a la altura del
+     chip. Con los dos tramos elásticos el nodo se centraba en el alto del paso,
+     y como el paso del humano tiene una línea más, los nodos no alineaban entre
+     sí. */
+  .rec-tramo-izq {
+    flex: 0 0 9px;
+  }
+
+  .rec-tramo-humano {
+    width: 0;
+    height: auto;
+    border-top: 0;
+    border-left: 1px dashed var(--senal);
+  }
+
+  .rec-cuerpo {
+    padding: 0 0 18px;
+  }
+
+  .rec-paso:last-child .rec-cuerpo {
+    padding-bottom: 0;
+  }
+
+  .c-app-cabeza {
+    padding: 13px 18px;
+  }
+
+  .c-vista {
+    padding: 16px 14px 18px;
+  }
+
+  .docm {
+    padding: 18px 16px 20px;
+  }
+
+  /* Cuatro KPI en una fila de 390px dan 82px por celda, y "$ 486.250" a 20px no
+     entra. Dos por fila y el valor sigue a escala legible. */
+  .docm-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .docm-tabla {
+    font-size: 0.6875rem;
+  }
+
+  .docm-tabla th,
+  .docm-tabla td {
+    padding: 8px 0;
+  }
+}

@@ -1,0 +1,103 @@
+/**
+ * HOJA GLOBAL — EL PISO DEL PROYECTO, Y NADA MÁS.
+ *
+ * ── QUÉ QUEDÓ ACÁ DESPUÉS DE LA PROMOCIÓN (11/09/2026) ──────────────────────
+ * Este archivo era el mundo «Sala de revisión»: su `@theme` con el ámbar, el
+ * grano del `body`, tres niveles de elevación, la prosa legal y la animación de
+ * asentado. Todo eso lo consumía `components/landing/**`, que se fue con la
+ * promoción de «iris» a la home.
+ *
+ * Lo que queda es lo que **no pertenece a ningún mundo**: el reset, y los dos
+ * pisos que `PRODUCT.md` declara no negociables. El sistema visual vive en
+ * `app/estilos/`, bajo la clase `.iris`, y lo carga `app/layout.tsx` después de
+ * este archivo.
+ *
+ * La regla para quien venga a agregar algo: **si una declaración sabe de qué
+ * color es el sitio, no va acá.** Va en `app/estilos/`.
+ *
+ * ── QUÉ HACE ACÁ TAILWIND ───────────────────────────────────────────────────
+ * Este `@import` trae Tailwind v4 entero. **El sistema de iris no usa una sola
+ * utilidad de Tailwind** —se escribe en CSS plano, con sus propias clases—,
+ * pero sí depende del preflight: `estilos/base.css` nunca declara
+ * `box-sizing`, ni resetea el margen del `body`, ni el `font: inherit` de los
+ * botones. Sacar este import rompe el sitio entero.
+ *
+ * SI ALGUNA SESIÓN FUTURA VE `tailwindcss` EN `package.json` Y PIENSA «esto no
+ * se usa, lo saco»: no. Es el reset del que depende todo.
+ *
+ * El panel usa Tailwind también, pero **las dos configuraciones son
+ * independientes**: no hay tokens, preset ni paleta compartidos, y no hay
+ * ningún mecanismo que los sincronice. Coincidir en la herramienta no es
+ * heredar el diseño. Lo que sí cruza es `sistema/nuvlo.css`, que es una
+ * derivación explícita y versionada.
+ */
+@import "tailwindcss";
+
+/**
+ * ── EL SISTEMA, IMPORTADO (19/09/2026) ──────────────────────────────────────
+ * Los tokens de color, radio, sombra, tipo, aire y curva viven en
+ * `sistema/nuvlo.css` como `@theme static` con nombres de Tailwind
+ * (`--color-x`, `--radius-x`, `--shadow-x`…), y de ahí los lee el panel, que
+ * tiene una copia byte-idéntica. Hasta hoy `app/estilos/base.css` los repetía
+ * bajo `.iris` con nombres cortos: dos copias de cada valor, sincronizadas a mano.
+ *
+ * Va DESPUÉS de Tailwind porque `@theme` extiende el suyo, y `static` para que
+ * salgan todas las variables aunque ninguna utilidad las use: la landing las
+ * lee con `var()` desde `app/estilos/`, que Tailwind no recorre.
+ *
+ * `--font-sans` es el único nombre que pisa uno de Tailwind, y a propósito: el
+ * preflight lo usa para el `html`, así que con esto la familia del sitio es la
+ * del sistema desde la raíz.
+ */
+@import "../sistema/nuvlo.css";
+
+/**
+ * ── PISO 1: NINGUNA IMAGEN EMPUJA LA PÁGINA A LO ANCHO ──────────────────────
+ * Declarado no negociable en `PRODUCT.md`. Es la causa número uno de scroll
+ * horizontal en teléfono y no se detecta hasta que alguien lo ve en uno real.
+ *
+ * Va acá y no en `estilos/`: alcanza también a las diez direcciones históricas
+ * de `/preview`, que no son `.iris` y que nadie va a volver a revisar.
+ */
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/**
+ * ── PISO 2: TODA PARADA DE TABULACIÓN SE VE ─────────────────────────────────
+ * El otro no negociable de `PRODUCT.md`: cada superficie puede afinar el color
+ * del anillo, ninguna puede sacarlo.
+ *
+ * El anillo de acá es `currentColor` y no un token, y esa es la diferencia con
+ * la versión anterior. Antes pintaba con el ámbar del mundo retirado, o sea que
+ * el piso de accesibilidad del proyecto dependía de que existiera un mundo en
+ * particular; cuando ese mundo se fue, el piso se habría ido con él. Con
+ * `currentColor` el anillo hereda la tinta de lo que enfoca y no puede quedar
+ * invisible por un token que alguien borró.
+ *
+ * `.iris` lo pisa con el vino y su versión sobre la noche, y con una variable
+ * que viaja con la superficie (`--anillo`, en `estilos/base.css`).
+ */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/**
+ * El desplazamiento suave es del documento y no de un mundo. `Cierre.tsx` lo da
+ * por sentado: su salto al pie pide `behavior: "instant"` explícito justamente
+ * para esquivarlo, porque un anillo de foco que aparece al final de una
+ * animación de 900px es un anillo que quien tabula no ve.
+ */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

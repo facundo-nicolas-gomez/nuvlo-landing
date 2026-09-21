@@ -1,0 +1,765 @@
+/**
+ * LAS SECCIONES.
+ *
+ * ── SEIS, Y CADA UNA CON SU FAMILIA DE LAYOUT ──────────────────────────────
+ * La lista es la que monta `components/preview/neto/Pagina.tsx`, en su orden.
+ * Ese archivo manda; si esto y aquello no coinciden, está mal esto.
+ *
+ *   El reporte     héroe + anotaciones: dos columnas, el documento pegado a
+ *                  la pantalla y viajando bajo tres notas. Es la sección que
+ *                  reemplaza a cuatro de la pasada anterior.
+ *   Control        tramo oscuro, columna centrada, un objeto de tres filas.
+ *   El entregable  texto a un lado, el mail al otro.
+ *   Precios        una superficie partida en dos, y una fila común.
+ *   Preguntas      titular desplazado a la izquierda, acordeón nativo.
+ *   Cierre         tramo oscuro, la misma acción, y el pie.
+ *
+ * Ningún recurso se repite: el viaje del documento pasa una vez, las dos
+ * columnas texto/objeto pasan una vez, la columna centrada una vez.
+ *
+ * ── DOS TRAMOS OSCUROS, Y SON UN PARÉNTESIS ────────────────────────────────
+ * Control lo abre, el Cierre lo cierra. Decisión del dueño que no se reabre:
+ * la landing es clara, con negro puntual.
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LA NAVEGACIÓN
+   Una fila, 64px, sin pastilla flotante y sin fijarse: el documento de abajo
+   ya se queda pegado a la pantalla, y dos cosas fijas compiten por el borde.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.n-nav {
+  position: relative;
+  z-index: 2;
+}
+
+.n-nav-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 64px;
+}
+
+.n-marca {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.n-nav-enlaces {
+  display: flex;
+  gap: 28px;
+}
+
+.n-nav-enlaces a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--tinta-2);
+  text-decoration: none;
+  transition: color 140ms ease;
+}
+
+.n-nav-enlaces a:hover {
+  color: var(--tinta);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL REPORTE — HÉROE Y ANOTACIONES
+   ═══════════════════════════════════════════════════════════════════════════
+
+   Una grilla de dos columnas: a la izquierda el texto del héroe y, debajo,
+   tres anotaciones; a la derecha el visor, que ocupa las dos filas y se queda
+   pegado al borde superior de la pantalla. El visitante baja leyendo y el
+   documento, que no se mueve de su sitio, se desplaza por adentro hasta la
+   región de la que habla cada nota.
+
+   ── POR QUÉ ÉSTE ES EL RASGO, Y NO OTRO ────────────────────────────────────
+   La página tiene un solo objeto que mostrar y es el entregable. Las pasadas
+   anteriores lo mostraron en fragmentos —una ventana por sección— y cada
+   fragmento pedía su propio cromo. Acá se muestra UNA vez, entero, a escala
+   real, y las secciones que antes explicaban sus partes se volvieron tres
+   frases al costado. Menos elementos, más trabajados: es el criterio del
+   dueño puesto en la arquitectura de la página.
+
+   ── LO QUE PASA SIN JAVASCRIPT ─────────────────────────────────────────────
+   El visor es un contenedor pegado con el documento adentro y nada más: sin
+   el efecto, el visitante ve el reporte fijo mientras lee las tres notas, que
+   es la versión sin gesto de lo mismo. Con movimiento reducido no hay viaje ni
+   atenuado, sólo el salto. */
+
+.n-heroe {
+  position: relative;
+  z-index: 1;
+}
+
+.n-tablero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(32px, 4.5vw, 64px);
+  align-items: start;
+}
+
+.n-heroe-texto {
+  grid-column: 1;
+  min-height: calc(100dvh - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 32px 72px;
+  max-width: 32rem;
+}
+
+.n-heroe-bajada {
+  margin-top: 22px;
+  max-width: 28rem;
+}
+
+.n-accion {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.n-accion .n-chico {
+  color: var(--tinta-2);
+}
+
+/* Las tres notas. Cada una ocupa un tramo alto de la columna, con el texto
+   centrado en él, para que el documento tenga tiempo de llegar a su región y
+   quedarse antes de que empiece la siguiente. Entre notas no hay filete: lo
+   que las separa es el aire y el viaje del documento. */
+/* El relleno de abajo no es aire: el visor pegado sólo puede quedarse mientras
+   su contenedor —esta grilla— siga en pantalla. Con la última nota centrada en
+   el viewport, el borde inferior de la grilla tiene que estar al menos media
+   pantalla más abajo; si no, el visor se suelta y sube, y la región que esa
+   nota señala (la barra, arriba del documento) se va por el borde. Medido:
+   sin esto el visor subía 153px justo en la tercera nota. */
+.n-notas {
+  grid-column: 1;
+  display: grid;
+  padding-bottom: 22vh;
+}
+
+.n-nota {
+  min-height: 66vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 24px;
+  max-width: 28rem;
+}
+
+.n-nota-titulo {
+  font-size: clamp(1.375rem, 2vw, 1.625rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.n-nota-texto {
+  margin-top: 12px;
+  color: var(--tinta-2);
+}
+
+/* ── EL VISOR ──────────────────────────────────────────────────────────────
+   Pegado al borde de la pantalla y tan alto como ella. Recorta por arriba y
+   por abajo con un fundido y no con un canto: un documento que termina en un
+   borde recto se lee como una captura pegada (dueño, 04/09/2026). El fundido
+   de arriba es corto —sólo entra en juego cuando el documento ya viajó— y el
+   de abajo es largo, que es donde el héroe lo corta. */
+.n-visor {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 44px,
+    #000 calc(100% - 170px),
+    transparent 100%
+  );
+}
+
+/* La pista es lo que se desplaza. `--desplaza` lo escribe el cliente; sin él
+   vale 0 y el documento se ve desde arriba. El relleno superior deja lugar al
+   fundido en el estado inicial, para que no se coma la barra del panel. */
+.n-visor-pista {
+  padding: 52px 0 96px;
+  transform: translateY(var(--desplaza, 0px));
+  transition: transform 820ms cubic-bezier(0.22, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+/* El atenuado: cuando una nota señala una región, el resto del documento baja
+   la voz. No es un estado del reporte —nada está «pendiente»—, es foco. En el
+   estado inicial nadie baja. */
+.n-visor:not([data-foco="inicio"]) .n-doc-region {
+  opacity: 0.28;
+}
+
+.n-visor[data-foco="resumen"] [data-region="resumen"],
+.n-visor[data-foco="cifras"] [data-region="cifras"],
+.n-visor[data-foco="decision"] [data-region="decision"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .n-visor-pista {
+    transition: none;
+  }
+
+  .n-doc-region {
+    transition: none;
+  }
+}
+
+/* ── ENTRADA DEL HÉROE ─────────────────────────────────────────────────────
+   El texto sube en tres tiempos y la hoja se asienta. Es la única animación
+   de carga de la página y dura menos de un segundo. */
+@media (prefers-reduced-motion: no-preference) {
+  .n-heroe-texto > * {
+    animation: n-sube 780ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .n-heroe-texto > :nth-child(2) {
+    animation-delay: 90ms;
+  }
+
+  .n-heroe-texto > :nth-child(3) {
+    animation-delay: 180ms;
+  }
+
+  .n-visor .n-hoja {
+    animation: n-asienta 900ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
+  }
+}
+
+@keyframes n-sube {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes n-asienta {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONTROL — EL PRIMER TRAMO OSCURO
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.n-oscuro {
+  position: relative;
+  z-index: 1;
+  background: var(--negro);
+  color: var(--sobre-negro);
+}
+
+.n-oscuro .n-bajada,
+.n-oscuro .n-tinta-2 {
+  color: var(--sobre-negro-2);
+}
+
+.n-control {
+  padding-block: clamp(96px, 11vw, 152px);
+}
+
+.n-control-cabeza {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.n-control-cabeza .n-bajada {
+  margin-top: 16px;
+  margin-inline: auto;
+  max-width: 34rem;
+}
+
+/* Un objeto, tres filas. Superficie intermedia del tramo con filete de alfa:
+   sobre negro no hay sombra que declarar y el orden de los planos lo dicen
+   los dos valores. */
+.n-tramos {
+  margin-top: clamp(40px, 5vw, 64px);
+  border-radius: var(--radio);
+  background: var(--negro-2);
+  border: 1px solid var(--negro-filete);
+  overflow: hidden;
+}
+
+.n-tramo {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 24px;
+  padding: 24px 28px;
+}
+
+.n-tramo + .n-tramo {
+  border-top: 1px solid var(--negro-filete);
+}
+
+.n-tramo .n-titulo {
+  color: var(--sobre-negro);
+}
+
+.n-tramo .n-cuerpo {
+  color: var(--sobre-negro-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL ENTREGABLE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.n-entregable-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(32px, 4.5vw, 64px);
+  align-items: start;
+}
+
+.n-formas {
+  margin: 36px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--filete);
+}
+
+.n-forma {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--filete);
+}
+
+.n-forma dd {
+  margin: 4px 0 0;
+  color: var(--tinta-2);
+}
+
+/* El mail, como hoja. Es la única superficie de la página que no es de Nuvlo:
+   es la bandeja de alguien que nunca va a tener cuenta, y por eso no lleva
+   nada nuestro salvo el dominio del remitente, que es verdad en los dos
+   planes. */
+.n-mail {
+  max-width: 40rem;
+}
+
+.n-mail-cabeza {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 14px;
+  row-gap: 7px;
+  padding: 18px 22px;
+  background: var(--hoja-hundida);
+  border-bottom: 1px solid var(--filete);
+  font-size: 0.8125rem;
+}
+
+.n-mail-cabeza dt {
+  color: var(--tinta-3);
+}
+
+.n-mail-cabeza dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.n-mail-remitente {
+  font-weight: 500;
+}
+
+.n-mail-direccion {
+  color: var(--tinta-3);
+}
+
+.n-mail-cuerpo {
+  padding: 24px 22px 26px;
+  font-size: 0.9063rem;
+  line-height: 1.6;
+}
+
+.n-mail-cuerpo p {
+  margin: 0;
+}
+
+.n-mail-cuerpo p + p {
+  margin-top: 12px;
+}
+
+/* El botón del mail es un dibujo del botón que el template emite, no un
+   control: por eso es un `span` y no un enlace. */
+.n-mail-boton {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 16px;
+  border-radius: var(--radio-int);
+  background: var(--tinta);
+  color: var(--hoja);
+  font-size: 0.8438rem;
+  font-weight: 500;
+}
+
+.n-mail-firma {
+  margin-top: 22px;
+  color: var(--tinta-2);
+}
+
+.n-mail-firma strong {
+  display: block;
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRECIOS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.n-planes {
+  margin-top: clamp(36px, 4.5vw, 56px);
+  background: var(--hoja);
+  border: 1px solid var(--filete);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+
+.n-planes-par {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.n-plan {
+  padding: 30px 32px 32px;
+}
+
+.n-plan + .n-plan {
+  border-left: 1px solid var(--filete);
+}
+
+.n-plan-nombre {
+  margin: 0;
+}
+
+.n-precio {
+  margin: 14px 0 0;
+  font-size: clamp(2.25rem, 3.2vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.n-precio-unidad {
+  margin: 8px 0 0;
+  color: var(--tinta-2);
+}
+
+.n-plan-nota {
+  margin-top: 18px;
+  color: var(--tinta-2);
+  max-width: 24rem;
+}
+
+/* El pie del informe, citado: es la única diferencia visible entre planes, así
+   que es lo que se muestra. Fragmento de documento dentro de otra pieza —hoja
+   hundida, radio interior—, y los dos miden lo mismo aunque uno diga menos. */
+.n-plan-cita {
+  margin-top: 22px;
+  padding: 11px 13px;
+  border-radius: var(--radio-int);
+  background: var(--hoja-hundida);
+  border: 1px solid var(--filete);
+  color: var(--tinta-3);
+}
+
+.n-planes-comun {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: center;
+  padding: 22px 32px;
+  border-top: 1px solid var(--filete);
+  background: var(--hoja-hundida);
+}
+
+.n-incluido {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  color: var(--tinta-2);
+}
+
+.n-precios-nota {
+  margin-top: 18px;
+  color: var(--tinta-3);
+  max-width: 44rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREGUNTAS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.n-preguntas-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  column-gap: clamp(32px, 4.5vw, 64px);
+  align-items: start;
+}
+
+.n-acordeon {
+  border-top: 1px solid var(--filete);
+}
+
+.n-acordeon details {
+  border-bottom: 1px solid var(--filete);
+}
+
+.n-acordeon summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 19px 0;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  line-height: 1.35;
+}
+
+.n-acordeon summary::-webkit-details-marker {
+  display: none;
+}
+
+/* El signo: dos trazos del filete fuerte, que giran a «−» al abrir. */
+.n-signo {
+  position: relative;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+
+.n-signo::before,
+.n-signo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background: var(--tinta);
+  border-radius: 1px;
+}
+
+.n-signo::before {
+  width: 14px;
+  height: 1.5px;
+}
+
+.n-signo::after {
+  width: 1.5px;
+  height: 14px;
+  transition: transform 220ms ease;
+}
+
+.n-acordeon details[open] .n-signo::after {
+  transform: rotate(90deg);
+}
+
+.n-respuesta {
+  padding-bottom: 20px;
+  color: var(--tinta-2);
+  max-width: 40rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CIERRE Y PIE — EL SEGUNDO TRAMO OSCURO
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.n-cierre {
+  padding-block: clamp(96px, 12vw, 168px) clamp(72px, 9vw, 120px);
+}
+
+.n-cierre .n-display {
+  max-width: 22ch;
+}
+
+.n-cierre .n-bajada {
+  margin-top: 16px;
+  max-width: 32rem;
+}
+
+.n-cierre .n-accion .n-chico {
+  color: var(--sobre-negro-2);
+}
+
+.n-pie {
+  border-top: 1px solid var(--negro-filete);
+  padding-block: 44px 40px;
+}
+
+.n-pie-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.n-pie-nota {
+  margin-top: 10px;
+  color: var(--sobre-negro-2);
+  max-width: 18rem;
+}
+
+.n-pie-columna .n-rotulo {
+  color: var(--sobre-negro-2);
+  margin-bottom: 12px;
+}
+
+.n-pie-columna ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.n-pie-columna a {
+  color: var(--sobre-negro);
+  text-decoration: none;
+  opacity: 0.86;
+  transition: opacity 140ms ease;
+}
+
+.n-pie-columna a:hover {
+  opacity: 1;
+}
+
+.n-pie-legal {
+  margin-top: 40px;
+  color: var(--sobre-negro-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PANTALLAS ANGOSTAS — TODO A UNA COLUMNA
+   El visor deja de pegarse y el documento se muestra una vez, entero, debajo
+   del texto del héroe; las tres notas siguen después, y se leen solas porque
+   cada título nombra la parte del reporte de la que habla.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1023px) {
+  .n-tablero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .n-heroe-texto {
+    grid-column: 1;
+    min-height: 0;
+    padding-block: 36px 40px;
+    max-width: 36rem;
+  }
+
+  .n-visor {
+    grid-column: 1;
+    grid-row: auto;
+    position: static;
+    height: auto;
+    mask-image: none;
+  }
+
+  .n-visor-pista {
+    padding: 0 0 8px;
+    transform: none;
+    transition: none;
+  }
+
+  .n-visor .n-doc-region {
+    opacity: 1;
+  }
+
+  .n-notas {
+    grid-column: 1;
+    margin-top: 40px;
+    border-top: 1px solid var(--filete);
+  }
+
+  .n-nota {
+    min-height: 0;
+    padding-block: 28px;
+    max-width: 36rem;
+  }
+
+  .n-nota:last-child {
+    padding-bottom: 40px;
+  }
+
+  .n-tramo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 20px 22px;
+  }
+
+  .n-entregable-fila,
+  .n-preguntas-fila {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 36px;
+  }
+
+  .n-pie-fila {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .n-nav-enlaces {
+    display: none;
+  }
+
+  .n-planes-par {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .n-plan + .n-plan {
+    border-left: 0;
+    border-top: 1px solid var(--filete);
+  }
+
+  .n-plan {
+    padding: 24px 22px 26px;
+  }
+
+  .n-planes-comun {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 20px 22px;
+    gap: 18px;
+  }
+
+  .n-accion {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  .n-pie-fila {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

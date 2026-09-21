@@ -1,0 +1,1317 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-17T23:55:00Z",
+  "title": "Design System: Nuvlo",
+  "extensions": {
+    "colorMeta": {
+      "campo": {
+        "role": "neutral",
+        "displayName": "Marfil del campo",
+        "purpose": "El fondo de la página: casi blanco, cálido, separado de las hojas por filete y no por valor.",
+        "canonical": "oklch(99.2% 0.006 75.4)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#272522",
+          "#44423e",
+          "#63615d",
+          "#84827e",
+          "#a7a4a1",
+          "#cbc9c5",
+          "#f1eeea"
+        ]
+      },
+      "campo-luz": {
+        "role": "neutral",
+        "displayName": "Blanco del tope",
+        "purpose": "El arranque del lavado vertical: la página es más blanca arriba y se entibia al bajar.",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "hoja": {
+        "role": "neutral",
+        "displayName": "Hoja blanca",
+        "purpose": "Todo objeto que se apoya: el documento, las ventanas, las tarjetas.",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "hoja-hundida": {
+        "role": "neutral",
+        "displayName": "Hoja hundida",
+        "purpose": "Pistas, huecos y citas: lo que está un escalón adentro de la hoja.",
+        "canonical": "oklch(96.2% 0.005 78.3)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262523",
+          "#43423f",
+          "#63615e",
+          "#84827f",
+          "#a6a5a2",
+          "#cbc9c6",
+          "#f0eeeb"
+        ]
+      },
+      "filete": {
+        "role": "neutral",
+        "displayName": "Filete",
+        "purpose": "El borde de 1px que separa superficies y parte una hoja en filas.",
+        "canonical": "oklch(92.6% 0.009 78.3)",
+        "tonalRamp": [
+          "#0d0b07",
+          "#282520",
+          "#45413d",
+          "#64615c",
+          "#85827c",
+          "#a8a49f",
+          "#ccc8c3",
+          "#f2eee8"
+        ]
+      },
+      "filete-fuerte": {
+        "role": "neutral",
+        "displayName": "Filete fuerte",
+        "purpose": "El borde que marca: la hoja activa de la pista, la línea de firma.",
+        "canonical": "oklch(86.3% 0.011 76.6)",
+        "tonalRamp": [
+          "#0e0b06",
+          "#28241f",
+          "#45413c",
+          "#65605a",
+          "#86827b",
+          "#a9a49e",
+          "#cdc8c1",
+          "#f3eee6"
+        ]
+      },
+      "tinta": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "purpose": "Texto principal y titulares.",
+        "canonical": "oklch(19.9% 0.012 73.2)",
+        "tonalRamp": [
+          "#0e0a06",
+          "#29241f",
+          "#46413b",
+          "#65605a",
+          "#87817b",
+          "#aaa49d",
+          "#cec8c1",
+          "#f3ede6"
+        ]
+      },
+      "tinta-2": {
+        "role": "neutral",
+        "displayName": "Tinta segunda",
+        "purpose": "Texto de apoyo, enlaces de la barra en reposo.",
+        "canonical": "oklch(40.8% 0.013 76.5)",
+        "tonalRamp": [
+          "#0e0a06",
+          "#29241e",
+          "#46413a",
+          "#666059",
+          "#87817a",
+          "#aaa49c",
+          "#cec8c0",
+          "#f4ede5"
+        ]
+      },
+      "tinta-3": {
+        "role": "neutral",
+        "displayName": "Tinta tercera",
+        "purpose": "Notas, rótulos y etiquetas; no llega sobre la bandeja.",
+        "canonical": "oklch(52.4% 0.016 78.2)",
+        "tonalRamp": [
+          "#0f0a05",
+          "#29241d",
+          "#474139",
+          "#666057",
+          "#888178",
+          "#aba49a",
+          "#cfc8be",
+          "#f4ede3"
+        ]
+      },
+      "acento": {
+        "role": "primary",
+        "displayName": "Petróleo",
+        "purpose": "La acción y sólo la acción: el CTA, el foco, la selección, tu paso.",
+        "canonical": "oklch(44.7% 0.073 210.6)",
+        "tonalRamp": [
+          "#000e12",
+          "#022b31",
+          "#0a4b54",
+          "#226c78",
+          "#488e9b",
+          "#6cb2bf",
+          "#90d7e4",
+          "#d0f7fe"
+        ]
+      },
+      "acento-tinta": {
+        "role": "primary",
+        "displayName": "Petróleo hondo",
+        "purpose": "El hover del botón citado del panel.",
+        "canonical": "oklch(35.6% 0.057 210.9)",
+        "tonalRamp": [
+          "#000e12",
+          "#022b31",
+          "#134a53",
+          "#376a74",
+          "#588c96",
+          "#7bafb9",
+          "#9ed4de",
+          "#d0f7fe"
+        ]
+      },
+      "acento-campo": {
+        "role": "primary",
+        "displayName": "Petróleo campo",
+        "purpose": "La selección de texto y el pico del destello de la dirección.",
+        "canonical": "oklch(89.2% 0.017 205.8)",
+        "tonalRamp": [
+          "#030d0f",
+          "#1b2829",
+          "#384546",
+          "#566466",
+          "#778687",
+          "#99a8aa",
+          "#bdcdcf",
+          "#e2f2f4"
+        ]
+      },
+      "acento-filete": {
+        "role": "primary",
+        "displayName": "Petróleo filete",
+        "purpose": "El divisor de la barra y el borde de las citas del producto.",
+        "canonical": "oklch(82.7% 0.029 207.8)",
+        "tonalRamp": [
+          "#000e11",
+          "#13292c",
+          "#30464a",
+          "#4f666a",
+          "#6f878b",
+          "#91aaae",
+          "#b5cfd3",
+          "#daf4f8"
+        ]
+      },
+      "acento-luz": {
+        "role": "primary",
+        "displayName": "Petróleo luz",
+        "purpose": "La banda de Precios, el hover del botón invertido, el arranque del haz del héroe.",
+        "canonical": "oklch(95.0% 0.012 197.0)",
+        "tonalRamp": [
+          "#060d0d",
+          "#1f2727",
+          "#3b4444",
+          "#5a6363",
+          "#7b8585",
+          "#9da7a7",
+          "#c1cccc",
+          "#e6f1f1"
+        ]
+      },
+      "acento-brillo": {
+        "role": "primary",
+        "displayName": "Petróleo brillo",
+        "purpose": "El tramo claro del barrido de luz del CTA.",
+        "canonical": "oklch(54.9% 0.086 208.6)",
+        "tonalRamp": [
+          "#000e12",
+          "#022b30",
+          "#094b53",
+          "#156d79",
+          "#36919e",
+          "#5db4c2",
+          "#82d9e7",
+          "#cdf7fe"
+        ]
+      },
+      "acento-brillo-luz": {
+        "role": "primary",
+        "displayName": "Petróleo brillo sobre noche",
+        "purpose": "El barrido del CTA invertido sobre la noche.",
+        "canonical": "oklch(91.9% 0.018 201.1)",
+        "tonalRamp": [
+          "#030d0e",
+          "#1b2829",
+          "#374546",
+          "#566565",
+          "#768687",
+          "#99a9aa",
+          "#bccdce",
+          "#e1f2f3"
+        ]
+      },
+      "bandeja-a": {
+        "role": "primary",
+        "displayName": "Bandeja pálida",
+        "purpose": "El color a escala de superficie detrás de un objeto grande. Desde el 17/09/2026 pinta un solo lugar: detrás de la ventana de «Lo que abre» en El entregable.",
+        "canonical": "oklch(95.0% 0.012 197.0)",
+        "tonalRamp": [
+          "#060d0d",
+          "#1f2727",
+          "#3b4444",
+          "#5a6363",
+          "#7b8585",
+          "#9da7a7",
+          "#c1cccc",
+          "#e6f1f1"
+        ]
+      },
+      "bandeja-b": {
+        "role": "primary",
+        "displayName": "Bandeja honda",
+        "purpose": "El extremo oscuro del degradé de la bandeja de «Lo que abre».",
+        "canonical": "oklch(90.1% 0.021 200.4)",
+        "tonalRamp": [
+          "#020e0f",
+          "#182829",
+          "#354646",
+          "#546566",
+          "#748687",
+          "#96a9aa",
+          "#bacecf",
+          "#dff3f4"
+        ]
+      },
+      "lavado-a": {
+        "role": "neutral",
+        "displayName": "Lavado frío",
+        "purpose": "El lavado neutro y frío del héroe; escenografía, no cruza al panel.",
+        "canonical": "oklch(97.6% 0.002 247.8)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414243",
+          "#606162",
+          "#818283",
+          "#a4a5a6",
+          "#c8c9ca",
+          "#edeeef"
+        ]
+      },
+      "lavado-b": {
+        "role": "neutral",
+        "displayName": "Lavado frío hondo",
+        "purpose": "El extremo del lavado del héroe.",
+        "canonical": "oklch(94.8% 0.005 258.3)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#242527",
+          "#404244",
+          "#606164",
+          "#818285",
+          "#a3a5a8",
+          "#c7c9cc",
+          "#edeff2"
+        ]
+      },
+      "banda-fria": {
+        "role": "neutral",
+        "displayName": "Banda fría",
+        "purpose": "La fila «tuya» de Tres pasos: se separa por temperatura, no por valor.",
+        "canonical": "oklch(96.1% 0.002 247.8)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414243",
+          "#606162",
+          "#818283",
+          "#a4a5a6",
+          "#c8c9ca",
+          "#edeeef"
+        ]
+      },
+      "resplandor": {
+        "role": "primary",
+        "displayName": "Resplandor petróleo",
+        "purpose": "La sombra teñida de lo que es del acento.",
+        "canonical": "oklch(44.7% 0.073 210.6 / 0.22)",
+        "tonalRamp": [
+          "#000e12",
+          "#022b31",
+          "#0a4b54",
+          "#226c78",
+          "#488e9b",
+          "#6cb2bf",
+          "#90d7e4",
+          "#d0f7fe"
+        ]
+      },
+      "luz-heroe": {
+        "role": "neutral",
+        "displayName": "Luz del héroe",
+        "purpose": "El haz cálido del fondo del héroe.",
+        "canonical": "oklch(99.4% 0.006 84.6 / 0.9)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262522",
+          "#43423f",
+          "#63615e",
+          "#84827e",
+          "#a7a5a1",
+          "#cbc9c5",
+          "#f0eeea"
+        ]
+      },
+      "ventana-canto": {
+        "role": "neutral",
+        "displayName": "Canto de ventana",
+        "purpose": "El borde exterior de los objetos de producto.",
+        "canonical": "oklch(19.9% 0.022 292.6 / 0.13)",
+        "tonalRamp": [
+          "#0b0914",
+          "#25232f",
+          "#42404d",
+          "#615f6d",
+          "#82808f",
+          "#a5a3b2",
+          "#c9c7d7",
+          "#eeecfc"
+        ]
+      },
+      "ventana-canto-suave": {
+        "role": "neutral",
+        "displayName": "Canto suave",
+        "purpose": "El canto de los objetos chicos.",
+        "canonical": "oklch(19.9% 0.022 292.6 / 0.07)",
+        "tonalRamp": [
+          "#0b0914",
+          "#25232f",
+          "#42404d",
+          "#615f6d",
+          "#82808f",
+          "#a5a3b2",
+          "#c9c7d7",
+          "#eeecfc"
+        ]
+      },
+      "grafito": {
+        "role": "neutral",
+        "displayName": "Grafito del cromo",
+        "purpose": "La barra del navegador: un navegador de verdad en modo oscuro.",
+        "canonical": "oklch(24.5% 0.012 248.3)",
+        "tonalRamp": [
+          "#070c10",
+          "#21262b",
+          "#3d4348",
+          "#5c6268",
+          "#7d8389",
+          "#9fa6ac",
+          "#c3cad1",
+          "#e8eff6"
+        ]
+      },
+      "grafito-alto": {
+        "role": "neutral",
+        "displayName": "Grafito alto",
+        "purpose": "El campo de dirección dentro del cromo.",
+        "canonical": "oklch(29.9% 0.013 253.0)",
+        "tonalRamp": [
+          "#070c11",
+          "#21262b",
+          "#3d4349",
+          "#5c6269",
+          "#7d838a",
+          "#9fa6ad",
+          "#c3cad2",
+          "#e9eff7"
+        ]
+      },
+      "noche": {
+        "role": "neutral",
+        "displayName": "Noche casi negra",
+        "purpose": "El capítulo oscuro: La lectura, Criterio y Control. Cerraba en el Tablero hasta el 17/09/2026.",
+        "canonical": "oklch(16.7% 0.004 229.1)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#232527",
+          "#404244",
+          "#5f6263",
+          "#808384",
+          "#a3a5a7",
+          "#c7cacb",
+          "#eceff0"
+        ]
+      },
+      "noche-2": {
+        "role": "neutral",
+        "displayName": "Noche segunda",
+        "purpose": "La barra pegada sobre la noche y las superficies de adentro.",
+        "canonical": "oklch(21.1% 0.006 236.9)",
+        "tonalRamp": [
+          "#090c0d",
+          "#222628",
+          "#3f4245",
+          "#5e6264",
+          "#7f8385",
+          "#a2a6a8",
+          "#c6cacd",
+          "#ebeff2"
+        ]
+      },
+      "noche-honda": {
+        "role": "neutral",
+        "displayName": "Noche honda",
+        "purpose": "El fondo del tramo, adonde cae la luz al bajar.",
+        "canonical": "oklch(13.9% 0.003 246.3)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#242526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#a3a5a7",
+          "#c8c9cb",
+          "#edeff0"
+        ]
+      },
+      "noche-luz": {
+        "role": "neutral",
+        "displayName": "Noche luz",
+        "purpose": "El haz de arriba del tramo oscuro.",
+        "canonical": "oklch(23.2% 0.008 240.2)",
+        "tonalRamp": [
+          "#080c0e",
+          "#222629",
+          "#3e4346",
+          "#5d6266",
+          "#7e8387",
+          "#a1a6aa",
+          "#c4cace",
+          "#eaeff4"
+        ]
+      },
+      "noche-filete": {
+        "role": "neutral",
+        "displayName": "Filete de noche",
+        "purpose": "Toda división sobre fondo oscuro.",
+        "canonical": "oklch(100.0% 0.000 89.9 / 0.1)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "sobre-noche": {
+        "role": "neutral",
+        "displayName": "Crema sobre noche",
+        "purpose": "Texto principal sobre la noche.",
+        "canonical": "oklch(96.4% 0.003 84.6)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#262523",
+          "#434240",
+          "#62615f",
+          "#838280",
+          "#a6a5a3",
+          "#cac9c7",
+          "#efeeec"
+        ]
+      },
+      "sobre-noche-2": {
+        "role": "neutral",
+        "displayName": "Crema segunda",
+        "purpose": "Texto de apoyo sobre la noche.",
+        "canonical": "oklch(96.4% 0.003 84.6 / 0.66)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#262523",
+          "#434240",
+          "#62615f",
+          "#838280",
+          "#a6a5a3",
+          "#cac9c7",
+          "#efeeec"
+        ]
+      },
+      "titulo-gris": {
+        "role": "neutral",
+        "displayName": "Gris de titular",
+        "purpose": "La segunda mitad de un titular en dos tonos; sólo display.",
+        "canonical": "oklch(63.5% 0.013 79.8)",
+        "tonalRamp": [
+          "#0e0b06",
+          "#28241e",
+          "#46413a",
+          "#656159",
+          "#87827a",
+          "#a9a49c",
+          "#cec8c0",
+          "#f3eee5"
+        ]
+      },
+      "titulo-gris-noche": {
+        "role": "neutral",
+        "displayName": "Gris de titular en la noche",
+        "purpose": "El mismo gesto sobre la noche; sólo display.",
+        "canonical": "oklch(96.4% 0.003 84.6 / 0.5)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#262523",
+          "#434240",
+          "#62615f",
+          "#838280",
+          "#a6a5a3",
+          "#cac9c7",
+          "#efeeec"
+        ]
+      },
+      "acento-sobre-noche": {
+        "role": "primary",
+        "displayName": "Petróleo aclarado",
+        "purpose": "El acento y el anillo de foco sobre la noche, y la palabra «Enviado» de Control.",
+        "canonical": "oklch(78.3% 0.055 205.0)",
+        "tonalRamp": [
+          "#000e11",
+          "#002b30",
+          "#154a50",
+          "#386a70",
+          "#5a8c92",
+          "#7cafb5",
+          "#a0d4da",
+          "#c8f9ff"
+        ]
+      },
+      "bueno": {
+        "role": "tertiary",
+        "displayName": "Verde del negocio",
+        "purpose": "Sólo adentro del reporte: la variación que mejoró.",
+        "canonical": "oklch(51.3% 0.116 156.4)",
+        "tonalRamp": [
+          "#001005",
+          "#002e17",
+          "#01502d",
+          "#087445",
+          "#3b9765",
+          "#61bb87",
+          "#86e0aa",
+          "#c5ffda"
+        ]
+      },
+      "bueno-campo": {
+        "role": "tertiary",
+        "displayName": "Verde del negocio, campo",
+        "purpose": "El fondo de la cápsula que mejoró.",
+        "canonical": "oklch(94.7% 0.020 159.7)",
+        "tonalRamp": [
+          "#040e08",
+          "#1d2822",
+          "#39453e",
+          "#58655d",
+          "#79867e",
+          "#9ba9a1",
+          "#bfcdc5",
+          "#e4f3ea"
+        ]
+      },
+      "malo": {
+        "role": "tertiary",
+        "displayName": "Rojo del negocio",
+        "purpose": "Sólo adentro del reporte: la variación que empeoró.",
+        "canonical": "oklch(51.5% 0.172 31.3)",
+        "tonalRamp": [
+          "#210000",
+          "#4c0300",
+          "#7d0f01",
+          "#ad2916",
+          "#d5503b",
+          "#fe755e",
+          "#fdb4a6",
+          "#fee9e5"
+        ]
+      },
+      "malo-campo": {
+        "role": "tertiary",
+        "displayName": "Rojo del negocio, campo",
+        "purpose": "El fondo de la cápsula que empeoró.",
+        "canonical": "oklch(94.5% 0.022 31.8)",
+        "tonalRamp": [
+          "#130806",
+          "#2f211f",
+          "#4d3e3b",
+          "#6d5d5a",
+          "#8f7e7a",
+          "#b2a09d",
+          "#d7c4c1",
+          "#fdeae6"
+        ]
+      },
+      "hecho": {
+        "role": "tertiary",
+        "displayName": "Verde de hecho",
+        "purpose": "El paso terminado y la chapa Enviado.",
+        "canonical": "oklch(60.8% 0.136 156.8)",
+        "tonalRamp": [
+          "#001005",
+          "#002e18",
+          "#01502e",
+          "#087445",
+          "#1e9a60",
+          "#4dbe82",
+          "#75e4a5",
+          "#c5ffda"
+        ]
+      },
+      "hecho-campo": {
+        "role": "tertiary",
+        "displayName": "Verde de hecho, campo",
+        "purpose": "La baldosa del paso terminado.",
+        "canonical": "oklch(94.4% 0.029 159.9)",
+        "tonalRamp": [
+          "#020f07",
+          "#182920",
+          "#35473d",
+          "#53675c",
+          "#74887c",
+          "#96ab9f",
+          "#bacfc3",
+          "#dff5e8"
+        ]
+      },
+      "hecho-tinta": {
+        "role": "tertiary",
+        "displayName": "Verde de hecho, tinta",
+        "purpose": "El texto de la chapa Enviado.",
+        "canonical": "oklch(46.5% 0.103 156.9)",
+        "tonalRamp": [
+          "#001005",
+          "#002e18",
+          "#054f2e",
+          "#1f7249",
+          "#469569",
+          "#6ab98b",
+          "#8fdeae",
+          "#c6fedb"
+        ]
+      },
+      "espera": {
+        "role": "tertiary",
+        "displayName": "Naranja de lo pendiente",
+        "purpose": "El borrador que espera tu aprobación. Desde el 17/09/2026 es también el color de la palabra «Borrador» a escala de cartel en Control.",
+        "canonical": "oklch(67.0% 0.180 47.3)",
+        "tonalRamp": [
+          "#1a0400",
+          "#401701",
+          "#6b2d05",
+          "#9a450d",
+          "#ce5b05",
+          "#fc7b2c",
+          "#fcb795",
+          "#feeae0"
+        ]
+      },
+      "espera-tinta": {
+        "role": "tertiary",
+        "displayName": "Naranja pendiente, tinta",
+        "purpose": "El texto de la chapa Borrador.",
+        "canonical": "oklch(51.3% 0.146 43.4)",
+        "tonalRamp": [
+          "#1c0300",
+          "#411502",
+          "#6d2b08",
+          "#9d4112",
+          "#c86030",
+          "#ef8355",
+          "#ffb596",
+          "#feeae1"
+        ]
+      },
+      "wa": {
+        "role": "tertiary",
+        "displayName": "Verde de WhatsApp",
+        "purpose": "La burbuja citada de WhatsApp; cita de otro producto.",
+        "canonical": "oklch(91.1% 0.115 140.1)",
+        "tonalRamp": [
+          "#001000",
+          "#092e02",
+          "#185008",
+          "#3a702e",
+          "#5b934f",
+          "#7db771",
+          "#a1dc94",
+          "#cffec5"
+        ]
+      },
+      "wa-tinta-2": {
+        "role": "tertiary",
+        "displayName": "Tinta de WhatsApp",
+        "purpose": "El texto de apoyo adentro de la burbuja.",
+        "canonical": "oklch(45.1% 0.024 163.7)",
+        "tonalRamp": [
+          "#030e08",
+          "#1a2922",
+          "#37463f",
+          "#55665d",
+          "#76877e",
+          "#98aaa1",
+          "#bccec5",
+          "#e1f4ea"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "portada": {
+        "displayName": "Portada",
+        "purpose": "El titular del héroe, y sólo ése."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "El titular de cada sección, a la izquierda."
+      },
+      "total": {
+        "displayName": "Total",
+        "purpose": "El resultado de una cuenta que el visitante hace en la página."
+      },
+      "titulo": {
+        "displayName": "Título",
+        "purpose": "Enunciados dentro de una sección: pasos, preguntas, planes."
+      },
+      "bajada": {
+        "displayName": "Bajada",
+        "purpose": "La bajada de un titular de sección; dos o tres frases."
+      },
+      "bajada-portada": {
+        "displayName": "Bajada de portada",
+        "purpose": "La bajada del héroe."
+      },
+      "guia": {
+        "displayName": "Guía",
+        "purpose": "Los títulos de la guía de La lectura."
+      },
+      "cuerpo": {
+        "displayName": "Cuerpo",
+        "purpose": "Prosa corrida, tope de medida 30rem."
+      },
+      "compacto": {
+        "displayName": "Compacto",
+        "purpose": "El cuerpo de los objetos que no tienen lugar para el Cuerpo entero."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Enlaces de la barra, «Ingresar», pestañas."
+      },
+      "boton": {
+        "displayName": "Botón",
+        "purpose": "La etiqueta del CTA de 52px."
+      },
+      "chico": {
+        "displayName": "Chico",
+        "purpose": "Notas al pie del botón, unidad del precio."
+      },
+      "fino": {
+        "displayName": "Fino",
+        "purpose": "Legales, nota de fuente, citas del producto."
+      },
+      "rotulo": {
+        "displayName": "Rótulo",
+        "purpose": "Encabezado de campo ADENTRO de un objeto; nunca un copete arriba de un titular."
+      },
+      "documento": {
+        "displayName": "Documento",
+        "purpose": "El cuerpo del reporte. Hoja 760 y cuerpo 16/1,6; la prosa subió a 17 el 17/09/2026."
+      },
+      "documento-titulo": {
+        "displayName": "Nombre del cliente",
+        "purpose": "El nombre del cliente que abre el reporte: 34px desde el 17/09/2026 (era 28)."
+      },
+      "documento-prosa": {
+        "displayName": "Prosa del documento",
+        "purpose": "El resumen ejecutivo y el plan de acción: 17px desde el 17/09/2026, topeada en 556."
+      },
+      "documento-kpi": {
+        "displayName": "Cifra de KPI",
+        "purpose": "La cifra del banco de cuatro: 26px desde el 17/09/2026, con escalones por largo (22 / 18 / 15)."
+      },
+      "documento-tabla": {
+        "displayName": "Tabla del documento",
+        "purpose": "Las métricas detalladas: 16px con filas de 16 de relleno desde el 17/09/2026."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Nuvlo en la barra y el pie, en petróleo mezclado con la tinta."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sombra-hoja",
+        "value": "0 1px 2px rgb(22 20 31 / 0.05), 0 6px 16px -6px rgb(22 20 31 / 0.1)",
+        "purpose": "El mínimo que separa una hoja del campo."
+      },
+      {
+        "name": "sombra-ventana",
+        "value": "0 2px 4px rgb(22 20 31 / 0.06), 0 28px 56px -18px rgb(6 44 51 / 0.24)",
+        "purpose": "Los objetos de producto medianos: el mail, el panel."
+      },
+      {
+        "name": "sombra-ventana-heroe",
+        "value": "0 6px 12px rgb(22 20 31 / 0.06), 0 30px 56px rgb(6 44 51 / 0.18)",
+        "purpose": "La ventana del héroe: sin extensión negativa, porque la sombra se mide contra el tamaño del objeto."
+      },
+      {
+        "name": "sombra-flota",
+        "value": "0 4px 8px rgb(22 20 31 / 0.08), 0 24px 48px -12px rgb(6 44 51 / 0.28)",
+        "purpose": "Las piezas que se apoyan encima de la ventana y tienen que despegarse de ella."
+      },
+      {
+        "name": "sombra-hoja-noche",
+        "value": "0 1px 2px rgb(0 0 0 / 0.2)",
+        "purpose": "Una hoja clara adentro de la noche."
+      },
+      {
+        "name": "sombra-hoja-noche-alta",
+        "value": "0 2px 4px rgb(0 0 0 / 0.2)",
+        "purpose": "El hover del botón invertido sobre la noche."
+      },
+      {
+        "name": "sombra-cta-glow",
+        "value": "0 8px 22px -6px rgb(15 95 107 / 0.55), 0 4px 6px -2px rgb(6 44 51 / 0.3), inset 3px 3px 7px rgb(143 195 201 / 0.45), inset -3px -3px 7px rgb(6 44 51 / 0.45)",
+        "purpose": "El CTA Glow en reposo: halo teñido de petróleo, luz interior arriba a la izquierda."
+      },
+      {
+        "name": "sombra-barra-pegada",
+        "value": "0 2px 6px rgb(22 20 31 / 0.056), 0 22px 48px -16px rgb(6 44 51 / 0.24)",
+        "purpose": "El borde de la barra pegada: una corta que asienta y una larga teñida que separa, sin filete."
+      }
+    ],
+    "motion": [
+      {
+        "name": "curva",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Los controles: la respuesta tiene que ser inmediata."
+      },
+      {
+        "name": "curva-entra",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Las entradas: arrancan con decisión y se toman su tiempo para asentarse."
+      },
+      {
+        "name": "barrido-cta",
+        "value": "background-position 0.8s var(--curva)",
+        "purpose": "La franja clara del CTA Glow que lo cruza en diagonal al pasar el mouse."
+      },
+      {
+        "name": "presion",
+        "value": "transform 0.16s var(--curva)",
+        "purpose": "Al apretar: 0,95 en el CTA, 0,97 en el botón citado."
+      },
+      {
+        "name": "paso-escalonado",
+        "value": "120ms",
+        "purpose": "El escalón entre piezas que entran juntas (120, 240, 360, 480)."
+      },
+      {
+        "name": "reducido",
+        "value": "prefers-reduced-motion",
+        "purpose": "Apaga los bucles y deja sólo el cambio de estado que carga el dato."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "angosto",
+        "value": "440px",
+        "purpose": "Por debajo, la pista de las acciones se apaga."
+      },
+      {
+        "name": "telefono",
+        "value": "640px"
+      },
+      {
+        "name": "tableta",
+        "value": "768px",
+        "purpose": "Por debajo salen las anclas de la barra."
+      },
+      {
+        "name": "medio",
+        "value": "900px"
+      },
+      {
+        "name": "ancho",
+        "value": "1024px",
+        "purpose": "La nota al margen y el contador de La lectura."
+      },
+      {
+        "name": "marco",
+        "value": "1440px"
+      },
+      {
+        "name": "muy-ancho",
+        "value": "1540px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "CTA Glow",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "El único CTA del sitio (lo emite PanelLink): petróleo con un barrido de luz en diagonal al pasar el mouse.",
+      "html": "<a class=\"ds-cta\" href=\"#\">Empezar gratis</a>",
+      "css": ".ds-cta { display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 24px; border-radius: 16px; background-color: #0f5f6b; background-image: linear-gradient(325deg, #0f5f6b 0%, #1f7f8c 55%, #0f5f6b 90%); background-size: 280% 100%; background-position: 0 0; color: #fff; font-family: Geist, system-ui, sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: -0.012em; line-height: 1; text-decoration: none; white-space: nowrap; box-shadow: 0 8px 22px -6px rgb(15 95 107 / 0.55), 0 4px 6px -2px rgb(6 44 51 / 0.3), inset 3px 3px 7px rgb(143 195 201 / 0.45), inset -3px -3px 7px rgb(6 44 51 / 0.45); transition: background-position 0.8s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.16s cubic-bezier(0.22, 1, 0.36, 1); } .ds-cta:hover { background-position: 100% 0; box-shadow: 0 12px 30px -6px rgb(15 95 107 / 0.7), 0 4px 6px -2px rgb(6 44 51 / 0.3), inset 3px 3px 8px rgb(143 195 201 / 0.55), inset -3px -3px 8px rgb(6 44 51 / 0.45); } .ds-cta:active { transform: scale(0.95); } .ds-cta:focus-visible { outline: 2px solid #0f5f6b; outline-offset: 3px; }"
+    },
+    {
+      "name": "CTA Glow sobre la noche",
+      "kind": "button",
+      "refersTo": "button-hoja",
+      "description": "Sobre la noche la superficie decide: el CTA se invierte a hoja con la misma luz, en claro.",
+      "html": "<div class=\"ds-noche\"><a class=\"ds-cta-hoja\" href=\"#\">Empezar gratis</a></div>",
+      "css": ".ds-noche { padding: 32px; background: #0d0f10; border-radius: 16px; } .ds-cta-hoja { display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 24px; border-radius: 16px; background-color: #ffffff; background-image: linear-gradient(325deg, #d7e8e9 0%, #ffffff 55%, #d7e8e9 90%); background-size: 280% 100%; background-position: 0 0; color: #191510; font-family: Geist, system-ui, sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: -0.012em; line-height: 1; text-decoration: none; box-shadow: 0 10px 26px -8px rgb(143 195 201 / 0.35), 0 4px 6px -2px rgb(0 0 0 / 0.5), inset 3px 3px 7px rgb(255 255 255 / 0.9), inset -3px -3px 7px rgb(15 95 107 / 0.18); transition: background-position 0.8s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.16s cubic-bezier(0.22, 1, 0.36, 1); } .ds-cta-hoja:hover { background-position: 100% 0; box-shadow: 0 14px 34px -8px rgb(143 195 201 / 0.5), 0 4px 6px -2px rgb(0 0 0 / 0.5), inset 3px 3px 8px rgb(255 255 255 / 0.95), inset -3px -3px 8px rgb(15 95 107 / 0.22); } .ds-cta-hoja:active { transform: scale(0.95); } .ds-cta-hoja:focus-visible { outline: 2px solid #8fc3c9; outline-offset: 3px; }"
+    },
+    {
+      "name": "Botón citado del panel",
+      "kind": "button",
+      "refersTo": "button-primary-hover",
+      "description": "«Aprobar y enviar» es un <button> que cita al panel: sin barrido, con canto de material, y el hover es sólo color.",
+      "html": "<button class=\"ds-boton\" type=\"button\">Aprobar y enviar</button>",
+      "css": ".ds-boton { display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 24px; border: 0; border-radius: 16px; background: #0f5f6b; color: #fff; font-family: Geist, system-ui, sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: -0.012em; line-height: 1; cursor: pointer; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 1px 2px rgb(6 44 51 / 0.28), 0 6px 14px -6px rgb(15 95 107 / 0.45); transition: background-color 0.18s cubic-bezier(0.22, 1, 0.36, 1), transform 0.16s cubic-bezier(0.22, 1, 0.36, 1); } .ds-boton:hover { background: #0b444d; } .ds-boton:active { transform: scale(0.97); } .ds-boton:focus-visible { outline: 2px solid #0f5f6b; outline-offset: 3px; }"
+    },
+    {
+      "name": "Barra en dos pistas",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "La marca en petróleo, un divisor, las anclas en una pista hundida con la hoja activa, y las dos acciones en una pista gemela donde el CTA es lo único con color.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-grupo\"><span class=\"ds-marca\">nuvlo</span><span class=\"ds-divisor\"></span><div class=\"ds-pista\"><a class=\"ds-ancla\" href=\"#\">Cómo funciona</a><a class=\"ds-ancla\" href=\"#\" data-activo>Control</a><a class=\"ds-ancla\" href=\"#\">Precios</a></div></div><div class=\"ds-pista\"><a class=\"ds-entrar\" href=\"#\">Ingresar</a><a class=\"ds-cta-chico\" href=\"#\">Empezar gratis</a></div></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 64px; padding: 0 20px; background: color-mix(in srgb, #ffffff 86%, transparent); backdrop-filter: blur(32px) saturate(1.5); box-shadow: 0 2px 6px rgb(22 20 31 / 0.056), 0 22px 48px -16px rgb(6 44 51 / 0.24); font-family: Geist, system-ui, sans-serif; } .ds-nav-grupo { display: flex; align-items: center; gap: 24px; } .ds-marca { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.06em; line-height: 1; color: color-mix(in srgb, #0f5f6b 70%, #191510); } .ds-divisor { width: 1px; height: 22px; background: #b2ccd0; } .ds-pista { display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 14px; background: #f4f2ef; box-shadow: inset 0 0 0 1px #eae6e0; } .ds-ancla { padding: 6px 14px; border-radius: 10px; color: #4e4942; font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.006em; text-decoration: none; transition: color 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1); } .ds-ancla:hover { color: #191510; background: #ffffff; box-shadow: 0 0 0 1px #eae6e0, 0 1px 2px rgb(22 20 31 / 0.08); } .ds-ancla[data-activo] { color: #191510; background: #ffffff; box-shadow: 0 0 0 1px #d6d1ca, 0 2px 6px -2px rgb(22 20 31 / 0.18); } .ds-entrar { display: inline-flex; align-items: center; height: 35px; padding: 0 14px; border-radius: 10px; color: #191510; font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.006em; text-decoration: none; } .ds-entrar:hover { background: #ffffff; box-shadow: 0 0 0 1px #eae6e0; } .ds-cta-chico { display: inline-flex; align-items: center; height: 35px; padding: 0 16px; border-radius: 10px; background-color: #0f5f6b; background-image: linear-gradient(325deg, #0f5f6b 0%, #1f7f8c 55%, #0f5f6b 90%); background-size: 280% 100%; color: #fff; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.012em; text-decoration: none; box-shadow: 0 8px 22px -6px rgb(15 95 107 / 0.55), inset 3px 3px 7px rgb(143 195 201 / 0.45), inset -3px -3px 7px rgb(6 44 51 / 0.45); transition: background-position 0.8s cubic-bezier(0.22, 1, 0.36, 1); } .ds-cta-chico:hover { background-position: 100% 0; } .ds-ancla:focus-visible, .ds-entrar:focus-visible, .ds-cta-chico:focus-visible { outline: 2px solid #0f5f6b; outline-offset: 2px; }"
+    },
+    {
+      "name": "Chapa de estado",
+      "kind": "chip",
+      "refersTo": "chip-estado-borrador",
+      "description": "Borrador en el naranja de lo pendiente y Enviado en el verde de hecho, con un punto que late; en una lista, quietas.",
+      "html": "<div class=\"ds-chapas\"><span class=\"ds-chapa\">Borrador</span><span class=\"ds-chapa\" data-estado=\"enviado\">Enviado</span><span class=\"ds-chapa\" data-estado=\"neutro\">Sin generar</span></div>",
+      "css": ".ds-chapas { display: flex; gap: 12px; font-family: Geist, system-ui, sans-serif; } .ds-chapa { --punto: #ea6a10; position: relative; display: inline-flex; align-items: center; gap: 7px; height: 24px; padding: 0 10px 0 9px; border: 1px solid color-mix(in srgb, #ea6a10 26%, transparent); border-radius: 9999px; background: color-mix(in srgb, #ea6a10 11%, transparent); color: #a8430a; font-size: 0.8125rem; font-weight: 500; line-height: 1; white-space: nowrap; } .ds-chapa::before { content: ''; position: relative; z-index: 1; width: 8px; height: 8px; border-radius: 50%; background: var(--punto); } .ds-chapa::after { content: ''; position: absolute; left: 9px; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--punto); animation: ds-late 1.4s cubic-bezier(0, 0, 0.2, 1) infinite; } .ds-chapa[data-estado='enviado'] { --punto: #1e9a60; border-color: color-mix(in srgb, #1e9a60 26%, transparent); background: color-mix(in srgb, #1e9a60 11%, transparent); color: #136a41; } .ds-chapa[data-estado='neutro'] { --punto: #6f6960; border-color: #d6d1ca; background: #f4f2ef; color: #4e4942; } .ds-chapa[data-estado='neutro']::after { content: none; } @keyframes ds-late { 75%, 100% { transform: scale(2.2); opacity: 0; } } @media (prefers-reduced-motion: reduce) { .ds-chapa::after { animation: none; } }"
+    },
+    {
+      "name": "Cápsula de variación",
+      "kind": "chip",
+      "refersTo": "capsula-bueno",
+      "description": "Sólo adentro del reporte. El color lo decide el negocio, no el signo: que la inversión suba no es verde.",
+      "html": "<div class=\"ds-capsulas\"><span class=\"ds-capsula\" data-sentido=\"neutro\">+6,0%</span><span class=\"ds-capsula\" data-sentido=\"bueno\">−10,7%</span><span class=\"ds-capsula\" data-sentido=\"malo\">+12,4%</span></div>",
+      "css": ".ds-capsulas { display: flex; gap: 8px; font-family: Geist, system-ui, sans-serif; } .ds-capsula { display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px 0 6px; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; line-height: 1; white-space: nowrap; font-variant-numeric: tabular-nums; } .ds-capsula[data-sentido='bueno'] { background: #e3f2e9; color: #157a4a; } .ds-capsula[data-sentido='malo'] { background: #fbe8e4; color: #b5311e; } .ds-capsula[data-sentido='neutro'] { background: #f4f2ef; color: #4e4942; }"
+    },
+    {
+      "name": "Cita del producto",
+      "kind": "chip",
+      "refersTo": "cita",
+      "description": "Un literal del panel verificado contra su código, mostrado como cita y no como copy.",
+      "html": "<span class=\"ds-cita\">Redactando el análisis</span>",
+      "css": ".ds-cita { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border: 1px solid #eae6e0; border-radius: 10px; background: #f4f2ef; font-family: Geist, system-ui, sans-serif; font-size: 0.8125rem; color: #4e4942; white-space: nowrap; }"
+    },
+    {
+      "name": "Ventana con cromo de navegador",
+      "kind": "custom",
+      "refersTo": "ventana",
+      "description": "El componente firma: el oscuro vive adentro del objeto. Cromo grafito con la URL pública real, doble borde de macOS, y el documento blanco adentro.",
+      "html": "<div class=\"ds-ventana\"><div class=\"ds-navegador\"><div class=\"ds-luces\"><span></span><span></span><span></span></div><div class=\"ds-direccion\"><span class=\"ds-host\">panel.nuvloapp.com</span><span>/r/</span><span class=\"ds-token\">k7Qm2xVa</span></div><span></span></div><div class=\"ds-pagina\"><div class=\"ds-doc\"><p class=\"ds-cliente\">Mueblería Lombardi</p><p class=\"ds-periodo\">Reporte de Meta Ads · julio 2026</p></div></div></div>",
+      "css": ".ds-ventana { max-width: 560px; border: 1px solid rgb(22 20 31 / 0.14); border-radius: 16px; background: #ffffff; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.85), 0 6px 12px rgb(22 20 31 / 0.06), 0 30px 56px rgb(6 44 51 / 0.18); overflow: hidden; font-family: Geist, system-ui, sans-serif; } .ds-navegador { display: grid; grid-template-columns: auto minmax(0, 1fr) 46px; align-items: center; gap: 16px; height: 44px; padding: 0 14px; background: #1c2126; border-bottom: 1px solid rgb(255 255 255 / 0.1); } .ds-luces { display: flex; gap: 7px; } .ds-luces span { width: 11px; height: 11px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.11); } .ds-luces span:nth-child(1) { background: #ff5f57; } .ds-luces span:nth-child(2) { background: #febc2e; } .ds-luces span:nth-child(3) { background: #28c840; } .ds-direccion { justify-self: center; display: flex; align-items: center; width: min(100%, 360px); height: 28px; padding: 0 12px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 10px; background: #292e34; font-size: 13px; color: rgb(244 243 241 / 0.66); white-space: nowrap; overflow: hidden; } .ds-token { color: #ffffff; font-weight: 500; } .ds-pagina { padding: 28px 28px 0; background: #ffffff; } .ds-doc { padding: 32px 36px; border: 1px solid #eae6e0; border-bottom: 0; border-radius: 10px 10px 0 0; background: #ffffff; } .ds-cliente { margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: #191510; } .ds-periodo { margin: 8px 0 0; font-size: 14px; color: #4e4942; }"
+    },
+    {
+      "name": "Banco de KPI",
+      "kind": "card",
+      "refersTo": "hoja",
+      "description": "Cuatro KPI del reporte en una sola superficie partida por filetes (gap de 1px sobre el filete), nunca tarjetas hermanas.",
+      "html": "<div class=\"ds-banco\"><div class=\"ds-kpi\"><p class=\"ds-kpi-etiqueta\">Inversión</p><p class=\"ds-kpi-valor\"><span class=\"ds-afijo\">$</span>486.250</p><span class=\"ds-capsula\" data-sentido=\"neutro\">+6,0%</span></div><div class=\"ds-kpi\"><p class=\"ds-kpi-etiqueta\">Conversaciones</p><p class=\"ds-kpi-valor\">312</p><span class=\"ds-capsula\" data-sentido=\"bueno\">+18,6%</span></div><div class=\"ds-kpi\"><p class=\"ds-kpi-etiqueta\">Costo por conversación</p><p class=\"ds-kpi-valor\"><span class=\"ds-afijo\">$</span>1.558</p><span class=\"ds-capsula\" data-sentido=\"bueno\">−10,7%</span></div><div class=\"ds-kpi\"><p class=\"ds-kpi-etiqueta\">CTR</p><p class=\"ds-kpi-valor\">1,84<span class=\"ds-afijo\">%</span></p><span class=\"ds-capsula\" data-sentido=\"bueno\">+4,7%</span></div></div>",
+      "css": ".ds-banco { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; max-width: 656px; border: 1px solid #eae6e0; border-radius: 10px; background: #eae6e0; overflow: hidden; font-family: Geist, system-ui, sans-serif; color: #191510; } .ds-kpi { display: flex; flex-direction: column; align-items: flex-start; padding: 16px 18px 18px; background: #ffffff; min-width: 0; } .ds-kpi-etiqueta { margin: 0; min-height: 2.7em; font-size: 13px; line-height: 1.35; color: #6f6960; } .ds-kpi-valor { margin: 8px 0 10px; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; font-variant-numeric: tabular-nums; } .ds-afijo { margin-inline: 1px; font-size: 15px; font-weight: 500; color: #4e4942; } .ds-capsula { display: inline-flex; align-items: center; height: 20px; padding: 0 7px 0 6px; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; } .ds-capsula[data-sentido='bueno'] { background: #e3f2e9; color: #157a4a; } .ds-capsula[data-sentido='neutro'] { background: #f4f2ef; color: #4e4942; }"
+    },
+    {
+      "name": "La comparación de Tres pasos",
+      "kind": "custom",
+      "refersTo": "acento",
+      "description": "Reseñada entera el 17/09/2026. A la izquierda las salidas que hay hoy, como lista de descartes con su cruz, en tinta terciaria y sin superficie; la tesis a escala de titular cruzando la sección, con el verbo en el acento; a la derecha los tres pasos, con el tercero —el tuyo— en acento. Cierra arriba y abajo, y la vertical corre de una horizontal a la otra.",
+      "html": "<div class=\"ds-comp\"><div class=\"ds-hoy\"><p class=\"ds-rotulo\">Lo que hay hoy</p><ol class=\"ds-hoy-lista\"><li>Un tablero al que tu cliente tiene que entrar</li><li>Un PDF que sale solo, sin que nadie lo lea antes</li><li>Un mensaje con dos números, o nada</li></ol></div><p class=\"ds-tesis\">Ninguna deja un informe escrito que vos hayas<em class=\"ds-acento\"> aprobado </em>antes de que salga.</p><ol class=\"ds-pasos\"><li><span class=\"ds-n\">1</span><span class=\"ds-titulo\">Conectás la cuenta de tu cliente</span><span class=\"ds-frase\">Hoy exportás de Meta y cruzás en una planilla.</span></li><li data-tuyo><span class=\"ds-n\">3</span><span class=\"ds-titulo\">Lo leés, y lo aprobás</span><span class=\"ds-frase\">Por defecto, nada sale hasta que apretás el botón.</span></li></ol></div>",
+      "css": ".ds-comp { position: relative; display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); column-gap: 48px; row-gap: 32px; align-items: start; padding-block: 40px; border-top: 1px solid #eae6e0; border-bottom: 1px solid #eae6e0; font-family: Geist, system-ui, sans-serif; color: #191510; } .ds-comp::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(20rem + 24px); width: 1px; background: #eae6e0; } .ds-hoy { grid-column: 1; grid-row: 1 / span 2; display: grid; gap: 14px; align-content: start; padding-right: 24px; } .ds-rotulo { margin: 0; font-size: 0.75rem; font-weight: 600; line-height: 1.3; letter-spacing: 0.07em; text-transform: uppercase; color: #6f6960; } .ds-hoy-lista { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; max-width: 24rem; } .ds-hoy-lista li { position: relative; padding-left: 24px; font-size: 0.9375rem; line-height: 1.45; color: #6f6960; } .ds-hoy-lista li::before { content: '×'; position: absolute; left: 0; top: -1px; color: #d6d1ca; } .ds-tesis { grid-column: 2; grid-row: 1; margin: 0; max-width: 34rem; font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 600; line-height: 1.22; letter-spacing: -0.028em; } .ds-acento { font-style: normal; color: #0f5f6b; } .ds-pasos { grid-column: 2; grid-row: 2; display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; } .ds-pasos li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 4px 12px; align-items: baseline; } .ds-n { grid-row: span 2; font-size: 0.9375rem; font-weight: 600; color: #6f6960; font-variant-numeric: tabular-nums; } .ds-titulo { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.012em; } .ds-frase { font-size: 1rem; line-height: 1.6; color: #4e4942; } .ds-pasos li[data-tuyo] .ds-n { color: #0f5f6b; } .ds-pasos li[data-tuyo] .ds-titulo { color: #0b444d; }"
+    },
+    {
+      "name": "Marco de sección con sus dos verticales",
+      "kind": "container",
+      "refersTo": "filete",
+      "description": "El encuadre vigente desde el 17/09/2026: un marco de 1320 centrado cuyos cantos izquierdo y derecho son las dos verticales de la página. Sin borde de arriba —la horizontal de arriba es la de abajo de la sección anterior— y con el aire de sección adentro, para que la vertical arranque donde arranca la horizontal. Reemplaza al bloque de papel, que duró una jornada: bloque y riel son dos encuadres y no conviven.",
+      "html": "<section class=\"ds-marco\"><h2 class=\"ds-marco-titulo\">Tres pasos. El último es tuyo.</h2><div class=\"ds-marco-reja\"><p>Lo que hay hoy</p><p>Lo que queda con Nuvlo</p></div></section>",
+      "css": ".ds-marco { box-sizing: border-box; max-width: min(100%, 1320px); margin-inline: auto; padding: clamp(64px, 6.4vw, 96px) 20px; border-right: 1px solid #eae6e0; border-bottom: 1px solid #eae6e0; border-left: 1px solid #eae6e0; font-family: Geist, system-ui, sans-serif; color: #191510; } .ds-marco-titulo { margin: 0; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.032em; } .ds-marco-reja { position: relative; display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); column-gap: 48px; margin: 40px -20px 0; padding: 32px 20px; border-top: 1px solid #eae6e0; border-bottom: 1px solid #eae6e0; } .ds-marco-reja::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(20rem + 24px); width: 1px; background: #eae6e0; } .ds-marco-reja p { margin: 0; color: #4e4942; }"
+    },
+    {
+      "name": "Estado en palabra grande",
+      "kind": "display",
+      "refersTo": "espera",
+      "description": "El estado del reporte escrito en grande sobre la noche, en Control. Borrador en el naranja de lo que espera; Enviado en el petróleo aclarado. Bajó de 11vw a 4,5rem de tope el 17/09/2026: a escala de cartel comía media sección y su naranja competía con el botón. Lleva aria-hidden: lo que se anuncia es la firma.",
+      "html": "<p class=\"ds-estado\" aria-hidden=\"true\"><span>Borrador</span></p>",
+      "css": ".ds-estado { margin: 0; font-family: Geist, system-ui, sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 600; line-height: 0.9; letter-spacing: -0.055em; color: #ea6a10; } .ds-estado[data-estado=\"enviado\"] { color: #8fc3c9; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "El oscuro vive adentro del objeto, no en la página",
+    "overview": "Nuvlo vende un documento —el reporte de Meta Ads que el trafficker manda bajo su propia marca— y la landing lo muestra en vez de describirlo. El sistema es un campo **casi blanco** del que las hojas de blanco puro se separan **por filete y no por valor**, y **dos materiales que hacen todo el trabajo**: un **petróleo profundo** en la acción y un **grafito frío** que vive adentro del cromo del navegador. Desde el 13/09/2026 la noche es **casi negra**, sin tono, y una **bandeja de petróleo pálido** pone color detrás de los objetos de producto grandes.\n\n**La página es clara; lo oscuro está en el marco del objeto.** El navegador que muestra el informe se sirve como un navegador en modo oscuro, y con eso el documento blanco deja de ser una zona más de la página y se lee como documento. Es un gesto de producto y no de marca, que es la diferencia que este sitio necesita defender.\n\nLa página es clara con **dos noches casi negras**: el capítulo oscuro —Lectura, Criterio y Control, lo que pasa adentro del panel— en un solo tramo, y el Cierre. El documento se muestra dos veces y es el mismo componente: dentro de un marco de navegador con la URL pública real (lo que abre el cliente) y debajo de la barra del panel (lo que ve el trafficker antes de aprobar). Siempre a escala de lectura, desplazado y cortado, nunca miniaturizado ni centrado y contenido: eso fue lo que el dueño rechazó.\n\nUna sola familia tipográfica, Geist (12/09/2026; antes Inter con su eje de tamaño óptico), con cuatro pesos que reparten trabajo (400 lee, 500 controla, 600 titula, 700 firma) y cifras tabulares medidas antes de adoptarla. Sin eje `opsz`: el titular y el cuerpo son la misma forma escalada, y la diferencia entre escalones la hacen el peso, el tracking y el cuerpo. Densidad de producto, no de folleto: filetes de un píxel, superficies partidas en filas en lugar de tarjetas hermanas, y una jerarquía que se hace con peso y color tanto como con cuerpo. Rechazos confirmados por el dueño: el héroe de dos columnas parejas, el reporte pegado con notas al costado, la página sin acento (se leyó gris), el campo demasiado oscuro, el acento violeta (se leyó genérico) y el grana (se leyó cosmético). **Desde el 17/09/2026 la parte clara la encuadran dos verticales** —los cantos de un marco de 1320, que no van ni en el héroe ni en El entregable—, el capítulo oscuro cierra en Control —el Tablero se borró— y el documento del reporte compone un escalón más grande que la plantilla real del panel, que todavía no lo adoptó.",
+    "keyCharacteristics": [
+      "El oscuro adentro del objeto de producto, no en la página: el cromo se sirve en modo oscuro.",
+      "Un petróleo profundo en la acción, y sólo ahí y en las señales; el campo acompaña y no compite.",
+      "Dos oscuros con dos trabajos: el grafito neutro del cromo, que cita al sistema operativo, y la noche casi negra del capítulo oscuro y el Cierre.",
+      "Color a escala de superficie sólo en la bandeja de petróleo pálido, detrás de un objeto de producto que la desborda por abajo; desde el 17/09/2026 queda una sola en la página.",
+      "La página se ordena con dos verticales de un píxel, los cantos del marco: ninguna línea termina en el aire, y donde el objeto manda —el héroe, El entregable— no hay vertical.",
+      "Textos cortos: una bajada de dos o tres frases, respuestas de dos o tres frases.",
+      "El documento a escala de lectura, cortado por el encuadre, que nunca se encoge.",
+      "Una familia, cuatro pesos, cifras tabulares en todo número que pueda caer en columna.",
+      "Verde y rojo sólo adentro del reporte y asignados por el negocio, nunca por el signo.",
+      "Tres radios y una pastilla, elegidos por pertenencia: bandeja, hoja, interior, control."
+    ],
+    "rules": [
+      {
+        "name": "La Regla del Oscuro Adentro del Objeto",
+        "body": "El oscuro del sistema —el grafito— vive **en el cromo del NAVEGADOR** —su barra y el campo de la dirección—. Los dos tramos de noche fueron ese mismo material hasta el 13/09/2026; hoy son casi negros, y la regla sobre el cromo no cambia: un navegador en modo oscuro es gris, no verde azulado. **No hay fondos oscuros de sección, ni zócalos, ni botones oscuros**: cada uno de esos se construyó y se descartó en la misma tanda.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla de los Dos Colores del Negocio",
+        "body": "Verde y rojo sólo viven adentro del reporte, en la cápsula de variación, y los asigna el negocio desde los datos de muestra. Nunca se infieren del signo, nunca salen del documento, nunca se usan por estética. **Una sola excepción, y con tokens propios:** el tilde de un paso terminado (`hecho` / `hecho-campo`) en la lista de generación. Adentro del informe el verde es una afirmación de negocio que asigna el negocio; el tilde de una máquina que terminó un paso es una afirmación de máquina, no la decide nadie y es la convención más asentada que hay. La pidió el dueño (07/09/2026) al ver la lista con tildes en tinta, y ya la había sancionado en la pasada «firma». No comparten superficie ni forma: el del dato va en una cápsula con cifra; el de la máquina es un tilde sin palabra sobre una baldosa. **La segunda excepción —la columna «Costo / conv.» del Tablero— se fue con su sección el 17/09/2026 y no se hereda.** Lo que sí vale: las chapas de estado sobre la noche de los caminos de Control se retiñen (fondo al 16/18 %, filete al 38/40 %, tinta aclarada a #f08a3e y #4cc38a), porque una tinta se mide contra la superficie donde se usa.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla del Capítulo Oscuro",
+        "body": "Lo que pasa adentro del panel del trafficker va en noche y en un solo tramo —**La lectura, Criterio, Control**—; lo que ve el cliente y lo que se compra va en claro; el Cierre es la otra noche. El tramo cerraba en el Tablero hasta el 17/09/2026: hoy cierra en Control, que es donde la tesis se ejecuta. Adentro del tramo las secciones se separan con el filete de la noche y de la segunda en adelante no repiten el canto de luz. **Una alternancia de fondos sin cambio de tema es ritmo sin significado.**",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla de la Hoja Clara en la Noche",
+        "body": "Una hoja blanca adentro de un tramo de noche recupera sus tintas: los rótulos, el texto chico y el cuerpo vuelven a `tinta-3` y `tinta-2`, y el acento sobre ella vuelve a ser el petróleo de la página clara. La noche no se filtra dentro del objeto que sostiene.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla de Sin Acento Adentro",
+        "body": "El informe es del trafficker y lleva su marca, no la nuestra: adentro del documento el único color es el del negocio, en las cápsulas.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla del Material",
+        "body": "El sistema cruza a `nuvlo-panel`, y lo que cruza es el **material** —superficies, tintas, petróleo, grafito, los dos colores del negocio, radios, sombras, anillo, roles— no la escenografía. Un token que existe para poner en escena el informe en una página larga no es sistema: es decorado de una superficie, y se queda. La prueba es de una línea: **si el token no tiene trabajo en un tablero, no cruza.** `sistema/SISTEMA.md` lleva la lista con el motivo de cada exclusión.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla de la Única Familia",
+        "body": "Una familia, cuatro pesos. 400 lee, 500 controla, 600 titula, 800 firma (sólo el wordmark). No hay segunda familia ni monoespaciada «para que se vea técnico».",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla de la Escala de Lectura",
+        "body": "El documento se muestra a 16px de cuerpo y ningún dato baja de 11px. Donde no entra entero —el héroe, el panel de Control— lo corta en seco el borde de la superficie que lo sostiene; nunca se encoge ni se funde. Un documento miniaturizado se lee como captura pegada.",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla de la Medida",
+        "body": "Ningún bloque de prosa pasa de 75 caracteres por línea ni baja de 45. El tope general es **30rem** —con Inter da 68— y sube a 34 donde el bloque es una nota suelta. La medida se mide contando caracteres por línea visual en el render, nunca estimando desde el ancho de la caja: el `ch` sobreestima un 34% porque el cero es más ancho que el carácter medio de prosa. Y se remide entera con cada cambio de familia.",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla del Corte con Sentido",
+        "body": "`text-wrap: balance` iguala el LARGO de las líneas y no sabe nada del significado. En el titular del héroe partía «El reporte de tu cliente,» / «hecho. Sale cuando vos decís.» y dejaba colgando la palabra que carga la frase (dueño, 09/09/2026). Donde el corte importa se pega la unidad con un espacio duro y se deja que el balanceo elija entre los cortes que quedan legales; nunca `nowrap` en un `span`, que desborda en cuanto la frase no entra. **Un titular se compone por sentido y después por largo, no al revés.**",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla del Rótulo",
+        "body": "El rótulo en versalitas rotula lo que tiene debajo adentro de un objeto. Arriba de un titular es un copete, y el copete no existe en este sistema. En el reporte, el tipo de informe va debajo del nombre del cliente como línea de datos. **Una sola excepción nombrada (17/09/2026):** `.i-portada-rotulo`, arriba del h1 del héroe, en el acento y a 18px del titular. Dice el sustantivo que el titular no dice —«Reportes de Meta Ads para quien atiende clientes»—, y no «para traffickers freelance», para no cerrarle la puerta a las agencias chicas. Si un rótulo nuevo repite lo que el titular ya dice, es copete y no entra.",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla de la Cifra",
+        "body": "Todo número que pueda caer en columna lleva `tabular-nums`, y el signo o la unidad que lo acompaña va más chico y en tinta media para no competir con el dato.",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla del Marco",
+        "body": "Dos verticales de un píxel, y son los cantos del marco: `max-width: min(100%, 1320px)` centrado, con borde izquierdo, derecho e inferior en `filete` —`noche-filete` en el capítulo oscuro— y el aire de sección como relleno de ese marco. Miden lo mismo en todas las secciones donde están, así que se leen como una sola línea continua, y contra ellas mueren las horizontales de sección y las de adentro. No van en el héroe ni en El entregable, donde el objeto se sale de su caja a propósito y una vertical lo recortaría. Reemplaza a La Regla del Bloque, retirada el mismo día: bloque y riel son dos encuadres del mismo contenido y no conviven.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla de lo Nuestro y lo Citado",
+        "body": "**Sobre una superficie del mismo valor, lo que es NUESTRO se hunde; lo que es CITA se separa por canto y sombra.** Con el bloque en papel, los objetos blancos de adentro se apoyaban sobre su mismo valor. Bajan a `hoja-hundida` los que son composición de la landing —el diálogo de generar y la ficha del período (`:is(.i-generar, .i-periodo)`)—. No bajan los tres que citan algo real —el informe, el mail de Gmail y la pantalla del teléfono—: un reporte gris no es el reporte que se manda y un Gmail gris no es Gmail, y los tres ya se separan por su canto y su sombra. Es la licencia de la cita —lo citado se dibuja con los colores de quien lo dice— llevada del color al valor. La pregunta para un objeto nuevo no es «¿se ve el escalón?» sino «¿esto lo dibujamos nosotros o lo estamos citando?».",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla del Filete y la Superficie (retirada)",
+        "body": "RETIRADA el 17/09/2026 con el bloque que la originó, y conservada como historia: sin superficie de sección, los filetes que apagaba volvieron a ser lo único que agrupa. Decía: si hay superficie, el filete sobra; sin superficie, el filete es lo único que agrupa.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla del Argumento Propio",
+        "body": "Antes de rediseñar una sección por tercera vez, revisá si tiene argumento propio: **qué dice que ninguna otra sección dice, y qué paso de la historia mueve.** Si la respuesta es «muestra otra pantalla del panel» o «lo mismo a otra escala», ningún dibujo la va a salvar y lo que corresponde es sacarla. Nació del Tablero, que consumió tres rondas y se borró el 17/09/2026; la señal fue que ninguna de las tres críticas hablaba del dibujo. Corolario: cuando una sección se saca, la de antes hereda el cierre del capítulo y hay que revisar que lo cierre bien, no sólo que quede última.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla de la Caja",
+        "body": "Borde, radio y sombra son del objeto que **reproduce el producto** —la ventana, el panel, el mail, el teléfono, la tarjeta del borrador—. Los conjuntos de la página se agrupan con **filete y aire**, nunca con una caja. Nace de la única cosa que el dueño dijo cuatro veces seguidas: Tres pasos, Control, El entregable y Precios eran «tarjetas grandes con tarjetas adentro», y las cuatro lo eran por el mismo motivo — el sistema tenía **un solo recurso de profundidad, una superficie que contiene, y lo usaba para dos trabajos distintos**: poner en escena un objeto de producto y agrupar contenido de página. Cuando una superficie que contiene aloja un objeto que ya tiene borde, radio y sombra, el anidado es inevitable.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla de la Grilla Sutil",
+        "body": "Donde una sección es una reja de celdas, la reja se ve: **una línea vertical continua de un píxel en `filete`** entre las columnas, cruzando todas las filas en el mismo x, además de los filetes horizontales que ya parten las filas. Es la grilla de Attio, y el dueño la propuso con dudas —«tengo dudas de si suma o no; fijate vos, y si no te parece, no lo hagas»—. Suma **sólo donde explica algo**: en Tres pasos hace visible que las tres filas comparten estructura, y en Precios convierte una escalera de párrafos en celdas con orden de lectura. No va en el héroe ni en Control, donde no hay reja que mostrar: ahí una línea sería decoración, que es exactamente lo que el Overview llama decorar. Dos condiciones para ponerla: que las filas compartan la misma plantilla de columnas —si no, la línea salta de x y contradice la reja que dice mostrar— y que la línea sea un pseudoelemento en el borde de la columna, no un `border` del objeto, para no estirar objetos de alto fijo.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla de la Vertical que Cierra",
+        "body": "Una vertical corre de horizontal a horizontal, y si no hay dos horizontales no hay vertical. Una vertical que no toca una horizontal en las dos puntas se lee como una línea incompleta (dueño: «cerralas, si no parecen líneas incompletas»). Se pagó el 10/09/2026 en Tres pasos y en Precios y otra vez el 17/09/2026 en cuatro lugares a la vez: la comparación, el prompt de Criterio y los dos caminos de Control cierran ahora arriba y abajo, y sus verticales corren de una horizontal a la otra. Antes de dibujar una vertical, buscá sus dos horizontales; si falta una, lo que falta es la horizontal.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla del Aire",
+        "body": "Tres pasos y nada entre medio: **14** (`--aire-linea`) entre un titular y su bajada o entre líneas de un mismo bloque; **44, 28 en teléfono** (`--aire-bloque`) entre bloques, como relleno de una fila o de una banda teñida, y entre una banda y lo que sigue; **`clamp(64px, 6.4vw, 96px)`** (`--aire-seccion`) arriba y abajo de cada sección —el bloque es `clamp(32px, 3.4vw, 52px)` desde el 13/09/2026—. **Sin costuras por capítulo**: el 13/09 a la mañana el aire se apretaba adentro de un capítulo y se ensanchaba entre dos, y medido daba de 53 a 279px entre vecinas; el dueño pidió «ritmo parejo, sin aire exagerado ni zonas apretadas». Las únicas excepciones son de forma: Tres pasos termina en su banda y La lectura es una escena pegada. Un valor que no es uno de los tres es una decisión que hay que poder nombrar. Nació de la pasada del dueño del 10/09/2026 —«los espaciados no siguen ningún criterio… varios bloques con fondo terminan en seco»—: las filas respiraban 40/44, la banda del CTA 26, las notas 18 y 28, y la banda terminaba pegada al filete de lo que seguía.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla de la Bandeja, vuelta",
+        "body": "El dueño leyó la página «muy blanca» y el *Don't* del campo ya decía cómo dar color sin oscurecerlo: lo pone la bandeja. Vuelve, en petróleo pálido, **con las tres condiciones que la retirada dejó escritas**: **Hoy queda una sola (17/09/2026):** la de «Lo que abre» en El entregable. La regla dice cuándo se permite una bandeja, no cuántas tiene que haber.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla del Titular a la Izquierda",
+        "body": "Una sección es un titular con su bajada en la columna angosta y el objeto o el conjunto en la ancha. Dos columnas parejas no existen.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla de la Posición de Lectura",
+        "body": "El panel muestra el documento desde «Resultados del período» (`desde=\"cifras\"`): la cabecera de la hoja ya nombra el documento y lo que importa ver son los números que la IA no tocó. No es otro documento ni un recorte de secciones; es el mismo, con el encabezado y el resumen ya leídos por arriba. **Desde el 09/09/2026 el héroe usa la misma posición, en todos los anchos** —no sólo en teléfono—: fue la forma de subir el banco de KPI al primer viewport sin rehacer el titular.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla de la Pieza que Flota",
+        "body": "Una pieza flotante puede morder la bandeja, el cromo del navegador y el aire; **nunca la columna de texto del documento**. Y se verifica midiendo la TINTA, no el solape de las cajas: una caja superpuesta sobre el margen ragged de una columna no tapa una sola letra, y una caja de 332px sobre una columna de 409 se come el apellido del cliente. La tarjeta de aprobación del héroe se apoyaba sobre el informe en todos los anchos hasta que se midió así; hoy sólo se apoya donde la bandeja tiene su ancho fijo, y en el resto se corre afuera. Corolario para agregar cualquier pieza nueva: si su ancho no cabe en la holgura que la columna deja a la derecha, la pieza no va ahí —no se achica el texto ni se le pone relleno al documento para hacerle lugar—.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla de la Ventana que Mide lo que el Documento Pide",
+        "body": "La ventana del héroe mide el documento a su ancho real —**760, la hoja del reporte real** desde el 16/09/2026; era 860 cuando ésa era la plantilla del panel— más 96 de página a cada lado: **952**. Termina antes de la pantalla y se apoya en el margen derecho. El 16/09/2026 el dueño eligió seguir la regla antes que conservar la ventana de 1052, entre tres composiciones sobre el héroe a 1440 (ventana a la medida, hoja agrandada al 130% y hoja real centrada en la ventana vieja). Un objeto de producto se compone a escala real y su marco se mide desde él, nunca desde el viewport: medido desde el viewport, el documento de 612 era el 44 % de la ventana a 1440 y el 37 % a 1920, con dos bandas simétricas de 394 / 514 —dos tercios del objeto más grande de la página eran papel vacío—.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla de la Pieza que Toca Algo que se Ve",
+        "body": "Una pieza flota cuando toca la hoja blanca o un canto visible de la ventana; cruzar la banda `hoja-hundida` no cuenta, porque es casi del color de la página y el borde cruzado no se ve («apoyada en el vacío»). Las dos piezas del héroe van en esquinas opuestas —la burbuja colgando de la esquina superior derecha sobre cromo vacío, la tarjeta abajo a la izquierda mordiendo el canto— y nunca comparten columna ni vertical. **La regla se probó rota** el 16/09/2026: la tarjeta pasó unas horas en el eje del titular, suelta a 40px del canto, y el dueño la leyó «no integrada». Cuando el eje y el canto no caben juntos, gana el canto.",
+        "section": "layout"
+      },
+      {
+        "name": "La Regla del Desplazamiento",
+        "body": "Toda sombra lleva desplazamiento vertical y desenfoque. Una sombra sin desplazamiento es un halo, y el halo no existe acá; el canto de un objeto se resuelve con un borde de un píxel en tinta al 8%, no con sombra.",
+        "section": "elevation"
+      },
+      {
+        "name": "La Regla del Escalón",
+        "body": "Antes de una sombra, un escalón de valor: campo → bandeja → hoja → hoja hundida. Si un objeto no se distingue con el escalón, se revisa el objeto, no se sube la sombra.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do colgar toda horizontal de las dos verticales del marco (1320): una línea de sección o de adentro se estira con el relleno del marco en negativo y lo devuelve como relleno propio, así muere contra la vertical y el texto sigue alineado con el titular.",
+      "Do buscarle a cada vertical sus dos horizontales antes de dibujarla. Si falta una, lo que falta es la horizontal: si no hay dos horizontales, no hay vertical.",
+      "Do retirar el encuadre anterior en la misma tanda en que se pone uno nuevo. Bloque y riel dicen los dos «acá empieza la sección» y juntos dejan dos bordes izquierdos a 20px.",
+      "**Do** dejar el acento SÓLO donde hay algo para hacer —enlace, foco, selección, marca, marcador de lista— y resolver cualquier otro énfasis con la tinta, con `acento-luz` para señalar una fila, o subiendo la superficie (`hoja-hundida`) y cerrando el filete (`filete-fuerte`).",
+      "**Do** ponerle su cápsula a toda cifra que se compare contra otro período, con el tick decidido por el signo y el color decidido por el negocio desde `lib/reporte-muestra.ts`.",
+      "**Do** construir cualquier conjunto como una superficie partida por filetes —filas en una hoja, celdas con `gap: 1px` sobre el filete— y ponerle la clase de cifra a todo número que pueda caer en columna.",
+      "**Do** apoyar cada objeto de producto sobre una bandeja y hacerlo entrar desde arriba a la izquierda, saliéndose por abajo o por la derecha, con el fundido hacia el color de la propia bandeja.",
+      "**Do** mostrar el documento a escala de lectura y recortarlo con fundido donde no entra; en el panel, desde el plan de acción.",
+      "**Do** medir la bandeja contra **lo que tiene que dejar leer**, no contra el viewport ni contra un número redondo, y volver a medirla cada vez que cambia lo que muestra. Las dos condiciones son: que el contenido que la sección vino a mostrar quede ENTERO por encima del techo del fundido, y que el final del objeto quede por DEBAJO de ese techo, para que se disuelva en vez de terminar contenido. Un fundido tapa lo que sobra; nunca lo que la sección vino a mostrar. La bandeja de Control tiene tres altos —720, 676 y 806— porque el plan reflúye a más líneas cuanto más angosto es el panel, y el fundido bajó de 140 a 96px cuando lo de abajo dejó de ser la tabla de métricas y pasó a ser el plan. **Y se remide por ESTADO, no sólo por ancho.** La primera vez se midió en diez anchos y en un solo estado: al pasar a Enviado la barra de acción crece de 84 a 183px y empuja el documento, y la última acción del plan pasaba de 80px de aire a 57px adentro del degradé (cuarta crítica, 08/09/2026). La bandeja crece con el estado —848, 812 y 982—, y el salto no es parejo entre puntos de corte porque en una columna la barra se apila y el documento baja 173px en vez de 137: un `+100px` constante dejaba móvil peor que antes. El barrido que siguió comprobó que la bandeja del héroe SÍ es estable entre sus dos estados —la tarjeta se achica al aprobar y el corte no se mueve—, así que la clase queda cerrada en una sola bandeja.",
+      "**Do** declarar la columna en la MEDIDA de lo que lleva, no en doceavos, cuando el bloque ya tiene tope propio: la columna en `rem` y `justify-content: space-between`, y lo que sobra se va al hueco. Un texto topeado adentro de una columna que crece con el marco deja aire del lado de adentro, que no separa nada. Y el titular no crece nunca: en `1fr` quedó igual de ancho que el acordeón, o sea dos columnas parejas, que es lo que la *Regla del Titular a la Izquierda* prohíbe. **Todo ancho declarado necesita el umbral donde deja de entrar**: la columna fija de 650 del héroe rompió el héroe a 1024 hasta que se la encerró en `min-width: 1282px`, que es donde todavía deja 31rem para el texto (09/09/2026).",
+      "**Do** gastar borde, radio y sombra **sólo en el objeto que reproduce el producto**, y agrupar todo conjunto de página con filete y aire. Ver *La Regla de la Caja*. La pregunta que la resuelve en el momento: **¿esto existe en el panel?** Si existe, lleva caja; si es una composición de la landing, la caja sobra y el filete alcanza.",
+      "**Do** preguntarse, antes de agregar un punto de corte o un alto medido, **si acomoda al contenido o al contenedor**. En Modos, dos umbrales (640 y 1080) y dos alturas (384 y 440) existían para acomodar un hueco y un riel de 124px; al sacar la caja los cuatro se fueron y no hubo que reemplazarlos por nada. **Un objeto de alto fijo obliga a remedir cada vez que cambia su texto; uno que crece con su contenido, no** — y este archivo registra una frase que un fundido de alto fijo ya se comió una vez.",
+      "**Do** elegir el radio por pertenencia: 22 para la bandeja, 16 para lo que se apoya, 10 para lo que va adentro de una hoja, pastilla para lo que se toca o rotula.",
+      "**Do** dejar que la superficie decida el color: sobre la noche el botón se invierte a hoja, los enlaces pasan a `acento-sobre-noche`, la barra pegada se invierte entera, y una hoja clara adentro de la noche recupera sus tintas. **El anillo de foco lo decide la superficie y no la sección**: es la variable `--anillo`, que hereda —el acento en el campo, `acento-sobre-noche` en la noche, y de vuelta al acento en cualquier hoja clara que viva adentro de la noche—. Escrito como `.i-noche :focus-visible` pintaba por descendencia y no por fondo: el anillo del botón «Aprobar y Enviar» de Control se dibujaba claro sobre la banda `hoja-hundida` del panel y medía 2,57:1, bajo el mínimo de 3:1 de WCAG 1.4.11, encima en el CTA del pico de la página (crítica del 08/09/2026). **Desde el 11/09/2026 una hoja nueva no tiene que redeclarar nada**: ver *La Regla de la Isla*, acá abajo.",
+      "**Do** cerrar la CLASE y no el caso, y **enumerar midiendo, no de memoria**. El arreglo del anillo se aplicó el 08/09 sólo a `.i-panel` y la cuarta crítica encontró la misma falla intacta en `.i-modos`, la otra isla clara del mismo tramo, con las dos pestañas a 2,30:1 y 2,57:1 —el segundo, exactamente el número que el arreglo anterior decía haber cerrado—. El barrido por píxel de la quinta crítica lo confirmó en las 42 paradas, con el peor caso en 5,79:1.",
+      "**Do** darle a un objeto citado su propia tinta, medida contra su propia superficie. El sistema ya cita entero la tipografía y los grises de Gmail en la pantalla del teléfono; esto es la misma regla en el eje del color de texto. La hora de la burbuja de WhatsApp usaba `--tinta-3` y daba 4,38:1 sobre `--wa`. El gris propio de WhatsApp (`#667781`) tampoco alcanza —3,70:1—, porque el verde real de la app es más claro que éste, que lleva el paso de saturación que pidió el dueño. Sale `wa-tinta-2`, 5,81:1, contra los 14,7:1 del texto del mensaje, que es la distancia que lo deja leer como secundario. **Media cita se lee como un híbrido, y eso vale para el color del texto igual que para la familia.**",
+      "**Do** volver a medir los tres escalones de tinta contra el campo, la bandeja y la hoja cada vez que cambie la paleta; la tercera tinta no alcanza sobre la bandeja.",
+      "**Do** repartir un mismo hecho en tres ángulos y nunca en tres copias, cuando tiene que aparecer en más de un lugar: **el principio** donde se argumenta, **el literal del producto** adentro del objeto que lo cita, y **la consecuencia para el usuario** donde se contestan las objeciones. La autoinhibición del envío automático vive así desde el 08/09/2026 —bajada de Control, pestaña automática de Modos, y una pregunta—. Tres veces la misma oración es la duplicación que El entregable ya pagó una vez.",
+      "**Do** escribir el precio siempre con su moneda y su unidad, importado de `lib/precios.ts` (`PRODUCT.md`), y **componer la cifra y la unidad como un solo precio**: mismo párrafo, misma línea de base, la unidad a un escalón tipográfico de distancia (1.125rem/500, el rol de `titulo`) y en la tinta principal. Con la cifra a 40px y la unidad a 13px en la segunda tinta la regla se cumplía de letra y se incumplía de efecto: el que barre la página con la mirada se llevaba el número solo, y `PRODUCT.md` dice por qué eso importa —sin unidad se lee como abono fijo, y es un precio distinto del que se cobra— (crítica del 08/09/2026).",
+      "**Do** dibujar todo ícono en SVG con `currentColor` —la flecha, el tick, el candado, el tilde, el signo del acordeón— y que cada control dibujado haga algo.",
+      "**Do** preguntarte, antes de ajustar el valor de un objeto adentro de una superficie del mismo valor, si el objeto es nuestro o es una cita: lo nuestro se hunde a `hoja-hundida`, la cita se queda como es y se separa por canto y sombra."
+    ],
+    "donts": [
+      "Don't copiar de una referencia una estructura que no tiene. La grilla de Attio se leyó como «titulares en una columna fija a la izquierda» y se construyó así; el dueño lo rechazó —«Attio no tiene los títulos a la izquierda»— y tenía razón: la vertical de Attio separa su riel de pasos del visual, no el título del contenido. Antes de copiar un rasgo, hay que poder decir qué separa esa línea allá, no sólo dónde está.",
+      "Don't montar dos encuadres sobre el mismo contenido. El bloque de papel y la vertical del marco convivieron unas horas y la página quedaba con dos bordes izquierdos a 20px uno del otro.",
+      "Don't sangrar con margen negativo sin un ancho del que sangrar. El diálogo de Tres pasos sale del marco por la derecha, y en teléfono ese mismo margen lo cortaba contra el borde de la pantalla —medido a 390: 18px afuera, y lo que se perdía era el botón «Programar»—. Vive en @media (min-width: 1000px): un desborde es un lujo de ancho, y en angosto corta.",
+      "Don't dejar dos observadores decidiendo el mismo estado. El revelado tuvo uno para mostrar y otro para ocultar: en una bajada rápida disparan en el mismo lote, gana el último y el bloque queda invisible con la sección a la vista.",
+      "**Don't** dejar una línea donde ya hay una superficie que agrupa. Puesto el bloque de sección, los filetes que cruzaban Tres pasos, El entregable y Precios de punta a punta chocaban contra su canto y el dueño lo dijo en dos palabras: «sobran líneas» (17/09/2026). Lo mismo adentro del documento: desde que el rótulo de sección lleva su filete hasta el margen, el `border-top` del bloque era una segunda línea a treinta píxeles de la primera. **Agregar una superficie no es sólo agregar: obliga a revisar todo lo que agrupaba antes.**",
+      "**Don't** seguir redibujando una sección que no convence. El Tablero se rediseñó tres veces —bandeja, luego eje compartido con la ventana, luego fila de rótulos— y ninguna convenció; el 17/09/2026 el dueño lo borró, y el motivo no era ninguno de los dibujos: la sección no tenía argumento propio. No era ni el entregable ni la aprobación, cortaba el paso de «aprobás» a «le llega» y repetía los estados de Control.",
+      "**Don't** teñir una superficie del tamaño de una sección con el acento pálido. El bloque de sección arrancó en `acento-luz` y el dueño lo leyó «muy clínico» (17/09/2026): el celeste a escala de superficie sobre un campo cálido da consultorio. Es el mismo error del calendario —una celda chica multiplicada por treinta es una superficie grande— a otra escala: **el petróleo pálido pone en escena UN objeto, no una sección.**",
+      "**Don't** esconder la mitad de una decisión detrás de un clic cuando la sección existe para mostrar esa decisión. Los dos modos vivieron en pestañas hasta el 17/09/2026: el titular de Control promete que vos decidís y una de las dos opciones no se veía. Hoy son los dos caminos, lado a lado. Vale cuando **lo oculto es el argumento**, no para todo control segmentado.",
+      "**Don't** meter una franja oscura horizontal en el medio de una hoja clara. La barra de acción del panel estuvo oscura unas horas el 10/09/2026, cuando el cromo oscuro entró como dirección, y el dueño la hizo volver: «corta el objeto en dos», y una vez oscura el botón de adentro tenía que invertirse a blanco para no medir 1,94:1, con lo que **el CTA perdía el color justo donde la página demuestra su tesis**. La regla precisa que quedó: el oscuro va en el cromo del NAVEGADOR, que es una cita del sistema operativo y existe de verdad en modo oscuro; no en cualquier superficie de producto.",
+      "**Don't** buscar personalidad cambiando el color del botón. Esta rama probó **seis** en ese mismo rol —cobalto, azul de tinta, ámbar, ámbar quemado, naranja e iris— y el dueño leyó los últimos dos como genérico y como gris. Cuando seis valores fallan en el mismo lugar por el mismo motivo, **el problema es el rol y no el valor**: el color se mueve a la superficie más grande (el campo) y la acción se queda con la tinta (10/09/2026).",
+      "**Don't** teñir un halo con el color del objeto que lo emite cuando ese color es el complemento del campo. El resplandor del acento sobre la arcilla dejó una mancha verdosa a la izquierda del titular del héroe, leída como suciedad y no como luz. Un halo pertenece a la familia de la superficie que ilumina: por eso hay dos brillos y no uno (`resplandor` para lo que es del acento, `luz-heroe` para el fondo).",
+      "**Don't** gastar el acento donde no hay nada que hacer: nunca en una chapa, un borde de sección, un ícono decorativo, un gráfico, una alerta ni un rótulo. Las excepciones son las que ya existen —el marcador de la lista de lo incluido, el número del paso que es tuyo, los enlaces de prosa, el foco y el hover del botón secundario— y no se agregan otras. El botón SÍ es una de ellas: es el lugar principal del acento.",
+      "**Don't** marcar «acá estás» con el acento. La barrita del enlace activo de la barra y la marca de la pestaña activa de Modos nacieron con el acento el 07/09/2026 y se retiraron a tinta el 08/09: una raya de 2px señalando dónde estás es exactamente «un color que aparece en un ícono acá y una raya allá», que el Overview llama decorar, y ninguna de las dos estaba en la lista de excepciones de arriba. El «acá estás» lo hace el peso de la tinta, que es como este sistema dice que se hace la jerarquía. Ésta es la forma concreta en que el Don't de arriba se rompe en la práctica: nadie agrega el acento a un ícono, se lo agrega a un indicador.",
+      "**Don't** inferir el color de una variación desde el signo, ni usar verde o rojo para un DATO fuera del reporte: una flecha para abajo en verde es un caso válido. El tilde del paso terminado es la única excepción, con sus tokens `hecho`, y está acotada en la Regla de los Dos Colores del Negocio.",
+      "**Don't** meter el acento adentro del documento: el informe lleva la marca del trafficker.",
+      "**Don't** poner una segunda familia tipográfica ni una monoespaciada; ni un quinto peso ni un escalón de texto suelto: si un valor cae entre dos escalones, o falta un rol y se documenta, o sobra el valor y se ajusta.",
+      "**Don't** poner un rótulo de 11px en versalitas arriba de un titular para anunciarlo. El rótulo es encabezado de campo adentro de un objeto, nunca un copete; en el reporte el tipo de informe va debajo del nombre del cliente.",
+      "**Don't** resolver un conjunto con tarjetas hermanas de borde propio ni anidar una tarjeta dentro de otra; ni agregar un cuarto radio, un borde de 2px o un callout con borde grueso de color a la izquierda.",
+      "**Don't** convertir Tres pasos en pestañas. Se construyó como índice vertical tipo Attio el 08/09/2026 —tres pestañas a la izquierda, una escena a la derecha, con avance automático— y el dueño lo rechazó y volvió a las tres filas apiladas el mismo día. El motivo, en sus palabras: «no me convencieron las tarjetas de la derecha». El índice partía el conjunto en dos objetos con borde propio —la lista de pestañas y la tarjeta de la escena— y eso es lo que el Don't de las tarjetas hermanas ya prohibía: un conjunto se resuelve como UNA superficie partida en filas, y el objeto de cada paso vive adentro de su fila, no en una tarjeta al lado. Los problemas que el índice resolvía siguen abiertos: la columna izquierda vacía y las tres animaciones simultáneas.",
+      "**Don't** centrar y contener el documento en su bandeja, ni encogerlo para que entre: se desplaza y se corta con fundido.",
+      "**Don't** declarar una sombra sin desplazamiento ni un halo, ni una sombra en tinta sobre la noche: ahí la única sombra es la de hoja sobre noche.",
+      "**Don't** sumar una tercera noche. Son dos y son un paréntesis; una tercera es alternancia.",
+      "**Don't** oscurecer el campo para «dar color»: el campo es hueso claro y el color lo pone la bandeja. Con el campo un tono más oscuro la página entera se leyó gris.",
+      "**Don't** usar la tercera tinta para un dato (la columna del mes anterior ya quedó ilegible dos veces) ni apagar un elemento con `opacity` para decir que está pendiente. **Tampoco para decir que es secundario, que es por donde se coló** (08/09/2026): los días del mes de al lado del calendario llevaban `tinta-3` **más** `opacity: 0.55` y medían 2,26:1, el ratio más bajo de texto visible de la página — otra vez sobre los días del mes anterior, que es el ejemplo que este mismo Don't ya citaba. Sin el `opacity`, `tinta-3` da 5,50:1 sobre la hoja y la jerarquía se lee igual, porque los días del mes están en `tinta` a 15:1. **La jerarquía se hace con la tinta, que está medida; `opacity` multiplica un contraste que después nadie vuelve a medir.**",
+      "**Don't** dejar enfocable lo que está tapado, ni sacar del orden de tabulación sin decir por dónde se llega igual, ni nombrar en el texto un control que todavía no se ve. **Los dos primeros son el mismo problema y se pagaron uno después del otro.**",
+      "**Don't** dejar que un cambio de estado desmonte el control enfocado sin decidir a dónde va el foco. Las dos aprobaciones —la tarjeta del héroe y el panel de Control— reemplazaban el botón por otro control y el foco caía al `<body>`: medido con Enter real, `BODY` a los 100, 600 y 2000 ms en las dos (quinta crítica, 08/09/2026). Chromium reanuda el Tab siguiente cerca del hueco, pero es una heurística suya y no está en la especificación: Firefox y Safari devuelven el recorrido al principio del documento, y para un lector de pantalla el cursor virtual salta arriba de todo justo cuando cambió el estado que la página existe para demostrar. El foco va al control que ocupó el lugar del que se fue, y **sólo si el que se fue lo tenía** —se comprueba que haya quedado en `<body>`, que es la firma del desmontaje—, así el que usa mouse no se lleva un anillo que no pidió (`foco.ts`).",
+      "**Don't** emitir estilos de ocultamiento en el render del servidor: el estado por defecto es visible y ocultar es una acción del cliente. **Con una excepción, que enseña el límite (10/09/2026):** cuando algo espera fuera de vista por decisión del dueño, ocultarlo desde el cliente produce un parpadeo —el primer frame lo pinta y el segundo lo apaga—, así que el estado oculto va en el HTML **y** `@media (scripting: none)` lo devuelve a la vista sin JavaScript. Lo que sigue prohibido es un ocultamiento servido sin esa salida.",
+      "**Don't** dejar una animación en `infinite`. Tres pasadas y para —el latido de la chapa, el punto de la tarjeta del héroe, la charla del Cierre, la lista de generación, el título que escribe—: un bucle sin control de pausa incumple WCAG 2.2.2, y tres pasadas alcanzan para decir «esto está vivo». Si el estado cambia y el latido tiene que volver a dispararse, se le cambia el NOMBRE a la animación: cambiar el color no la reinicia. **Y un bucle también se acota por cuándo corre, no sólo por cuántas veces**: el cursor del título que escribe hacía una sola vuelta y aun así latía desde el montaje, a 3.000px de distancia, en una sección que el visitante no había visto; y si se scrolleaba pasando la fila a mitad de rotación se quedaba en «escribiendo» para siempre. Se apagó tres veces antes de quedar bien (crítica del 08/09/2026 y la verificación de su tanda).",
+      "**Don't** usar íconos de fuente o glifos de texto en lugar de SVG, ni dibujar controles que no hacen nada. La excepción, y es una sola: **un objeto del panel citado entero como imagen, declarado `aria-hidden`** —el calendario del primer paso, la lista de generación, la barra de acción del tercero—. Si el conjunto es un dibujo del producto y se declara como tal, no es un control roto, y el significado lo lleva el texto de al lado, que es lo que recibe el lector de pantalla. Lo que no se hace es dibujar un control suelto, sin su objeto y sin declararlo.",
+      "**Don't** estilar `a` a secas: un selector sobre `a` pisa el color de los botones por especificidad y ya pasó en esta rama; los enlaces de prosa son `a:not([class])`.",
+      "**Don't** extender el mundo retirado «Sala de revisión» ni tomar sus tokens, ni los de `/preview/neto`, `/preview/firma` o `/preview/d`, como referencia para una superficie nueva.",
+      "**Don't** dar por medido un solape con `getBoundingClientRect` de las dos cajas. Una caja que se superpone no tapa nada; lo que tapa es la caja sobre la TINTA. La cuarta crítica anotó «la tarjeta tapa 303px del bloque de identidad» midiendo cajas: medida la tinta a 1440 se perdían 16 caracteres de una sola línea —menos de lo que decía— y en cambio a 1024, que esa medición no visitó, se perdía el apellido del cliente y el tipo de informe. La medición por cajas se equivoca en los dos sentidos a la vez: exagera donde el margen es ragged y no ve nada donde el ancho cambia. Se mide con `Range` carácter por carácter, descartando lo que el `overflow` del contenedor ya recorta —si no, se cuenta como tapado texto que no se veía igual—.",
+      "**Don't** topear una medida de prosa en `ch`. En Inter el `ch` sobreestima la medida real un 34%: `62ch` sobre el informe habría dado una columna MÁS ancha que la que ya estaba mal. La medida se elige contando caracteres por línea visual en el navegador y se escribe en `rem`.",
+      "**Don't** topear el OBJETO y dejar la columna de sobra. Es el reflejo correcto aplicado del lado equivocado, y la Regla de la Medida dice lo contrario: **la columna se declara en su medida y lo que sobra se va al hueco**. Cuando se hace al revés, el sobrante cae ADENTRO de la fila: la lista de generación topeada en 30rem dejaba 331px de hueco a su derecha con el panel del prompt —que sí llena— justo debajo, y la tarjeta de la fila 3, con `width: 300px` contra el borde derecho de una fila de 1235, abría 474px en el medio. Antes de topear un objeto, preguntarse si lo que sobra va a quedar en el hueco o adentro.",
+      "**Don't** confundir un hueco HORIZONTAL entre dos elementos con el canto bajo de una columna de texto. El primero es un defecto —dos cosas que deberían relacionarse y están flungidas a los bordes—; el segundo es la forma normal de una fila con el texto a la izquierda y un objeto más alto a la derecha, y forzarlo pide contenido que no existe. La séptima crítica contó los dos juntos como «columna vacía»; sólo el primero se cerró.",
+      "**Don't** contar una diferencia del producto entrecomillando dos strings cuando se puede mostrar. Los dos pies del informe —«Estudio Bravo · Generado con Nuvlo» y «Estudio Bravo»— se citaban dentro de un párrafo de 15px, después de que la página prometiera «sale con tu marca» cuatro veces. Hoy se ven con la tipografía del documento, en **un hueco partido por un filete** —no en dos tarjetas—: la diferencia es de dos palabras y se lee sin que nadie la explique. Nacieron como dos tarjetas de 637×95 con borde, radio y fondo hoja adentro de la hoja de Precios, que es el *Don't* de las tarjetas hermanas y el de la tarjeta anidada a la vez, y en el remate de la sección del precio (octava crítica, 09/09/2026). El de Marca Blanca llevaba además un filete distinto «porque es el que la nota está vendiendo»: se sacó, porque **agregaba una segunda diferencia entre dos objetos cuyo argumento es que se diferencian en una sola cosa** y dejaba al lector buscando qué más había cambiado. Cuál es cuál lo dicen los dos rótulos.",
+      "**Don't** dejar que un observador de entrada dispare sin que el visitante se haya movido. Las dos piezas del héroe entraban con el 60 % de la escena en pantalla y **en un monitor alto eso pasa al cargar**: la entrada existía y nadie la veía. Hoy el observador exige además `window.scrollY > 0`, y la intención de scroll —rueda, dedo, tecla o el propio evento— dispara igual. La red de seguridad se conserva para quien llega con la página ya scrolleada. Pedido del dueño, 10/09/2026: «que aparezcan con el primer scroll».",
+      "**Don't** dejar que una animación de entrada esconda lo que entra — **con una excepción, que la eligió el dueño el 10/09/2026:** las dos piezas flotantes del héroe esperan fuera de vista y entran cuando la escena entra en el viewport, porque visibles desde el principio «parecían contenido del reporte en vez de algo que flota encima». La regla sigue valiendo para todo lo demás; acá el revelado es el argumento de que flotan, y el costo —el primer frame pintado sin la tarjeta en una pantalla de 900— quedó dicho y aceptado. Puede mover un objeto —escala, desplazamiento— y no puede bajarle la opacidad, porque el primer frame pintado es lo que ve el que no scrollea, el que comparte el enlace y el que rebota. Las dos piezas del héroe esperaban en `opacity: 0` a la primera intención de scroll y medían 0 a los 3,5s en los tres anchos, justo cuando la tarjeta había pasado a ser la única marca del primer viewport (octava crítica, 09/09/2026). El gesto se conserva entero moviendo sólo la escala. **Y el corolario, que es el que muerde:** cuando una decisión de composición le transfiere un trabajo a un objeto —«esto lo carga la tarjeta»—, hay que volver a mirar bajo qué condiciones ese objeto existe. Acá las dos decisiones eran razonables por separado y juntas dejaban el argumento afuera de la pantalla. **Y la transición vive en el estado que entra, nunca en la pieza:** declarada en la pieza, se anima también el paso a oculto, y las dos se desvanecían solas en los 700ms siguientes al primer frame (décima crítica).",
+      "**Don't** pintar el fondo en una capa que otra capa opaca tapa. `.i-fondo` declaró 1200px de lavado y resplandor durante tres días y `main`, opaco, dejaba ver 64: una banda lavanda a todo el ancho cortada al ras de la barra, y el resplandor «detrás de la bandeja del héroe» no existió en ninguna captura (décima crítica). Un token que ningún píxel usa se encuentra midiendo el píxel —`rgb` a dos alturas—, no leyendo el CSS. Hoy el lavado vive en `main`.",
+      "**Don't** verificar el pliegue a 900 y a 800 y darlo por cerrado. 768 es la altura del portátil más común después de 1920×1080, y ahí el banco de KPI terminaba 64px abajo (décima crítica). La altura se enumera como se enumeran los anchos.",
+      "**Don't** cerrar una clase escribiendo el tope en un solo objeto de esa clase. El tope de `100% - 480` nació para la ventana de «Lo que abre» cuando el teléfono la tapaba 155×196px, y **no se le aplicó al mail, que comparte fila con el mismo teléfono**: a 1060 el aparato se comía `listo.` y a 1024 `está listo.`, el predicado de la única oración del mail, en la sección que existe para que se lea. El arreglo estaba mudado, no cerrado — que es la misma falla que este archivo ya registra para el anillo de foco, ahora en el eje de los objetos hermanos. Antes de dar por cerrado un tope: **quiénes más comparten fila con el objeto que lo motivó.**",
+      "**Don't** dar por verificada una tanda midiendo sólo lo que vino a arreglar. **La verificación mide también lo que la tanda podía romper.** El barrido del 09/09 midió el solape de la tarjeta contra el documento y el corte en hueco —lo que la reescritura del héroe venía a resolver— y no midió el recorte contra el viewport ni los huecos horizontales de la sección que acababa de recibir la misma regla que la anterior: la tarjeta salía de la página en dos de los tres anchos declarados y Precios repetía el `space-between` que `.i-formas` acababa de perder (novena crítica, 10/09/2026). Cuatro de los seis hallazgos de esa crítica eran de la tanda del día anterior. Antes de cerrar: **qué más toca este cambio, y qué se puede salir de dónde.**",
+      "**Don't** cerrar un ancho declarado en la fila que lo motivó. **Se cierra enumerando todas las filas de la misma clase**, y la enumeración se hace sobre el código, no sobre la memoria de lo que ya se tocó: `.i-formas` perdió el `space-between` y `.i-plan-fila`, `.i-cuenta` y `.i-planes-comun` lo conservaron en la misma tanda; el bloque de blancos táctiles enumeraba ocho selectores y ninguno era `[role=\"tab\"]`. Es la tercera y la cuarta vez que este archivo registra la misma falla con distinto disfraz.",
+      "**Don't** medir el contenedor cuando lo que te importa es el objeto. `.i-mail-recorte` tiene márgenes negativos y desborda la bandeja 64px, pero **el mail termina a 472 en una bandeja de 560**: los ~88px de hueco que la séptima crítica anotó existían, y yo los di por inexistentes midiendo el recorte en vez del objeto. Fue el mismo error que este archivo ya registra para los solapes —caja en vez de tinta— aplicado a la vertical.",
+      "**Don't** declarar un par de objetos lado a lado sin decir dónde dejan de entrar. La fila 1 de Tres pasos era `grid-template-columns: minmax(0, 1fr) auto` sin umbral, y como el objeto de la derecha mide 292px fijos, la ficha del cliente se quedó con lo que sobraba: medida, **38px de ancho por 686 de alto** a 390 y 430, 91 a 1024, 167 a 1100. Se rompió la Regla del ancho declarado el mismo día en que se escribió. Y no se arregla con una media query —el ancho de ese contenedor NO es monótono con el viewport: a 899 da 710 y a 1024 da 411—: se arregla con `flex-wrap` y una base en la que el objeto de la izquierda todavía se lea, que hace la cuenta sola y sin umbral escrito.",
+      "**Don't** meter un espacio duro adentro de una cadena que CITA al panel. Las notas del prompt y las pistas de generación son strings del producto, no copy nuestro: sus huérfanas se aguantan. El espacio duro es para la prosa de la página. Y se escribe ` `, nunca el carácter literal, que es invisible en el código y el próximo que edite la línea lo borra sin enterarse.",
+      "**Don't** usar una media query de viewport para decidir la forma de un objeto que no mide lo que mide el viewport. El banco de KPI pasaba a dos por dos con `@media (max-width: 640px)`, y su ancho real va de 249 a 532 según dónde esté: por ese hueco el informe mostró «$486.25» —una cifra de plata sin su último dígito— en toda la banda de 1024 a 1168, y cuatro críticas no lo vieron porque vivía debajo del pliegue. Lo que decide la forma de un objeto es su propio ancho: `@container`.",
+      "**Don't** dar por bueno lo que sube al primer viewport sin volver a mirarlo ahí. Subir el banco de KPI no lo cambió en nada y sin embargo destapó dos defectos que ya existían —la cifra recortada y un filete separador flotando arriba del documento, huérfano porque `display: none` saca al hermano del render pero no del selector `+`—. Los dos se ven en una captura y ninguno aparece en una medición de solapes: **el pliegue no arregla ni rompe nada, sólo decide quién mira.**",
+      "**Don't** cambiar el alto de un renglón del documento sin volver a derivar los tramos de altura de la bandeja del héroe. Bajar de renglón la comparación del período empujó el informe 19px y el corte pasó a comerse los últimos 9 del banco de KPI —el defecto exacto que esos tramos vinieron a evitar—. Los tres altos son «dónde termina el banco» más 10, y ese número se mide, no se hereda.",
+      "**Don't** apilar una reja con `1fr` pelado. `1fr` es `minmax(auto, 1fr)` y hereda el `min-content` de cualquier hijo `nowrap` o con piso en `rem`: la columna de Control medía 366px fijos y el texto se cortaba a mitad de palabra en 360 y 320, sin que el `scrollWidth` del documento lo delatara porque el `clip` de `.iris` se lo tragaba. Apilar es `minmax(0, 1fr)`, y un piso en `rem` va topado en `min(x, 100%)`. Lo que lo encuentra es medir el `scrollWidth` de cada sección contra el viewport (adapt, 10/09/2026).",
+      "**Don't** dar por resuelta una composición porque nada tape nada. La auditoría de colisiones dio cero y el documento ocupaba el 44 % de su ventana: la proporción documento/ventana, dónde cae el vacío y si las piezas tocan algo que se ve se miden aparte, y el dueño las lee antes que cualquier solape (10/09/2026).",
+      "**Don't** sacar la instrucción de la tarjeta a un párrafo suelto sobre el papel. La pista «Está en borrador. Apretá…» quedó «huérfana, sin fondo ni contenedor»; es la franja superior de la tarjeta, rebajada y con filete (10/09/2026).",
+      "**Don't** apilar burbuja, pista y tarjeta en una misma columna junto a la ventana: se leen como una tercera columna de contenido, no como piezas que flotan (10/09/2026).",
+      "**Don't** poner una pieza flotante entera sobre la hoja del documento: es una pegatina adentro del informe, no algo apoyado encima. Cuelga de un canto o muerde uno (10/09/2026).",
+      "**Don't** usar una reja de medida fija «con el sobrante en el hueco» para una composición de dos mitades: en Precios dejó 464px de campo vacío a la derecha («quedó tirado a la izquierda»). Esa regla es para filas de dos textos; dos mitades se declaran como mitades (10/09/2026).",
+      "**Don't** copiar el código de un componente de 21st.dev ni sus dependencias: se toma su dibujo —el riel con perilla, el tilde en su disco, la cifra que cuenta, la entrada por palabras— y se construye con los tokens, los roles y la mecánica de la rama. Los dos botones sin rol del conmutador original y su `framer-motion` no entraron (10/09/2026).",
+      "**Don't** dar por accesible lo que una librería dice que anima: NumberFlow no expone nombre en cliente y un lector de pantalla leía los carretes de dígitos. Se mide con el árbol de accesibilidad y, si falla, el número va en texto sólo para lectores (10/09/2026).",
+      "**Don't** escribir un selector pelado en las hojas de `app/estilos/`. Desde la promoción se cargan en **todas** las rutas, así que un selector sin `.iris` delante alcanza también a las nueve direcciones históricas de `/preview`. Se pagó una vez y el error es instructivo: las once reglas de `[data-entra]` estaban sin prefijo, y como `firma`, `neto` y `registro` escriben ese mismo atributo y **sí** scopean las suyas, ganaban ellas en todo salvo en el desenfoque —les quedaba un `blur(6px)` que nada pisaba—. Al prefijar se prefijan **todas** las reglas del bloque, no sólo las que se filtran: hacerlo de a una cambia las distancias de especificidad de adentro (11/09/2026).",
+      "**Don't** dejar que el piso de accesibilidad dependa de un token de un mundo. El `:focus-visible` global de `globals.css` pintaba con el ámbar de «Sala de revisión», o sea que el día que ese mundo se borrara el piso se iba con él sin que nada avisara. Hoy es `currentColor`: hereda la tinta de lo que enfoca y no puede quedar invisible porque alguien borró una variable. Cada superficie lo afina; ninguna puede sacarlo (11/09/2026).",
+      "**Don't** juzgar un cambio de render con una captura de página completa. `fullPage` compone distinto que el viewport: al sacar el grano del `body` —cuyo `mix-blend-mode` forzaba una capa— la captura completa mostraba el texto de la home pasando de antialiasing en grises a subpíxel a 768 y 390, con el 83 % de los píxeles de borde de glifo con franja de color. **En el render de viewport, que es lo que ve el visitante, las capturas son byte a byte idénticas.** Lo que se compara tiene que ser lo que se muestra, y toda captura espera `document.fonts.ready`: sin eso la home mide 239px distinto según haya intercambiado la fuente o no (11/09/2026).",
+      "**Don't** heredar en una superficie nueva lo que es de un rol y no de una etiqueta. El redondeo de abajo, la sombra de 24px y el haz de luz del héroe colgaban de `.iris > main`, que era cierto mientras la home era la única página del mundo. Las legales lo heredaban sin tener telón debajo: el borde redondeado se leía como error de render y la sombra caía sobre nada. Hoy eso es `.i-cortina` — **la cortina es un rol, no «el main de la página»** (11/09/2026).",
+      "**Don't** poner `container-type` en el mismo elemento cuya grilla tiene que cambiar con `@container`. Un contenedor no se puede consultar a sí mismo: las reglas alcanzan a sus hijos y no a él. El tablero lo tenía en `.i-tablero-app`, así que a 390 se escondía la barra lateral pero la grilla seguía reservándole 188px y el texto quedaba en una columna de una palabra por renglón. El contenedor va en el envoltorio (13/09/2026).",
+      "**Don't** cambiar el acento sin buscar el color viejo en todo lo que no se llama `acento`. Un día después del paso a petróleo, las bandejas seguían en el rosa del vino y tres sombras —la de ventana, la del héroe y la de lo que flota— llevaban el vino adentro: el mail de El entregable tenía un halo rosado sobre una página verde azulada. Nadie las retiñó porque no se llamaban como el acento. Se busca el valor, no el nombre (13/09/2026).",
+      "**Don't** afirmar «nada sale sin apretar el botón» sin «por defecto». El envío automático por cuenta y el envío programado de un reporte salen sin él, y los dos los elige el usuario. La tesis que es verdad en todos los caminos es «nada sale sin que vos lo decidas»; la del botón es la del modo por defecto. La landing la tenía sin salvedad en Tres pasos, en dos respuestas de Preguntas y en la tarjeta social (13/09/2026).",
+      "**Don't** fundir con una máscara una hoja blanca contra el negro. El degradé pasa por el gris y deja franjas que se leen como suciedad en el borde de la pieza más cuidada (crítica de la pasada de elevación, 13/09/2026). Si el objeto tiene que cortarse, que lo corte un borde: la barra, la ventana, la bandeja.",
+      "**Don't** atenuar las partes que no importan de un documento con opacidad baja o con desenfoque. Las dos se leyeron como render roto; lo que se lee como atenuación elegida es un velo encima, con la parte que importa por encima del velo.",
+      "**Don't** pegar debajo de la barra algo que asuma su alto sin medirlo contra la barra real. La barra llegó a medir 87px con la franja legal y la escena de La lectura quedaba 23px metida debajo; se resolvió haciendo que la franja se vaya con el scroll, no moviendo los 64.",
+      "**Don't** alternar claro y oscuro entre secciones del mismo tema. Criterio en claro entre dos noches armó una cebra (ver *La Regla del Capítulo Oscuro*).",
+      "**Don't** confiar en que un `overflow: hidden` recorta a un hijo absoluto si el padre dejó de estar posicionado. El telón pasa a no pegarse en teléfono y, estático, el wordmark gigante se ubicaba contra `.iris` y agregaba 35px de campo claro debajo del pie.",
+      "**Don't** escribir una bajada o una respuesta de cinco renglones. El dueño pidió cortar los bloques largos para que se lea cómodo: una bajada dice su idea en dos o tres frases, y una respuesta de Preguntas conserva la afirmación que contesta y deja el porqué a la sección que lo demuestra (13/09/2026)."
+    ]
+  }
+}

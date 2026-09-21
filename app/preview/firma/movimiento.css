@@ -1,0 +1,281 @@
+/**
+ * EL MOVIMIENTO.
+ *
+ * ═══════════════════════════════════════════════════════════════════════════
+ * UNA SOLA SECCIÓN ATADA AL SCROLL (06/09/2026)
+ * ═══════════════════════════════════════════════════════════════════════════
+ *
+ * La pasada anterior ató cinco piezas al scroll. Técnicamente scrubbeaban
+ * perfecto —medido, exacto en los dos sentidos— y aun así **se sentían
+ * trabadas**: cuando el progreso lo manda el dedo, cada micro-parada de la
+ * rueda es una micro-parada de la animación, y la incomodidad no la arregla la
+ * fluidez técnica porque no viene de ahí. Viene de que el ojo espera que una
+ * animación tenga su propio tiempo.
+ *
+ * Así que queda UNA, y el resto pasa a dispararse por entrada en pantalla y
+ * correr con su propio timing.
+ *
+ * ── POR QUÉ LA QUE QUEDA ES «CÓMO SALE» ────────────────────────────────────
+ * Porque es la única donde el scroll SIGNIFICA algo. Un índice con indicador de
+ * progreso es, literalmente, un lector de la posición del scroll: la barra
+ * llena dice cuánto del recorrido llevás. Atar eso al dedo no es un efecto, es
+ * lo que el elemento informa. En cualquier otra sección el scroll era sólo el
+ * motor de una animación que se bastaba sola.
+ *
+ * Y se acortó de 340vh a 220vh: si es la única que ancla, tiene que ser corta.
+ *
+ * ── Y UN SEGUNDO MECANISMO, QUE NO CONTRADICE LO ANTERIOR (07/09/2026) ─────
+ * Sigue habiendo UNA sola sección atada al scroll. Lo que se agregó es otra
+ * cosa: **ciclos autónomos que arrancan al entrar en pantalla**, en
+ * `components/preview/firma/useCiclo.ts`.
+ *
+ * La diferencia es de eje, no de técnica. `useProgreso` reparte una POSICIÓN
+ * —dónde está el dedo— y por eso quedó sólo donde el scroll significa algo. Un
+ * ciclo autónomo reparte TIEMPO: «Se arma» muestra los estados por los que pasa
+ * un reporte mientras se genera, y esos estados se suceden solos, duren lo que
+ * duren. Atarlos al scroll diría que el reporte se arma más rápido si bajás más
+ * rápido, que es lo contrario de lo que la sección afirma.
+ *
+ * Tampoco es una entrada: `Observado` dispara una vez y termina. Esto es un
+ * bucle, con dos ramas de distinta duración y con una pausa real —el `rAF` se
+ * cancela, no se atenúa— cuando la sección no está a la vista. El estado se
+ * audita desde afuera con `data-ciclo="corriendo" | "pausado"`.
+ *
+ * Y se apaga igual que todo lo demás: con `prefers-reduced-motion` el hook no
+ * engancha nada y el servidor ya emitió el estado final del ciclo, así que la
+ * sección se ve completa y quieta sin una sola regla que la restaure. Es la
+ * misma razón por la que el neutro de `--p` es 1.
+ *
+ * ── LO QUE SE PUEDE ANIMAR ─────────────────────────────────────────────────
+ * `transform`, `opacity` y `clip-path`. Ninguna dispara layout.
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LO QUE SIGUE ATADO AL SCROLL: EL RECORRIDO
+
+   `--p` va de 0 a 1 mientras la sección tapa la pantalla. La llena
+   `animation-timeline` donde existe y `useProgreso.ts` donde no, y el efecto se
+   escribe una sola vez consumiéndola.
+
+   ── EL NEUTRO ES 1, NO 0 ───────────────────────────────────────────────────
+   O sea el estado FINAL. Si fuera 0, cualquiera que caiga fuera de los dos
+   caminos —navegador viejo, JavaScript apagado, `prefers-reduced-motion`— vería
+   la sección vacía esperando un progreso que nunca va a llegar.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@property --p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@keyframes f-progreso {
+  from {
+    --p: 0;
+  }
+  to {
+    --p: 1;
+  }
+}
+
+/* El rango `contain` de un elemento más alto que el viewport es exactamente el
+   tramo en que lo tapa entero, o sea lo que dura el anclaje. `useProgreso.ts`
+   calcula lo mismo en aritmética. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-escena="anclada"] {
+      animation: f-progreso linear both;
+      animation-timeline: view();
+      animation-range: contain 0% contain 100%;
+    }
+  }
+}
+
+/* ── LA BANDA ───────────────────────────────────────────────────────────────
+   Un tramo de `--p` que enciende un paso y lo apaga al salir. Reemplaza al
+   estado en JavaScript: frenar a la mitad deja el estado a la mitad, porque no
+   hay nada que «haya ocurrido».
+
+   **Hereda**, y no es un detalle: la banda se declara en la fila del paso, pero
+   quienes la consumen son su pseudo-elemento de fondo y el número de adentro.
+   Con `inherits: false` un pseudo-elemento recibe el valor INICIAL y las cuatro
+   filas quedaban encendidas a la vez. */
+
+@property --a {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+.f-banda {
+  --a: calc(
+    clamp(0, calc((var(--p) - var(--desde)) * 60), 1) *
+      clamp(0, calc((var(--hasta) - var(--p)) * 60), 1)
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TODO LO DEMÁS: ENTRADAS CON TIEMPO PROPIO
+
+   Se disparan cuando el bloque entra en pantalla —`Observado.tsx` escribe
+   `data-entra`— y de ahí corren solas. El visitante llega a la sección y las
+   cosas aparecen; si sigue bajando, la animación termina igual.
+
+   ── EL TIMING BAJÓ ─────────────────────────────────────────────────────────
+   Las entradas estaban en 900ms con un desenfoque de 8px, de una pasada donde
+   se había pedido «más lentas». El pedido posterior las contradice y manda el
+   posterior: corto y preciso, no lento y dramático. 460ms, escalón de 70ms, y
+   el desenfoque afuera —era lo que más las hacía sentir pesadas, y encima es lo
+   más caro de animar de las tres propiedades que había ahí—.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * ── EL CORTE A OSCURO ──────────────────────────────────────────────────────
+ * El manto sube tapando el claro. Es la única transición fuerte de la página y
+ * se usa una vez: al salir del tramo vuelve el degradado normal.
+ *
+ * El corte NO se atenúa como el resto de los bloques: si el propio manto
+ * entrara con opacidad, dejaría de ser un corte y sería un fundido. Por eso
+ * anula la entrada genérica y anima sólo su recorte.
+ */
+.firma .f-c-corte[data-entra="oculto"],
+.firma .f-c-corte[data-entra="visto"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .f-c-corte[data-entra="oculto"] .f-c-manto {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .f-c-corte[data-entra="visto"] .f-c-manto {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 620ms var(--curva);
+  }
+}
+
+/**
+ * ── EL MAIL ESCRIBIÉNDOSE ──────────────────────────────────────────────────
+ * Cada línea entra detrás de la anterior, con su lugar en `--orden`. Más
+ * apretado que el escalón general —55ms— porque son seis líneas seguidas
+ * adentro de una misma pieza y a 110ms la última llegaba tardísimo.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .firma [data-entra="oculto"] .f-tel-linea {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .firma [data-entra="visto"] .f-tel-linea {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 420ms var(--curva),
+      transform 420ms var(--curva);
+    transition-delay: calc(160ms + var(--orden, 0) * 55ms);
+  }
+
+  /* El botón es lo último y lo único con escala: marca el final de la escritura
+     sin que haga falta ninguna otra señal. */
+  .firma [data-entra="oculto"] .f-tel-boton-fila {
+    transform: translateY(8px) scale(0.96);
+  }
+}
+
+/**
+ * ── EL WORDMARK DEL CIERRE ─────────────────────────────────────────────────
+ * Sube desde el corte. Es el último movimiento de la página y el más chico: acá
+ * el visitante ya decidió o ya se fue, y una sección que se luce después de la
+ * acción compite con su propio botón.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .firma [data-entra="oculto"] .f-firma-grande span {
+    transform: translateY(30%);
+  }
+
+  .firma [data-entra="visto"] .f-firma-grande span {
+    transform: none;
+    transition: transform 720ms var(--curva);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL CICLO DE «SE ARMA»
+
+   El único movimiento de la página que no lo dispara ni el scroll ni una
+   entrada: corre solo mientras la sección está en pantalla. Quién lo mueve y
+   por qué existe está en `useCiclo.ts`; acá está sólo cómo se ve.
+
+   ── TODO SALE DE DOS ATRIBUTOS ─────────────────────────────────────────────
+   `data-oculto` para lo que todavía no se produjo, y `data-estado` en cada nodo
+   para en qué anda. El hook los escribe y el CSS resuelve el resto: no hay una
+   sola medida ni una sola transición en JavaScript.
+
+   ── `data-oculto` ES OPACIDAD, NO `display` ────────────────────────────────
+   Y no es una preferencia: los cuatro KPI, la alerta y las tres acciones tienen
+   que RESERVAR SU LUGAR desde el principio para que la pieza mida lo mismo
+   vacía que llena. Con `display` la pieza crecería seis veces por ciclo y la
+   página entera saltaría debajo de ella.
+
+   Esto no contradice el «Don't» de apagar con opacidad: ese Don't prohíbe usar
+   la opacidad para decir que algo está PENDIENTE o INACTIVO —un estado—, y acá
+   dice que algo TODAVÍA NO EXISTE, que es una etapa del tiempo. Lo que sí está
+   pendiente en esta sección —un paso que no llegó— se dice con la forma del
+   indicador y con el contraste del texto, nunca apagándolo.
+
+   ── EL FUNDIDO DEL FINAL ───────────────────────────────────────────────────
+   Al terminar el ciclo el grafo entero se va en 320ms y vuelve en 420ms con
+   todo en cero. Es corto y es lo único que se funde: rebobinar sin fundido deja
+   ver ocho tildes apagándose a la vez, que se lee como un error de render y no
+   como un ciclo que vuelve a empezar.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .f-sa-seccion [data-oculto] {
+    transition: opacity 420ms var(--curva);
+  }
+
+  .f-sa-grafo {
+    transition: opacity 420ms var(--curva);
+  }
+
+  .f-sa-seccion[data-fundido="si"] .f-sa-grafo {
+    opacity: 0;
+    transition-duration: 320ms;
+  }
+}
+
+.f-sa-seccion [data-oculto="si"] {
+  opacity: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL APAGADO
+
+   `prefers-reduced-motion` no acorta: apaga. Sin `animation-timeline` declarado
+   y sin el hook montado, `--p` queda en su neutro —1— y la página entera se ve
+   completa y quieta. No hace falta ninguna regla que «restaure» nada, y ésa es
+   la ventaja de que el neutro sea el final.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .firma *,
+  .firma *::before,
+  .firma *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+
+  /**
+   * La banda se apaga entera. Con `--p` en 1 el único tramo que queda encendido
+   * es el último, así que el índice del recorrido terminaba señalando el paso
+   * 04 como si el visitante hubiera llegado hasta ahí. Sin recorrido no hay
+   * paso activo, y los cuatro se leen iguales, que es lo que son.
+   */
+  .f-banda {
+    --a: 0;
+  }
+}

@@ -1,0 +1,584 @@
+/**
+ * EL DOCUMENTO — el reporte tal como lo genera el panel.
+ *
+ * Mismas secciones y mismo orden que `buildReportHtml()`:
+ * encabezado → resumen ejecutivo (y alerta) → resultados del período (cuatro
+ * KPI) → métricas detalladas (tabla) → plan de acción → cierre y pie.
+ *
+ * ── LAS MEDIDAS SON LAS DEL REPORTE REAL (16/09/2026) ───────────────────────
+ * Hasta esta fecha este archivo tenía las suyas —hoja de 860, cuerpo de 13,5,
+ * prosa topeada en 27rem, banco a cuatro columnas desde 520— y el panel las
+ * había copiado de acá. El panel las corrigió al componer el reporte que el
+ * cliente lee como página propia, y por decisión del dueño esta vez la landing
+ * se alinea después: mismas medidas y mismos umbrales que `DOC_CSS` en
+ * `nuvlo-panel/src/lib/report-generator.ts`, donde está el barrido que midió
+ * cada uno. Si allá cambian, acá se cambian en la misma tanda.
+ *
+ *   hoja 760 · relleno 52 (24 abajo de 480) · cuerpo 16/1,6
+ *   la prosa topa en 556 —75 caracteres por línea— y los datos van a todo el
+ *   ancho (656). La hoja fue 660 unas horas y el dueño la vio angosta: el techo
+ *   de medida es de la prosa, no del banco ni de la tabla
+ *   banco a cuatro columnas desde 640 de contenedor
+ *   «Anterior» como columna desde 470; abajo, como segunda línea de la celda
+ *
+ * ── SE RECORTA, NUNCA SE ENCOGE ─────────────────────────────────────────────
+ * Donde no entra entero —el héroe, el panel de Control— se corta con fundido.
+ * Un documento miniaturizado se lee como captura pegada, y el cuerpo de 16 es
+ * justo lo que el cliente lee.
+ *
+ * ── UNA SUPERFICIE, PARTIDA POR FILETES ─────────────────────────────────────
+ * El reporte es UN objeto: los bloques se separan con un filete de 1px y el
+ * banco de KPI se arma con `gap: 1px` sobre el filete. No hay tarjetas
+ * hermanas adentro del informe.
+ *
+ * ── SIN ACENTO ADENTRO ──────────────────────────────────────────────────────
+ * El informe es del trafficker y lleva su marca, no la nuestra. Adentro del
+ * documento el único color es el del negocio, en las cápsulas.
+ */
+
+/* El documento es contenedor de consulta: el banco y la tabla deciden por SU
+   ancho y no por el del viewport, así el mismo informe se compone bien en las
+   tres ventanas de la página. El relleno vive en `.i-doc-in`: un contenedor no
+   puede consultarse a sí mismo, y con el relleno acá la regla de angosto no
+   dispararía nunca (medido en el panel: 44 de relleno a 390 en vez de 24). */
+.i-doc {
+  container-type: inline-size;
+  max-width: 760px;
+  margin-inline: auto;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-tinta);
+}
+
+/* ── UN ESCALÓN MÁS GRANDE (17/09/2026) ─────────────────────────────────────
+   El dueño leyó el reporte «pobre» —el problema no era dónde estaba puesto en
+   la página sino el documento mismo— y eligió, entre tres tratamientos, éste:
+   la misma información un escalón más grande y con más aire, sin agregar ni
+   sacar nada. Lo que subió: el nombre del cliente de 28 a 34, la prosa de 16 a
+   17, la cifra de KPI de 22 a 26, la tabla de 15 a 16 y el relleno de la hoja.
+   Y los rótulos de sección dejan de ser una etiqueta suelta: son un renglón con
+   filete que cruza la hoja, que es lo que hace que un documento largo se lea
+   por bloques.
+
+   Se descartaron, con motivo: las fichas de KPI sobre gris con barras de
+   variación en la tabla (las barras no las emite la plantilla real) y la banda
+   de marca de la agencia encabezando el documento (el panel no la dibuja, no
+   guarda logo ni iniciales, y pintada con el petróleo de Nuvlo contradecía la
+   promesa de marca blanca). La banda queda propuesta para el panel.
+
+   ── ESTO ADELANTA AL PANEL, Y HAY QUE ADOPTARLO ALLÁ ────────────────────────
+   Las medidas de acá eran las de `report-generator.ts` (`nv-doc`), y con este
+   cambio la landing queda un escalón por encima. Es el orden que fija
+   `PRODUCT.md` —la landing elige, el panel adopta después— pero hasta que se
+   adopte, el documento que se ve acá compone distinto del que se manda. */
+.i-doc-in {
+  padding: 64px 60px 56px;
+}
+
+/* Una sola línea por costura (17/09/2026): desde que el rótulo de sección lleva
+   su filete hasta el margen, el borde del bloque era una segunda línea a treinta
+   píxeles de la primera. El borde queda sólo donde el bloque siguiente NO tiene
+   rótulo —el cierre—, que es el único lugar donde hace falta. */
+.i-doc-bloque + .i-doc-bloque {
+  margin-top: 30px;
+  padding-top: 28px;
+}
+
+.i-doc-bloque + .i-doc-bloque:not(:has(.i-rotulo)) {
+  border-top: 1px solid var(--color-filete);
+}
+
+/* 12px y no los 11 del reporte real: con el documento un escalón más grande,
+   el rótulo volvió al cuerpo del rol. El filete lo continúa hasta el margen y
+   es lo que separa un bloque del siguiente sin sumar una línea más. */
+.i-doc .i-rotulo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 18px;
+  font-size: 0.75rem;
+  color: var(--color-tinta-2);
+}
+
+.i-doc .i-rotulo::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-filete);
+}
+
+/* Oculto a la vista y presente para el lector de pantalla. Scopeado al
+   documento: esta hoja se carga en todo el sitio. */
+.i-doc .i-vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 1. Encabezado. El nombre del cliente abre; el tipo de informe y el período
+   van DEBAJO, como línea de datos: un rótulo arriba del título era un copete. */
+/* 34 y no 28: es el nombre de quien recibe el informe, y lo primero que se lee
+   de la hoja. */
+/* ── LA BANDA DE MARCA DE LA AGENCIA (19/09/2026) ───────────────────────
+   El membrete del informe: de quién viene, antes de para quién es. Se probó acá
+   el 17/09/2026 y se DESCARTÓ con tres motivos —el panel no la dibujaba, no
+   guardaba logo ni iniciales, y pintada con el petróleo de Nuvlo contradecía la
+   promesa de marca blanca—, y quedó propuesta para el panel. **El panel la
+   adoptó el 19/09/2026**, así que vuelve —y vuelve por el orden inverso al
+   habitual: esta vez el panel eligió primero, porque es él quien tiene el dato.
+
+   Sin una gota de color, que era la tercera objeción y la que importa: Marca
+   Blanca NO incluye los colores de la agencia, y un sello con nuestro acento
+   encima de un informe que dice ser de la agencia es la promesa de más que
+   `PRODUCT.md` registra tres veces.
+
+   No es un copete. Un copete etiqueta al título que tiene debajo; esto es un
+   remitente, y por eso lleva su filete: lo que hay abajo empieza de nuevo.
+
+   Las medidas salen de `DOC_CSS` del panel y no al revés, por primera vez en
+   este objeto. Si cambian acá, hay que adoptarlas allá. */
+.i-doc-marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 26px;
+  padding: 0 0 22px;
+  border-bottom: 1px solid var(--color-filete);
+}
+
+.i-doc-sello {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--color-filete);
+  border-radius: var(--radius-int);
+  background: var(--color-hoja-hundida);
+  color: var(--color-tinta-2);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.i-doc-marca-nombre {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-tinta);
+}
+
+.i-doc-cliente {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.i-doc-tipo {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--color-tinta-2);
+}
+
+.i-doc-periodo {
+  margin: 3px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-tinta-3);
+}
+
+/* Los dos tramos son atómicos: en un renglón cuando entran, y el segundo baja
+   entero cuando no. La separación es margen DERECHO del primero: puesta a la
+   izquierda del segundo, cuando éste baja queda colgando como una sangría. */
+.i-doc-periodo-rango,
+.i-doc-periodo-vs {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.i-doc-periodo-rango {
+  margin-right: 12px;
+}
+
+/* 2. Resumen ejecutivo: lo único que escribe la IA. Topa en 556, la medida
+   donde la línea más larga cae en 75 caracteres (el techo de La Regla de la
+   Medida), mientras el banco y la tabla van a todo el ancho. Es la forma de un
+   informe: prosa con medida propia, datos a lo ancho. Por unas horas corrió el
+   ancho entero con la hoja en 660, y la hoja se veía angosta; lo que tenía que
+   crecer eran los datos, no la línea. */
+.i-doc-parrafo {
+  margin: 0;
+  max-width: 556px;
+  font-size: 17px;
+  color: var(--color-tinta-2);
+  text-wrap: pretty;
+}
+
+.i-doc-parrafo + .i-doc-parrafo {
+  margin-top: 18px;
+}
+
+/* La alerta es un bloque rebajado adentro de la hoja: una superficie hundida
+   con filete, no un callout con borde grueso de color. */
+/* La misma medida que el párrafo más su relleno y su borde (18 + 18 + 2): el
+   texto de la alerta corta en la misma vertical que el del resumen. */
+.i-doc-alerta {
+  max-width: 594px;
+  margin: 22px 0 0;
+  padding: 16px 18px;
+  border: 1px solid var(--color-filete);
+  border-radius: var(--radius-int);
+  background: var(--color-hoja-hundida);
+  color: var(--color-tinta-2);
+  text-wrap: pretty;
+}
+
+/* 3. Resultados del período. Cuántas columnas lo decide el banco, no el
+   viewport: el viewport es mal proxy de su ancho y por ahí se coló «$486.25»,
+   una cifra de plata a la que le faltaba un dígito, en toda la banda de
+   portátiles (09/09/2026). */
+.i-banco {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--color-filete);
+  border-radius: var(--radius-int);
+  background: var(--color-filete);
+  overflow: hidden;
+}
+
+@container (min-width: 640px) {
+  .i-banco {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.i-kpi {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 20px 24px;
+  background: var(--color-hoja);
+  min-width: 0;
+}
+
+.i-kpi-etiqueta {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--color-tinta-3);
+  min-height: 2.7em;
+}
+
+/* Sin `nowrap` y con `overflow-wrap`: es la red de seguridad. Con `nowrap`, una
+   cifra que no entra se RECORTA y muestra un número falso; sin él, en el peor
+   caso baja de renglón y sigue diciendo la verdad. Los escalones por largo
+   (`data-cifra`, ver `Reporte.tsx`) hacen que ese caso casi no ocurra. */
+.i-kpi-valor {
+  margin: 8px 0 10px;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.i-kpi-valor[data-cifra="larga"] {
+  font-size: 22px;
+}
+
+.i-kpi-valor[data-cifra="xlarga"] {
+  font-size: 18px;
+}
+
+.i-kpi-valor[data-cifra="xxlarga"] {
+  font-size: 15px;
+}
+
+/* «$ 486.250»: el signo y el porcentaje no son el dato; a igual cuerpo
+   compiten con él. Van más chicos y en tinta media. */
+.i-kpi-afijo {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--color-tinta-2);
+  margin-inline: 1px;
+}
+
+.i-kpi-valor[data-cifra="larga"] .i-kpi-afijo {
+  font-size: 15px;
+}
+
+.i-kpi-valor[data-cifra="xlarga"] .i-kpi-afijo {
+  font-size: 14px;
+}
+
+.i-kpi-valor[data-cifra="xxlarga"] .i-kpi-afijo {
+  font-size: 12px;
+}
+
+.i-kpi-pista {
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-tinta-3);
+}
+
+/* 4. Métricas detalladas */
+.i-tabla-envoltura {
+  margin-top: 10px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-filete-fuerte) transparent;
+}
+
+.i-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.i-tabla th {
+  padding: 0 0 10px;
+  text-align: right;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-tinta-3);
+  border-bottom: 1px solid var(--color-filete);
+}
+
+.i-tabla th:first-child {
+  text-align: left;
+}
+
+.i-tabla td {
+  padding: 16px 0;
+  text-align: right;
+  border-bottom: 1px solid var(--color-filete);
+  white-space: nowrap;
+}
+
+.i-tabla td:first-child {
+  text-align: left;
+  color: var(--color-tinta-2);
+}
+
+.i-tabla tr:last-child td {
+  border-bottom: 0;
+}
+
+.i-tabla td + td {
+  padding-left: 14px;
+}
+
+/* La columna del mes anterior es un DATO y tiene que leerse: tinta media, no
+   la tercera. Ya pasó dos veces en esta rama que quedara ilegible. */
+.i-anterior {
+  color: var(--color-tinta-2);
+}
+
+/* ── EL VALOR ANTERIOR EN ANGOSTO, COMO SEGUNDA LÍNEA DE «ACTUAL» ──────────
+   La columna «Anterior» no entra en un teléfono. Antes simplemente se apagaba
+   y el cliente perdía contra qué comparar, que es la mitad del informe. Vuelve
+   sin tabla horizontal ni tarjetas.
+
+   Las dos formas NUNCA conviven: abajo de 470 vive esta línea y la columna
+   está apagada; arriba, al revés. Importa por el lector de pantalla —con las
+   dos leería el número anterior dos veces—, y por eso el interruptor es el
+   mismo umbral en los dos sentidos. Lleva la palabra «anterior», que es el
+   mismo rótulo que usa la columna cuando hay lugar.
+
+   `white-space: normal` porque la celda lleva `nowrap` y el span lo hereda: a
+   320 «anterior 1.190.455» empujaba la columna y la tabla desbordaba. */
+.i-antes {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.35;
+  white-space: normal;
+  color: var(--color-tinta-3);
+}
+
+.i-tabla [data-col="anterior"] {
+  display: none;
+}
+
+@container (min-width: 470px) {
+  .i-tabla [data-col="anterior"] {
+    display: table-cell;
+  }
+
+  .i-antes {
+    display: none;
+  }
+
+  .i-tabla td + td {
+    padding-left: 20px;
+  }
+}
+
+/* Abajo de 480 el relleno baja a 24 y el nombre del cliente un escalón: es el
+   documento en un teléfono, donde 52 de relleno le comían un tercio al texto. */
+@container (max-width: 480px) {
+  .i-doc-in {
+    padding: 32px 24px 36px;
+  }
+
+  .i-doc-marca {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+  }
+
+  .i-doc-sello {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .i-doc-cliente {
+    font-size: 23px;
+  }
+}
+
+/* Abajo de 470 la cifra de KPI y la tabla bajan un escalón. No es estética: a
+   320 de contenedor «$486.250» se recortaba y la tabla desbordaba su
+   envoltura. */
+@container (max-width: 470px) {
+  .i-kpi-valor {
+    font-size: 21px;
+  }
+
+  .i-kpi-valor[data-cifra="larga"] {
+    font-size: 17px;
+  }
+
+  .i-kpi-valor[data-cifra="xlarga"] {
+    font-size: 15px;
+  }
+
+  .i-kpi-valor[data-cifra="xxlarga"] {
+    font-size: 13px;
+  }
+
+  .i-kpi-afijo {
+    font-size: 14px;
+  }
+
+  .i-kpi-valor[data-cifra="larga"] .i-kpi-afijo {
+    font-size: 12px;
+  }
+
+  .i-kpi-valor[data-cifra="xlarga"] .i-kpi-afijo {
+    font-size: 11px;
+  }
+
+  .i-kpi-valor[data-cifra="xxlarga"] .i-kpi-afijo {
+    font-size: 10px;
+  }
+
+  .i-tabla {
+    font-size: 14px;
+  }
+}
+
+/* ── ABAJO DE 340: LA CIFRA NO SE PARTE (16/09/2026) ───────────────────────
+   Con las medidas del panel, a 383 de pantalla la ventana del héroe le deja a
+   la hoja 306px y la celda del banco da 91 de contenido contra ~92 que pide
+   «$486.250» a 21px: medido, se leía «$486.25» con un «0» solo en el renglón de
+   abajo. `overflow-wrap` evita el recorte pero no esto, que se lee igual de
+   falso. La hoja real no llega tan angosta —en un teléfono de 390 su contenedor
+   ronda los 350—; la ventana del héroe sí, por el cromo.
+
+   Primero se achica el aire y no la cifra: relleno lateral 16 y celda 14. A 306
+   la celda pasa a 108 de contenido. Por debajo de 280 de hoja (las pantallas
+   de 357 para abajo) ni eso alcanza y la cifra baja a 17. */
+@container (max-width: 340px) {
+  .i-doc-in {
+    padding-inline: 16px;
+  }
+
+  .i-kpi {
+    padding-inline: 14px;
+  }
+}
+
+@container (max-width: 280px) {
+  .i-kpi-valor {
+    font-size: 17px;
+  }
+
+  .i-kpi-afijo {
+    font-size: 12px;
+  }
+}
+
+.i-doc-nota {
+  margin: 14px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-tinta-3);
+}
+
+/* 5. Plan de acción */
+.i-acciones {
+  max-width: 556px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.i-acciones li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 12px;
+  color: var(--color-tinta-2);
+  text-wrap: pretty;
+}
+
+.i-ordinal {
+  text-align: right;
+  font-weight: 600;
+  color: var(--color-tinta);
+}
+
+/* 6. Cierre y pie. La firma es la agencia, en los dos planes. */
+.i-doc-cierre p {
+  margin: 0;
+  color: var(--color-tinta-2);
+}
+
+.i-doc-firma {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+  color: var(--color-tinta);
+}
+
+/* El pie del plan. En el panel lo pone el marco de la página pública
+   (`report-view.tsx`); acá va adentro del documento porque la landing no dibuja
+   ese marco. */
+.i-doc-pie {
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-filete);
+}
+
+/* Con la especificidad del cierre: `.i-doc-cierre p { margin: 0 }` le ganaba a
+   la clase sola y el pie quedaba pegado a la firma (visto el 17/09/2026). */
+.i-doc-cierre .i-doc-pie {
+  margin-top: 22px;
+}

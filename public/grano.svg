@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!--
+    Grano de superficie. Vive como archivo y no como data: URI a propósito: la CSP
+    del sitio declara `img-src 'self'`, y un data: URI en un background-image la
+    violaría. Si alguna sesión futura lo convierte a data: para "ahorrar un
+    request", tiene que abrir el permiso en next.config.ts en el mismo cambio.
+
+    baseFrequency alta y cuatro octavas dan un grano fino, de película, no un
+    ruido grueso. La opacidad final la pone el CSS, no este archivo.
+  -->
+  <filter id="grano">
+    <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" stitchTiles="stitch" />
+    <feColorMatrix type="saturate" values="0" />
+  </filter>
+  <rect width="200" height="200" filter="url(#grano)" opacity="0.42" />
+</svg>

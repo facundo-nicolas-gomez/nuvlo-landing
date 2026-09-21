@@ -1,0 +1,75 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# dev harness / editor / notas / backups (no versionar en la landing)
+# Se excluye el CONTENIDO y no el directorio: git no puede re-incluir nada si el
+# padre está excluido, así que `/.claude/` con una excepción abajo no funciona.
+/.claude/*
+# Excepción: los agentes revisores del rediseño son infraestructura del
+# proyecto, no configuración de editor. Sin versionarlos, se pierden en cualquier
+# clone y la verificación de secciones queda a medias (el arnés determinístico
+# de `verificacion/` sin la parte de juicio).
+!/.claude/agents/
+# Excepción, por el mismo motivo: `/verificar` reproduce el CI en local y las reglas
+# compartidas (qué no se lee, qué corre sin preguntar) son del repo, igual que en el
+# panel. `settings.local.json` sigue afuera: es de cada máquina.
+!/.claude/commands/
+!/.claude/settings.json
+/.cursor/
+/.vscode/
+*.zip
+
+# npx skills add (vercel-labs/skills): copia canónica de skills instalados y su lock file
+/.agents/
+/skills-lock.json
+
+# Capturas de Playwright en la raíz. El arnés y los agentes revisores las dejan
+# ahí al terminar, y el commit e9c2ad9 se llevó nueve por un `git add -A`
+# descuidado. Sólo la raíz: `app/icon.png` y cualquier asset de `public/` siguen
+# versionándose.
+/*.png
+/.playwright-mcp/
+
+# Impeccable: sólo se versionan los briefs y el sistema; las capturas de revisión quedan locales
+/.impeccable/*
+!/.impeccable/surfaces/
+!/.impeccable/design.json

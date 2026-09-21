@@ -1,0 +1,140 @@
+/**
+ * REGISTRO 3 — OBJETO.
+ *
+ * El documento ocupa el viewport y se corta contra su borde derecho. La
+ * tipografía se retira para que hable la retícula.
+ */
+
+.r-objeto {
+  font-family: var(--f-public), system-ui, sans-serif;
+}
+
+/**
+ * `overflow: clip` y no `hidden`: recorta el documento que sangra hacia el
+ * borde SIN crear un contexto de scroll. Con `hidden` la sección se vuelve
+ * scrollable por teclado y aparece una parada de tabulación que no lleva a
+ * ningún lado. Y es el piso de accesibilidad del proyecto: ninguna imagen ni
+ * maqueta empuja la página a lo ancho.
+ */
+.o-heroe {
+  padding-top: clamp(40px, 5vw, 72px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+  overflow: clip;
+}
+
+/**
+ * En pantallas grandes la sección mide el viewport menos la barra, y el
+ * documento es más alto que eso: el corte inferior lo hace el pliegue y no un
+ * valor inventado. Debajo de 1024 la altura vuelve a ser la del contenido —en
+ * móvil una sección atada al viewport es una sección que aplasta el texto—.
+ */
+@media (min-width: 1024px) {
+  .o-heroe {
+    height: calc(100svh - 65px);
+    padding-bottom: 0;
+  }
+}
+
+.o-fila {
+  display: grid;
+  gap: clamp(36px, 5vw, 56px);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .o-fila {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    align-items: start;
+    height: 100%;
+  }
+
+  /* Las dos columnas arrancan en la misma línea. Con el texto centrado contra
+     la altura de la pantalla quedaba un hueco grande arriba a la izquierda y el
+     bloque flotaba sin apoyarse en nada; compartir la línea superior con el
+     documento es lo que hace que la fila se lea armada y no acomodada. */
+  .o-texto {
+    align-self: start;
+  }
+}
+
+/**
+ * EL TITULAR QUE PRESENTA Y NO COMPITE.
+ *
+ * Baja dos escalones respecto del registro «escala». No es timidez: si el
+ * titular y el documento pelean por la misma pantalla, gana el titular y el
+ * argumento del registro se pierde.
+ */
+.o-titular {
+  max-width: 15ch;
+  margin: 0;
+  font-size: clamp(2.125rem, 3.6vw, 3rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+.o-bajada {
+  max-width: 30rem;
+  margin-top: 18px;
+}
+
+.rg-accion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.o-accion {
+  margin-top: 28px;
+}
+
+.o-nota {
+  max-width: 28rem;
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--filete);
+}
+
+/**
+ * EL DOCUMENTO A ESCALA DE LECTURA.
+ *
+ * ── POR QUÉ EL CORTE ES ABAJO Y NO A LA DERECHA ─────────────────────────────
+ * La primera versión sangraba hacia el borde derecho del viewport y el recorte
+ * caía sobre la chapa de estado: «BORRADOR» quedaba cortada a la mitad. Un
+ * documento cortado por el pliegue se lee como un documento que sigue; una
+ * palabra cortada al medio se lee como un error de maquetación, y encima
+ * justo sobre la palabra que sostiene el argumento del producto.
+ *
+ * Así que el corte es horizontal, contra el borde inferior del viewport, y el
+ * objeto se queda entero a lo ancho. La escala la da la columna, que es la más
+ * grande de las dos.
+ *
+ * Debajo de 1024 no se corta nada: en móvil un documento cortado no se lee como
+ * profundidad, se lee como algo que no entró.
+ */
+.o-doc {
+  min-width: 0;
+}
+
+.o-hoja {
+  box-shadow: var(--e3);
+}
+
+.o-banco {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--filete);
+}
+
+/* A escala de lectura la tabla puede darse el cuerpo real que tiene en el
+   entregable: acá el dato es el protagonista y no un adorno de fondo. */
+.o-tabla {
+  font-size: 0.875rem;
+}
+
+.o-tabla th,
+.o-tabla td {
+  padding-block: 11px;
+}

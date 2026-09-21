@@ -1,0 +1,95 @@
+/**
+ * REGISTRO 1 — ESCALA.
+ *
+ * Un solo elemento manda: el titular. Todo lo demás está calibrado para no
+ * competir con él —la bajada baja a tinta media, la acción es un objeto chico y
+ * negro, el documento entra recortado abajo—.
+ */
+
+.r-escala {
+  font-family: var(--f-archivo), system-ui, sans-serif;
+}
+
+.e-heroe {
+  padding-top: clamp(48px, 7vw, 88px);
+}
+
+/**
+ * EL TITULAR.
+ *
+ * 6rem es el techo y no un valor elegido a ojo: por encima de eso un titular
+ * deja de leerse como texto y empieza a leerse como logotipo, y esta página
+ * necesita que la frase se lea.
+ *
+ * El tracking cierra a −0,038em. Es el piso del sistema: más apretado que eso,
+ * en una grotesca de caja angosta como Archivo, la «r» y la «n» se tocan y el
+ * titular pierde legibilidad justo en el tamaño donde más se lo mira.
+ *
+ * La medida va en `ch` y ésa es la única excepción de la regla —el `ch` sólo se
+ * usa donde el valor es un QUIEBRE de titular, nunca para la medida de la
+ * prosa, porque en español miente un 30% al estar calibrado sobre el ancho del
+ * cero—.
+ */
+.e-titular {
+  max-width: 19ch;
+  margin: 0;
+  font-size: clamp(2.75rem, 7.4vw, 6rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.038em;
+  text-wrap: balance;
+}
+
+.e-bajada {
+  max-width: 32rem;
+  margin-top: clamp(20px, 2.4vw, 28px);
+}
+
+.rg-accion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.e-accion {
+  margin-top: clamp(24px, 3vw, 34px);
+}
+
+/**
+ * EL RECORTE.
+ *
+ * `max-height` en vez de dejar que el reporte entre entero: el documento tiene
+ * que SEGUIR fuera de la pantalla, no terminar prolijo dentro de ella. Uno
+ * miniaturizado para que entre completo es una captura; uno cortado es un
+ * documento que existe y del que se ve una parte.
+ *
+ * El borde inferior del recorte es el mismo filete del objeto, así el corte cae
+ * contra una línea del sistema y no contra el vacío.
+ */
+.e-escena {
+  margin-top: clamp(40px, 5.5vw, 76px);
+}
+
+.e-recorte {
+  max-height: clamp(190px, 26vw, 300px);
+  overflow: hidden;
+}
+
+.e-recorte .rg-reporte {
+  box-shadow: var(--e3);
+}
+
+/* El banco pierde su borde y su radio propios: acá no es una pieza suelta sino
+   una franja DENTRO del objeto, y su única separación es el filete de la
+   retícula. */
+.e-banco {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--filete);
+}
+
+.e-pie {
+  border-top: 1px solid var(--filete);
+  padding-block: 18px 40px;
+}
