@@ -103,8 +103,8 @@ jobs:
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       # No son secretos: identifican la cuenta y el proyecto, no dan acceso.
-      VERCEL_ORG_ID: team_hQuhy51A6WD8ZcNJkHUZ4nUa
-      VERCEL_PROJECT_ID: prj_gSVfAcyucZ4QJ60dMyneVv32PeAU
+      VERCEL_ORG_ID: team_1GCL4zZQfpYO4yCRDL24XeAX
+      VERCEL_PROJECT_ID: prj_sAJHOR9N5niGndmHviuYcmyCupHd
     steps:
       # La falta del secret pinta de rojo: un verde que no publicó dejaría
       # producción atrás sin que nadie lo note.
