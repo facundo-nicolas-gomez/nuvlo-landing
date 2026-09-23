@@ -132,8 +132,13 @@ el resumen, porque nunca se vio. **Los datos personales del vendedor —nombre, 
 domicilio— no se publican en ninguna pantalla** (decisión del dueño, 14/09/2026), ni acá
 ni en el panel. Los precios en pesos viven en el panel, no en este repo.
 
+**PayPal, por Paddle (23/09/2026).** Dentro del checkout de Paddle también se paga con
+PayPal: es el mismo cobro, en USD y con Paddle como *Merchant of Record*, no un tercer
+proveedor. El sitio **no afirma** cómo figura ese cargo en la cuenta de PayPal, porque
+nunca se vio.
+
 **Reembolsos: derecho de arrepentimiento (decisión del dueño, 13/09/2026).** 10 días
-corridos desde la contratación, reembolso total, por cualquiera de los dos medios de pago
+corridos desde la contratación, reembolso total, por cualquier medio de pago
 (art. 34 de la Ley 24.240). Pasado ese plazo no hay reembolsos del período pago. Se
 cancela en cualquier momento, con acceso hasta el fin del período pago. «No hay
 reembolsos» a secas ya no es verdad y no se escribe.

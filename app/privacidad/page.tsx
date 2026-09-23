@@ -113,8 +113,9 @@ export default function Privacidad() {
           <em>Merchant of Record</em>: procesa los pagos de las suscripciones,
           emite las facturas y gestiona los impuestos. Para eso trata los datos
           de pago y facturación que ingresás en su checkout —Nuvlo{" "}
-          <strong>no almacena datos de tarjetas</strong>—. Su política de
-          privacidad está en{" "}
+          <strong>no almacena datos de tarjetas</strong>—. Si pagás con PayPal,
+          PayPal trata también tus datos de pago según su propia política de
+          privacidad. La de Paddle está en{" "}
           <a
             href="https://www.paddle.com/legal/privacy"
             target="_blank"

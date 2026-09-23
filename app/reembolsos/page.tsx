@@ -27,8 +27,8 @@ export default function Reembolsos() {
         Podés arrepentirte de la contratación dentro de los{" "}
         <strong>10 días corridos</strong> desde que la hiciste, sin dar motivos.
         Te devolvemos <strong>el total</strong> de lo que pagaste, por el mismo
-        medio de pago. Vale para los dos medios: tarjeta internacional y Mercado
-        Pago (artículo 34 de la Ley 24.240).
+        medio de pago. Vale para todos los medios: tarjeta internacional,
+        PayPal y Mercado Pago (artículo 34 de la Ley 24.240).
       </p>
       <p>
         Lo pedís con el{" "}
@@ -55,7 +55,7 @@ export default function Reembolsos() {
         que ya pagaste. No se generan cargos adicionales luego de cancelar.
       </p>
       <p>
-        Con cualquiera de los dos medios cancelás desde Configuración en el
+        Con cualquier medio de pago cancelás desde Configuración en el
         panel, y también con el{" "}
         <a href="https://panel.nuvloapp.com/boton-de-baja">
           botón de baja de servicio
@@ -72,7 +72,7 @@ export default function Reembolsos() {
 
       <h2>Quién procesa el cobro</h2>
       <p>
-        <strong>Con tarjeta internacional</strong>, los pagos los procesa{" "}
+        <strong>Con tarjeta internacional o PayPal</strong>, los pagos los procesa{" "}
         <strong>Paddle.com</strong>, que actúa como <em>Merchant of Record</em>:
         es el vendedor de registro de la transacción, emite la factura y
         gestiona los impuestos.{" "}

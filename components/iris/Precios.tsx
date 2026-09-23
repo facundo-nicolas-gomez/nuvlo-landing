@@ -358,10 +358,10 @@ export function Precios() {
               publicar en uno tuyo.
             </p>
             <p className="i-fino i-precios-nota">
-              Con tarjeta internacional cobra Paddle como Merchant of Record: el
-              cargo figura a nombre de Paddle en tu resumen. En Argentina
-              también podés pagar en pesos con Mercado Pago. En los dos casos
-              Nuvlo no toca datos de tarjeta, se cancela cuando quieras con
+              Con tarjeta internacional o PayPal cobra Paddle como Merchant of
+              Record: con tarjeta, el cargo figura a nombre de Paddle en tu
+              resumen. En Argentina también podés pagar en pesos con Mercado
+              Pago. En todos los casos Nuvlo no toca tus datos de pago, se cancela cuando quieras con
               acceso hasta el fin del período pago, y tenés 10 días desde que
               contratás para arrepentirte con reembolso total.
             </p>

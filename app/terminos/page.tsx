@@ -67,8 +67,8 @@ export default function Terminos() {
       </ul>
       <p>
         El importe de cada período es el precio del plan multiplicado por la
-        cantidad de clientes cargados. Si pagás con tarjeta internacional y
-        agregás o eliminás un cliente durante el período, el importe se ajusta de
+        cantidad de clientes cargados. Si pagás con tarjeta internacional o
+        PayPal y agregás o eliminás un cliente durante el período, el importe se ajusta de
         forma proporcional al tiempo restante y la diferencia se cobra o se
         acredita en ese momento. Si pagás con Mercado Pago el importe no se
         prorratea: cuando cambia la cantidad de clientes o cambiás de plan, el
@@ -82,7 +82,7 @@ export default function Terminos() {
         suscribirte a un plan. Las suscripciones se renuevan
         automáticamente cada mes hasta que las canceles. Podés cancelar en
         cualquier momento; la cancelación aplica al final del período ya pagado.
-        Con cualquiera de los dos medios cancelás desde Configuración en el
+        Con cualquier medio de pago cancelás desde Configuración en el
         panel, y también con el{" "}
         <a href="https://panel.nuvloapp.com/boton-de-baja">
           botón de baja de servicio
@@ -94,7 +94,7 @@ export default function Terminos() {
       <h2>Pagos</h2>
       <p>Podés pagar de dos formas.</p>
       <p>
-        <strong>Con tarjeta internacional</strong>, los pagos se procesan a
+        <strong>Con tarjeta internacional o PayPal</strong>, los pagos se procesan a
         través de <strong>Paddle.com</strong>, que actúa como{" "}
         <em>Merchant of Record</em> de Nuvlo. Esto significa que Paddle es el
         vendedor de registro de la transacción: emite la factura, cobra y
@@ -102,7 +102,8 @@ export default function Terminos() {
         <strong>
           el cargo en tu tarjeta o resumen bancario figura a nombre de Paddle
         </strong>{" "}
-        y no de Nuvlo. Los precios están expresados en dólares estadounidenses
+        y no de Nuvlo. Si elegís PayPal, lo pagás dentro del mismo checkout de
+        Paddle, que sigue siendo el vendedor de registro. Los precios están expresados en dólares estadounidenses
         (USD). Al suscribirte así también aceptás los términos de Paddle como
         vendedor de registro, disponibles en{" "}
         <a
@@ -127,7 +128,7 @@ export default function Terminos() {
         Podés arrepentirte de la contratación dentro de los{" "}
         <strong>10 días corridos</strong> desde que la hiciste, sin dar motivos,
         y te devolvemos <strong>el total</strong> de lo que pagaste, por el mismo
-        medio de pago y con cualquiera de los dos medios (artículo 34 de la Ley
+        medio de pago, sea cual sea (artículo 34 de la Ley
         24.240). Lo pedís con el{" "}
         <a href="https://panel.nuvloapp.com/boton-de-arrepentimiento">
           botón de arrepentimiento
