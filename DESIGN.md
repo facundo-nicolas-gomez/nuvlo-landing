@@ -574,8 +574,9 @@ grafito vive en el cromo del navegador; verde y rojo pertenecen al dato y no sal
   paso, el que te toca a vos— y la banda común de Precios; es también el hover del botón
   invertido, tanto en la noche como adentro del cromo. **Subió el 13/09/2026** desde
   `#f1f5f6`, que medía 1,04:1 contra la hoja: la fila «tuya» no se distinguía del campo.
-- **Petróleo filete** (`acento-filete`): borde de las citas del producto sólo dentro de la fila
-  teñida.
+- **Petróleo filete** (`acento-filete`): el divisor de la barra y el borde del avatar del
+  mensaje. (Decía «borde de las citas del producto sólo dentro de la fila teñida»; corregido
+  contra el código el 23/09/2026.)
 - **Petróleo campo** (`acento-campo`): el tinte de lo SELECCIONADO donde la superficie es chica
   —el resalte de la palabra que rota y la selección de texto—. La banda del rango del
   calendario no lo usa: es tinta al 6 %, porque un mes entero teñido es una superficie
