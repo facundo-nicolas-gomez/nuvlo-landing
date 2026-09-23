@@ -1894,6 +1894,15 @@ círculos.
 
 ### Buttons
 
+> **Lo último, y manda sobre lo de abajo: el botón no tiene sombra ni rol de texto (dueño,
+> 23/09/2026).** El sistema retiró `--shadow-boton`, `--shadow-boton-noche` y los tres
+> `--text-boton*`: ningún botón compartido de los dos repos los leía desde que la landing pasó
+> a tinta plana (18/09) y el panel aplanó su tono `accion`. **Un botón pesa por su valor
+> contra el fondo, no por una sombra**, y el texto del botón lo escribe cada repo en su
+> módulo, en 500: la landing a 16 y 15, el panel a 14 y 13. Los dos botones sueltos del panel
+> que todavía llevaban la sombra y se levantaban al pasar el mouse pasaron a `estilos-boton.ts`
+> en la misma tanda.
+>
 > **El bloque (07/09/2026), en tinta desde el 10/09/2026.** El CTA es un bloque de esquinas
 > interiores (10px), 48px de alto (38px la variante chica), texto blanco a 0.9375rem/600 con
 > −0.01em, sin flecha ni ícono, y un canto inferior de 2px
