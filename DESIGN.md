@@ -3571,15 +3571,27 @@ Una curva para toda la página, `cubic-bezier(0.22, 1, 0.36, 1)`. Revelado por b
 16px de subida, opacidad y desenfoque de 6px, a 0.7/0.85s con demora por bloque; el
 atributo de oculto lo escribe el cliente después de montar, así sin JavaScript la página se
 ve entera. Estados a 0.18s (botón), 0.15s (enlaces), 0.3s (chapa), 0.25s (signo del
-acordeón, que gira 45°). Bajo `prefers-reduced-motion` todo se apaga, **con una sola
-excepción y con su prueba escrita**: el acuse del campo de dirección (`i-acusa`), que el
-apagón global bajaba a 0,01ms y dejaba de existir justo para quien pidió movimiento reducido
-(quinta crítica, 08/09/2026). Se exceptúa **porque no tiene movimiento** —es un cruce de
-color y de borde, sin desplazamiento, sin escala y sin rotación—, y `prefers-reduced-motion`
-existe por el malestar que produce el movimiento: apagar una realimentación que no se mueve
-no protege a nadie. Es el gesto sobre el que este archivo escribió «un acuse que no se puede
-medir contra su fondo no es un acuse». **Si mañana hace falta una segunda excepción, la
-prueba es la misma: que la animación no desplace nada.**
+acordeón, que gira 45°). Bajo `prefers-reduced-motion` todo se apaga, **con dos
+excepciones y con su prueba escrita**. La primera es el acuse del campo de dirección
+(`i-acusa`), que el apagón global bajaba a 0,01ms y dejaba de existir justo para quien pidió
+movimiento reducido (quinta crítica, 08/09/2026). Se exceptúa **porque no tiene movimiento**
+—es un cruce de color y de borde, sin desplazamiento, sin escala y sin rotación—, y
+`prefers-reduced-motion` existe por el malestar que produce el movimiento: apagar una
+realimentación que no se mueve no protege a nadie. Es el gesto sobre el que este archivo
+escribió «un acuse que no se puede medir contra su fondo no es un acuse». La segunda llegó el
+13/09/2026 con la misma prueba: **las entradas aparecen con un fundido de 400ms**
+(`--duracion-lenta`), sin subir y sin desenfoque, porque sin ellas los bloques aparecían ya
+puestos y la página perdía el ritmo de lectura. **Si mañana hace falta una tercera, la prueba
+es la misma: que la animación no desplace nada.** (Este párrafo decía «una sola excepción»
+desde antes del 13/09; se corrigió el 23/09/2026.)
+
+**La Regla de lo Que Espera, Quieto (dueño, 23/09/2026).** Con movimiento reducido, lo que
+espera —el punto de la chapa, un círculo de carga, un esqueleto— **se queda quieto**, en los
+dos repos: su estado ya lo dicen el texto y `aria-live`. El sistema decía que «late en vez de
+girar», y el dueño eligió quieto porque un latido en bucle sigue siendo un bucle, y la
+excepción del 19/09 que admite los bucles de la landing se sostiene justamente en que, con
+movimiento reducido, no corre ni uno. El panel, que seguía girando y pulsando, lo adopta con
+una regla en su `globals.css`.
 
 > **El corte vertical y la entrada desde arriba (10/09/2026).** Sólo en Precios, pedidos por
 > el dueño con el componente de 21st.dev: el titular entra por palabras, cada una cortada por
