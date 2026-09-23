@@ -27,8 +27,8 @@ colors:
   luz-heroe: "rgb(255 253 249 / 0.9)"
   ventana-canto: "rgb(22 20 31 / 0.13)"
   ventana-canto-suave: "rgb(22 20 31 / 0.07)"
-  grafito: "#1c2126"
-  grafito-alto: "#292e34"
+  grafito: "#202020"
+  grafito-alto: "#2d2d2d"
   noche: "#151515"
   noche-2: "#1e1e1d"
   noche-honda: "#0e0e0d"
@@ -53,14 +53,14 @@ colors:
 typography:
   portada:
     fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "clamp(2.625rem, 5.4vw, 4.5rem)"
-    fontWeight: 600
+    fontSize: "clamp(2.625rem, 5.4vw, 4.75rem)"
+    fontWeight: 550
     lineHeight: 1
     letterSpacing: "-0.038em"
   display:
     fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "clamp(2rem, 3.5vw, 3rem)"
-    fontWeight: 600
+    fontSize: "clamp(2rem, 3.5vw, 3.1875rem)"
+    fontWeight: 550
     lineHeight: 1.04
     letterSpacing: "-0.032em"
   total:
@@ -114,7 +114,7 @@ typography:
   boton:
     fontFamily: "Geist, system-ui, sans-serif"
     fontSize: "1rem"
-    fontWeight: 600
+    fontWeight: 500
     lineHeight: 1
     letterSpacing: "-0.012em"
   chico:
@@ -181,30 +181,30 @@ rounded:
   pastilla: "9999px"
 spacing:
   linea: "14px"
-  bloque: "clamp(32px, 3.4vw, 52px)"
-  seccion: "clamp(64px, 6.4vw, 96px)"
+  bloque: "round(clamp(32px, 3.4vw, 52px), 1px)"
+  seccion: "round(clamp(64px, 6.4vw, 96px), 1px)"
   borde-x: "20px"
   borde-x-md: "32px"
   borde-x-lg: "40px"
   marco: "1440px"
-  marco-grilla: "1320px"
+  grilla-vuelo: "16px"
 components:
   button-primary:
-    backgroundColor: "{colors.acento}"
+    backgroundColor: "{colors.tinta}"
     textColor: "{colors.hoja}"
     typography: "{typography.boton}"
     rounded: "{rounded.control}"
     padding: "0 24px"
     height: "52px"
   button-primary-hover:
-    backgroundColor: "{colors.acento-tinta}"
+    backgroundColor: "#242b33"
     textColor: "{colors.hoja}"
   button-primary-small:
-    backgroundColor: "{colors.acento}"
+    backgroundColor: "{colors.tinta}"
     textColor: "{colors.hoja}"
     rounded: "{rounded.int}"
     padding: "0 16px"
-    height: "36px"
+    height: "40px"
   button-hoja:
     backgroundColor: "{colors.hoja}"
     textColor: "{colors.tinta}"
@@ -213,7 +213,7 @@ components:
     padding: "0 24px"
     height: "52px"
   button-hoja-hover:
-    backgroundColor: "{colors.acento-luz}"
+    backgroundColor: "#e8ecf1"
     textColor: "{colors.tinta}"
   nav-link:
     textColor: "{colors.tinta-2}"
@@ -369,8 +369,9 @@ components:
 > 2. **La banda va a sangre completa y la barra se monta encima.** El fondo es de la
 >    pantalla y el contenido sigue midiendo el marco, así la columna del argumento cae en el
 >    mismo riel que las secciones de abajo. Para montarla, el alto de la barra pasó a token
->    —`--alto-franja`, `--alto-nav-fila`, `--alto-barra`, en `.iris`— porque hay algo afuera
->    de la barra que necesita saber cuánto mide. `--campo-heroe` queda declarado y **sin
+>    —`--alto-nav-fila` y `--alto-barra`, en `.iris`— porque hay algo afuera de la barra que
+>    necesita saber cuánto mide. Hubo un tercero, `--alto-franja`, que se fue ese mismo día
+>    con la franja legal. `--campo-heroe` queda declarado y **sin
 >    uso**: resolvía «claro sobre claro» y con un bloque oscuro encima esa condición no
 >    existe.
 > 3. **El campo del héroe es un degradé de oscuro a claro** que sigue la familia de matiz de
@@ -386,6 +387,14 @@ components:
 >    **«Programar» queda apagado** con la línea de ayuda del producto: en el trial, que es el
 >    plan que esta página vende, ese botón está gris. Campañas deja de ser control y pasa a
 >    ser el dato impreso.
+>
+> **Relevamiento del sistema en los dos repos (23/09/2026).** Se recorrió cada tema del sistema
+> —color, tipografía, radios, sombras, espacios, movimiento, breakpoints, capas, anchos, bordes,
+> íconos y estados— en la landing y en el panel (commit `2aca81a`). Salieron 38 diferencias
+> entre lo que el sistema dice y lo que el código hace. **No son decisiones y no mandan sobre
+> este archivo**: están en `.impeccable/surfaces/sistema-nuvlo-css.md`, cada una con su archivo,
+> y se verifican contra el código antes de citarlas. Las que eran este archivo describiendo mal
+> el código se corrigieron en el frontmatter el mismo día.
 >
 > **Esta pasada ES la landing pública desde el 11/09/2026.** Ya no hay dos mundos: el
 > mundo retirado «Sala de revisión» se borró entero —sus once componentes, su `@theme`,
