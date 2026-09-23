@@ -447,8 +447,12 @@
      `entrada` es una salida exponencial más larga, para lo que aparece: arranca
      con decisión y se toma su tiempo para asentarse.
 
-     Con `prefers-reduced-motion` no se desplaza nada: lo que se mueve pasa a un
-     fundido de `lenta`, y lo que espera late en vez de girar.
+     Con `prefers-reduced-motion` no se desplaza nada y nada corre en bucle: lo
+     que aparece pasa a un fundido de `lenta`, y lo que espera se queda quieto
+     —su estado ya lo dicen el texto y `aria-live`—. Decía que lo que espera
+     «late en vez de girar»; el dueño eligió quieto el 23/09/2026, que es lo que
+     la landing hacía desde el 19/09: un latido en bucle es un bucle, y quien
+     pidió movimiento reducido pidió que no los haya.
      ══════════════════════════════════════════════════════════════════════════ */
   --ease-nuvlo: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-entrada: cubic-bezier(0.16, 1, 0.3, 1);

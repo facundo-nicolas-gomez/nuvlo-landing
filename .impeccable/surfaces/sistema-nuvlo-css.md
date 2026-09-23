@@ -26,11 +26,13 @@ también obliga a copiar.
 
 ### Decisiones del dueño
 
-- **Movimiento reducido: tres comportamientos.** El sistema pide que lo que se mueve pase a un
-  fundido de `--duracion-lenta`. La landing lleva toda animación de `.iris` a 0,01ms, con la
-  excepción anotada del acuse (`base.css`). El panel no tiene regla global: se detienen el
-  fundido del tablero, la casilla, la escena y el shader, pero siguen los 93 `animate-pulse` de
-  los esqueletos y los 4 `animate-spin` de carga.
+- ~~**Movimiento reducido: tres comportamientos.**~~ **Cerrado el 23/09/2026: lo que espera se
+  queda quieto** (*La Regla de lo Que Espera, Quieto*, en `DESIGN.md`). Esta línea describía mal
+  a la landing: además del acuse tiene una segunda excepción desde el 13/09, las entradas con un
+  fundido de 400ms, que ya era lo que pedía el sistema. La diferencia real era una sola: el
+  sistema decía que lo que espera «late», y la landing lo dejaba quieto para que con movimiento
+  reducido no corra ningún bucle. El dueño eligió quieto; el comentario del sistema lo dice y el
+  panel frena sus 4 `animate-spin` y sus `animate-pulse` con una regla en `globals.css`.
 - **La sombra y el texto del botón.** Ningún botón compartido usa `--shadow-boton`: el de la
   landing es tinta y plano desde el 18/09/2026, y el tono `accion` del panel se aplanó con el
   login. `--shadow-boton-noche` y los tres `--text-boton*` no los usa ninguno de los dos. El
