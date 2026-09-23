@@ -37,10 +37,17 @@ también obliga a copiar.
   (`--shadow-boton`, `--shadow-boton-noche` y los tres `--text-boton*`). Ninguno de los dos
   repos los leía en un botón compartido, y los roles de texto ya no coincidían con lo que cada
   uno escribe. Queda en `DESIGN.md` (*Buttons*) y en `sistema/SISTEMA.md`.
-- **Los titulares se cambiaron en `base.css`.** El 19/09/2026 la landing pasó portada y display
-  a 550, 76 y 51 (`.i-portada`, `.i-display`), pero `--text-portada` y `--text-display` siguen en
-  600, 72 y 48. Es justo lo que la regla del orden prohíbe. Decidir si sube al sistema, y con él
-  al panel, o si queda como escenografía de la landing y se dice así.
+- ~~**Los titulares se cambiaron en `base.css`.**~~ **Cerrado el 23/09/2026: subieron al
+  sistema.** `--text-portada` y `--text-display` pasan a 550, 76 y 51, y `.i-portada` y
+  `.i-display` los leen en vez de repetir los números. Verificarlo dejó a la vista algo más
+  amplio, que sigue abierto abajo: la landing no leía ningún rol tipográfico del sistema.
+- **La landing escribe su tipografía a mano.** Fuera de portada y display, no lee ningún rol del
+  sistema: ni un `var(--text-*)` ni una clase `text-<rol>`. Los roles los usa sólo el panel
+  (139 veces). Por eso un titular pudo separarse del sistema sin que nada fallara. Decidir si la
+  landing pasa a leerlos, rol por rol.
+- **Titulares pisados por sección.** `.i-heroe .i-portada` baja a 51 y a 60 según el ancho,
+  `.i-lectura-lado .i-display` a 40 y `.i-esc .i-portada` a 45 con peso 450, que no es un peso
+  del sistema. Son decisiones de sección, pero ninguna lee un token.
 - **La chapa de estado, dos dibujos.** En la landing tiñe fondo (11%) y borde (26%) del color
   del estado. En el panel es hoja con `filete-fuerte` y el color solo en el punto y el texto, a
   propósito según `chapa-estado.tsx`. Elegir uno.
