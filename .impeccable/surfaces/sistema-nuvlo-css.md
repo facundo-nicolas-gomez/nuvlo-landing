@@ -33,11 +33,10 @@ también obliga a copiar.
   sistema decía que lo que espera «late», y la landing lo dejaba quieto para que con movimiento
   reducido no corra ningún bucle. El dueño eligió quieto; el comentario del sistema lo dice y el
   panel frena sus 4 `animate-spin` y sus `animate-pulse` con una regla en `globals.css`.
-- **La sombra y el texto del botón.** Ningún botón compartido usa `--shadow-boton`: el de la
-  landing es tinta y plano desde el 18/09/2026, y el tono `accion` del panel se aplanó con el
-  login. `--shadow-boton-noche` y los tres `--text-boton*` no los usa ninguno de los dos. El
-  comentario del sistema decía lo contrario («el primario de la landing la lleva; el del panel
-  no»); se corrigió el 23/09/2026 y ahora remite acá. Decidir si los tokens siguen.
+- ~~**La sombra y el texto del botón.**~~ **Cerrado el 23/09/2026: se retiraron los cinco**
+  (`--shadow-boton`, `--shadow-boton-noche` y los tres `--text-boton*`). Ninguno de los dos
+  repos los leía en un botón compartido, y los roles de texto ya no coincidían con lo que cada
+  uno escribe. Queda en `DESIGN.md` (*Buttons*) y en `sistema/SISTEMA.md`.
 - **Los titulares se cambiaron en `base.css`.** El 19/09/2026 la landing pasó portada y display
   a 550, 76 y 51 (`.i-portada`, `.i-display`), pero `--text-portada` y `--text-display` siguen en
   600, 72 y 48. Es justo lo que la regla del orden prohíbe. Decidir si sube al sistema, y con él
@@ -88,9 +87,9 @@ también obliga a copiar.
   radios no lo ve porque el archivo está exento.
 - **Dos botones del panel fuera de los escalones:** 38px en la página de error pública y 34px en
   el botón del PDF. Los escalones son 52, 40 y 32.
-- **Dos botones sueltos del panel** —conectar Meta y `global-error.tsx`— no pasan por
-  `estilos-boton.ts`: conservan `shadow-boton` y se levantan 1px al pasar el mouse, dos cosas que
-  el botón compartido ya dejó.
+- ~~**Dos botones sueltos del panel** —conectar Meta y `global-error.tsx`— no pasan por
+  `estilos-boton.ts`.~~ **Cerrado el 23/09/2026** con la retirada de la sombra del botón: los
+  dos pasaron al tono `accion` de `estilos-boton.ts`, planos y sin levantarse al pasar.
 - **El movimiento del panel no lee los tokens:** los esqueletos pulsan a 2000ms (el sistema pide
   `--duracion-latido`, 1400); los hovers usan los 150ms y la curva de Tailwind en vez de
   `--duracion-rapida` y `--ease-nuvlo`; `animate-fade-in` va a 150ms `ease-out` y su comentario

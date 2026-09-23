@@ -151,8 +151,8 @@ contraste que la landing tuvo que corregir dos veces.
 
 | Control | Cómo se viste |
 |---|---|
-| Escalones de control | `control` 52px con radio `control` y rol `boton`; `control-medio` 40px y `control-compacto` 32px con radio interior y roles `boton-medio` y `boton-compacto`. Un campo mide lo mismo que el botón que lo envía. |
-| Botón primario | Fondo `acento`, texto blanco. En la landing lleva `shadow-boton`; en el panel no. El dibujo completo —borde en capas, flecha, estados— es de la tanda del botón. |
+| Escalones de control | `control` 52px con radio `control`; `control-medio` 40px y `control-compacto` 32px con radio interior. Un campo mide lo mismo que el botón que lo envía. El texto del botón no tiene rol del sistema: cada repo lo escribe en su módulo, en peso 500 (se retiraron `boton`, `boton-medio` y `boton-compacto` el 23/09/2026, que nadie leía). |
+| Botón primario | Texto blanco y **sin sombra** en los dos repos. En el panel el fondo es `acento`; en la landing es `tinta` desde el 18/09/2026. `shadow-boton` y `shadow-boton-noche` se retiraron el 23/09/2026. |
 | Botón primario, hover | Fondo `acento-tinta` —**se oscurece, no se aclara**—. |
 | Botón secundario | Hoja con borde `filete-fuerte`; en hover el borde y el texto pasan al acento. |
 | Botón sobre superficie oscura | Se invierte a `hoja` con texto en `tinta`. **No se aclara el acento**: sobre el grafito mide 1,94:1, bajo el mínimo de 3:1 de un control. |
@@ -232,7 +232,8 @@ sostiene.
 - **`shadow-hoja`:** el mínimo que separa una hoja del campo.
 - **`shadow-ventana`:** el objeto que la pantalla existe para mostrar, y los diálogos.
 - **`shadow-flota`:** lo que se superpone a otra cosa — menús, avisos.
-- **`shadow-boton` y `shadow-boton-noche`:** el peso del botón, sólo donde la superficie lo pide.
+- **El botón no tiene sombra:** pesa por su valor contra el fondo. `shadow-boton` y
+  `shadow-boton-noche` se retiraron el 23/09/2026.
 
 Los bordes son siempre de un píxel en filete: no hay bordes de 2px ni callouts con borde
 grueso de color.

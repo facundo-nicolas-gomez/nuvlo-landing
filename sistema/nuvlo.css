@@ -274,22 +274,18 @@
   --shadow-hoja-noche: 0 1px 2px rgb(0 0 0 / 0.2);
   --shadow-hoja-noche-alta: 0 2px 4px rgb(0 0 0 / 0.2);
 
-  /* LA SOMBRA DEL BOTÓN, HOY SIN BOTÓN COMPARTIDO. Se escribió para el primario
-     de la landing, en petróleo: se tiñe desde el petróleo que la proyecta, y
-     sobre la noche el botón se invertía a hoja con la suya, más larga. Ya no la
-     lleva ninguno de los dos primarios: la landing pasó a tinta plana el
-     18/09/2026 y el tono `accion` del panel se aplanó con la pantalla de entrar.
-     `--shadow-boton` queda en dos botones sueltos del panel y `-noche` en
-     ninguno. Si los dos tokens siguen es una decisión abierta, anotada en
-     `.impeccable/surfaces/sistema-nuvlo-css.md` de la landing. */
-  --shadow-boton: 0 1px 2px rgb(6 44 51 / 0.28), 0 6px 14px -6px rgb(15 95 107 / 0.45);
-  --shadow-boton-noche: inset 0 -1px 0 rgb(22 20 31 / 0.08), 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 24px -10px rgb(0 0 0 / 0.7);
+  /* EL BOTÓN NO TIENE SOMBRA (dueño, 23/09/2026). Acá vivían `--shadow-boton` y
+     `--shadow-boton-noche`, escritas para el primario de petróleo de la landing.
+     La landing lo pasó a tinta plana el 18/09/2026 y el tono `accion` del panel
+     se aplanó con la pantalla de entrar, así que las dos quedaron sin botón
+     compartido que las usara: sólo dos botones sueltos del panel, que pasaron a
+     `estilos-boton.ts` en la misma tanda. Un botón pesa por su valor contra el
+     fondo, no por una sombra. */
 
   /* ══════════════════════════════════════════════════════════════════════════
      TIPOGRAFÍA — UNA FAMILIA, CUATRO PESOS
 
-     400 lee, 500 controla lo que no es botón, 600 titula y acciona, 800 firma
-     el wordmark. El contraste entre escalones lo hacen el peso y el color tanto
+     400 lee, 500 controla y acciona, 600 titula, 800 firma el wordmark. El contraste entre escalones lo hacen el peso y el color tanto
      como el cuerpo. (Decía 700 para el wordmark; los dos repos lo componen en
      800, a 22px y −0,06em. Corregido el 23/09/2026.)
 
@@ -359,22 +355,12 @@
   --text-cuerpo--line-height: 1.6;
   --text-cuerpo--font-weight: 400;
 
-  /* El texto del botón, uno por escalón de control. Línea a 1 porque un control
-     se centra por su alto y no por su interlínea. */
-  --text-boton: 1rem;
-  --text-boton--line-height: 1;
-  --text-boton--font-weight: 600;
-  --text-boton--letter-spacing: -0.012em;
-
-  --text-boton-medio: 0.9375rem;
-  --text-boton-medio--line-height: 1;
-  --text-boton-medio--font-weight: 600;
-  --text-boton-medio--letter-spacing: -0.012em;
-
-  --text-boton-compacto: 0.875rem;
-  --text-boton-compacto--line-height: 1;
-  --text-boton-compacto--font-weight: 600;
-  --text-boton-compacto--letter-spacing: -0.008em;
+  /* EL TEXTO DEL BOTÓN NO ES UN ROL (dueño, 23/09/2026). Acá vivían
+     `--text-boton`, `-medio` y `-compacto`, uno por escalón de control y en 600.
+     Ninguno de los dos repos los leía, y ya no coincidían con lo que cada uno
+     escribe: la landing compone su botón en 16 y 15 a 500, y el panel en 14 y
+     13 a 500, cada uno en su módulo. Un rol que nadie lee no ordena nada: se
+     retiraron para que el sistema no afirme una escala que no existe. */
 
   /* Lo que se toca y no es un botón: enlace de navegación, etiqueta de campo. */
   --text-control: 0.9375rem;
