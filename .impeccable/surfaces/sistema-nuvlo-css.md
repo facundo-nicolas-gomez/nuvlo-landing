@@ -34,8 +34,8 @@ también obliga a copiar.
 - **La sombra y el texto del botón.** Ningún botón compartido usa `--shadow-boton`: el de la
   landing es tinta y plano desde el 18/09/2026, y el tono `accion` del panel se aplanó con el
   login. `--shadow-boton-noche` y los tres `--text-boton*` no los usa ninguno de los dos. El
-  comentario del sistema dice además lo contrario de lo que pasa («el primario de la landing la
-  lleva; el del panel no»). Decidir si los tokens siguen.
+  comentario del sistema decía lo contrario («el primario de la landing la lleva; el del panel
+  no»); se corrigió el 23/09/2026 y ahora remite acá. Decidir si los tokens siguen.
 - **Los titulares se cambiaron en `base.css`.** El 19/09/2026 la landing pasó portada y display
   a 550, 76 y 51 (`.i-portada`, `.i-display`), pero `--text-portada` y `--text-display` siguen en
   600, 72 y 48. Es justo lo que la regla del orden prohíbe. Decidir si sube al sistema, y con él
@@ -110,10 +110,13 @@ también obliga a copiar.
 
 ### Comentarios que describen mal el código
 
-- `sistema/nuvlo.css`: `--color-acento-filete` es «el borde de las citas del producto», y su
-  único uso como borde es el avatar de la burbuja de WhatsApp.
-- `sistema/nuvlo.css`: «700 firma el wordmark». Los dos repos lo componen en 800, y
-  `DESIGN.md` ya dice 800.
+- ~~`--color-acento-filete` descrito como «el borde de las citas del producto».~~ **Cerrado el
+  23/09/2026**, y esta línea lo ubicaba mal: no estaba en `sistema/nuvlo.css` sino en `base.css`
+  y en `DESIGN.md`. Los dos dicen ahora lo que hace: el divisor de la barra y el borde del avatar
+  del mensaje. En la misma frase de `base.css` también estaba mal `--color-acento-luz`, que hoy
+  es solo el hover del botón de la barra en las legales.
+- ~~`sistema/nuvlo.css`: «700 firma el wordmark».~~ **Cerrado el 23/09/2026**: dice 800, que
+  es como lo componen los dos repos. Copiado al panel en la misma tanda.
 - `estilos-boton.ts` (panel): la cabecera dice que `accion` va «con su sombra»; el código es
   plano.
 - `chapa-estado.tsx` (panel): dice que el texto va en el rol `fino` (13px); la clase es

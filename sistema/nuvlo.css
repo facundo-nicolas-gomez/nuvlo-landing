@@ -274,20 +274,24 @@
   --shadow-hoja-noche: 0 1px 2px rgb(0 0 0 / 0.2);
   --shadow-hoja-noche-alta: 0 2px 4px rgb(0 0 0 / 0.2);
 
-  /* LA SOMBRA DEL BOTÓN ES PESO, Y EL PESO ES DE LA LANDING. El primario de la
-     landing la lleva; el del panel no, porque el panel es denso y el peso lo
-     carga el color. Se tiñe desde el petróleo que la proyecta. Sobre la noche el
-     botón se invierte a hoja y lleva la suya, más larga, que es lo que lo separa
-     del negro. */
+  /* LA SOMBRA DEL BOTÓN, HOY SIN BOTÓN COMPARTIDO. Se escribió para el primario
+     de la landing, en petróleo: se tiñe desde el petróleo que la proyecta, y
+     sobre la noche el botón se invertía a hoja con la suya, más larga. Ya no la
+     lleva ninguno de los dos primarios: la landing pasó a tinta plana el
+     18/09/2026 y el tono `accion` del panel se aplanó con la pantalla de entrar.
+     `--shadow-boton` queda en dos botones sueltos del panel y `-noche` en
+     ninguno. Si los dos tokens siguen es una decisión abierta, anotada en
+     `.impeccable/surfaces/sistema-nuvlo-css.md` de la landing. */
   --shadow-boton: 0 1px 2px rgb(6 44 51 / 0.28), 0 6px 14px -6px rgb(15 95 107 / 0.45);
   --shadow-boton-noche: inset 0 -1px 0 rgb(22 20 31 / 0.08), 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 24px -10px rgb(0 0 0 / 0.7);
 
   /* ══════════════════════════════════════════════════════════════════════════
      TIPOGRAFÍA — UNA FAMILIA, CUATRO PESOS
 
-     400 lee, 500 controla lo que no es botón, 600 titula y acciona, 700 firma
+     400 lee, 500 controla lo que no es botón, 600 titula y acciona, 800 firma
      el wordmark. El contraste entre escalones lo hacen el peso y el color tanto
-     como el cuerpo.
+     como el cuerpo. (Decía 700 para el wordmark; los dos repos lo componen en
+     800, a 22px y −0,06em. Corregido el 23/09/2026.)
 
      **Geist, por decisión del dueño (12/09/2026).** No tiene eje `opsz`: lo que
      carga la diferencia entre escalones es el peso, el tracking y el cuerpo.
