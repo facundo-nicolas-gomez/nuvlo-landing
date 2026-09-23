@@ -283,11 +283,13 @@
      fondo, no por una sombra. */
 
   /* ══════════════════════════════════════════════════════════════════════════
-     TIPOGRAFÍA — UNA FAMILIA, CUATRO PESOS
+     TIPOGRAFÍA — UNA FAMILIA, CINCO PESOS
 
-     400 lee, 500 controla y acciona, 600 titula, 800 firma el wordmark. El contraste entre escalones lo hacen el peso y el color tanto
-     como el cuerpo. (Decía 700 para el wordmark; los dos repos lo componen en
-     800, a 22px y −0,06em. Corregido el 23/09/2026.)
+     400 lee, 500 controla y acciona, 550 titula a cuerpo grande (portada y
+     display), 600 titula a cuerpo chico, 800 firma el wordmark. El contraste
+     entre escalones lo hacen el peso y el color tanto como el cuerpo. (Decía
+     700 para el wordmark; los dos repos lo componen en 800, a 22px y −0,06em.
+     Corregido el 23/09/2026.)
 
      **Geist, por decisión del dueño (12/09/2026).** No tiene eje `opsz`: lo que
      carga la diferencia entre escalones es el peso, el tracking y el cuerpo.
@@ -308,10 +310,18 @@
      se documenta. */
 
   /* La voz de titular de una página que persuade. Viajan aunque el panel no los
-     use: un titular de 72px no tiene trabajo en un tablero. */
-  --text-portada: clamp(2.625rem, 5.4vw, 4.5rem);
+     use: un titular de 76px no tiene trabajo en un tablero.
+
+     ── UN ESCALÓN MÁS GRANDES Y MÁS FINOS (dueño, 19/09/2026) ───────────────
+     Portada de 72 a 76 y display de 48 a 51, los dos de 600 a 550: «apenas más
+     grandes y apenas menos gruesos». A cuerpo grande el 600 de Geist pinta tanto
+     trazo que la palabra se lee por su silueta; el porqué entero está al lado de
+     `.i-portada` en `base.css` de la landing. La decisión se escribió ese día en
+     `base.css` y no acá, y el sistema se quedó con los números viejos sin que
+     nadie los leyera: desde el 23/09/2026 viven acá y la landing los lee. */
+  --text-portada: clamp(2.625rem, 5.4vw, 4.75rem);
   --text-portada--line-height: 1;
-  --text-portada--font-weight: 600;
+  --text-portada--font-weight: 550;
   --text-portada--letter-spacing: -0.038em;
 
   /* La bajada del héroe: crece con la columna y en un teléfono no crece nada. */
@@ -320,9 +330,9 @@
   --text-portada-bajada--font-weight: 400;
   --text-portada-bajada--letter-spacing: -0.012em;
 
-  --text-display: clamp(2rem, 3.5vw, 3rem);
+  --text-display: clamp(2rem, 3.5vw, 3.1875rem);
   --text-display--line-height: 1.04;
-  --text-display--font-weight: 600;
+  --text-display--font-weight: 550;
   --text-display--letter-spacing: -0.032em;
 
   /* La cifra grande de un dato: el total del reporte, la métrica del tablero.

@@ -901,22 +901,26 @@ body:has(.iris) {
 
    El contraste entre escalones lo siguen haciendo el cuerpo y el color, como
    dice la cabecera de esta sección. Abajo —título, rótulo, la cifra— el 500 y
-   el 600 se quedan: ahí el cuerpo es chico y el peso es lo único que separa. */
+   el 600 se quedan: ahí el cuerpo es chico y el peso es lo único que separa.
+
+   Los números viven en `sistema/nuvlo.css` desde el 23/09/2026 y acá se leen:
+   se habían escrito sólo acá, y el sistema se quedó con 600, 72 y 48 sin que
+   nadie lo notara, porque ninguna regla leía esos tokens. */
 .i-portada {
   margin: 0;
-  font-size: clamp(2.625rem, 5.4vw, 4.75rem);
-  font-weight: 550;
-  line-height: 1;
-  letter-spacing: -0.038em;
+  font-size: var(--text-portada);
+  font-weight: var(--text-portada--font-weight);
+  line-height: var(--text-portada--line-height);
+  letter-spacing: var(--text-portada--letter-spacing);
   text-wrap: balance;
 }
 
 .i-display {
   margin: 0;
-  font-size: clamp(2rem, 3.5vw, 3.1875rem);
-  font-weight: 550;
-  line-height: 1.04;
-  letter-spacing: -0.032em;
+  font-size: var(--text-display);
+  font-weight: var(--text-display--font-weight);
+  line-height: var(--text-display--line-height);
+  letter-spacing: var(--text-display--letter-spacing);
   text-wrap: balance;
 }
 
