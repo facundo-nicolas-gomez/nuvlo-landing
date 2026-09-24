@@ -2316,6 +2316,27 @@ figura dice el dato de la revisión de Meta.
 (`facebook.com/settings/?tab=business_tools`) no se abrió; Meta la viene mudando al Centro de
 cuentas.
 
+### Después, la misma tarde: de dibujo a cita
+
+Todo lo de arriba es historia: el diodo se retiró. El recorrido completo y las reglas que dejó
+están en `DESIGN.md` → *El permiso*. En corto:
+
+- **Critique** (`.impeccable/critique/`, 18/32): la especificidad era de categoría y el sello
+  se leía notarial, con la marca cabeza abajo en el aro. El dueño: «parece de un estudio
+  jurídico».
+- **Tarjeta de permisos** propia → **captura real** de la autorización (aportada por el dueño)
+  → **campo de color** azul de Meta a petróleo, que quedó → **foco y cable**, que salieron
+  («no suma») → **réplica en HTML**, que salió («perdió calidad») → **la captura, recortada**.
+- **Lo vigente:** titular visible «Lee las campañas. / No las toca.», bajada con `ads_read` y lo
+  que no puede hacer, el dato de la revisión de Meta y el enlace a la ayuda de Meta
+  (`facebook.com/help/405094243235242`), que reemplazó al de Configuración porque ése no
+  llegaba. A la derecha, la captura de 562×287 a 1x sobre el campo, con un halo y una sola
+  animación: la aparición.
+
+**Sin resolver:** la captura es 1x. En pantallas densas se ve algo blanda y en teléfono el
+renglón del permiso queda chico (270px de ancho). Una captura a 2x lo resuelve cambiando el
+archivo y las dos medidas.
+
 ## Lo que quedó sin resolver
 
 > **Auditada entera el 19/09/2026, y el resultado obliga a leerla con desconfianza.** De las

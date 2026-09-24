@@ -3331,35 +3331,52 @@ la sección de 1249 a 1119 (de 1644 a 1515 en móvil).
 
 ### El permiso (composición, 24/09/2026)
 
-Entre El entregable y Precios, `components/iris/Permiso.tsx`. Dice una sola cosa —las métricas
-van de la cuenta publicitaria al reporte y nada vuelve— y la dice **dibujada**, sin titular
-visible (pedido del dueño: «nada de etiquetas ni bloques de texto»; el `h2` va en
-`i-solo-lectores`). Es un diodo:
+Entre El entregable y Precios, `components/iris/Permiso.tsx`. Dice una cosa —Nuvlo lee las
+campañas y no las toca— y la prueba con **la pantalla que Meta le muestra al trafficker al
+conectar**, no con un objeto nuestro.
 
-- **La ida**: cuenta → vía → sello → vía → reporte. Las vías son un filete fuerte con un pulso
-  de puntos en `tinta-2` que corre en el sentido del dato y se funde en las dos puntas.
-- **El sello**: en `acento`, porque es una MARCA —la de Nuvlo— y la marca está entre las
-  señales que el acento pinta. Aro doble con «SÓLO LECTURA · GARANTIZADO POR NUVLO», un ojo y
-  `ads_read` al centro, torcido −9° y con un desgaste de tinta por ruido que sólo come los
-  picos (con una pendiente más suave se leía como arena). Sin Meta adentro.
-- **La vuelta**: tres órdenes tachadas, con candado y borde punteado, cuyos trazos terminan
-  con la punta contra un muro de tres píxeles en `tinta` que cuelga del centro del sello. Son
-  controles dibujados que no responden a propósito: no prometen nada, dicen lo que no pasa.
-- **La llave**, el único enlace, debajo de la cuenta y en `acento`: quien corta es quien
-  autorizó.
-- **El dato de la revisión de Meta**, como pie de figura en `tinta-3` y **fuera del sello**:
-  adentro se leería como una chapa de Meta.
+- **El campo**: un panel del ancho de la columna, en `--radius-bandeja`, que va del **azul de
+  Meta** alrededor de la ventana al **petróleo de Nuvlo** del lado del título. Los intermedios
+  salen de `color-mix` entre los dos, así no hay un tercer color. Es la única superficie de
+  color saturado de la parte clara, y se justifica porque carga el argumento: de quién es cada
+  lado se lee en el color antes que en el texto. Apilado, el azul arriba (la ventana) y el
+  petróleo abajo (el título).
+- **El azul de Meta** (`--azul-meta`, `#1877f2`, en `base.css`) está muestreado del botón
+  «Guardar» de la captura, no de un manual de marca. **Es la única excepción de color de la
+  página fuera del sistema**, y vive sólo en este campo y su halo: fuera de la cita, un azul de
+  Meta sería vestirse de Meta. Escenario, no sistema: no cruza al panel.
+- **La ventana**: la captura real de la autorización (`public/meta/autorizacion-nuvlo.png`,
+  562×287, a 1x), recortada —sin el blanco del medio ni el canto gris de 2px— y con la foto de
+  perfil tapada por un círculo gris. Va a su ancho natural y nunca más grande, con radio de 12 y
+  la sombra honda de lo que flota; es lo único que la página le pone. Un halo azul la rodea.
+- **Texto sobre el campo**: titular en hoja, «Lee las campañas. / No las toca.», una oración por
+  renglón; bajada con `ads_read` en una pastilla de hoja al 16 %; un filete, el dato de la
+  revisión de Meta y el enlace a la ayuda de Meta para quitar el acceso. **El enlace va en hoja
+  subrayado y no en `acento-sobre-noche`**: ese celeste da 3,8:1 sobre el petróleo y un enlace de
+  15px pide 4,5. El anillo de foco del panel es hoja.
+- **Movimiento**: uno solo. La ventana sube desde el campo (48px, escala 0,94) mientras el halo
+  se enciende: el azul nace de la ventana. La escena anula la entrada genérica de `Entra` para
+  hacer la suya. Con movimiento reducido aparece puesta.
+- **Umbral**: en fila desde 1200. A 1024 la captura bajaba a 404px y el texto de Meta no se
+  leía; apilada va a 562.
 
-Los dos nodos son **pictogramas y no citas**: sin sombra ni cromo (*La Regla de la Caja*), con
-el filete fuerte de canto y sin una cifra, porque el informe se muestra a escala de lectura en
-el resto de la página y achicado acá sería el informe encogido que el dueño rechazó.
+**El camino, en una tarde (24/09/2026), porque cada paso dejó una regla:**
 
-Medidas: desde 1200 los nodos miden 16rem y el sello 14; de 960 a 1199, 13,5 y 12, porque con
-las grandes a 1024 las vías quedaban en tres puntos. Por debajo de 960 se apila en vertical y
-las vías bajan.
-
-Movimiento: el bloque entra con `Entra` y el sello **se estampa** —cae de 1,45 a 0,965 y
-vuelve a 1—, una sola vez por entrada y sin rebote. Con movimiento reducido aparece puesto.
+1. **Un diodo con un sello de goma** en petróleo («SÓLO LECTURA · GARANTIZADO POR NUVLO»).
+   Rechazado: **«parece de un estudio jurídico»**. Un aro doble con versales espaciadas y tinta
+   gastada es autoridad notarial, no un límite técnico, y era el único objeto del sitio que
+   imitaba un material. La crítica encontró además la marca cabeza abajo en el aro.
+2. **Una tarjeta de permisos propia** (`ads_read` activo; `ads_management` y
+   `business_management` «No se pide»). Descartada antes de construirla del todo: el dueño trajo
+   la captura real, que prueba lo mismo sin que la prueba sea nuestra.
+3. **La captura entera** sobre la bandeja: **«puesta, no diseñada: un cuadrado blanco pegado
+   sobre un fondo sin vida»**. A 566×674 era casi toda blanca.
+4. **El campo de color, un foco sobre el permiso y un cable con puntos** que viajaban del
+   permiso al título. El campo quedó; el cable **«no suma»** y el foco era un recuadro encima de
+   una pantalla ajena.
+5. **Una réplica en HTML** de la ventana: **«perdió calidad»**. Era más limpia y dejaba de ser
+   Meta, que es justo lo que convence.
+6. **La captura real, recortada**, que es lo que hay.
 
 ### Preguntas (composición, 17/09/2026)
 La única sección sin objeto, y **la única sin bloque de las tres claras**: las nueve respuestas
@@ -3851,7 +3868,8 @@ una regla en su `globals.css`.
 
 ### Don't:
 - **Don't** dejarle un `transform` de CSS retenido al contenedor HTML de un SVG con texto y
-  filtro. El sello de `#permiso` se torcía con `rotate(-9deg)` en su `div`, y Chrome pintaba el
+  filtro. El sello de la primera versión de `#permiso` —ya retirado— se torcía con
+  `rotate(-9deg)` en su `div`, y Chrome pintaba el
   texto y el ojo corridos y más chicos que los aros **con el layout midiendo bien**: `getBBox` y
   los rectángulos daban las posiciones correctas y el píxel no. Pasaba igual con la identidad
   que deja una animación con `both`. Se descartaron uno por uno el filtro, `overflow` y la
@@ -3859,6 +3877,17 @@ una regla en su `globals.css`.
   `<g transform>` adentro del SVG y la animación es `backwards`—. Medido en Playwright a 1024,
   24/09/2026. **Cuando el layout mide bien y la pantalla no, el defecto es de pintura, y se
   busca en las capas, no en las coordenadas.**
+- **Don't** probar una garantía con un objeto propio cuando existe la pantalla de quien la
+  garantiza. `#permiso` pasó por un sello de Nuvlo y una tarjeta de permisos dibujada por
+  nosotros, y las dos decían «confiá en lo que te decimos»; la captura de la autorización de
+  Meta dice «mirá lo que ya vas a ver». Y la réplica en HTML de esa pantalla, más limpia, el
+  dueño la leyó como pérdida de calidad: **una cita vale porque es la cosa, y una copia prolija
+  deja de serlo.** Se recorta —el blanco que no dice nada— pero no se redibuja.
+- **Don't** ponerle a una cita algo que dirija la mirada desde afuera. Un anillo sobre el
+  renglón del permiso y un cable con puntos que viajaban de ahí al título (24/09/2026) salieron
+  el mismo día: «no suma», y el anillo era un recuadro encima de una pantalla ajena. La
+  dirección ya la decía el campo de color, del azul de Meta al petróleo. **Si el fondo ya cuenta
+  el argumento, el gesto encima lo repite.**
 - **Don't** poner el monograma al lado del wordmark cuando el monograma ES la inicial. Entró el
   20/09/2026, el mismo día que el dueño aportó la marca, y salió a las horas: el signo es una N
   pegada a una palabra que empieza con «n», así que el lockup dice *N + nuvlo* y el dibujo sólo

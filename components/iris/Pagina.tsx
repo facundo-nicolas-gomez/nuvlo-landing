@@ -32,8 +32,8 @@ import { Atajo } from "./Atajo";
  *                  `Maquina.tsx`).
  *   El entregable  el mail que recibe el cliente, literal, el mismo mail
  *                  abierto en su celular, y las otras dos formas del informe.
- *   El permiso     la cuenta de Meta al reporte, en una sola dirección:
- *                  ads_read y un sello de sólo lectura. Dibujo, sin titular.
+ *   El permiso     la autorización real de Meta, recortada, sobre un campo
+ *                  que va del azul de Meta al petróleo: un solo permiso, ads_read.
  *   Precios        por cliente, al mes, con la diferencia citada.
  *   Preguntas      incluidas las que dicen que no.
  *   Cierre         noche: el pie que se revela por debajo del telón (el

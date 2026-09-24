@@ -376,9 +376,22 @@ el dueño. Con eso el sitio puede decir tres cosas, y la sección `#permiso` las
   presupuestos, porque ese permiso no lo habilita;
 - que Nuvlo pasó la revisión de apps de Meta para ese permiso, **escrito como dato**.
 
-Lo que no puede decir: que Meta aprobó, avaló o certificó a Nuvlo, y nada que lleve el logo
-de Meta o se parezca a un sello suyo. La garantía de sólo lectura es de Nuvlo, sobre lo que
-Nuvlo construyó. **Si `META_SCOPES` cambia, `#permiso` miente**: se revisa en la misma tanda.
+Lo que no puede decir: que Meta aprobó, avaló o certificó a Nuvlo, ni nada que se parezca a un
+sello suyo. **Si `META_SCOPES` cambia, `#permiso` miente**: se revisa en la misma tanda.
+
+**La prueba es la pantalla de Meta, citada (decisión del dueño, 24/09/2026).** La sección
+muestra la captura real de la autorización que el dueño aportó: «Revisa la solicitud de acceso
+de Nuvlo» con un solo renglón, «Acceder a tus anuncios de Facebook y estadísticas
+relacionadas». El logo de Meta aparece **sólo porque está en esa interfaz real**; el sitio no
+agrega logos ni sellos de Meta en ningún otro lado, y el pie ya dice que Nuvlo no está afiliado
+a Meta Platforms. De la captura se sacó únicamente lo que no dice nada —el blanco del medio— y
+**la foto de perfil de quien autorizó, que es un dato personal y se tapó con un círculo gris**.
+Si Meta cambia esa pantalla, se vuelve a capturar.
+
+El enlace de la sección va a la ayuda de Meta sobre cómo quitar integraciones comerciales
+(`facebook.com/help/405094243235242`): abre sin sesión y en castellano. El enlace directo a la
+configuración (`settings/?tab=business_tools`) sin sesión terminaba en el login, y el dueño
+confirmó que con sesión tampoco llegaba.
 
 **Tres cuentas reales, aportadas por el dueño el 19/09/2026.** Posada Quinen (hospedaje),
 Destino Andino (turismo) y Go By (alquiler de autos), los tres de San Martín de los Andes y

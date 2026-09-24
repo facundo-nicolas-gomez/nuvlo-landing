@@ -258,6 +258,16 @@
   --bandeja-a: #e6f1f1;
   --bandeja-b: #cfe3e4;
 
+  /* ── EL AZUL DE META, CITADO (24/09/2026) ─────────────────────────────────
+     Muestreado del botón «Guardar» de la captura real de la autorización que
+     aportó el dueño, no de un manual de marca: es el azul que el visitante ve
+     en esa pantalla. Vive sólo en `#permiso` —el campo alrededor de la captura
+     de la ventana de Meta— y se funde hacia el
+     petróleo: el campo dice de quién es cada lado. No es un acento de Nuvlo y no se usa en ningún otro lado —fuera de
+     la cita, un azul de Meta sería vestirse de Meta—. Escenario, no sistema:
+     no cruza al panel. */
+  --azul-meta: #1877f2;
+
   /* Dos brillos y no uno. El resplandor del acento tiñe lo que ES del acento —la
      sombra del marcador de la lista—; el fondo del héroe lleva un haz CÁLIDO de
      la familia del campo. Nació de un error que vale registrar: teñir el fondo
@@ -538,7 +548,7 @@
      lo que quedaba era una sombra de un mundo que ya no existe.
 
      Pasan a `rgb(20 20 20)`. El tramo de contacto conserva su `rgb(22 20 31)`,
-     que tiene +9 y acompaña al campo, que es levemente frío. */
+     que tiene +9 y acompaña al campo, que es levemente frío. */
 
 
   /* ── LA SOMBRA DEL OBJETO GRANDE NO ES LA DEL OBJETO CHICO ────────────────
@@ -560,7 +570,7 @@
      despegarse de ella de verdad (dueño, 10/09/2026): la de ventana, con su
      extensión negativa, las dejaba pegadas al cromo. Más desplazamiento y más
      desenfoque que la de ventana, con un poco de iris, como todo lo que se
-     apoya cerca de la página del informe. */
+     apoya cerca de la página del informe. */
 
 
   /* ── MEDIDAS ────────────────────────────────────────────────────────────── */
