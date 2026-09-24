@@ -65,7 +65,7 @@ const SLIDES = [
     tab: "Conectar",
     nota: "Tu cuenta de Meta, una sola vez",
     linea:
-      "La cuenta de Meta se conecta una sola vez. Después, cada reporte es elegir el período.",
+      "Sin exportar de Meta ni armar hojas de cálculo: la cuenta se conecta una vez y cada reporte es elegir el período.",
   },
   {
     tab: "Nuvlo calcula",
@@ -77,7 +77,7 @@ const SLIDES = [
     tab: "Aprobar",
     nota: "Nada sale sin tu aprobación",
     linea:
-      "El informe queda en borrador, a la espera de tu aprobación. Hasta entonces, sin enlace público y sin correo.",
+      "El reporte queda en borrador, a la espera de tu aprobación. Hasta entonces, sin enlace público y sin correo.",
   },
 ];
 
@@ -218,7 +218,7 @@ function CardCalculo() {
         ))}
       </ul>
       <p className="i-esc-calculo-pie">
-        La IA no computa ninguno: los recibe hechos y sólo los redacta.
+        Por eso cada número del reporte sale de los datos de Meta.
       </p>
     </div>
   );

@@ -87,7 +87,7 @@ const FORMAS = [
     // que es donde se elige el plan, y acá alargaba la definición a cuatro
     // renglones con un dato que no es de «lo que recibe tu cliente».
     definicion:
-      "El botón del correo abre el informe en su propia página. El enlace vence a los 90 días.",
+      "El botón del correo abre el reporte en su propia página. El enlace vence a los 90 días.",
   },
   {
     termino: "Y un PDF",
@@ -112,8 +112,8 @@ export function Entregable() {
             Lo que recibe tu cliente.
           </h2>
           <p className="i-bajada i-cabeza-bajada">
-            Un correo con tu firma, sin contenido del reporte ni marca de Nuvlo
-            en el cuerpo. Y, desde ahí, el informe.
+            Un correo breve a nombre de tu agencia, con un botón al reporte. Sin
+            marca de Nuvlo en el cuerpo.
           </p>
         </Entra>
 
@@ -244,7 +244,7 @@ export function Entregable() {
           {/* La URL va aprobada porque es lo que el cliente abre: la página
               pública del plan Estándar, no la vista previa. */}
           <div className="i-tiempo i-tiempo-informe">
-            <p className="i-rotulo i-escena-rotulo">Y ve el informe</p>
+            <p className="i-rotulo i-escena-rotulo">Y ve el reporte</p>
             <div className="i-abre-recorte">
               {/* El envoltorio lleva la sombra y el recorte la máscara: una
                   máscara recorta también la sombra del elemento que enmascara,
@@ -295,7 +295,7 @@ export function Entregable() {
               ofrece es Nuvlo y no Gmail. */}
           <p className="i-entregable-entero">
             <Link className="i-entregable-entero-enlace" href="/reporte">
-              Ver el informe completo
+              Ver el reporte completo
             </Link>
           </p>
         </Entra>

@@ -96,9 +96,9 @@ const PASOS: {
     // de `PRODUCT.md` dice que el entregable es del trafficker y no de Nuvlo, y
     // un membrete con su nombre arriba de todo es la prueba más literal de eso
     // que el documento puede dar. El cliente no se pierde, baja un renglón.
-    titulo: "Arriba, tu marca.",
+    titulo: "Arriba, tu agencia.",
     texto:
-      "Tu nombre encabeza el informe. Debajo, el de tu cliente y el período, comparado con el anterior de la misma duración.",
+      "Tu nombre encabeza el reporte. Debajo, el de tu cliente y el período, comparado con el anterior de la misma duración.",
   },
   {
     parte: "resumen",
@@ -122,7 +122,7 @@ const PASOS: {
     parte: "plan",
     titulo: "Hasta tres acciones.",
     texto:
-      "Lo que el informe recomienda hacer el mes que viene, sin sumar una sola cifra nueva.",
+      "Lo que el reporte recomienda hacer el mes que viene, sin sumar una sola cifra nueva.",
   },
   {
     parte: "cierre",
@@ -440,7 +440,7 @@ export function Lectura() {
         <div className="i-lectura-lado">
           <Entra className="i-lectura-cabeza">
             <h2 id="i-h-lectura" className="i-display">
-              El informe, parte por parte.
+              El reporte, parte por parte.
             </h2>
             <p className="i-bajada i-lectura-bajada">
               Lo que le llega a tu cliente, de arriba abajo: qué calcula Nuvlo,
@@ -463,7 +463,7 @@ export function Lectura() {
               ))}
             </div>
 
-            <ol ref={guia} className="i-lectura-guia" aria-label="Partes del informe">
+            <ol ref={guia} className="i-lectura-guia" aria-label="Partes del reporte">
               {PASOS.map((p, i) => (
                 <li
                   key={p.parte}

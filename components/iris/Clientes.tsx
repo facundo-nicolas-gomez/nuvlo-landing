@@ -195,7 +195,7 @@ export function Clientes() {
     >
       <div className="i-marco">
         <p className="i-clientes-linea" id="i-r-clientes">
-          Estas marcas ya reciben sus informes con Nuvlo.
+          Estas marcas ya reciben sus reportes con Nuvlo.
         </p>
 
         <ul className="i-clientes-fila">

@@ -71,7 +71,9 @@ import { Boton, Wordmark } from "./Piezas";
  */
 const ENLACES = [
   { texto: "Cómo funciona", href: "/#pasos", id: "pasos" },
-  { texto: "Control", href: "/#control", id: "control" },
+  // «Aprobar» y no «Aprobación» (24/09/2026): la palabra larga partía la fila
+  // en dos renglones a 1.100, donde con los botones legales sobran 44px.
+  { texto: "Aprobar", href: "/#control", id: "control" },
   { texto: "Precios", href: "/#precios", id: "precios" },
 ];
 

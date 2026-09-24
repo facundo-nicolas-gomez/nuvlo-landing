@@ -48,7 +48,7 @@ import { AGENCIA_MUESTRA } from "@/lib/reporte-muestra";
  * antes de que se lea un solo número.
  */
 export const metadata: Metadata = {
-  title: "El informe que recibe tu cliente — Nuvlo",
+  title: "El reporte que recibe tu cliente — Nuvlo",
   description:
     "El reporte de Meta Ads completo, tal como lo abre el cliente de la agencia: encabezado, resumen, las cuatro cifras, el detalle contra el mes anterior, el plan de acción y la firma. Ejemplo con datos ficticios.",
   alternates: { canonical: "/reporte" },
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     siteName: "Nuvlo",
     locale: "es_LA",
     url: "https://nuvloapp.com/reporte",
-    title: "El informe que recibe tu cliente — Nuvlo",
+    title: "El reporte que recibe tu cliente — Nuvlo",
     description:
       "El reporte de Meta Ads completo, tal como lo abre el cliente de la agencia. Ejemplo con datos ficticios.",
   },
@@ -71,7 +71,7 @@ export default function PaginaReporte() {
       <main className="i-reporte" id="contenido" tabIndex={-1}>
         <div className="i-marco">
           <div className="i-reporte-cabeza">
-            <h1 className="i-reporte-titulo">El informe que recibe tu cliente</h1>
+            <h1 className="i-reporte-titulo">El reporte que recibe tu cliente</h1>
             <p className="i-chico i-reporte-nota">
               Así lo abre, en su propia página. Las cifras son de un ejemplo
               ficticio: Nuvlo no publica datos de ninguna cuenta real.

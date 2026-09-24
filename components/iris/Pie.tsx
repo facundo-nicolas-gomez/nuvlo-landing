@@ -54,7 +54,7 @@ const COLUMNAS = [
     enlaces: [
       { texto: "El reporte", href: "/#reporte" },
       { texto: "Cómo funciona", href: "/#pasos" },
-      { texto: "Control", href: "/#control" },
+      { texto: "Aprobar", href: "/#control" },
       // El espacio duro cierra una huérfana de una palabra, medida y corregida
       // el 09/09/2026 (brief de `.impeccable/`). Va escapado y no literal: un
       // carácter invisible en el fuente se pierde en el primer copiar y pegar.
@@ -112,7 +112,8 @@ export function Pie() {
           {/* La misma corrección que el titular de Control: en Automático el
               reporte sale sin visto bueno por reporte. */}
           <p className="i-chico">
-            Reportes de Meta Ads con tu marca. Enviarlos es decisión tuya.
+            Reportes de Meta Ads con el nombre de tu agencia. Enviarlos es
+            decisión tuya.
           </p>
         </div>
 

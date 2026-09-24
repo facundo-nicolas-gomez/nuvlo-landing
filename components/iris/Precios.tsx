@@ -241,7 +241,8 @@ export function Precios() {
               {/* La escolta del total: el marco que PRODUCT.md ya afirma —el
                   reporte es trabajo no facturable—, sin una cifra nueva. */}
               <p className="i-cuerpo i-total-escolta">
-                El reporte es la parte del mes que no se puede facturar.
+                El reporte es trabajo que no se factura. Con Nuvlo, deja de
+                costarte la tarde.
               </p>
               <div className="i-total-accion">
                 <Boton>Empezar gratis</Boton>

@@ -69,7 +69,7 @@ const PREGUNTAS = [
     // Estándar cierra con «<agencia> · Generado con Nuvlo» (`report-footer.ts`);
     // el panel no guarda logo ni colores de la agencia.
     q: "¿El reporte lleva mi marca?",
-    a: "Lleva el nombre de tu agencia arriba del informe y en el correo. En el plan Estándar cierra con «Generado con Nuvlo»; en Marca Blanca, esa línea no aparece. Por ahora no incluye logo ni colores propios.",
+    a: "Lleva el nombre de tu agencia arriba del reporte y en el correo. En el plan Estándar cierra con «Generado con Nuvlo»; en Marca Blanca, esa línea no aparece. Por ahora no incluye logo ni colores propios.",
   },
   {
     q: "¿Se puede programar para que salga solo?",

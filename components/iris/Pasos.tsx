@@ -74,7 +74,7 @@ const PASOS = [
     // CRITERIO, que es el que le cuesta la reputación al trafficker.
     // (12/09/2026) El eje no cambia; le faltaba el sujeto: sin él la frase se
     // leía como continuación del título y el «escribe» quedaba sin dueño.
-    objecion: "La IA escribe el análisis, y sale con tu firma.",
+    objecion: "Escribe la IA, pero los números son de Nuvlo.",
     texto:
       "Nuvlo hace los cálculos con los datos que entrega Meta. La IA redacta el resumen, la alerta y hasta tres acciones a partir de esos números ya hechos.",
     generacion: true,
@@ -142,7 +142,7 @@ export function Pasos() {
                 sin nombrar a nadie. La comparación la hace la composición y no
                 la frase. */}
             <p className="i-pasos-tesis">
-              Un informe escrito, con tu
+              Un reporte escrito, con tu
               <em className="i-pasos-acento"> aprobación</em>, y sin perder la
               tarde en hacerlo a mano.
             </p>
