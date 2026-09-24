@@ -23,9 +23,11 @@
 # ese chequeo vive en el CI del panel (`cruza-repos`) y corre sólo en pushes de
 # ese repo.
 #
-# Sí mira la tarjeta social, y no es un test: es un chequeo de consistencia entre
-# dos archivos del repo, como los `verificar-*` del panel. Existe porque la
-# tarjeta copia la paleta a mano y se publicó tres veces con un mundo retirado.
+# Sí mira la tarjeta social y los tres íconos, y no son tests: son chequeos de
+# consistencia entre archivos del repo, como los `verificar-*` del panel. Existen
+# porque los dos copian la paleta a mano —Next y satori los rasterizan fuera del
+# árbol de la página, donde no hay cascada—; la tarjeta ya se publicó tres veces
+# con un mundo que el sitio había retirado.
 
 name: Verificar
 
@@ -83,6 +85,14 @@ jobs:
       # del build porque es instantáneo y no necesita compilar nada.
       - name: Tarjeta social
         run: npm run verificar-tarjeta
+
+      # Los tres íconos tienen el mismo problema que la tarjeta y por el mismo
+      # motivo: Next los sirve fuera del árbol de la página, así que adentro no
+      # hay `var()` y el hex de la paleta queda copiado. Dos de los tres son
+      # binarios, encima, así que en una review nadie ve que quedaron atrás.
+      # Este paso rehace los tres en memoria y los compara contra los del repo.
+      - name: Íconos
+        run: npm run verificar-iconos
 
       - name: Build
         run: npm run build

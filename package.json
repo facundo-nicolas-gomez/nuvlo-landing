@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
-    "verificar-tarjeta": "node scripts/verificar-tarjeta.mjs"
+    "verificar-tarjeta": "node scripts/verificar-tarjeta.mjs",
+    "verificar-iconos": "node scripts/generar-iconos.mjs --verificar"
   },
   "dependencies": {
     "@number-flow/react": "^0.6.2",

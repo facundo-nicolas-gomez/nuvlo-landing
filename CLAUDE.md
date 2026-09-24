@@ -49,20 +49,30 @@ npm run start     # sirve el build
 npm run lint      # eslint (flat config, eslint-config-next)
 npm run typecheck # next typegen && tsc --noEmit — typegen genera next-env.d.ts, que está
                   # en .gitignore: sin él, un checkout limpio no tiene los tipos de Next
+npm run verificar-tarjeta # la tarjeta social contra la paleta
+npm run verificar-iconos  # los tres íconos contra la marca y la paleta
 ```
+
+Los dos `verificar-*` de acá no son tests: son chequeos de consistencia entre archivos
+del repo. Existen porque Next y satori rasterizan esas piezas **fuera del árbol de la
+página**, donde no hay cascada y el hex de la paleta queda copiado a mano. Para rehacer
+los íconos en vez de sólo mirarlos, `node scripts/generar-iconos.mjs` sin el flag.
 
 **No hay suite de tests, por decisión** (ver `.github/workflows/verificar.yml`): para
 una landing estática sin backend no vale el costo. No agregues una sin que te la pidan.
 
 El CI (`verificar.yml`, en push a `main` y en PRs) corre en orden: `npm ci` →
-`npm run lint` → `npm run typecheck` → `npm run build` y, en push a `main` con todo en
+`npm run lint` → `npm run typecheck` → `npm run verificar-tarjeta` →
+`npm run verificar-iconos` → `npm run build` y, en push a `main` con todo en
 verde, el job `publicar` corre `vercel deploy --prod`. **Vercel no publica `main` por su
 cuenta** (`vercel.json`, `git.deploymentEnabled`): un CI en rojo no llega a producción.
 Reproducí esa secuencia en local antes de dar algo por terminado.
 
 **`/verificar`** (y `/verificar rapido`, sin build) corre esa secuencia y, al final, los
 dos chequeos del panel que leen este repo (`verificar-precios`, `verificar-sistema`):
-el CI de acá no los corre, y si fallan se rompe el del panel.
+el CI de acá no los corre, y si fallan se rompe el del panel. `verificar-iconos` cruza
+al revés —compara los íconos de `app/` contra sus copias en el panel— y esa parte
+**sólo ocurre en local**, porque en el CI el otro repo no está en el disco.
 
 ## Arquitectura
 
@@ -225,14 +235,29 @@ puede ver —la composición, los tamaños, las tres luces de macOS— sigue sie
 registran lo que ata a los dos: las tres legales, el sitemap que sólo anuncia rutas
 montadas, la lista blanca del CTA, el reporte de muestra que manda sobre el reporte
 real y los precios que el CI del panel lee por ruta. Los íconos estaban en esa lista, se
-borraron el 12/09/2026 y **volvieron el 20/09/2026**, cuando el dueño aportó la marca: la
-landing tiene `app/icon.svg` —fondo redondo, la variante oscura— y `app/apple-icon.png`
-—cuadrado, porque iOS enmascara por su cuenta—. Los dos llevan los mismos dos `path`,
-vectorizados de `marca/nuvlo-clara.png`: si la marca cambia, se vuelve a trazar del archivo
-y se actualizan los dos. **El monograma vive sólo ahí**: estuvo unas horas al lado del
-wordmark y se sacó el mismo día —repetía la inicial y le costaba 40px de cumplimiento a la
-barra—; el porqué está en `Piezas.tsx`. **El panel sigue sin
-favicon**, y adoptarlo es una tanda suya. **§12 no es autoridad sobre la landing**: remite acá a propósito, y
+borraron el 12/09/2026, volvieron el 20/09/2026 y **el 24/09/2026 pasaron a salir del
+monograma** que aportó el dueño: son **tres archivos y los mismos bytes en los dos repos**
+—`icon.svg` redondo, `favicon.ico` con 16/32/48 del mismo dibujo y `apple-icon.png` de 180
+cuadrado, porque iOS enmascara por su cuenta—, en `app/` acá y en `src/app/` del panel.
+**No se editan a mano**: los escribe `scripts/generar-iconos.mjs` a partir de
+`marca/nuvlo-monograma.svg`, copiando los dos `path` sin tocar un vértice y agregando sólo
+un `transform`; si la marca cambia, se corre el script y se commitean los seis archivos en
+la misma tanda. El mismo script con `--verificar` **corre en el CI** y rompe si alguno de
+los tres colores de la marca deja de coincidir con su token en `sistema/nuvlo.css` —son
+`--color-acento-tinta`, `--color-sobre-noche` y `--color-acento-sobre-noche`—, por eso el
+hex va anotado con `data-token` en el propio elemento del SVG: adentro de un comentario
+XML el guión doble no es legal.
+
+**Un binario no se verifica por píxel, y eso está medido**: el mismo dibujo rasterizado
+por otro pipeline difiere 8,1% de los subpíxeles a 16px, más que un dibujo genuinamente
+distinto, así que ninguna tolerancia separa «otro Linux» de «otra marca». En vez de eso
+cada ráster lleva adentro, en un chunk `tEXt`, el sha del SVG del que salió. Si tocás la
+generación, **ese sello es el contrato**: sin él el CI no puede decir si un binario quedó
+atrás, y el hueco vuelve.
+
+**El monograma vive sólo ahí**: estuvo unas horas al lado del wordmark y se sacó el mismo
+día —repetía la inicial y le costaba 40px de cumplimiento a la barra—; el porqué está en
+`Piezas.tsx`. **§12 no es autoridad sobre la landing**: remite acá a propósito, y
 acá es donde se decide el diseño. El orden es landing elige → panel adopta después,
 nunca al revés. Las paletas y los Tailwind de los dos repos son independientes.
 
