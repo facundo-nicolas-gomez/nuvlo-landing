@@ -35,8 +35,9 @@
  *
  *   marca/nuvlo-monograma.png
  *     └── public/nuvlo-monograma.png  512 cuadrado, el PNG del dueño tal cual
- *                                     (el logo que Paddle muestra en su checkout
- *                                     y en el formulario de recupero de Retain)
+ *                                     (la URL del logo en los productos de
+ *                                     Paddle; Retain no la lee: guarda su
+ *                                     propia copia al subirlo, ver next.config.ts)
  *
  * No se rasteriza del SVG: el dueño ya entregó su PNG, y re-rasterizarlo daría
  * otro archivo por el mismo motivo que explica abajo el sello. Así que se copia

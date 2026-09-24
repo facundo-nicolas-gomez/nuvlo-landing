@@ -262,9 +262,12 @@ los tres colores de la marca deja de coincidir con su token en `sistema/nuvlo.cs
 `--color-acento-tinta`, `--color-sobre-noche` y `--color-acento-sobre-noche`—, por eso el
 hex va anotado con `data-token` en el propio elemento del SVG: adentro de un comentario
 XML el guión doble no es legal. El mismo script copia además
-`marca/nuvlo-monograma.png` a `public/` **byte a byte, sin derivarlo**: es el logo que
-Paddle lee de `nuvloapp.com/nuvlo-monograma.png`, y `--verificar` rompe si deja de ser
-idéntico a la marca. No se renombra ni se mueve sin cambiar la URL en Paddle.
+`marca/nuvlo-monograma.png` a `public/` **byte a byte, sin derivarlo**: es la URL del
+logo en los productos de Paddle (`nuvloapp.com/nuvlo-monograma.png`), y `--verificar`
+rompe si deja de ser idéntico a la marca. No se renombra ni se mueve sin cambiar la URL
+en Paddle. **Retain no la lee**: al subirle el logo guarda su propia copia en
+`files.paddleusercontent.com`, así que si la marca cambia hay que volver a subirlo ahí a
+mano —ningún chequeo de este repo lo ve—.
 
 **Un binario no se verifica por píxel, y eso está medido**: el mismo dibujo rasterizado
 por otro pipeline difiere 8,1% de los subpíxeles a 16px, más que un dibujo genuinamente

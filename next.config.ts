@@ -43,11 +43,16 @@ const __impeccableLiveDev =
 // `sandbox-buy` no es un resto de prueba: el demo de Retain —el que usa el
 // chequeo de instalación de Paddle— abre el checkout de sandbox aun en
 // producción. El recupero real va por `buy.paddle.com`.
+//
+// El logo del formulario NO se lee de `nuvloapp.com/nuvlo-monograma.png`: al
+// subirlo, Paddle guarda su propia copia en `files.paddleusercontent.com` y la
+// sirve de ahí (medido el 24/09/2026). Si cambia la marca, hay que volver a
+// subirlo en Retain; la copia de `public/` sirve para los productos, no para esto.
 const paddleScript =
   " https://cdn.paddle.com https://public.profitwell.com https://static.profitwell.com";
 const paddleEstilos = " https://cdn.paddle.com";
 const paddleConexiones = " https://www2.profitwell.com";
-const paddleImagenes = " https://static.profitwell.com";
+const paddleImagenes = " https://static.profitwell.com https://files.paddleusercontent.com";
 const paddleMarcos = " https://buy.paddle.com https://sandbox-buy.paddle.com";
 
 // El client token entra al bundle en el build, y el build de producción corre en
