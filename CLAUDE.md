@@ -70,9 +70,11 @@ Reproducí esa secuencia en local antes de dar algo por terminado.
 
 **`/verificar`** (y `/verificar rapido`, sin build) corre esa secuencia y, al final, los
 dos chequeos del panel que leen este repo (`verificar-precios`, `verificar-sistema`):
-el CI de acá no los corre, y si fallan se rompe el del panel. `verificar-iconos` cruza
-al revés —compara los íconos de `app/` contra sus copias en el panel— y esa parte
-**sólo ocurre en local**, porque en el CI el otro repo no está en el disco.
+el CI de acá no los corre, y si fallan se rompe el del panel. `verificar-iconos` de acá
+también cruza, al revés: compara los íconos de `app/` contra sus copias del panel cuando
+el otro repo está en el disco. En el CI no lo está, y esa mitad no se saltea sin red —el
+panel tiene **su propio** `verificar-iconos.mjs` en `cruza-repos`, que hace la misma
+comparación desde el otro lado y sí clona este repo—.
 
 ## Arquitectura
 

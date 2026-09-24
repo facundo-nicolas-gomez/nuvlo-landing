@@ -40,8 +40,10 @@ buenos.
 
 `verificar-iconos` también mira el otro repo, pero al revés: compara los tres íconos de
 `app/` contra sus copias en `../nuvlo-panel/src/app/`, que tienen que ser el mismo
-archivo. En el CI el panel no está en el disco y ese pedazo se saltea diciéndolo, así
-que **local es el único lugar donde esa comparación ocurre**.
+archivo. En el CI el panel no está en el disco y ese pedazo se saltea diciéndolo; no
+queda descubierto igual, porque el panel corre su propio `verificar-iconos` en
+`cruza-repos` y ése sí clona este repo. Correrlo local sigue sirviendo para verlo
+**antes** de pushear, en vez de enterarte por el CI del otro repo.
 
 ## Reglas
 
