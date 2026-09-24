@@ -203,8 +203,8 @@ a la regla de arriba, y la decidió el dueño por lo que se midió: sin un clien
 identificado, Retain no guarda cookies ni storage, no abre iframes y no envía nada
 además de bajar sus tres archivos —`profitwell.js` sólo manda algo después de recibir
 un email o un id—. No mide ni identifica, así que se **declara** en `/privacidad` en
-vez de pedir consentimiento. La medición fue en `localhost` y hay que repetirla en
-`nuvloapp.com` después de publicar. Si algún día se le pasa un cliente, o Retain
+vez de pedir consentimiento. Se midió en `localhost` y se repitió en `nuvloapp.com`
+después de publicar, el mismo 24/09/2026: mismo resultado. Si algún día se le pasa un cliente, o Retain
 empieza a guardar algo, vuelve a necesitar consentimiento. La recuperación dentro de
 la app —con `pwCustomer`— es del panel, no de acá.
 
