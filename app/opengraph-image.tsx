@@ -113,7 +113,7 @@ import {
  */
 
 export const alt =
-  "Nuvlo — El reporte de tu cliente, hecho. Sale cuando vos decís.";
+  "Nuvlo — El reporte de tu cliente, hecho. Enviarlo es decisión tuya.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -453,7 +453,7 @@ export default function OgImage() {
               lineHeight: 1.12,
             }}
           >
-            El reporte de tu cliente, hecho. Sale cuando vos decís.
+            El reporte de tu cliente, hecho. Enviarlo es decisión tuya.
           </div>
 
           <div
@@ -468,7 +468,7 @@ export default function OgImage() {
                 reporte que el envío automático y el programado no dan. Esta
                 frase es verdad en los tres caminos, y es la que el héroe pone
                 en el paso «Aprobás vos». */}
-            Nada sale sin que vos lo decidas.
+            Nuvlo calcula y la IA redacta, con tu firma al pie.
           </div>
 
           {/* El dominio en el acento: es el único saturado de la página y acá

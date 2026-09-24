@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Nuvlo",
-    locale: "es_AR",
+    locale: "es_LA",
     url: "https://nuvloapp.com/reporte",
     title: "El informe que recibe tu cliente — Nuvlo",
     description:

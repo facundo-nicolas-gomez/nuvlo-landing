@@ -147,8 +147,8 @@ export function Precios() {
         </h2>
         <Entra className="i-entra-arriba" demora={120}>
           <p className="i-bajada i-cabeza-bajada">
-            La misma unidad con la que le facturás a él. Empezás con 3 reportes
-            gratis, sin tarjeta.
+            La misma unidad con la que tu agencia factura. Y para empezar, 3
+            reportes gratis, sin tarjeta.
           </p>
         </Entra>
 
@@ -242,7 +242,7 @@ export function Precios() {
               {/* La escolta del total: el marco que PRODUCT.md ya afirma —el
                   reporte es trabajo no facturable—, sin una cifra nueva. */}
               <p className="i-cuerpo i-total-escolta">
-                El reporte es la parte del mes que no podés facturar.
+                El reporte es la parte del mes que no se puede facturar.
               </p>
               <div className="i-total-accion">
                 <Boton>Empezar gratis</Boton>
@@ -358,12 +358,14 @@ export function Precios() {
               publicar en uno tuyo.
             </p>
             <p className="i-fino i-precios-nota">
-              Con tarjeta internacional o PayPal cobra Paddle como Merchant of
-              Record: con tarjeta, el cargo figura a nombre de Paddle en tu
-              resumen. En Argentina también podés pagar en pesos con Mercado
-              Pago. En todos los casos Nuvlo no toca tus datos de pago, se cancela cuando quieras con
-              acceso hasta el fin del período pago, y tenés 10 días desde que
-              contratás para arrepentirte con reembolso total.
+              Con tarjeta internacional o PayPal cobra Paddle, que figura como
+              vendedor (Merchant of Record): con tarjeta, el cargo aparece a
+              nombre de Paddle en tu estado de cuenta. En Argentina también se
+              puede pagar en pesos con Mercado Pago. En todos los casos, Nuvlo
+              no recibe tus datos de pago; la suscripción se cancela en
+              cualquier momento, con acceso hasta el fin del período pagado, y
+              hay 10 días desde la contratación para arrepentirse con
+              reembolso total.
             </p>
           </Entra>
         </div>

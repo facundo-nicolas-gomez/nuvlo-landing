@@ -354,7 +354,7 @@ export const RECORRIDO_MUESTRA = [
     tono: "abierto",
   },
   {
-    estado: "Aprobado por vos",
+    estado: `Aprobado por ${AGENCIA_MUESTRA}`,
     hora: "09:22",
     /**
      * Decía "el único paso que no es automático" y era inexacto: generar
@@ -362,7 +362,7 @@ export const RECORRIDO_MUESTRA = [
      * obligatoria (email del cliente, nombre de la agencia, modo de reporte).
      */
     detalle:
-      "Lo leíste entero y apretaste el botón. Es el paso que Nuvlo no da solo.",
+      "Alguien lo leyó entero y lo aprobó. Es el paso que Nuvlo no da solo.",
     tono: "decision",
   },
   {
@@ -721,7 +721,7 @@ export type ModoMuestra = (typeof MODOS_MUESTRA)[number]["id"];
  * registro del resto de la página, que dice «la IA» en todas sus apariciones.
  */
 export const PISTAS_GENERACION_MUESTRA = [
-  "El período que elegiste y el anterior, directo de Meta",
+  "El período elegido y el anterior, directo de Meta",
   "Sin IA: sólo aritmética sobre lo que devolvió Meta",
   "La IA escribe el resumen, la alerta y el plan; no calcula",
   "Se arma sin IA y se guarda como borrador",
@@ -729,7 +729,7 @@ export const PISTAS_GENERACION_MUESTRA = [
 
 /* Los subtítulos de las tres salidas. El del borrador manual dice la regla de
    producto; el del enviado, a quién le llegó. */
-export const SALIDA_BORRADOR_PISTA_MUESTRA = "Nada sale hasta que lo aprobás";
+export const SALIDA_BORRADOR_PISTA_MUESTRA = "Nada sale sin tu aprobación";
 
 /** La pista del nodo de condición. Sale de `PRODUCT.md`: el envío automático
  *  «se autoinhibe si la IA cayó al texto de respaldo». */
@@ -754,7 +754,7 @@ export const CHARLA_MUESTRA = [
   {
     de: "trafficker",
     hora: "09:24",
-    texto: "Te llegó el reporte de julio al mail. Lo aprobé recién.",
+    texto: "Te envié el reporte de julio por correo. Lo acabo de aprobar.",
   },
   {
     de: "cliente",

@@ -74,7 +74,7 @@ function iniciales(nombre: string) {
 }
 
 export function Charla({
-  rotulo = "Después del mail · ejemplo ficticio",
+  rotulo = "Después del correo · ejemplo ficticio",
 }: {
   rotulo?: string;
 }) {

@@ -156,7 +156,7 @@ export function Telefono() {
     <div
       className="i-tel"
       role="group"
-      aria-label={`La bandeja de entrada del cliente: el mail llega de ${AGENCIA_MUESTRA}`}
+      aria-label={`La bandeja de entrada del cliente: el correo llega de ${AGENCIA_MUESTRA}`}
     >
       {/* La pantalla va debajo del marco en el DOM y encima en z: el marco
           pinta su pantalla negra y la nuestra la tapa exacta. */}

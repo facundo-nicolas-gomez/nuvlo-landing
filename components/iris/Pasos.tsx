@@ -55,15 +55,15 @@ import { Generar } from "./Generar";
 
 const PASOS = [
   {
-    titulo: "Conectás la cuenta de tu cliente",
-    objecion: "Hoy exportás de Meta y cruzás en una planilla.",
+    titulo: "Conectar la cuenta de tu cliente",
+    objecion: "Sin exportar de Meta ni cruzar datos a mano.",
     // Sólo lo que PRODUCT.md sostiene: se conecta la cuenta con el acceso del
     // trafficker, lo suyo se carga una vez, y al generar elige el período —las
     // campañas y la salida vienen con la respuesta de siempre—. El permiso
     // exacto (`ads_read`) está registrado desde el 24/09/2026, pero se dice en
     // `#permiso` y no acá: esta fila habla del gesto, no del alcance.
     texto:
-      "Con tu propio acceso de Meta. Lo tuyo se carga una vez; después, cada reporte es elegir el período.",
+      "Con tu propio acceso de Meta. Los datos de tu agencia y del cliente se cargan una sola vez; después, cada reporte es elegir el período.",
     periodo: true,
   },
   {
@@ -76,17 +76,17 @@ const PASOS = [
     // leía como continuación del título y el «escribe» quedaba sin dueño.
     objecion: "La IA escribe el análisis, y sale con tu firma.",
     texto:
-      "Nuvlo hace las cuentas sobre lo que devuelve Meta. La IA redacta el resumen, la alerta y hasta tres acciones con esos números ya hechos.",
+      "Nuvlo hace los cálculos con los datos que entrega Meta. La IA redacta el resumen, la alerta y hasta tres acciones a partir de esos números ya hechos.",
     generacion: true,
   },
   {
-    titulo: "Lo leés, y lo aprobás",
+    titulo: "Leerlo y aprobarlo",
     // «Por defecto» desde el 13/09/2026: el envío automático de una cuenta y el
     // envío programado de un reporte salen sin el botón, y los dos los elige el
     // usuario. Sin la salvedad la línea afirmaba de más.
-    objecion: "Por defecto, nada sale hasta que apretás el botón.",
+    objecion: "Por defecto, nada sale sin un clic en el botón.",
     texto:
-      "Nace borrador, sin enlace público y sin mail. Sale cuando apretás «Aprobar y enviar», con el destinatario a la vista.",
+      "Nace como borrador, sin enlace público y sin correo. Sale con un clic en «Aprobar y enviar», con el destinatario a la vista.",
     accion: true,
     tuyo: true,
   },
@@ -116,8 +116,8 @@ export function Pasos() {
                   proceso actual, y no repite el ángulo del héroe —contra qué se
                   compara—: acá el ángulo es el trabajo que desaparece. */}
               <p className="i-bajada i-cabeza-bajada">
-                Elegís el período y decidís si sale. Las cuentas, la redacción y
-                el mail ya están hechos cuando lo abrís.
+                Solo quedan dos decisiones: el período y si sale. Los cálculos,
+                la redacción y el correo ya están hechos al abrirlo.
               </p>
             </div>
 
@@ -142,9 +142,9 @@ export function Pasos() {
                 sin nombrar a nadie. La comparación la hace la composición y no
                 la frase. */}
             <p className="i-pasos-tesis">
-              Un informe escrito,
-              <em className="i-pasos-acento"> aprobado </em>
-              por vos, y sin la tarde de hacerlo a mano.
+              Un informe escrito, con tu
+              <em className="i-pasos-acento"> aprobación</em>, y sin perder la
+              tarde en hacerlo a mano.
             </p>
           </div>
 

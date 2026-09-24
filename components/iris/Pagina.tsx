@@ -35,7 +35,7 @@ import { Atajo } from "./Atajo";
  *   El permiso     la autorización real de Meta, recortada, sobre un campo
  *                  que va del azul de Meta al petróleo: un solo permiso, ads_read.
  *   Precios        por cliente, al mes, con la diferencia citada.
- *   Preguntas      incluidas las que dicen que no.
+ *   Preguntas      lo que conviene saber, incluidos los límites.
  *   Cierre         noche: el pie que se revela por debajo del telón (el
  *                  «Motion Footer» de 21st.dev), con la misma acción y sin
  *                  promesa nueva.
@@ -135,7 +135,12 @@ export function Pagina() {
                 <span className="i-portada-frase">
                   El reporte de tu cliente, hecho.
                 </span>{" "}
-                <span className="i-portada-frase">Sale cuando vos decís.</span>
+                {/* Decía «Sale cuando vos decís» hasta el 24/09/2026, cuando el
+                    dueño abrió la venta a todo el mercado hispanohablante: el
+                    copy pasó a español neutro sin tutear —posesivos, infinitivos
+                    y Nuvlo como sujeto—. «Decisión tuya» cubre los dos modos
+                    igual que la frase vieja: programar el envío también lo es. */}
+                <span className="i-portada-frase">Enviarlo es decisión tuya.</span>
               </h1>
               {/* ── CONTRA QUÉ SE COMPARA (dueño, 17/09/2026) ─────────────────
                   El dueño pidió que la primera pantalla diga por qué Nuvlo y no
@@ -149,8 +154,8 @@ export function Pagina() {
                   del argumento: ahí quedaban cinco textos apilados en 345px
                   (dueño, 17/09/2026: «no queda todo junto»). */}
               <p className="i-portada-contra">
-                No es un tablero al que tu cliente entra: es el informe escrito
-                que le llega, firmado por vos y aprobado por vos.
+                No es un tablero al que tu cliente tiene que entrar: es el
+                informe escrito que le llega, con tu firma y tu aprobación.
               </p>
             </Entra>
             }

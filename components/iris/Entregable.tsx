@@ -87,12 +87,12 @@ const FORMAS = [
     // que es donde se elige el plan, y acá alargaba la definición a cuatro
     // renglones con un dato que no es de «lo que recibe tu cliente».
     definicion:
-      "El botón del mail abre el informe en su propia página. El enlace vence a los 90 días.",
+      "El botón del correo abre el informe en su propia página. El enlace vence a los 90 días.",
   },
   {
     termino: "Y un PDF",
     definicion:
-      "Con las mismas secciones, para bajar desde esa página. Es el que tu cliente archiva.",
+      "Con las mismas secciones, para descargar desde esa página. Es el que tu cliente archiva.",
   },
 ];
 
@@ -112,8 +112,8 @@ export function Entregable() {
             Lo que recibe tu cliente.
           </h2>
           <p className="i-bajada i-cabeza-bajada">
-            Un mail firmado por vos, sin contenido del reporte ni marca de Nuvlo
-            en el cuerpo. Y desde ahí, el informe.
+            Un correo con tu firma, sin contenido del reporte ni marca de Nuvlo
+            en el cuerpo. Y, desde ahí, el informe.
           </p>
         </Entra>
 

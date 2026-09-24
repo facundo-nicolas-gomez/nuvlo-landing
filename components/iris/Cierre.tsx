@@ -113,11 +113,11 @@ export function Cierre() {
       <div className="i-marco i-telon-remate">
         <Entra className="i-telon-texto">
           <h2 id="i-h-cierre" className="i-display i-telon-titulo">
-            Hacé el reporte de este mes y fijate.
+            Que el reporte de este mes sea la prueba.
           </h2>
           <p className="i-bajada i-telon-bajada">
-            Tres reportes gratis, sin tarjeta. Si lo que sale no te sirve para
-            mandárselo a un cliente, no perdiste nada.
+            Tres reportes gratis, sin tarjeta. Si el resultado no está a la
+            altura de tu cliente, no se pierde nada.
           </p>
           <div className="i-telon-accion">
             <Boton hoja>Empezar gratis</Boton>

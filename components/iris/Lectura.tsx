@@ -98,11 +98,11 @@ const PASOS: {
     // que el documento puede dar. El cliente no se pierde, baja un renglón.
     titulo: "Arriba, tu marca.",
     texto:
-      "Tu nombre encabeza el informe. Debajo, el de tu cliente y el período, comparado con el anterior del mismo largo.",
+      "Tu nombre encabeza el informe. Debajo, el de tu cliente y el período, comparado con el anterior de la misma duración.",
   },
   {
     parte: "resumen",
-    titulo: "Acá escribe la IA.",
+    titulo: "Aquí escribe la IA.",
     texto:
       "Dos párrafos y, si hace falta, una alerta. Cada número que menciona ya estaba calculado cuando empezó a escribir.",
   },
@@ -116,7 +116,7 @@ const PASOS: {
     parte: "tabla",
     titulo: "El detalle, contra el mes anterior.",
     texto:
-      "Si falta un dato, raya. Si el anterior fue cero, «Sin base»; si el cambio redondea a cero, «Estable». Nunca un cero inventado.",
+      "Si falta un dato, una raya (—). Si el anterior fue cero, «Sin base»; si el cambio redondea a cero, «Estable». Nunca un cero inventado.",
   },
   {
     parte: "plan",
@@ -126,7 +126,7 @@ const PASOS: {
   },
   {
     parte: "cierre",
-    titulo: "Y lo firmás vos.",
+    titulo: "Y cierra con tu firma.",
     texto:
       "Cierra con el nombre de tu agencia. En Estándar agrega «Generado con Nuvlo»; en Marca Blanca, nada más.",
   },

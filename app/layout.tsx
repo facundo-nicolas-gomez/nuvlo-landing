@@ -155,9 +155,11 @@ const gmail = Google_Sans({
  * El titular no se tocó: «Sale cuando vos decís» cubre los dos modos, que es
  * justamente por qué era el que mandaba.
  */
-const TITULO = "Nuvlo | El reporte de tu cliente, hecho. Sale cuando vos decís.";
+// Desde el 24/09/2026 en español neutro y sin voseo, igual que el titular
+// (ver `Pagina.tsx`); por lo mismo el `locale` dejó de ser `es_AR`.
+const TITULO = "Nuvlo | El reporte de tu cliente, hecho. Enviarlo es decisión tuya.";
 const DESCRIPCION =
-  "Nuvlo conecta la cuenta de Meta Ads de tu cliente, calcula las métricas y redacta el análisis. Queda en borrador hasta que lo aprobás —o sale solo, si vos lo programás—, firmado por vos.";
+  "Nuvlo conecta la cuenta de Meta Ads de tu cliente, calcula las métricas y redacta el análisis. Queda en borrador hasta tu aprobación —o sale solo, si está programado—, con tu firma.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nuvloapp.com"),
@@ -166,7 +168,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Nuvlo",
-    locale: "es_AR",
+    locale: "es_LA",
     url: "https://nuvloapp.com",
     title: TITULO,
     description: DESCRIPCION,

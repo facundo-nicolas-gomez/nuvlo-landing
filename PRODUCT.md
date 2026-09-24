@@ -232,9 +232,13 @@ usuario). "Reporte" o "informe", no "dashboard". "Cuenta publicitaria" para la d
 
 - **Nombre:** Nuvlo. Dominios: `nuvloapp.com` (este sitio), `panel.nuvloapp.com` (el
   producto), `r.nuvloapp.com` (reportes públicos). Contacto: `soporte@nuvloapp.com`.
-- **Voz:** español rioplatense en voseo, con **alcance LatAm hispanohablante** (decisión
-  del dueño, 23/08/2026): Argentina es el núcleo, pero el copy no debe excluir a México,
-  Colombia o Chile. No hay plan de versión en inglés.
+- **Voz:** español neutro, **sin tuteo ni voseo conjugado** (decisión del dueño,
+  24/09/2026: la venta se abre a todo el mercado hispanohablante). La segunda persona va
+  por posesivo («tu cliente», «decisión tuya»), los botones y títulos en infinitivo, y
+  los titulares con Nuvlo o el reporte como sujeto. Donde el vos sea inevitable, se deja,
+  sin modismos argentinos («mail», «acá», «apretar», «recién», «planilla»). Reemplaza la
+  decisión del 23/08/2026 (rioplatense con alcance LatAm). Vale también para las tres
+  legales. No hay plan de versión en inglés.
 - **El wordmark lo define este repo y el panel se alinea después.** Lo que la landing
   elija manda, y recién entonces el panel lo adopta en una tanda propia; la landing no
   hereda el estado del otro repo.
@@ -268,6 +272,8 @@ usuario). "Reporte" o "informe", no "dashboard". "Cuenta publicitaria" para la d
   si vos lo programás—, firmado por vos», que es verdad en los dos modos y en los dos
   planes. El titular no se tocó: «Sale cuando vos decís» ya cubría los dos. La
   `description` del sitio sigue siendo esta bajada, literal.
+  **Desde el 24/09/2026, en neutro:** «Queda en borrador hasta tu aprobación —o sale
+  solo, si está programado—, con tu firma». Mismo alcance, sin voseo.
 - **El sitio hace una sola afirmación, y es la del titular** (11/09/2026, al promover la
   pasada «iris» a la home). El repo venía diciendo tres cosas distintas del mismo
   producto: el `title` del sitio decía «listo en un clic», el titular de la página «El
@@ -277,6 +283,10 @@ usuario). "Reporte" o "informe", no "dashboard". "Cuenta publicitaria" para la d
   abajo. El `title` viejo decía la velocidad sin el control, que es el orden que ese
   principio prohíbe. La descripción del sitio es la bajada del héroe, literal; si cambia
   el titular, cambian los dos.
+  **El 24/09/2026 el titular pasó a «El reporte de tu cliente, hecho. Enviarlo es decisión
+  tuya.»**, por la voz neutra. La afirmación es la misma y cubre los dos modos igual que
+  «Sale cuando vos decís»: programar el envío también es decidirlo. Cambió en la misma
+  tanda en el `title`, la tarjeta social y su texto alternativo.
 - **El Tablero salió de la página** (17/09/2026). La sección mostraba la pantalla de
   Inicio del panel —el mes entero, cliente por cliente— y el dueño la sacó después de
   rechazar seis rediseños en dos rondas. El motivo no fue el dibujo: no es ni el
@@ -294,7 +304,7 @@ usuario). "Reporte" o "informe", no "dashboard". "Cuenta publicitaria" para la d
   lo único de la escena que ocupa el ancho entero. El capítulo oscuro pasó de tres secciones
   a dos y de 2.303 a 931px en escritorio. El titular de sección dice «se hace solo y te
   espera» y **no** afirma que siempre frene: en Automático no es cierto, y la bajada dice que
-  programarlo lo decidís vos.
+  salir solo es una opción que se programa aparte.
 - **El fondo del héroe no lleva nada, y el campo quedó en el casi blanco frío** (18/09/2026).
   El dueño pidió «color, vida» y después «que no se vea tan blanco, pero sin caer en lo
   genérico». Se probaron **ocho** tratamientos encima del héroe —lavado petróleo, bandeja,
@@ -346,8 +356,8 @@ mismo HTML. **Sus datos son ficticios siempre, nunca de un cliente real.**
 Otro material disponible:
 
 - El texto legal está vigente y maquetado en `/terminos`, `/privacidad` y `/reembolsos`
-  (según la fecha impresa en cada una: 16/09/2026 en `/privacidad`, 14/09/2026 en
-  `/terminos` y `/reembolsos`), con los precios importados de `lib/precios.ts`.
+  (fecha impresa en las tres: 24/09/2026, cuando pasaron a la voz neutra sin cambiar ningún
+  plazo, medio de pago ni obligación), con los precios importados de `lib/precios.ts`.
 - La tarjeta social se genera por código en `app/opengraph-image.tsx`.
 - **Los literales de pantalla del panel, verificados uno por uno contra su código el
   08/09/2026** —no de memoria, que es como se habían fijado el 07/09—. La landing los

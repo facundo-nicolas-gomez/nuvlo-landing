@@ -62,22 +62,22 @@ const DURACION = 7000;
 
 const SLIDES = [
   {
-    tab: "Conectás",
-    nota: "Tu cuenta de Meta, una vez",
+    tab: "Conectar",
+    nota: "Tu cuenta de Meta, una sola vez",
     linea:
-      "Conectás la cuenta de Meta una vez. De ahí en más, el período lo elegís vos.",
+      "La cuenta de Meta se conecta una sola vez. Después, cada reporte es elegir el período.",
   },
   {
     tab: "Nuvlo calcula",
     nota: "Los números, antes de que la IA escriba",
     linea:
-      "Las cuentas las hace el sistema: la IA recibe los números hechos y no calcula ninguno.",
+      "Nuvlo hace los cálculos: la IA recibe los números ya hechos y no calcula ninguno.",
   },
   {
-    tab: "Aprobás vos",
-    nota: "Nada sale sin que lo decidas",
+    tab: "Aprobar",
+    nota: "Nada sale sin tu aprobación",
     linea:
-      "El informe queda en borrador esperándote. Sin enlace público y sin mail hasta que lo apruebes.",
+      "El informe queda en borrador, a la espera de tu aprobación. Hasta entonces, sin enlace público y sin correo.",
   },
 ];
 

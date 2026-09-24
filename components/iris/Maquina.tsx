@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   AGENCIA_MUESTRA,
   CADENCIA_MUESTRA,
-  CONDICION_PISTA_MUESTRA,
   EMAIL_CLIENTE_MUESTRA,
   HORA_ENVIO_MUESTRA,
   KPIS_MUESTRA,
@@ -66,12 +65,12 @@ const ESTACIONES = [
   {
     titulo: PASOS_GENERACION_MUESTRA[0],
     corto: "Meta",
-    nota: "El período que elegiste y el anterior, directo de Meta.",
+    nota: "El período elegido y el anterior, directo de Meta.",
   },
   {
     titulo: PASOS_GENERACION_MUESTRA[1],
     corto: "Nuvlo",
-    nota: "Sin IA: aritmética sobre lo que devolvió Meta.",
+    nota: "Sin IA: aritmética sobre los datos que entregó Meta.",
   },
   {
     titulo: PASOS_GENERACION_MUESTRA[2],
@@ -190,8 +189,8 @@ export function Maquina() {
           </h2>
           <p className="i-bajada i-cabeza-bajada">
             Nuvlo calcula cada número antes de que la IA escriba una palabra, y
-            el reporte queda en borrador esperándote. Que salga solo lo decidís
-            vos, programándolo.
+            el reporte queda en borrador, esperándote. Que salga solo es una
+            opción, y se programa aparte.
           </p>
         </Entra>
 
@@ -288,8 +287,8 @@ export function Maquina() {
                     <p className="i-chico i-maq-detalle">
                       Le llegó a{" "}
                       <span className="i-cifra">{EMAIL_CLIENTE_MUESTRA}</span>,
-                      firmado por {AGENCIA_MUESTRA}. No hay deshacer: el mail ya
-                      salió.
+                      firmado por {AGENCIA_MUESTRA}. No se puede deshacer: el
+                      correo ya salió.
                     </p>
                   </div>
                   <div className="i-maq-acciones">
@@ -302,17 +301,17 @@ export function Maquina() {
                       Reiniciar el ejemplo
                     </button>
                     <a className="i-enlace" href="#entregable">
-                      Ver el mail que salió
+                      Ver el correo enviado
                     </a>
                   </div>
                 </div>
               ) : (
                 <div className="i-maq-freno-caja">
                   <div className="i-maq-dicho">
-                    <p className="i-maq-estado">Acá se frena.</p>
+                    <p className="i-maq-estado">Aquí se detiene.</p>
                     <p className="i-chico i-maq-detalle">
                       El reporte está listo y en borrador. Sin enlace público y
-                      sin mail hasta que lo apruebes. Se envía a{" "}
+                      sin correo hasta tu aprobación. Se envía a{" "}
                       <span className="i-cifra">{EMAIL_CLIENTE_MUESTRA}</span>.
                     </p>
                   </div>
@@ -326,8 +325,8 @@ export function Maquina() {
                       Aprobar y enviar
                     </button>
                     <p className="i-fino i-maq-ejemplo">
-                      Ejemplo con datos ficticios. El botón es el del panel:
-                      probalo.
+                      Ejemplo con datos ficticios. Es el mismo botón del panel,
+                      y funciona.
                     </p>
                   </div>
                 </div>
@@ -341,12 +340,13 @@ export function Maquina() {
             que van como una línea debajo de ella y no como un tema aparte. */}
         <Entra demora={260}>
           <p className="i-chico i-maquina-modos">
-            Dos modos por cuenta publicitaria: revisás cada reporte, o programás
-            la cadencia —{CADENCIA_MUESTRA.toLowerCase()}, a las{" "}
+            Dos modos por cuenta publicitaria: revisar cada reporte, o programar
+            la frecuencia —{CADENCIA_MUESTRA.toLowerCase()}, a las{" "}
             <span className="i-cifra">{HORA_ENVIO_MUESTRA}</span> de{" "}
-            {ZONA_ENVIO_MUESTRA}— y sale solo. En los dos, si la IA no pudo
-            escribir el análisis {CONDICION_PISTA_MUESTRA.toLowerCase()}. Se
-            elige en la ficha del cliente, y se cambia cuando quieras.
+            {ZONA_ENVIO_MUESTRA}— para que salga solo. Si la IA no logra
+            escribir el análisis, el programado no sale: queda en borrador. El
+            modo se elige en la ficha del cliente y se cambia en cualquier
+            momento.
           </p>
         </Entra>
       </div>

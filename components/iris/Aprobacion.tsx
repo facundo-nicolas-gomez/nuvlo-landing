@@ -88,7 +88,7 @@ export function Aprobacion({
           </>
         ) : (
           <>
-            Está en borrador. Apretá «Aprobar y enviar» y mirá la barra de
+            Está en borrador. Con «Aprobar y enviar», cambia la barra de
             direcciones.
           </>
         )}
