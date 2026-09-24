@@ -112,8 +112,8 @@ export function Entregable() {
             Lo que recibe tu cliente.
           </h2>
           <p className="i-bajada i-cabeza-bajada">
-            Un correo breve a nombre de tu agencia, con un botón al reporte. Sin
-            marca de Nuvlo en el cuerpo.
+            Un correo breve, a tu nombre o al de tu agencia, con un botón al
+            reporte. Sin marca de Nuvlo en el cuerpo.
           </p>
         </Entra>
 

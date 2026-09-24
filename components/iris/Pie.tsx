@@ -112,8 +112,7 @@ export function Pie() {
           {/* La misma corrección que el titular de Control: en Automático el
               reporte sale sin visto bueno por reporte. */}
           <p className="i-chico">
-            Reportes de Meta Ads con el nombre de tu agencia. Enviarlos es
-            decisión tuya.
+            Reportes de Meta Ads con tu nombre. Enviarlos es decisión tuya.
           </p>
         </div>
 

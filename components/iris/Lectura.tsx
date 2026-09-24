@@ -96,7 +96,7 @@ const PASOS: {
     // de `PRODUCT.md` dice que el entregable es del trafficker y no de Nuvlo, y
     // un membrete con su nombre arriba de todo es la prueba más literal de eso
     // que el documento puede dar. El cliente no se pierde, baja un renglón.
-    titulo: "Arriba, tu agencia.",
+    titulo: "Arriba, tu nombre.",
     texto:
       "Tu nombre encabeza el reporte. Debajo, el de tu cliente y el período, comparado con el anterior de la misma duración.",
   },
@@ -128,7 +128,7 @@ const PASOS: {
     parte: "cierre",
     titulo: "Y cierra con tu firma.",
     texto:
-      "Cierra con el nombre de tu agencia. En Estándar agrega «Generado con Nuvlo»; en Marca Blanca, nada más.",
+      "Cierra con tu nombre o el de tu agencia. En Estándar agrega «Generado con Nuvlo»; en Marca Blanca, nada más.",
   },
 ];
 

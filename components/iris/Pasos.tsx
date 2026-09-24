@@ -63,7 +63,7 @@ const PASOS = [
     // exacto (`ads_read`) está registrado desde el 24/09/2026, pero se dice en
     // `#permiso` y no acá: esta fila habla del gesto, no del alcance.
     texto:
-      "Con tu propio acceso de Meta. Los datos de tu agencia y del cliente se cargan una sola vez; después, cada reporte es elegir el período.",
+      "Con tu propio acceso de Meta. Tus datos y los del cliente se cargan una sola vez; después, cada reporte es elegir el período.",
     periodo: true,
   },
   {
@@ -74,7 +74,7 @@ const PASOS = [
     // CRITERIO, que es el que le cuesta la reputación al trafficker.
     // (12/09/2026) El eje no cambia; le faltaba el sujeto: sin él la frase se
     // leía como continuación del título y el «escribe» quedaba sin dueño.
-    objecion: "Escribe la IA, pero los números son de Nuvlo.",
+    objecion: "Escribe la IA; los números salen de Meta.",
     texto:
       "Nuvlo hace los cálculos con los datos que entrega Meta. La IA redacta el resumen, la alerta y hasta tres acciones a partir de esos números ya hechos.",
     generacion: true,

@@ -147,7 +147,7 @@ export function Precios() {
         </h2>
         <Entra className="i-entra-arriba" demora={120}>
           <p className="i-bajada i-cabeza-bajada">
-            La misma unidad con la que tu agencia factura.
+            La misma unidad que tu facturación: el cliente.
           </p>
         </Entra>
 

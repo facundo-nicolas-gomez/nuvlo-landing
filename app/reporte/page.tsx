@@ -50,7 +50,7 @@ import { AGENCIA_MUESTRA } from "@/lib/reporte-muestra";
 export const metadata: Metadata = {
   title: "El reporte que recibe tu cliente — Nuvlo",
   description:
-    "El reporte de Meta Ads completo, tal como lo abre el cliente de la agencia: encabezado, resumen, las cuatro cifras, el detalle contra el mes anterior, el plan de acción y la firma. Ejemplo con datos ficticios.",
+    "El reporte de Meta Ads completo, tal como lo abre el cliente que lo recibe: encabezado, resumen, las cuatro cifras, el detalle contra el mes anterior, el plan de acción y la firma. Ejemplo con datos ficticios.",
   alternates: { canonical: "/reporte" },
   openGraph: {
     type: "website",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     url: "https://nuvloapp.com/reporte",
     title: "El reporte que recibe tu cliente — Nuvlo",
     description:
-      "El reporte de Meta Ads completo, tal como lo abre el cliente de la agencia. Ejemplo con datos ficticios.",
+      "El reporte de Meta Ads completo, tal como lo abre el cliente que lo recibe. Ejemplo con datos ficticios.",
   },
 };
 
