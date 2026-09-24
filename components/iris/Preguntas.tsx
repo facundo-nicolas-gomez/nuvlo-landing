@@ -15,7 +15,7 @@ import { Entra } from "./Entra";
  * sobraba: estaba pensada para bloques de cinco renglones. El dueño eligió entre
  * tres composiciones nuevas —filas, titular fijo a la izquierda y una columna de
  * veredictos— la más sobria: el titular arriba, y
- * debajo nueve filas a todo el ancho con la pregunta a la izquierda y la
+ * debajo las filas a todo el ancho con la pregunta a la izquierda y la
  * respuesta a la derecha. Sigue siendo la sección que rompe la silueta
  * «titular + objeto»: acá el titular va arriba y a todo el ancho.
  *
@@ -39,47 +39,53 @@ import { Entra } from "./Entra";
    siendo verdad en el producto: que la IA recibe el detalle por campaña sin
    cifras, que un reporte abarca hasta 92 días, el tope de 3 clientes en la
    prueba y la raya cuando falta el dato de alguno de los dos períodos. */
+/* ── OCHO, Y EN PALABRAS DEL VISITANTE (dueño, 24/09/2026) ──────────────────
+   El dueño pidió respuestas más simples y sin tecnicismos: afuera «texto de
+   respaldo», «generación» y la mecánica de la raya, que es del informe y ya la
+   cuenta La lectura. «No me convence» y «¿puedo cambiarlo?» eran la misma duda
+   en dos filas y quedaron en una. Entró la de la marca, que es la pregunta que
+   el trafficker se hace antes de mandarle algo a su cliente, y la respuesta
+   dice lo que hay —el nombre de la agencia— y lo que no —logo y colores—,
+   porque la promesa de más en marca blanca ya se intentó tres veces
+   (`PRODUCT.md`). En reembolsos, cancelar es algo que hace el usuario: la
+   frase anterior se podía leer como si la suscripción se cancelara sola. */
 const PREGUNTAS = [
   {
     q: "¿Cómo se conecta la cuenta de mi cliente?",
-    a: "Con tu propio acceso de Meta. Nuvlo trae las métricas; las campañas se siguen manejando desde Meta.",
+    a: "Con tu propio usuario de Meta. Nuvlo solo lee los resultados: las campañas se siguen manejando como siempre, desde Meta.",
   },
   {
-    q: "¿La IA puede inventarme un número?",
-    a: "No. Las métricas las calcula el sistema antes de escribir; la IA las recibe hechas y no hace ninguna cuenta.",
+    q: "¿La IA puede inventar un número?",
+    a: "No. Todos los números los calcula Nuvlo. La IA solo escribe el texto a partir de esos resultados.",
   },
   {
-    q: "¿Qué pasa si no me convence lo que escribió?",
-    a: "No lo mandás. El reporte nace borrador y sólo sale cuando apretás «Aprobar y enviar».",
-  },
-  {
-    // Va acá, pegada a «¿Qué pasa si no me convence…?», porque es su
-    // continuación literal. Verificado en el panel: no hay endpoint ni
-    // componente de edición. El crédito también está verificado
-    // —`consumesCredit` es `paddleSubscriptionId === null` en
+    // Verificado en el panel: no hay endpoint ni componente de edición. El
+    // crédito también —`consumesCredit` es `paddleSubscriptionId === null` en
     // `generate-report.ts`—: se consume sólo en la prueba.
-    q: "¿Puedo cambiar lo que escribió antes de mandarlo?",
-    a: "No: se aprueba o se vuelve a generar. En la prueba, cada generación es uno de tus 3 reportes.",
+    q: "¿Y si no me convence lo que escribió la IA?",
+    a: "No se envía. El texto no se edita: el reporte se aprueba como está o se genera de nuevo. En la prueba gratuita, cada reporte nuevo cuenta como uno de los 3.",
+  },
+  {
+    // Estándar cierra con «<agencia> · Generado con Nuvlo» (`report-footer.ts`);
+    // el panel no guarda logo ni colores de la agencia.
+    q: "¿El reporte lleva mi marca?",
+    a: "Lleva el nombre de tu agencia arriba del informe y en el correo. En el plan Estándar cierra con «Generado con Nuvlo»; en Marca Blanca, esa línea no aparece. Por ahora no incluye logo ni colores propios.",
   },
   {
     q: "¿Se puede programar para que salga solo?",
-    a: "Sí: cada 7 o 14 días, o el día 1, a la hora que elijas por cliente. Exige suscripción y se frena solo si la redacción cae al texto de respaldo.",
-  },
-  {
-    q: "¿Qué pasa cuando Meta no devuelve un dato?",
-    a: "Se escribe una raya, nunca un cero. Si el período anterior fue cero, dice «Sin base»; si no cambió, «Estable».",
+    a: "Sí, con una suscripción activa: cada 7 o 14 días, o el día 1 de cada mes, a la hora que se elija para cada cliente. Si la IA no logra escribir el análisis, ese reporte no sale y queda esperando tu revisión.",
   },
   {
     q: "¿Sirve para Google Ads o TikTok?",
-    a: "No. Nuvlo es sólo Meta Ads, y no hay otra plataforma en camino.",
+    a: "No. Nuvlo trabaja solo con Meta Ads.",
   },
   {
     q: "¿Cuánto dura la prueba gratuita?",
-    a: "No se mide en días: son 3 reportes, sin tarjeta.",
+    a: "No tiene plazo: son 3 reportes gratis, sin tarjeta.",
   },
   {
     q: "¿Hay reembolsos?",
-    a: "Sí, el total, dentro de los 10 días corridos desde que contratás. Después se cancela cuando quieras, con acceso hasta el fin del período.",
+    a: "Sí. Dentro de los 10 días corridos desde la contratación, se devuelve el total. Después no hay reembolsos, pero la suscripción se puede cancelar en cualquier momento y el acceso sigue hasta el fin del período pagado.",
   },
 ];
 
@@ -93,7 +99,7 @@ export function Preguntas() {
       <div className="i-marco">
         <Entra className="i-preguntas-cabeza">
           <h2 id="i-h-preguntas" className="i-display">
-            Preguntas, y varias dicen que no.
+            Lo que conviene saber antes de empezar
           </h2>
         </Entra>
 
@@ -112,7 +118,7 @@ export function Preguntas() {
             propia línea y se toca mejor. */}
         <Entra demora={220} className="i-preguntas-pie">
           <div className="i-preguntas-soporte">
-            <p className="i-cuerpo">¿Y si no está acá?</p>
+            <p className="i-cuerpo">¿Tu pregunta no está aquí?</p>
             <a href="mailto:soporte@nuvloapp.com">soporte@nuvloapp.com</a>
           </div>
         </Entra>
