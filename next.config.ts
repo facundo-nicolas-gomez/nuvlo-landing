@@ -29,8 +29,26 @@ const __impeccableLiveDev =
 
 // Paddle.js, sólo para Retain en la home (`components/iris/PaddleRetain.tsx`).
 // Los dominios salen de medir qué pide el script, no de un comodín por las dudas.
-const paddleScript = " https://cdn.paddle.com https://public.profitwell.com";
+//
+// El formulario de recupero —se abre al llegar desde el mail, con `?__pw_iic=`—
+// se escribe en un iframe del MISMO origen, así que corre bajo esta CSP y no
+// bajo la de Paddle: todo lo que ese formulario carga tiene que estar acá.
+// Medido con el demo (`?__pw_iic=tf-…`) el 24/09/2026.
+//
+// Tres cosas que pide quedan bloqueadas a propósito, y el formulario funciona
+// igual: Google Fonts (cae a la fuente del sistema), el SDK de Sentry de Paddle
+// y un polyfill de cdnjs que ningún navegador actual necesita. Sumarlas
+// mandaría la IP del visitante a Google y a Sentry, y habría que declararlas.
+//
+// `sandbox-buy` no es un resto de prueba: el demo de Retain —el que usa el
+// chequeo de instalación de Paddle— abre el checkout de sandbox aun en
+// producción. El recupero real va por `buy.paddle.com`.
+const paddleScript =
+  " https://cdn.paddle.com https://public.profitwell.com https://static.profitwell.com";
 const paddleEstilos = " https://cdn.paddle.com";
+const paddleConexiones = " https://www2.profitwell.com";
+const paddleImagenes = " https://static.profitwell.com";
+const paddleMarcos = " https://buy.paddle.com https://sandbox-buy.paddle.com";
 
 // El client token entra al bundle en el build, y el build de producción corre en
 // Vercel, no en el runner del CI. Si falta allá, la home saldría sin Retain y
@@ -49,10 +67,10 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${__impeccableLiveDev}${paddleScript}`,
   `style-src 'self' 'unsafe-inline'${paddleEstilos}`,
-  "img-src 'self'",
+  `img-src 'self'${paddleImagenes}`,
   "font-src 'self'",
-  `connect-src 'self'${isDev ? " ws:" : ""}${__impeccableLiveDev}`,
-  "frame-src 'none'",
+  `connect-src 'self'${isDev ? " ws:" : ""}${__impeccableLiveDev}${paddleConexiones}`,
+  `frame-src${paddleMarcos}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

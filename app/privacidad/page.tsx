@@ -83,12 +83,15 @@ export default function Privacidad() {
         <li>
           <strong>Pagos fallidos:</strong> la página de inicio carga Paddle.js
           y Paddle Retain, dos scripts de Paddle.com, nuestro procesador de
-          pagos, que sirven para recuperar suscripciones cuyo pago falló. En esa
-          página no te identifican: no les pasamos ningún dato tuyo ni de tu
-          cuenta, y no instalan cookies. Como cualquier recurso que se descarga
-          de otro servidor, tu navegador le envía a Paddle datos técnicos como
-          tu dirección IP y el tipo de navegador. Qué hace Paddle con eso está
-          en su política, que enlazamos más abajo.
+          pagos, que sirven para recuperar suscripciones cuyo pago falló. Si
+          entrás por tu cuenta, no te identifican: no les pasamos ningún dato
+          tuyo y no instalan cookies. Si entrás desde el enlace de un correo
+          que avisa que un pago falló, ese enlace te identifica ante Paddle
+          para mostrarte el formulario de actualización de pago. Los datos de
+          tu tarjeta o de PayPal los cargás en el formulario de Paddle, y Nuvlo
+          no los ve. En los dos casos tu navegador le envía a Paddle datos
+          técnicos como tu dirección IP y el tipo de navegador. Qué hace Paddle
+          con eso está en su política, que enlazamos más abajo.
         </li>
       </ul>
 

@@ -173,9 +173,12 @@ no declaran itálica: Geist no la trae, y no se carga la de otra familia para tr
 
 La CSP de producción es `'self'` en todo lo que puede, con **una sola excepción**:
 Paddle.js para Retain en la home (`components/iris/PaddleRetain.tsx`), abierto por
-dominio exacto en `script-src` (`cdn.paddle.com`, `public.profitwell.com`) y
-`style-src` (`cdn.paddle.com`). Esos tres dominios salieron de medir qué bloqueaba
-la CSP, no de la doc: si Paddle pide otro, se mide y se agrega ése, sin comodines. Dev
+dominio exacto en `script-src`, `style-src`, `img-src`, `connect-src` y `frame-src`;
+la lista y el porqué de cada uno están al lado, en `next.config.ts`. Salieron de medir
+qué bloqueaba la CSP, no de la doc: si Paddle pide otro, se mide y se agrega ése, sin
+comodines. El formulario de recupero corre en un iframe del mismo origen, así que
+**lo mide nuestra CSP**: se reproduce con `/?__pw_iic=tf-prueba`. Google Fonts, Sentry
+y el polyfill que pide quedan bloqueados a propósito (`PRODUCT.md`). Dev
 agrega `'unsafe-eval'` y `ws:` sólo para Turbopack/HMR, y se quitan en el build.
 Cualquier recurso externo nuevo —fuentes, scripts, imágenes, analítica— pasa por acá.
 Y según `PRODUCT.md`, volver a meter cualquier script de tracking es un cambio de tres

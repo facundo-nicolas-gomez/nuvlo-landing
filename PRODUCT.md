@@ -204,9 +204,19 @@ identificado, Retain no guarda cookies ni storage, no abre iframes y no envía n
 además de bajar sus tres archivos —`profitwell.js` sólo manda algo después de recibir
 un email o un id—. No mide ni identifica, así que se **declara** en `/privacidad` en
 vez de pedir consentimiento. Se midió en `localhost` y se repitió en `nuvloapp.com`
-después de publicar, el mismo 24/09/2026: mismo resultado. Si algún día se le pasa un cliente, o Retain
-empieza a guardar algo, vuelve a necesitar consentimiento. La recuperación dentro de
+después de publicar, el mismo 24/09/2026: mismo resultado. La recuperación dentro de
 la app —con `pwCustomer`— es del panel, no de acá.
+
+**El enlace del mail de recupero sí identifica, y también se declara (24/09/2026).**
+Quien llega desde el mail de Paddle por un pago fallido trae `?__pw_iic=` en la URL, y
+ese enlace lo identifica ante Paddle para abrirle el formulario de actualización de
+pago. El dueño decidió declararlo sin banner, y la excepción es angosta a propósito: no
+lo identifica el sitio, lo identifica el enlace que el propio cliente abre para arreglar
+su pago, y medido con el demo no queda nada guardado en su navegador. Del formulario,
+Google Fonts, el SDK de Sentry de Paddle y un polyfill de `cdnjs` **quedan bloqueados
+por la CSP**: funciona sin ellos, y abrirlos le mandaría la IP del visitante a Google y a
+Sentry. Si el sitio mismo le pasa algún día un cliente a Retain, o Retain empieza a
+guardar algo, vuelve a necesitar consentimiento.
 
 **Lo que sí se guarda es la atribución del alta, y no la toma el sitio** (16/09/2026). Si
 el visitante llega al registro con parámetros de campaña (UTM o el click-id de Meta o de
