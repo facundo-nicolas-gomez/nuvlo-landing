@@ -662,7 +662,7 @@ export const PASOS_GENERACION_MUESTRA = [
  * no mandar nada.
  */
 export const PROSA_RESPALDO_MUESTRA =
-  "El reporte de rendimiento de tus campañas de Meta Ads del período está disponible. A continuación encontrás los resultados principales y las métricas detalladas.";
+  "El reporte de rendimiento de tus campañas de Meta Ads del período está disponible. A continuación están los resultados principales y las métricas detalladas.";
 
 export const RESPALDO_ROTULO_MUESTRA = "Resumen genérico";
 
