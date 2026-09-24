@@ -73,11 +73,11 @@ import { Contador, INICIAL, acotar, formato } from "./Calculadora";
  * respalde.
  */
 
-/* Lo que incluye el plan. Son las cuatro filas que la matriz repetía idénticas
-   en las dos columnas: si no distinguen planes, no son una comparación, son
-   una lista. */
+/* Lo que incluye el plan. Son las filas que la matriz repetía idénticas en las
+   dos columnas: si no distinguen planes, no son una comparación, son una
+   lista. «Clientes atendidos, sin tope» salió el 24/09/2026, a pedido del
+   dueño. */
 const INCLUYE = [
-  "Clientes atendidos, sin tope",
   "Cuentas publicitarias por cliente, sin tope",
   "Reportes manuales y programados",
   "Página pública y PDF",
@@ -147,8 +147,7 @@ export function Precios() {
         </h2>
         <Entra className="i-entra-arriba" demora={120}>
           <p className="i-bajada i-cabeza-bajada">
-            La misma unidad con la que tu agencia factura. Y para empezar, 3
-            reportes gratis, sin tarjeta.
+            La misma unidad con la que tu agencia factura.
           </p>
         </Entra>
 
@@ -350,19 +349,19 @@ export function Precios() {
                 mismo para todos. Lo que cambia de verdad —y alcanza— es que el
                 enlace que abre el cliente no dice «panel». */}
             <p className="i-plan-nota">
-              <strong>Marca Blanca</strong> cambia dos cosas: la línea con la
-              que cierra el informe, y que la página pública salga por el host
-              de reportes —<span className="i-cifra">r.nuvloapp.com</span> en
-              vez de <span className="i-cifra">panel.nuvloapp.com</span>—. Es un
-              dominio de Nuvlo sin el nombre del panel; todavía no se puede
-              publicar en uno tuyo.
+              <strong>Marca Blanca</strong> quita «Generado con Nuvlo» del pie
+              del reporte, y la página pública sale por{" "}
+              <span className="i-cifra">r.nuvloapp.com</span> en vez de{" "}
+              <span className="i-cifra">panel.nuvloapp.com</span>. Es un dominio
+              de Nuvlo sin la palabra «panel»; todavía no se puede publicar en
+              uno tuyo.
             </p>
             <p className="i-fino i-precios-nota">
               Con tarjeta internacional o PayPal cobra Paddle, que figura como
-              vendedor (Merchant of Record): con tarjeta, el cargo aparece a
-              nombre de Paddle en tu estado de cuenta. En Argentina también se
+              vendedor (Merchant of Record): en el estado de cuenta de la
+              tarjeta, el cargo aparece a su nombre. En Argentina también se
               puede pagar en pesos con Mercado Pago. En todos los casos, Nuvlo
-              no recibe tus datos de pago; la suscripción se cancela en
+              no recibe tus datos de pago; la suscripción se puede cancelar en
               cualquier momento, con acceso hasta el fin del período pagado, y
               hay 10 días desde la contratación para arrepentirse con
               reembolso total.
