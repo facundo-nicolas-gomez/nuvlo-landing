@@ -3120,7 +3120,7 @@ burbuja chica del lado del que habla—, cada mensaje llega con fundido y 6px de
 con 0,7s entre mensajes; cada mensaje ocupa su lugar desde el primer render, así el remate
 no cambia de alto y el botón no se mueve. Sin JavaScript o con movimiento reducido se ve
 entera. Salió de El entregable el 07/09/2026: no es lo que recibe el
-cliente, es lo que pasa después, y es el «fijate» del título. Tres mensajes de `CHARLA_MUESTRA`: avatar de 30px con iniciales,
+cliente, es lo que pasa después, y es la «prueba» del título. Tres mensajes de `CHARLA_MUESTRA`: avatar de 30px con iniciales,
 cabecera con nombre (0.75rem/500) y hora en tabulares, y burbuja de 0.875rem con radio de
 hoja salvo la esquina que mira al avatar (4px). Sobre la noche ninguna burbuja es blanca, para
 que sólo el botón lo sea: el trafficker —«vos»— va a la derecha en blanco al 12% con filete
@@ -3384,8 +3384,9 @@ a la vista, sobre el campo. No es acordeón desde el 10/09/2026 —llegaba con n
 cerradas y cero respuestas visibles: un menú de títulos—.
 
 **Filas, no reja (17/09/2026, modo live).** Con las respuestas acortadas a una o dos líneas, la
-reja de dos columnas con el titular como celda se reemplazó por **nueve filas a todo el ancho
-partidas por filete**: la pregunta a la izquierda (5 de 12, en 1.125rem/600 —un escalón debajo
+reja de dos columnas con el titular como celda se reemplazó por **filas a todo el ancho
+partidas por filete** —nueve entonces, ocho desde el 24/09/2026: se unieron las dos de edición
+y salió la de la raya—: la pregunta a la izquierda (5 de 12, en 1.125rem/600 —un escalón debajo
 del Título, porque ahora hay nueve seguidas—) y la respuesta a la derecha (7 de 12, en
 `tinta-2`, topeada en 38rem), con 22px de aire por fila, elegido en live. Por debajo de 900 se
 apilan. El soporte va debajo de la última fila **en la columna de las respuestas**: se ofrece
@@ -3397,9 +3398,9 @@ respuesta no son dos columnas con roles que haya que separar, son una línea que
 ### El cierre: el remate y el pie (componente firma)
 
 > **Al día (17/09/2026, modo live): la charla primero.** El remate era la acción a la izquierda
-> y la charla a la derecha. Hoy la reja es **7/5 alineada abajo** (`align-items: end`) y **la
-> charla va primero**, más ancha, con `order: -1` desde 1024: la historia termina y recién ahí
-> llega el «fijate» del título, con el botón al final de la lectura y pegado al pie. El dueño lo
+> y la charla a la derecha. Hoy la reja es **7/5**, con la acción alineada abajo y **la charla
+> arriba, a la altura del titular** (24/09/2026), y **la charla va primero**, más ancha, con
+> `order: -1` desde 1024: la historia termina y recién ahí llega la «prueba» del título, con el botón al final de la lectura y pegado al pie. El dueño lo
 > eligió entre tres composiciones. **En el DOM el titular sigue primero** —es lo que nombra la
 > sección para el lector de pantalla— y el orden visual lo pone el CSS; apilado vuelve al orden
 > del DOM. La demora de entrada de la charla bajó de 220 a 120ms, que es lo que la pone a la par
@@ -4123,7 +4124,7 @@ una regla en su `globals.css`.
   divisorias del 50% de Precios con el filete que una pedía, el cierre de la comparación de Tres
   pasos (que ya cierra con la línea de la sección, 92px más abajo) y los dos filetes de las fichas
   de El entregable, que además morían en el aire por la derecha—. La que SÍ trabaja es la de las
-  nueve filas de Preguntas: ahí la línea ata cada pregunta con su respuesta a 600px de distancia,
+  filas de Preguntas: ahí la línea ata cada pregunta con su respuesta a 600px de distancia,
   y sin ella la fila se deshace.
 - **Don't** dibujar una línea de la PÁGINA como el borde de una CAJA. Los dos rieles fueron el
   `border-left/right` del marco de cada sección: se veían continuos mientras todas las secciones

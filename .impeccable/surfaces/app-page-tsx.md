@@ -1747,10 +1747,11 @@ que se ve acá compone distinto del que se manda.
 - **Precios**: la cuenta **en una frase** con los dos controles adentro, y «Lo que ve tu cliente»
   —una ventana con el host del enlace público y el final real de la página pública— en lugar de los
   dos pies estáticos, que leyó como «no se ve como el pie de un informe».
-- **Preguntas**: nueve filas a todo el ancho con la pregunta a la izquierda y la respuesta corta a
+- **Preguntas**: ocho filas a todo el ancho con la pregunta a la izquierda y la respuesta corta a
   la derecha, 22 de aire por fila.
-- **Cierre**: la charla **primero** y más ancha, con la acción a la derecha alineada abajo: la
-  historia termina y recién ahí llega el «fijate» del título, con el botón al final de la lectura.
+- **Cierre**: la charla **primero** y más ancha, con la acción a la derecha alineada abajo y la
+  charla arriba, a la altura del titular: la historia termina y recién ahí llega la «prueba» del
+  título, con el botón al final de la lectura.
   El DOM no cambia —el titular sigue nombrando la sección— y el orden visual lo pone el CSS.
 
 ### Lo que el contrato de dirección de arriba ya no describe

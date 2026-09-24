@@ -8016,10 +8016,10 @@ body[data-barra-control] .i-atajo {
 
 /* ── EL REMATE: LA CHARLA PRIMERO (17/09/2026, modo live) ───────────────────
    Dos columnas: la charla a la izquierda y más ancha, la acción a la derecha,
-   alineadas abajo para que el botón quede al final de la lectura, pegado al
-   pie. En el DOM el titular va primero; el orden visual lo pone `order` desde
-   1024, que es donde el remate tiene dos columnas (por debajo va apilado y en
-   el orden del DOM). Ver `Cierre.tsx`. */
+   la charla arriba, con el titular (24/09/2026), y el botón al final de su
+   columna, pegado al pie. En el DOM el titular va primero; el orden visual lo
+   pone `order` desde 1024, que es donde el remate tiene dos columnas (por
+   debajo va apilado y en el orden del DOM). Ver `Cierre.tsx`. */
 .i-telon-remate {
   position: relative;
   z-index: 1;
@@ -8031,8 +8031,21 @@ body[data-barra-control] .i-atajo {
 }
 
 @media (min-width: 1024px) {
+  /* Arriba, con el titular, y no abajo con el botón (dueño, 24/09/2026): al
+     pie, la charla —más baja que la columna del texto— arrancaba 35px por
+     debajo del titular y las dos columnas no empezaban en ningún lado común.
+     El botón sigue al final de su columna, que es la que llega al pie. */
   .i-remate-charla {
     order: -1;
+    align-self: start;
+  }
+
+  /* 8px de la regla general menos 4: con 8, el rótulo de la charla caía
+     3,7px por debajo de la mayúscula del titular a 1440. Se mide la línea de
+     mayúsculas y no la caja, porque el titular trae su interlínea arriba. Con
+     el contenedor adelante para ganarle a la regla general de más abajo. */
+  .i-telon-remate > .i-remate-charla {
+    padding-top: 4px;
   }
 
   .i-telon-texto {
