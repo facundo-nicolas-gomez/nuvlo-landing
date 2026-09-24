@@ -31,6 +31,18 @@
  * Y los mismos tres en `../nuvlo-panel/src/app/`: `ENTORNO.md §12` del panel pide
  * que el ícono entre a los dos repos con el mismo archivo.
  *
+ * Aparte, una COPIA que no se deriva:
+ *
+ *   marca/nuvlo-monograma.png
+ *     └── public/nuvlo-monograma.png  512 cuadrado, el PNG del dueño tal cual
+ *                                     (el logo que Paddle muestra en su checkout
+ *                                     y en el formulario de recupero de Retain)
+ *
+ * No se rasteriza del SVG: el dueño ya entregó su PNG, y re-rasterizarlo daría
+ * otro archivo por el mismo motivo que explica abajo el sello. Así que se copia
+ * byte a byte y se verifica byte a byte, sin holgura. Va sólo en la landing
+ * porque Paddle lo lee de una URL pública, y ésa es `nuvloapp.com`.
+ *
  * ── LO QUE DECIDE Y NO SE TOCA A OJO ─────────────────────────────────────────
  * Los vértices salen del archivo del dueño SIN EDITAR: se copian los dos `d`
  * tal cual y lo único que se agrega es un `transform`. Un vértice movido a mano
@@ -337,6 +349,9 @@ const SALIDAS = [
   { nombre: "apple-icon.png", buf: await png(appleSvg, APPLE, SELLO_APPLE), sello: SELLO_APPLE, lado: APPLE },
 ];
 
+/** Las copias sin derivar (ver la cabecera): de la marca a `public/`, idénticas. */
+const COPIAS = [{ desde: "marca/nuvlo-monograma.png", hacia: "public/nuvlo-monograma.png" }];
+
 /* ── 7. Escribir, o comparar ────────────────────────────────────────────────── */
 
 /** Que el PNG sea legible y mida lo que tiene que medir. El sello dice de dónde
@@ -374,6 +389,10 @@ if (!VERIFICAR) {
       `radio final ${(radioMarca * escala).toFixed(1)} sobre ${R}\n` +
       `  sello: icon.svg ${SELLO_ICON} · apple ${SELLO_APPLE}`,
   );
+  for (const { desde, hacia } of COPIAS) {
+    writeFileSync(join(raiz, hacia), readFileSync(join(raiz, desde)));
+    console.log(`✓ ${hacia}  ←  copia de ${desde}`);
+  }
 } else {
   for (const { nombre, buf, texto, sello, lado } of SALIDAS) {
     const ruta = join(APP, nombre);
@@ -452,6 +471,19 @@ if (!VERIFICAR) {
     );
   }
 
+  // Byte a byte y sin sello: no hay rasterizador en el medio que cambie un byte.
+  for (const { desde, hacia } of COPIAS) {
+    const ruta = join(raiz, hacia);
+    if (!existsSync(ruta)) {
+      falla(`falta ${hacia}. Correr \`node scripts/generar-iconos.mjs\`.`);
+    } else if (sha(readFileSync(ruta)) !== sha(readFileSync(join(raiz, desde)))) {
+      falla(
+        `${hacia} ya no es copia de ${desde}. Cambió la marca y la copia quedó atrás,\n` +
+          `    o alguien la editó a mano. Correr \`node scripts/generar-iconos.mjs\` y commitearla.`,
+      );
+    }
+  }
+
   if (fallas.length) {
     console.error("\nverificar-iconos: los íconos quedaron atrás.\n");
     for (const f of fallas) console.error(`  · ${f}\n`);
@@ -459,6 +491,7 @@ if (!VERIFICAR) {
   }
   console.log(
     `verificar-iconos: OK — los tres salen de marca/nuvlo-monograma.svg ` +
-      `(sello ${SELLO_ICON})${existsSync(PANEL) ? ", y el panel tiene los mismos" : ""}.`,
+      `(sello ${SELLO_ICON})${existsSync(PANEL) ? ", y el panel tiene los mismos" : ""}; ` +
+      `${COPIAS.map((c) => c.hacia).join(", ")} es copia exacta de la marca.`,
   );
 }

@@ -261,7 +261,10 @@ la misma tanda. El mismo script con `--verificar` **corre en el CI** y rompe si 
 los tres colores de la marca deja de coincidir con su token en `sistema/nuvlo.css` —son
 `--color-acento-tinta`, `--color-sobre-noche` y `--color-acento-sobre-noche`—, por eso el
 hex va anotado con `data-token` en el propio elemento del SVG: adentro de un comentario
-XML el guión doble no es legal.
+XML el guión doble no es legal. El mismo script copia además
+`marca/nuvlo-monograma.png` a `public/` **byte a byte, sin derivarlo**: es el logo que
+Paddle lee de `nuvloapp.com/nuvlo-monograma.png`, y `--verificar` rompe si deja de ser
+idéntico a la marca. No se renombra ni se mueve sin cambiar la URL en Paddle.
 
 **Un binario no se verifica por píxel, y eso está medido**: el mismo dibujo rasterizado
 por otro pipeline difiere 8,1% de los subpíxeles a 16px, más que un dibujo genuinamente
