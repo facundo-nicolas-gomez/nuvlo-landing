@@ -15,6 +15,8 @@
  *   Control        noche: la aprobación interactiva y los dos caminos.
  *   ── lo que ve el cliente y lo que se compra ──
  *   El entregable  el mail, el teléfono y la página pública.
+ *   El permiso     la cuenta de Meta al reporte en una sola dirección, con
+ *                  el sello de sólo lectura. Dibujo, sin titular visible.
  *   ── la decisión ──
  *   Precios        los planes, el contador y el total.
  *   Preguntas      una reja de dos columnas con las respuestas a la vista.
@@ -7561,6 +7563,469 @@ body[data-barra-control] .i-atajo {
   .i-conmutador-opcion {
     height: 44px;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EL PERMISO — sólo lectura, dibujado como un diodo (24/09/2026).
+   ═══════════════════════════════════════════════════════════════════════════
+
+   La ida pasa por el sello; las tres vueltas mueren contra un muro que cuelga
+   de él. No hay titular visible (pedido del dueño: diseño gráfico, sin bloques
+   de texto) y por eso la dirección la cargan tres cosas a la vez, para que
+   ninguna sola tenga que explicarla: el pulso que corre a la derecha, las
+   puntas, y el muro con las tres órdenes frenadas del otro lado.
+
+   Las columnas se declaran en la MEDIDA de lo que llevan —los dos nodos y el
+   sello en `rem`— y el sobrante se va a las dos vías, que son lo único que
+   tiene sentido estirar: una vía más larga sigue siendo la misma vía. */
+.i-permiso-flujo {
+  --permiso-nodo: 13rem;
+  --permiso-sello: 11rem;
+  /* El aire entre la fila del flujo y la de las vueltas: el muro lo sube por
+     arriba para tocar el sello, así que es un solo número y no dos. */
+  --permiso-fila: 28px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "origen"
+    "ida"
+    "sello"
+    "sale"
+    "destino"
+    "vuelta"
+    "llave"
+    "dato";
+  justify-items: center;
+  align-items: center;
+  row-gap: 12px;
+}
+
+@media (min-width: 960px) {
+  .i-permiso-flujo {
+    grid-template-columns:
+      var(--permiso-nodo) minmax(3.5rem, 1fr) var(--permiso-sello)
+      minmax(3.5rem, 1fr) var(--permiso-nodo);
+    grid-template-areas:
+      "origen ida sello sale destino"
+      "llave . vuelta vuelta vuelta"
+      ". dato dato dato .";
+    justify-items: stretch;
+    row-gap: var(--permiso-fila);
+    --permiso-nodo: 13.5rem;
+    --permiso-sello: 12rem;
+  }
+}
+
+/* El tamaño grande recién desde 1200: a 1024 con estas medidas las vías
+   quedaban en tres puntos y el sello se comía la fila. */
+@media (min-width: 1200px) {
+  .i-permiso-flujo {
+    --permiso-nodo: 16rem;
+    --permiso-sello: 14rem;
+  }
+}
+
+.i-permiso-origen {
+  grid-area: origen;
+}
+
+.i-permiso-destino {
+  grid-area: destino;
+}
+
+.i-permiso-via-ida {
+  grid-area: ida;
+}
+
+.i-permiso-via-sale {
+  grid-area: sale;
+}
+
+.i-permiso-nodo {
+  width: min(100%, var(--permiso-nodo));
+}
+
+/* ── LOS DOS NODOS SON PICTOGRAMAS, NO CITAS ────────────────────────────────
+   Ni la cuenta ni el reporte se citan: el reporte se muestra a escala de
+   lectura en el resto de la página, y achicado acá sería el informe encogido
+   que el dueño rechazó. Por eso van sin sombra ni cromo —*La Regla de la
+   Caja*: no reproducen el producto— y con el filete fuerte de canto, que es lo
+   que los despega del campo sin ponerles una caja. */
+.i-permiso-dibujo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.i-permiso-papel {
+  fill: var(--color-hoja);
+  stroke: var(--color-filete-fuerte);
+  stroke-width: 1;
+}
+
+.i-permiso-linea {
+  stroke: var(--color-filete);
+  stroke-width: 1;
+}
+
+.i-permiso-tenue {
+  fill: var(--color-filete);
+}
+
+.i-permiso-fuerte,
+.i-permiso-barra {
+  fill: var(--color-filete-fuerte);
+}
+
+.i-permiso-celda {
+  fill: var(--color-hoja-hundida);
+}
+
+/* Los interruptores de las campañas, encendidos y en tinta: es lo único de la
+   cuenta que el dibujo marca, porque es lo que Nuvlo no puede apagar. */
+.i-permiso-interruptor {
+  fill: var(--color-tinta);
+}
+
+.i-permiso-perilla {
+  fill: var(--color-hoja);
+}
+
+/* ── LAS VÍAS DE IDA ────────────────────────────────────────────────────────
+   Un filete fijo y, encima, un pulso de puntos que corre en el sentido del
+   dato. El pulso se funde en las dos puntas para que no parezca cortado por el
+   nodo: sale de uno y entra en el otro. */
+.i-permiso-via {
+  position: relative;
+  width: 14px;
+  height: 56px;
+  color: var(--color-tinta-2);
+}
+
+.i-permiso-via::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 1px;
+  background: var(--color-filete-fuerte);
+}
+
+.i-permiso-pulso {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle,
+      var(--color-tinta-2) 1.6px,
+      transparent 2.1px
+    )
+    50% 0 / 14px 16px repeat-y;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 22%,
+    #000 78%,
+    transparent
+  );
+  animation: i-permiso-baja 0.9s linear infinite;
+}
+
+.i-permiso-punta {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+}
+
+@keyframes i-permiso-baja {
+  to {
+    background-position-y: 16px;
+  }
+}
+
+@keyframes i-permiso-corre {
+  to {
+    background-position-x: 16px;
+  }
+}
+
+@media (min-width: 960px) {
+  .i-permiso-via {
+    width: auto;
+    height: 14px;
+    margin-inline: 14px;
+  }
+
+  .i-permiso-via::before {
+    inset: 50% 0 auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .i-permiso-pulso {
+    background-position: 0 50%;
+    background-size: 16px 14px;
+    background-repeat: repeat-x;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 16%,
+      #000 84%,
+      transparent
+    );
+    animation-name: i-permiso-corre;
+  }
+
+  .i-permiso-punta {
+    top: 50%;
+    right: -3px;
+    bottom: auto;
+    left: auto;
+    transform: translateY(-50%);
+  }
+}
+
+/* ── EL SELLO ───────────────────────────────────────────────────────────────
+   En petróleo porque es una MARCA —la de Nuvlo— y `DESIGN.md` pone la marca
+   entre las señales que el acento pinta. La torcedura va adentro del SVG, y
+   el porqué está ahí, en `Permiso.tsx`. */
+.i-permiso-sello {
+  grid-area: sello;
+  justify-self: center;
+  width: min(var(--permiso-sello), 100%);
+  color: var(--color-acento);
+}
+
+.i-permiso-sello-dibujo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.i-permiso-aro {
+  font-size: 12.5px;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+}
+
+.i-permiso-scope {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ── EL MOMENTO: SE ESTAMPA ─────────────────────────────────────────────────
+   El único gesto propio de la sección. El bloque entra como todos (`Entra`) y,
+   cuando ya se asentó, el sello cae desde más grande, se pasa un poco de
+   chico —el golpe contra el papel— y vuelve. Sin rebote
+   elástico: una sola pasada y queda. Con movimiento reducido la regla global
+   de `base.css` lo reduce a nada y el sello aparece puesto. */
+.iris [data-entra="oculto"] .i-permiso-sello {
+  opacity: 0;
+}
+
+.iris [data-entra="visto"] .i-permiso-sello {
+  /* `backwards` y no `both`: al terminar no le queda ningún `transform`
+     puesto. Con uno retenido —aunque sea la identidad— Chrome deja el SVG en
+     una capa propia y lo pinta mal (ver el comentario del sello en
+     `Permiso.tsx`). */
+  animation: i-permiso-estampa 0.62s var(--ease-nuvlo) 0.55s backwards;
+}
+
+@keyframes i-permiso-estampa {
+  0% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+  62% {
+    opacity: 1;
+    transform: scale(0.965);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── LAS VUELTAS: TRES ÓRDENES CONTRA UN MURO ───────────────────────────────
+   El muro cuelga del sello —sube `--permiso-fila` para tocarlo— y en
+   escritorio cae exactamente bajo su centro, porque la lista arranca en la
+   columna del sello. Cada orden sale del lado del reporte y su trazo termina
+   con la punta contra el muro: la dirección que el sello no deja pasar. */
+.i-permiso-vuelta {
+  grid-area: vuelta;
+  position: relative;
+  display: grid;
+  gap: 10px;
+  width: min(100%, 24rem);
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.i-permiso-vuelta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--color-tinta);
+}
+
+@media (min-width: 960px) {
+  .i-permiso-vuelta {
+    width: auto;
+    margin: 0;
+  }
+
+  .i-permiso-vuelta::before {
+    top: calc(-1 * var(--permiso-fila));
+    left: calc(var(--permiso-sello) / 2 - 1.5px);
+  }
+}
+
+.i-permiso-carril {
+  display: grid;
+  grid-template-columns: minmax(1.5rem, 1fr) auto;
+  align-items: center;
+  padding-left: 3px;
+}
+
+@media (min-width: 960px) {
+  .i-permiso-carril {
+    grid-template-columns: minmax(0, 1fr) minmax(var(--permiso-nodo), auto);
+    padding-left: calc(var(--permiso-sello) / 2 + 1.5px);
+  }
+}
+
+.i-permiso-trazo {
+  position: relative;
+  height: 1px;
+  margin-right: 10px;
+  color: var(--color-tinta-3);
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-filete-fuerte) 0 5px,
+    transparent 5px 9px
+  );
+}
+
+.i-permiso-punta-vuelta {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+}
+
+/* La orden, frenada: borde punteado, tercera tinta, tachada y con candado. Es
+   un control dibujado que no responde a propósito —no promete nada: dice lo
+   que no pasa— y por eso no es un `<button>`. */
+.i-permiso-orden {
+  display: inline-flex;
+  justify-self: end;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 14px 0 12px;
+  border: 1px dashed var(--color-filete-fuerte);
+  border-radius: var(--radius-pastilla);
+  background: var(--color-campo);
+  color: var(--color-tinta-3);
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.i-permiso-candado {
+  flex: none;
+}
+
+.i-permiso-orden-texto {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--color-tinta-3) 70%, transparent);
+}
+
+/* ── LA LLAVE ───────────────────────────────────────────────────────────────
+   Del lado de la cuenta, porque quien corta es el dueño de la cuenta. Es la
+   única cosa de la sección que se aprieta, y por eso la única en petróleo
+   además del sello. */
+.i-permiso-llave {
+  grid-area: llave;
+  display: inline-flex;
+  align-items: center;
+  align-self: start;
+  justify-self: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: var(--color-acento);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.i-permiso-llave:hover {
+  color: var(--color-acento-tinta);
+}
+
+.i-permiso-llave svg {
+  flex: none;
+}
+
+.i-permiso-llave-fin {
+  white-space: nowrap;
+}
+
+.i-permiso-llave-fin svg {
+  display: inline-block;
+  margin-left: 6px;
+  vertical-align: 0.05em;
+}
+
+@media (min-width: 960px) {
+  .i-permiso-llave {
+    justify-self: start;
+    margin-top: 0;
+    /* En un renglón: a la medida del nodo partía en dos y dejaba la flecha
+       colgando sola a la derecha. Puede pasarse del nodo porque debajo de la
+       vía de ida no hay nada —la fila de las vueltas arranca en el sello—. */
+    white-space: nowrap;
+  }
+}
+
+@media (pointer: coarse), (max-width: 767px) {
+  .i-permiso-llave {
+    min-height: 44px;
+  }
+}
+
+/* ── EL DATO ────────────────────────────────────────────────────────────────
+   La revisión de Meta se escribe como pie de figura, en tercera tinta y lejos
+   del sello: es un hecho sobre el permiso, no parte de la garantía. */
+.i-permiso-dato {
+  grid-area: dato;
+  justify-self: center;
+  max-width: 34rem;
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-tinta-3);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.i-permiso-codigo {
+  padding: 1px 6px;
+  border-radius: var(--radius-chico);
+  background: var(--color-hoja-hundida);
+  color: var(--color-tinta-2);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

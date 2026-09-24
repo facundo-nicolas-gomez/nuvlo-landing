@@ -366,6 +366,20 @@ Otro material disponible:
 
   Son cita y no copy: si cambian allá, cambian acá.
 
+**El permiso de Meta es sólo `ads_read`, y pasó la revisión de apps de Meta (24/09/2026).**
+Lo primero está en el código: `META_SCOPES` en `nuvlo-panel/src/lib/meta.ts` es
+`["ads_read"]`, y es el único `scope` que manda `api/meta/auth/route.ts`. Lo segundo lo afirma
+el dueño. Con eso el sitio puede decir tres cosas, y la sección `#permiso` las dice:
+
+- que Nuvlo se conecta con un único permiso, `ads_read`, que sólo lee;
+- que no puede crear ni editar campañas, pausar ni activar anuncios, ni cambiar
+  presupuestos, porque ese permiso no lo habilita;
+- que Nuvlo pasó la revisión de apps de Meta para ese permiso, **escrito como dato**.
+
+Lo que no puede decir: que Meta aprobó, avaló o certificó a Nuvlo, y nada que lleve el logo
+de Meta o se parezca a un sello suyo. La garantía de sólo lectura es de Nuvlo, sobre lo que
+Nuvlo construyó. **Si `META_SCOPES` cambia, `#permiso` miente**: se revisa en la misma tanda.
+
 **Tres cuentas reales, aportadas por el dueño el 19/09/2026.** Posada Quinen (hospedaje),
 Destino Andino (turismo) y Go By (alquiler de autos), los tres de San Martín de los Andes y
 los tres **negocios familiares**, que es lo que resuelve el permiso para usar nombre y logo.

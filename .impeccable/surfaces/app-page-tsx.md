@@ -2280,6 +2280,42 @@ costuras por sección»— volvió a ser cierta, y estuvo falsa todo el día.
 recargar**, así que describía el estado viejo y cada informe suyo mandaba a buscar una causa que
 ya no existía. Antes de salir a buscar de nuevo, conviene preguntar si recargó.
 
+## El permiso: sólo lectura, dibujado (24/09/2026)
+
+Pedido del dueño: una pieza visual destacada que muestre que Nuvlo se conecta a Meta Ads con
+acceso de sólo lectura —un flujo de una sola dirección de la cuenta al reporte—, «nada de
+etiquetas ni bloques de texto», sin el logo de Meta y sin decir que Meta avaló nada. Con el
+permiso exacto, lo que Nuvlo no puede hacer y un enlace para verificar y revocar el acceso.
+
+**Dónde:** `components/iris/Permiso.tsx`, entre El entregable y Precios. Es la última objeción
+antes del precio —¿qué puede hacer con la cuenta?— y no se mete entre «aprobás» y «le llega»,
+que fue lo que sacó al Tablero. Después de Tres pasos no podía ir: esa sección termina en su
+banda, que desemboca directo en la noche de La lectura.
+
+**Qué es:** un diodo. La cuenta publicitaria (pictograma de tres campañas con su interruptor)
+manda un pulso a la derecha que pasa por el sello y llega al reporte (pictograma, sin una
+cifra). Debajo, tres órdenes tachadas y con candado —crear o editar campañas, pausar o activar
+anuncios, cambiar presupuestos— vuelven hacia la cuenta y mueren contra un muro que cuelga del
+sello. La llave —«Verificá o revocá el acceso en tu Facebook»— va debajo de la cuenta, porque
+quien corta es quien autorizó, y lleva a Integraciones comerciales de Facebook. Un pie de
+figura dice el dato de la revisión de Meta.
+
+**Decisiones:**
+- **Sin titular visible**: el `h2` va en `i-solo-lectores`. Es la única sección de la home sin
+  titular a la vista, por pedido explícito.
+- **El sello va en petróleo**: es una marca, la de Nuvlo, y la marca está entre las señales
+  que el acento pinta. Dice NUVLO en el aro; Meta no aparece adentro.
+- **La revisión de Meta va fuera del sello**, en tinta de pie de figura: adentro se leería
+  como una chapa de Meta.
+- **«Sólo», con tilde**, como el resto del sitio; el dueño había sugerido «Solo lectura
+  garantizado» como ejemplo.
+- **El enlace le habla al visitante** («tu Facebook») y no al anunciante: la conexión la
+  autoriza el trafficker con su propio acceso de Meta.
+
+**Lo que no se verificó:** la URL de Integraciones comerciales
+(`facebook.com/settings/?tab=business_tools`) no se abrió; Meta la viene mudando al Centro de
+cuentas.
+
 ## Lo que quedó sin resolver
 
 > **Auditada entera el 19/09/2026, y el resultado obliga a leerla con desconfianza.** De las

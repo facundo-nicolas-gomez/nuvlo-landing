@@ -6,6 +6,7 @@ import { Lectura } from "./Lectura";
 import { Maquina } from "./Maquina";
 import { Clientes } from "./Clientes";
 import { Entregable } from "./Entregable";
+import { Permiso } from "./Permiso";
 import { Precios } from "./Precios";
 import { Preguntas } from "./Preguntas";
 import { Cierre } from "./Cierre";
@@ -31,6 +32,8 @@ import { Atajo } from "./Atajo";
  *                  `Maquina.tsx`).
  *   El entregable  el mail que recibe el cliente, literal, el mismo mail
  *                  abierto en su celular, y las otras dos formas del informe.
+ *   El permiso     la cuenta de Meta al reporte, en una sola dirección:
+ *                  ads_read y un sello de sólo lectura. Dibujo, sin titular.
  *   Precios        por cliente, al mes, con la diferencia citada.
  *   Preguntas      incluidas las que dicen que no.
  *   Cierre         noche: el pie que se revela por debajo del telón (el
@@ -167,6 +170,11 @@ export function Pagina() {
         <Lectura />
         <Maquina />
         <Entregable />
+        {/* Entre lo que recibe el cliente y lo que se paga: es la última
+            objeción antes del precio —¿qué puede hacer con la cuenta?— y no
+            se mete entre «aprobás» y «le llega», que es lo que sacó al
+            Tablero. */}
+        <Permiso />
         <Precios />
         <Preguntas />
       </main>

@@ -59,8 +59,9 @@ const PASOS = [
     objecion: "Hoy exportás de Meta y cruzás en una planilla.",
     // Sólo lo que PRODUCT.md sostiene: se conecta la cuenta con el acceso del
     // trafficker, lo suyo se carga una vez, y al generar elige el período —las
-    // campañas y la salida vienen con la respuesta de siempre—. El alcance
-    // exacto del permiso de Meta no está registrado y no se afirma.
+    // campañas y la salida vienen con la respuesta de siempre—. El permiso
+    // exacto (`ads_read`) está registrado desde el 24/09/2026, pero se dice en
+    // `#permiso` y no acá: esta fila habla del gesto, no del alcance.
     texto:
       "Con tu propio acceso de Meta. Lo tuyo se carga una vez; después, cada reporte es elegir el período.",
     periodo: true,

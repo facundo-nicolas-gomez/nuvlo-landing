@@ -3329,6 +3329,38 @@ la sección de 1249 a 1119 (de 1644 a 1515 en móvil).
 > siluetas, no ocho; el mail real es la última fila entera y por eso es donde va el ojo. El
 > dueño: «me gustaba más cuando el teléfono se veía cortado».
 
+### El permiso (composición, 24/09/2026)
+
+Entre El entregable y Precios, `components/iris/Permiso.tsx`. Dice una sola cosa —las métricas
+van de la cuenta publicitaria al reporte y nada vuelve— y la dice **dibujada**, sin titular
+visible (pedido del dueño: «nada de etiquetas ni bloques de texto»; el `h2` va en
+`i-solo-lectores`). Es un diodo:
+
+- **La ida**: cuenta → vía → sello → vía → reporte. Las vías son un filete fuerte con un pulso
+  de puntos en `tinta-2` que corre en el sentido del dato y se funde en las dos puntas.
+- **El sello**: en `acento`, porque es una MARCA —la de Nuvlo— y la marca está entre las
+  señales que el acento pinta. Aro doble con «SÓLO LECTURA · GARANTIZADO POR NUVLO», un ojo y
+  `ads_read` al centro, torcido −9° y con un desgaste de tinta por ruido que sólo come los
+  picos (con una pendiente más suave se leía como arena). Sin Meta adentro.
+- **La vuelta**: tres órdenes tachadas, con candado y borde punteado, cuyos trazos terminan
+  con la punta contra un muro de tres píxeles en `tinta` que cuelga del centro del sello. Son
+  controles dibujados que no responden a propósito: no prometen nada, dicen lo que no pasa.
+- **La llave**, el único enlace, debajo de la cuenta y en `acento`: quien corta es quien
+  autorizó.
+- **El dato de la revisión de Meta**, como pie de figura en `tinta-3` y **fuera del sello**:
+  adentro se leería como una chapa de Meta.
+
+Los dos nodos son **pictogramas y no citas**: sin sombra ni cromo (*La Regla de la Caja*), con
+el filete fuerte de canto y sin una cifra, porque el informe se muestra a escala de lectura en
+el resto de la página y achicado acá sería el informe encogido que el dueño rechazó.
+
+Medidas: desde 1200 los nodos miden 16rem y el sello 14; de 960 a 1199, 13,5 y 12, porque con
+las grandes a 1024 las vías quedaban en tres puntos. Por debajo de 960 se apila en vertical y
+las vías bajan.
+
+Movimiento: el bloque entra con `Entra` y el sello **se estampa** —cae de 1,45 a 0,965 y
+vuelve a 1—, una sola vez por entrada y sin rebote. Con movimiento reducido aparece puesto.
+
 ### Preguntas (composición, 17/09/2026)
 La única sección sin objeto, y **la única sin bloque de las tres claras**: las nueve respuestas
 a la vista, sobre el campo. No es acordeón desde el 10/09/2026 —llegaba con nueve filas
@@ -3818,6 +3850,15 @@ una regla en su `globals.css`.
   recuerda.**
 
 ### Don't:
+- **Don't** dejarle un `transform` de CSS retenido al contenedor HTML de un SVG con texto y
+  filtro. El sello de `#permiso` se torcía con `rotate(-9deg)` en su `div`, y Chrome pintaba el
+  texto y el ojo corridos y más chicos que los aros **con el layout midiendo bien**: `getBBox` y
+  los rectángulos daban las posiciones correctas y el píxel no. Pasaba igual con la identidad
+  que deja una animación con `both`. Se descartaron uno por uno el filtro, `overflow` y la
+  animación; lo que lo resolvió fue sacar el `transform` del contenedor —la torcedura va en un
+  `<g transform>` adentro del SVG y la animación es `backwards`—. Medido en Playwright a 1024,
+  24/09/2026. **Cuando el layout mide bien y la pantalla no, el defecto es de pintura, y se
+  busca en las capas, no en las coordenadas.**
 - **Don't** poner el monograma al lado del wordmark cuando el monograma ES la inicial. Entró el
   20/09/2026, el mismo día que el dueño aportó la marca, y salió a las horas: el signo es una N
   pegada a una palabra que empieza con «n», así que el lockup dice *N + nuvlo* y el dibujo sólo
