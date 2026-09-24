@@ -7,8 +7,8 @@ castellano, y escribí el porqué al lado de la decisión: los archivos de acá 
 el motivo, no lo que hace la línea.
 
 Esta es **la landing**: superficie de marketing estática (Next.js 16 App Router,
-React 19, Tailwind v4). Sin backend, sin formularios, sin variables de entorno, sin
-base de datos. Tiene un solo objetivo: que el visitante se registre en
+React 19, Tailwind v4). Sin backend, sin formularios, sin base de datos, con una sola
+variable de entorno (ver «CSP»). Tiene un solo objetivo: que el visitante se registre en
 `panel.nuvloapp.com/sign-up`. El producto vive en `../nuvlo-panel`, el repo principal.
 
 Lo que Nuvlo vende es un reporte de Meta Ads que el trafficker freelance manda a sus
@@ -171,12 +171,22 @@ no declaran itálica: Geist no la trae, y no se carga la de otra familia para tr
 
 ### CSP (`next.config.ts`)
 
-La CSP de producción no tiene excepciones (`'self'` en todo lo que puede); dev agrega
-`'unsafe-eval'` y `ws:` sólo para Turbopack/HMR, y se quitan en el build. Cualquier
-recurso externo nuevo —fuentes, scripts, imágenes, analítica— pasa por acá. Y según
-`PRODUCT.md`, volver a meter cualquier script de tracking es un cambio de tres partes
-en la misma tanda: consentimiento previo, CSP y actualizar `/privacidad`, que hoy
-afirma que no se carga ninguna herramienta de terceros.
+La CSP de producción es `'self'` en todo lo que puede, con **una sola excepción**:
+Paddle.js para Retain en la home (`components/iris/PaddleRetain.tsx`), abierto por
+dominio exacto en `script-src` (`cdn.paddle.com`, `public.profitwell.com`) y
+`style-src` (`cdn.paddle.com`). Esos tres dominios salieron de medir qué bloqueaba
+la CSP, no de la doc: si Paddle pide otro, se mide y se agrega ése, sin comodines. Dev
+agrega `'unsafe-eval'` y `ws:` sólo para Turbopack/HMR, y se quitan en el build.
+Cualquier recurso externo nuevo —fuentes, scripts, imágenes, analítica— pasa por acá.
+Y según `PRODUCT.md`, volver a meter cualquier script de tracking es un cambio de tres
+partes en la misma tanda: consentimiento previo, CSP y actualizar `/privacidad`, que
+hoy afirma que no se carga ninguna herramienta de medición ni de publicidad.
+
+**La única variable de entorno es `NEXT_PUBLIC_PADDLE_CLIENT_TOKEN`** (el client token
+`live_…`, que por diseño viaja en el bundle). Se carga en Vercel, en Production: el
+build de producción corre allá y no en el runner del CI. `next.config.ts` rompe el
+build si `VERCEL_ENV === "production"` y falta; fuera de Vercel se tolera y la home
+sale sin Paddle.js, por eso el CI sigue en verde sin ella.
 
 ### Tarjeta social (`app/opengraph-image.tsx`)
 

@@ -197,6 +197,17 @@ Meta). Hoy el sitio no carga medición ni scripts de terceros, y `/privacidad` l
 **afirma**. Volver a meter uno es consentimiento previo + CSP + texto legal en la misma
 tanda; el detalle de la CSP está en `CLAUDE.md`.
 
+**Paddle.js en la home, sin consentimiento previo (24/09/2026).** Paddle Retain pide
+Paddle.js en una página pública, y la home lo carga sin `pwCustomer`. Es la excepción
+a la regla de arriba, y la decidió el dueño por lo que se midió: sin un cliente
+identificado, Retain no guarda cookies ni storage, no abre iframes y no envía nada
+además de bajar sus tres archivos —`profitwell.js` sólo manda algo después de recibir
+un email o un id—. No mide ni identifica, así que se **declara** en `/privacidad` en
+vez de pedir consentimiento. La medición fue en `localhost` y hay que repetirla en
+`nuvloapp.com` después de publicar. Si algún día se le pasa un cliente, o Retain
+empieza a guardar algo, vuelve a necesitar consentimiento. La recuperación dentro de
+la app —con `pwCustomer`— es del panel, no de acá.
+
 **Lo que sí se guarda es la atribución del alta, y no la toma el sitio** (16/09/2026). Si
 el visitante llega al registro con parámetros de campaña (UTM o el click-id de Meta o de
 Google), el panel los guarda junto a la cuenta una sola vez, no los comparte con

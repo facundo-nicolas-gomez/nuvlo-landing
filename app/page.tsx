@@ -1,4 +1,5 @@
 import { Pagina } from "@/components/iris/Pagina";
+import { PaddleRetain } from "@/components/iris/PaddleRetain";
 
 /**
  * LA HOME.
@@ -14,5 +15,10 @@ import { Pagina } from "@/components/iris/Pagina";
  * comparar.
  */
 export default function Home() {
-  return <Pagina />;
+  return (
+    <>
+      <Pagina />
+      <PaddleRetain />
+    </>
+  );
 }

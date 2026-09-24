@@ -80,6 +80,16 @@ export default function Privacidad() {
           esos proveedores. Si volvemos a incorporar alguna, te pediremos el
           consentimiento antes de cargarla y actualizaremos esta política.
         </li>
+        <li>
+          <strong>Pagos fallidos:</strong> la página de inicio carga Paddle.js
+          y Paddle Retain, dos scripts de Paddle.com, nuestro procesador de
+          pagos, que sirven para recuperar suscripciones cuyo pago falló. En esa
+          página no te identifican: no les pasamos ningún dato tuyo ni de tu
+          cuenta, y no instalan cookies. Como cualquier recurso que se descarga
+          de otro servidor, tu navegador le envía a Paddle datos técnicos como
+          tu dirección IP y el tipo de navegador. Qué hace Paddle con eso está
+          en su política, que enlazamos más abajo.
+        </li>
       </ul>
 
       <h2>Cómo usamos tu información</h2>
