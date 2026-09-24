@@ -236,7 +236,9 @@ usuario). "Reporte" o "informe", no "dashboard". "Cuenta publicitaria" para la d
   24/09/2026: la venta se abre a todo el mercado hispanohablante). La segunda persona va
   por posesivo («tu cliente», «decisión tuya»), los botones y títulos en infinitivo, y
   los titulares con Nuvlo o el reporte como sujeto. Donde el vos sea inevitable, se deja,
-  sin modismos argentinos («mail», «acá», «apretar», «recién», «planilla»). Reemplaza la
+  sin modismos argentinos («mail», «acá», «apretar», «recién», «planilla»). Quien usa el
+  producto puede ser un freelancer: «tu nombre» o «tu nombre o el de tu agencia», nunca «tu
+  agencia» a secas. Reemplaza la
   decisión del 23/08/2026 (rioplatense con alcance LatAm). Vale también para las tres
   legales. No hay plan de versión en inglés.
 - **El wordmark lo define este repo y el panel se alinea después.** Lo que la landing
