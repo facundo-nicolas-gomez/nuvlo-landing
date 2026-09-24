@@ -75,8 +75,12 @@ también obliga a copiar.
   un gris cálido de cuando el campo lo era). El primario aclara porque la tinta ya es lo más
   oscuro; en el panel el primario oscurece hacia `acento-tinta`, que sí es token, y lo fija
   `accion-sistema.test.ts`.
-- **`app/icon.svg` usa `#a8d2d7`**, que no es un token. Los colores del ícono a mano ya son deuda
-  anotada en el propio archivo.
+- ~~**`app/icon.svg` usa `#a8d2d7`**, que no es un token.~~ **Resuelto el 24/09/2026.** El ícono
+  pasó a derivarse del monograma que aportó el dueño, y sus tres colores SON tokens
+  (`acento-tinta`, `sobre-noche`, `acento-sobre-noche`): la marca está dibujada con la paleta. El
+  hex sigue escrito, porque Next sirve el archivo fuera del árbol de la página y ahí no hay
+  `var()`, pero ya no es deuda muda —cada elemento lleva su `data-token` al lado y el CI rompe si
+  alguno deja de coincidir—.
 - **La escena del ingreso del panel usa `#8cb2b8`** y el comentario lo llama
   `acento-sobre-noche`, que vale `#8fc3c9`. Está en `escena-auth.css` y como literal en
   `escena-shader.tsx`.
@@ -139,8 +143,12 @@ también obliga a copiar.
 
 - **El reporte tiene dos cortes que el panel no adoptó:** `documento.css` corta en 340 y 280, y
   `report-generator.ts` no. Los demás (640, 480, 470) coinciden.
-- **El panel no tiene favicon,** y `middleware.ts` ya deja pasar `/icon.png` y
-  `/apple-icon.png`. Adoptarlo es tanda del panel.
+- ~~**El panel no tiene favicon.**~~ **Resuelto el 24/09/2026.** Los dos repos tienen los mismos
+  tres archivos y los mismos bytes: `icon.svg`, `favicon.ico` y `apple-icon.png`, en `app/` en la
+  landing y en `src/app/` acá. Pasan el middleware por extensión —el matcher excluye `.svg`,
+  `.png` e `.ico`—, así que no hizo falta tocarlo. **Los dos CI lo cuidan y cada uno mira otra
+  cosa**: el de la landing, que salgan de la marca y sigan a la paleta; el del panel, que las
+  copias sean idénticas.
 - **Los mismos íconos, dos dibujos:** el tilde, la flecha y el de descargar están escritos a
   mano en la landing y vienen de `lucide-react` en el panel. El tilde doble y el de descargar de
   la landing ya son formas de lucide redibujadas.

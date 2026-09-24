@@ -1888,7 +1888,10 @@ ficha legal. Los bordes son siempre de un píxel en filete; no
 hay bordes de 2px ni callouts con borde grueso de color. El marcador de la lista de lo
 incluido es un cuadradito de 7px con radio 2px —era el eco del de la marca, que se fue el
 11/09/2026 y lo dejó solo—; las tres luces del navegador y el tilde de confirmación son
-círculos.
+círculos. **El ícono de pestaña tampoco participa de la escala**: es un círculo entero y no
+un radio de los de arriba, porque no es una caja de la página —vive en el cromo del
+navegador— y a 16px cualquiera de estos peldaños lo dejaría leerse como ficha (ver
+*El ícono*).
 
 ## Components
 
@@ -3464,6 +3467,45 @@ corrida, no las dos líneas de una bajada), enlaces en el petróleo, y el marcad
 dibujado en vez de un glifo del navegador. Contraste medido: cuerpo 8,72:1, enlaces 8,16:1,
 fecha 5,31:1.
 
+### El ícono (superficie, 24/09/2026)
+**La tercera superficie, y la única que se ve fuera del sitio.** La pestaña del navegador y
+la pantalla de inicio de iOS. Es además **el único lugar donde el monograma trabaja**: al
+lado del wordmark repite la inicial y se sacó el mismo día que entró (ver el *Don't*), pero
+acá el wordmark no entra —a 16px «nuvlo» es una mancha— y hace falta un signo.
+
+**El fondo es redondo, y el motivo sobrevivió al cambio de marca.** Lo pidió el dueño el
+20/09/2026 y no es gusto: a 16px un cuadrado con el signo adentro se lee como una ficha, y el
+círculo deja que lo único con forma reconocible sea el monograma. Cuando el 24/09 aportó el
+monograma nuevo, vino con su propia placa cuadrada y **se conservó el círculo igual**: la
+decisión redonda era sobre la forma del ícono, no sobre la marca, y una marca nueva no la
+deroga. El de iOS sí es cuadrado y a sangre, porque ahí enmascara el sistema con su propio
+squircle y una máscara sobre otra deja el signo chico.
+
+**El aire se mide contra el trazo, no contra la caja.** El monograma entra al **74,5% del
+radio** —escala 1,07504 sobre su viewBox de 384—. El punto que manda es la punta de la
+diagonal del acento, a 177,4 de 192 del centro; que además sea la esquina de su caja es
+casualidad, porque lo que el corte del círculo muerde es un trazo. Se probaron 0,80 y 0,85: a
+16px ninguno se lee mejor y el segundo ya le roza la punta. Es la misma proporción que tenía
+el ícono retirado —330 de ancho sobre un círculo de 512— y dio el mismo ancho, porque las dos
+marcas tienen casi la misma relación de lados.
+
+**Los dos trazos nunca se tocan, y eso es lo que lo salva a 16px.** Medido sobre el render a
+256: 2.758 píxeles de hueso, 2.769 de acento y **cero** con el otro de vecino —siempre hay
+placa entre ellos—. Importa porque hueso contra acento da 1,61:1, que a ese tamaño sería una
+sola mancha; contra la placa dan 8,94:1 y 5,55:1. **La separación la hace el fondo, no el
+contraste entre los dos tonos**, y por eso el signo aguanta el achique.
+
+**Los tres colores son tres tokens del sistema**, y no por casualidad: el dueño dibujó la
+marca con la paleta. La placa en `acento-tinta`, el trazo claro en `sobre-noche`, el otro en
+`acento-sobre-noche`. Es la única pieza **fuera de la cascada que sigue adentro del sistema**:
+Next la sirve como ícono, fuera del árbol de la página, así que no hay `var()` que valga y el
+hex va escrito. Cada elemento lleva su `data-token` al lado —adentro de un comentario XML el
+guión doble no es legal— y el CI rompe si alguno deja de coincidir con la paleta.
+
+**No se dibuja: se deriva.** Los dos `path` salen del archivo del dueño sin tocar un vértice;
+lo único que se agrega es el `transform` que centra y escala. Un vértice movido a mano es una
+marca distinta que nadie sabría comparar contra el original (ver el *Don't* de abajo).
+
 ### Precios
 
 > **Al día (17/09/2026, modo live): la cuenta en una frase, y lo que ve tu cliente.**
@@ -3785,7 +3827,16 @@ una regla en su `globals.css`.
   *Don't* del copete arriba del titular dicen lo mismo con otras piezas. **Y tenía precio:** 37,2px
   en la fila de la barra, que obligaron a subir el umbral de los dos botones de la Disposición
   954/2025 de 1100 a 1140, o sea 40px más de ancho donde el sitio no cumple. Donde el monograma sí
-  trabaja es en el favicon y el ícono de iOS, porque ahí el wordmark no entra.
+  trabaja es en el favicon y el ícono de iOS, porque ahí el wordmark no entra (ver *El ícono*).
+- **Don't** derivar una pieza de marca de un archivo que después no queda en el repo, ni trazarla
+  a mano. El ícono que entró el 20/09/2026 llevaba sus dos `path` vectorizados de
+  `marca/nuvlo-clara.png` —seguimiento de contorno más Douglas-Peucker, verificado rasterizando
+  contra el original— y **el método estaba bien**: el problema fue que ese PNG se borró después y
+  el dibujo quedó sin fuente. Una pieza que nadie puede rehacer no se corrige, se vuelve a dibujar,
+  y ahí la marca deriva sin que nadie lo note —es lo mismo que le pasó tres veces a la tarjeta
+  social por otro camino, la copia a mano—. Desde el 24/09/2026 los tres íconos salen de
+  `marca/nuvlo-monograma.svg`, que vive versionado al lado, y los escribe un generador. **Un
+  binario de marca sin fuente versionada no es un archivo: es una deuda.**
 - **Don't** arreglar un defecto visual poniéndole relleno a la sección que lo contiene. Persiguiendo
   una mancha negra debajo del informe se le pusieron números a mano a cuatro secciones —48/26,
   40, 28, 28/36— y ninguno la resolvió, porque la mancha era `TOPE_HOJA` en `Lectura.tsx`. Lo que
