@@ -2383,8 +2383,12 @@ dueño pidió todos:
 
 Decidió no fechar la revisión de Meta.
 
-**Sin resolver:** la densidad en escritorio (0,87 con densidad 2). Hace falta una toma más
-grande que la del 175 %.
+**La densidad, resuelta (25/09/2026).** El dueño aportó una captura de pantalla completa en PNG
+(2560×1800) con la ventana a 1124px, el doble exacto de los 562 a los que se muestra. Mismo
+criterio de recorte: `autorizacion-nuvlo.png` 1124×526 y `autorizacion-nuvlo-movil.png`
+1026×326. Medido: densidad 1,00 por píxel físico en escritorio con densidad 2, y 1,05 en
+teléfono con densidad 3. La misma captura adjunta al chat había llegado achicada (2000px, WebP,
+ventana de 878) y se descartó: vale el archivo original.
 
 ## Lo que quedó sin resolver
 

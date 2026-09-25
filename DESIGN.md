@@ -3349,11 +3349,12 @@ Nuvlo**, no con un objeto nuestro.
   de Meta o un aval. Fuera de la cita, un azul de Meta es vestirse de Meta. Escenario, no
   sistema: no cruza al panel.
 - **La ventana**: la captura real de la pantalla donde se REVISA el acceso —no la de la primera
-  conexión—, sacada con el zoom del navegador al 175 %. Dos recortes, servidos con `<picture>`:
-  - **Ancho** (`autorizacion-nuvlo.png`, 983×458): la ventana entera sin el blanco del medio
-    ni el canto gris, con la foto de perfil tapada. Se muestra a 562×262 y nunca más grande
-    —1,75 píxeles por píxel—.
-  - **Teléfono** (`autorizacion-nuvlo-movil.png`, 901×286): sólo la barra, el título y el
+  conexión—, de una captura de pantalla completa en PNG donde la ventana mide 1124px, el doble
+  exacto de lo que se muestra. Dos recortes, servidos con `<picture>`:
+  - **Ancho** (`autorizacion-nuvlo.png`, 1124×526): la ventana entera sin el blanco del medio
+    ni el canto gris, con la foto de perfil tapada. Se muestra a 562×263 y nunca más grande
+    —2 píxeles por píxel, uno por píxel físico con densidad 2—.
+  - **Teléfono y tablet táctil** (`autorizacion-nuvlo-movil.png`, 1026×326): sólo la barra, el título y el
     permiso, sin el pie de Meta y sin el avatar, y la ventana llega casi al canto del panel. A
     287px la ventana entera dejaba el renglón del permiso en 7px —la prueba se veía como una
     forma— y ofrecía un «Guardar» azul para tocar que no hacía nada. Ahora mide 326px y el
@@ -3411,7 +3412,11 @@ Nuvlo**, no con un objeto nuestro.
    entre 768 y 1199 con el halo detrás, `ads_read` conectado con el renglón de Meta en la
    bajada, la escena visible a 390 sin scroll de más, el dato de la revisión un escalón arriba y
    el filete a la medida del texto. Lo que queda es la densidad en escritorio: con densidad 2 la
-   captura queda a 0,87, y sólo lo arregla una toma más grande.
+   captura queda a 0,87, y sólo lo arregla una toma más grande. **Resuelto el mismo día:** el
+   dueño aportó una captura de pantalla completa en PNG con la ventana a 1124px, el doble
+   exacto. Una primera versión llegó adjunta al chat y venía achicada a 2000px de ancho y en
+   WebP —la ventana medía 878, menos que la publicada— y no se usó: **una captura se toma del
+   archivo original, no del adjunto**, que puede haber sido recomprimido en el camino.
 9. **La cuarta crítica (25/09/2026, 29/32, sin P0 ni P1)**, y otra vez todo:
    - la frase de lo que Nuvlo no puede hacer, en su propio párrafo: era la cola de uno de tres
      ideas, ocho renglones a 390;

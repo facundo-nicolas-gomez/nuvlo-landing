@@ -7768,7 +7768,7 @@ body[data-barra-control] .i-atajo {
    permiso (los dos están explicados en `Permiso.tsx`). Una cita no se retiña:
    el radio y la sombra honda son lo único que le pone la página, y son lo que
    la despega del campo como una ventana y no como un rectángulo pegado. Nunca
-   más ancha que 562px: el archivo trae 1,75 píxeles por cada uno de esos, y
+   más ancha que 562px: el archivo trae 2 píxeles por cada uno de esos, y
    más ancha perdería esa densidad. */
 .i-permiso-halo {
   position: absolute;

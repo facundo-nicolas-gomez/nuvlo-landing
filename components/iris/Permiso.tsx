@@ -17,22 +17,26 @@ import { Entra } from "./Entra";
  * del flujo deja de ser exacta aunque la imagen sea real.
  *
  * ── LOS DOS RECORTES ───────────────────────────────────────────────────────
- * Salen de la captura de 991×1182 que aportó el dueño con el zoom del
- * navegador al 175 % (al 200 % la ventana no entraba). En los dos, la foto de
- * perfil de quien autorizó queda fuera: es un dato personal en una página
- * pública.
- * - `autorizacion-nuvlo.png`, 983×458, para pantallas anchas: la ventana
- *   entera sin el blanco del medio. Arriba llega hasta 40px debajo del
- *   permiso (y=291) y abajo arranca 35px antes de la línea del pie (y=1006);
- *   entre esas filas no hay un píxel que no sea blanco, así que la unión no se
- *   ve. Sin el canto gris (4px a los lados, 5 arriba, 4 abajo), y la foto,
- *   tapada por un círculo gris. Se muestra a 562×262: 1,75 píxeles por píxel.
- * - `autorizacion-nuvlo-movil.png`, 901×286, para teléfono y tablet táctil: la barra, el
- *   título y el permiso. A 287px de ancho la ventana entera dejaba el renglón
- *   del permiso en 7px —la prueba se veía como una forma— y «Guardar» se
- *   ofrecía para tocar sin hacer nada. Sin el pie de Meta el mismo ancho
- *   alcanza para leerlo. El avatar y su flecha se pintaron de blanco para
- *   poder cortar a margen parejo del texto (x=905).
+ * Salen de una captura de pantalla completa de 2560×1800 en PNG que aportó el
+ * dueño (25/09/2026), donde la ventana de Meta mide 1124px de ancho: el doble
+ * exacto de los 562 a los que se muestra. Las coordenadas de abajo son de esa
+ * captura. En los dos, la foto de perfil de quien autorizó queda fuera: es un
+ * dato personal en una página pública. (Hubo antes una a 1x y otra al 175 %;
+ * la de 1x se ablandaba en cualquier pantalla densa y la del 175 % quedaba a
+ * 0,87 con densidad 2.)
+ * - `autorizacion-nuvlo.png`, 1124×526, para pantallas anchas: la ventana
+ *   entera (x 718–1841, sin el canto gris de 6px) sin el blanco del medio.
+ *   Arriba llega hasta 46px debajo del permiso (y=490) y abajo arranca 40px
+ *   antes de la línea del pie (y=1304); entre esas filas no hay un píxel que no
+ *   sea blanco, así que la unión no se ve. La foto, tapada por un círculo gris.
+ *   Se muestra a 562×263: 2 píxeles por píxel.
+ * - `autorizacion-nuvlo-movil.png`, 1026×326, para teléfono y tablet táctil:
+ *   la barra, el título y el permiso. A 287px de ancho la ventana entera
+ *   dejaba el renglón del permiso en 7px —la prueba se veía como una forma— y
+ *   «Guardar» se ofrecía para tocar sin hacer nada. Sin el pie de Meta el
+ *   mismo ancho alcanza para leerlo. El avatar y su flecha se pintaron de
+ *   blanco para poder cortar a margen parejo del texto: el título arranca
+ *   102px adentro y el permiso termina en x=1642, así que el corte va en 1744.
  *
  * ── LO QUE SE AFIRMA ───────────────────────────────────────────────────────
  * - `ads_read` es el ÚNICO permiso que pide el panel (`META_SCOPES` en
@@ -127,14 +131,14 @@ export function Permiso() {
               <source
                 media="(max-width: 767px), (pointer: coarse) and (max-width: 1199px)"
                 srcSet="/meta/autorizacion-nuvlo-movil.png"
-                width={901}
-                height={286}
+                width={1026}
+                height={326}
               />
               <img
                 className="i-permiso-ventana"
                 src="/meta/autorizacion-nuvlo.png"
-                width={983}
-                height={458}
+                width={1124}
+                height={526}
                 loading="lazy"
                 decoding="async"
                 alt="Pantalla de Meta para revisar el acceso de Nuvlo: «Revisa la solicitud de acceso de Nuvlo», con un único permiso, «Acceder a tus anuncios de Facebook y estadísticas relacionadas»."
