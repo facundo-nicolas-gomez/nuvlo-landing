@@ -12,20 +12,22 @@ import { Entra } from "./Entra";
  * Meta, y lo que convence al trafficker escéptico es justamente que lo sea.
  *
  * ── EL RECORTE ─────────────────────────────────────────────────────────────
- * `public/meta/autorizacion-nuvlo.png`, 562×287, sale de la captura de 566×674
- * que aportó el dueño con tres cambios y nada más:
- * - se sacó el blanco del medio: la parte de arriba llega hasta 40px debajo
- *   del permiso (y=181) y la de abajo arranca 28px antes de la línea del pie
- *   (y=564). Entre esas dos filas no hay un solo píxel que no sea blanco, así
- *   que la unión no se ve;
- * - se recortó el canto gris de 2px de la ventana: el borde lo pone la sombra
- *   de la página;
+ * `public/meta/autorizacion-nuvlo.png`, 983×502, sale de la captura de 991×1182
+ * que aportó el dueño con el zoom del navegador al 175 % (al 200 % la ventana
+ * no entraba en la pantalla), con tres cambios y nada más:
+ * - se sacó el blanco del medio: la parte de arriba llega hasta 70px debajo
+ *   del permiso (y=321) y la de abajo arranca 49px antes de la línea del pie
+ *   (y=992) —los 40 y 28 de la primera captura, a 1,75—. Entre esas dos filas
+ *   no hay un solo píxel que no sea blanco, así que la unión no se ve;
+ * - se recortó el canto gris de la ventana (4px a los lados, 5 arriba, 4
+ *   abajo): el borde lo pone la sombra de la página;
  * - la foto de perfil de quien autorizó es un círculo gris neutro, porque es
  *   un dato personal en una página pública.
  *
- * Está a 1x, así que va a su ancho natural y nunca más grande: agrandada se
- * ablanda. En pantallas de alta densidad se ve algo blanda; una captura a 2x
- * lo resuelve sin tocar el código, cambiando el archivo y las medidas.
+ * Se muestra a 562×287 —la medida de siempre—, así que lleva 1,75 píxeles por
+ * píxel de pantalla. La primera era 1x y se ablandaba en cualquier pantalla
+ * densa. Si algún día llega una a 2x, se cambia el archivo y nada más: las
+ * medidas de acá son las de pantalla, no las del archivo.
  *
  * ── LO QUE SE AFIRMA ───────────────────────────────────────────────────────
  * - `ads_read` es el ÚNICO permiso que pide el panel (`META_SCOPES` en
@@ -54,7 +56,8 @@ export function Permiso() {
               <span className="i-permiso-frase">No las toca.</span>
             </h2>
             <p className="i-bajada i-cabeza-bajada">
-              Es lo que Meta te muestra al conectar: Nuvlo pide un solo permiso,{" "}
+              Es lo que Meta muestra al conectar la cuenta: Nuvlo pide un solo
+              permiso,{" "}
               <code className="i-permiso-codigo">ads_read</code>. No puede crear,
               editar ni pausar campañas, ni cambiar presupuestos.
             </p>

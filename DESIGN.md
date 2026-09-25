@@ -3346,9 +3346,12 @@ conectar**, no con un objeto nuestro.
   página fuera del sistema**, y vive sólo en este campo y su halo: fuera de la cita, un azul de
   Meta sería vestirse de Meta. Escenario, no sistema: no cruza al panel.
 - **La ventana**: la captura real de la autorización (`public/meta/autorizacion-nuvlo.png`,
-  562×287, a 1x), recortada —sin el blanco del medio ni el canto gris de 2px— y con la foto de
-  perfil tapada por un círculo gris. Va a su ancho natural y nunca más grande, con radio de 12 y
-  la sombra honda de lo que flota; es lo único que la página le pone. Un halo azul la rodea.
+  983×502, sacada con el zoom del navegador al 175 %), recortada —sin el blanco del medio ni el
+  canto gris— y con la foto de perfil tapada por un círculo gris. Se muestra a 562×287 y nunca
+  más grande, así que lleva 1,75 píxeles por píxel de pantalla, con radio de 12 y la sombra
+  honda de lo que flota; es lo único que la página le pone. Un halo azul la rodea. **La primera
+  captura era 1x y se ablandaba en cualquier pantalla densa (25/09/2026)**: una cita de
+  interfaz es casi toda texto, y el texto es lo primero que delata la falta de píxeles.
 - **Texto sobre el campo**: titular en hoja, «Lee las campañas. / No las toca.», una oración por
   renglón; bajada con `ads_read` en una pastilla de hoja al 16 %; un filete, el dato de la
   revisión de Meta y el enlace a la ayuda de Meta para quitar el acceso. **El enlace va en hoja

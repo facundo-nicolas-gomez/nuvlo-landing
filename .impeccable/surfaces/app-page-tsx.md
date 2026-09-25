@@ -2331,12 +2331,16 @@ están en `DESIGN.md` → *El permiso*. En corto:
 - **Lo vigente:** titular visible «Lee las campañas. / No las toca.», bajada con `ads_read` y lo
   que no puede hacer, el dato de la revisión de Meta y el enlace a la ayuda de Meta
   (`facebook.com/help/405094243235242`), que reemplazó al de Configuración porque ése no
-  llegaba. A la derecha, la captura de 562×287 a 1x sobre el campo, con un halo y una sola
+  llegaba. A la derecha, la captura sobre el campo, mostrada a 562×287, con un halo y una sola
   animación: la aparición.
 
-**Sin resolver:** la captura es 1x. En pantallas densas se ve algo blanda y en teléfono el
-renglón del permiso queda chico (270px de ancho). Una captura a 2x lo resuelve cambiando el
-archivo y las dos medidas.
+**La calidad de la captura, resuelta (25/09/2026).** La primera era 1x y se ablandaba en
+pantallas densas. El dueño la volvió a sacar con el zoom del navegador al 175 % —al 200 % la
+ventana no entraba—: 991×1182, recortada a 983×502 con el mismo criterio. Se muestra a la misma
+medida, así que el diseño no cambió; verificado a densidad 2x en escritorio y 3x en teléfono.
+En teléfono el texto de Meta es chico (la ventana mide unos 300px) pero ya no borroso. En la
+misma tanda la bajada perdió un tuteo que se le había escapado a la pasada a español neutro:
+«Es lo que Meta muestra al conectar la cuenta».
 
 ## Lo que quedó sin resolver
 
