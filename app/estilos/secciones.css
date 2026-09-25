@@ -7674,8 +7674,11 @@ body[data-barra-control] .i-atajo {
   font-weight: 600;
 }
 
+/* A la medida de la bajada: apilado, el filete corría 850px a 1024 mientras
+   el texto medía 608, y la línea se leía como de otra caja. */
 .i-permiso-pie {
   display: grid;
+  max-width: 38rem;
   gap: 6px;
   justify-items: start;
   margin-top: var(--spacing-bloque);
@@ -7690,10 +7693,15 @@ body[data-barra-control] .i-atajo {
   margin: 0;
 }
 
-/* El dato de la revisión cierra el pie, un poco separado del enlace: el
-   último renglón es de confianza, no la salida. */
+/* El dato de la revisión cierra el pie —el último renglón es de confianza, no
+   la salida— y va un escalón arriba de los otros dos renglones (tercera
+   crítica, 25/09/2026): es lo que un escéptico
+   repetiría, y con el mismo peso se leía como nota al pie. Sin ícono ni logo:
+   el escalón es de peso y de tinta, no de adorno. */
 .i-permiso-pie .i-permiso-revision {
-  margin-top: 8px;
+  margin-top: 12px;
+  font-weight: 500;
+  color: var(--color-hoja);
 }
 
 /* El enlace en hoja y no en `acento-sobre-noche`: sobre el petróleo del campo
@@ -7752,10 +7760,20 @@ body[data-barra-control] .i-atajo {
   opacity: 0.75;
 }
 
+/* El ancho lo pone el <picture> y no la imagen: como hijo del flex, el
+   <picture> se estiraba al ancho de la escena (843px a 1024), la imagen de
+   562 quedaba contra la izquierda y el halo, centrado en la escena, caía
+   140px a su derecha, detrás de nada. Con el <picture> a la medida de la
+   imagen, el centrado de la escena vuelve a actuar. */
+.i-permiso-escena > picture {
+  display: block;
+  width: min(100%, 562px);
+}
+
 .i-permiso-ventana {
   position: relative;
   display: block;
-  width: min(100%, 562px);
+  width: 100%;
   height: auto;
   border-radius: 12px;
   background: #ffffff;
@@ -7769,8 +7787,9 @@ body[data-barra-control] .i-atajo {
    el halo azul se enciende con ella —el azul nace de la ventana—. La escena no
    hace la entrada genérica de `Entra` (subir con desenfoque): se le anulan el
    `transform` y el `filter` al contenedor y la aparición vive en la ventana.
-   Con movimiento reducido `Entra` no escribe el atributo y la ventana aparece
-   puesta. */
+   Con movimiento reducido `Entra` también marca la escena, pero la regla
+   global de `base.css` lleva la animación a su final en el acto: la ventana
+   aparece puesta, sin desplazarse. */
 .iris .i-permiso-escena[data-entra] {
   opacity: 1;
   transform: none;

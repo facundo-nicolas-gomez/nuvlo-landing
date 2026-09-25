@@ -3364,15 +3364,23 @@ Nuvlo**, no con un objeto nuestro.
   cita de interfaz es casi toda texto, y el texto es lo primero que delata la falta de píxeles.
 - **Texto sobre el campo**: titular en hoja, «Lee las campañas. / No las toca.», una oración por
   renglón; bajada que presenta la pantalla como la de revisar el acceso, con `ads_read` en una
-  pastilla de hoja al 16 %; un filete y el pie, en este orden: qué pasa si se quita el acceso,
-  el enlace a la ayuda de Meta y, al final, el dato de la revisión de Meta —el último renglón es
-  de confianza, no la salida—. Bajada y pie en hoja al **92 %**: al 84 % el pie bajaba a 3,27:1
+  pastilla de hoja al 16 % **y el nombre con que Meta lo muestra, citado al lado**: el escéptico
+  ve un nombre técnico en el texto y otra frase en la captura, y si nadie le dice que son lo
+  mismo puede sospechar de la captura. Se dice en el texto y no encima de la cita. Un filete, a
+  la medida de la bajada, y el pie, en este orden: qué pasa si se quita el acceso, el enlace a la
+  ayuda de Meta y, al final y un escalón arriba (peso 500, hoja plena), el dato de la revisión de
+  Meta —el último renglón es de confianza, no la salida—. Bajada y pie en hoja al **92 %**: al 84 % el pie bajaba a 3,27:1
   en el punto más claro del degradé; medido píxel a píxel después del cambio, el peor punto es
   5,29:1. **El enlace va en hoja subrayado y no en `acento-sobre-noche`**: ese celeste da 3,8:1
   sobre el petróleo y un enlace de 15px pide 4,5. El anillo de foco del panel es hoja.
 - **Movimiento**: uno solo. La ventana sube desde el campo (48px, escala 0,94) mientras el halo
   se enciende: el azul nace de la ventana. La escena anula la entrada genérica de `Entra` para
-  hacer la suya. Con movimiento reducido aparece puesta.
+  hacer la suya, y se revela con `umbral={0.9}` y no con el 0,76 de siempre: apilada vive al pie
+  de la sección, y a 390 quedaba por debajo del 76 % con la sección entera a la vista, o sea un
+  hueco donde tenía que estar la prueba. Con movimiento reducido aparece puesta.
+- **El ancho lo pone el `<picture>`**, no la imagen: como hijo del flex se estiraba al ancho de
+  la escena (843px a 1024), la imagen quedaba contra la izquierda y el halo, centrado en la
+  escena, caía 140px a su derecha, detrás de nada.
 - **Umbral y orden**: en fila desde 1200. A 1024 la captura bajaba a 404px y el texto de Meta no
   se leía. Apilada, **el titular va primero y la cita después**: la afirmación y su prueba.
   Estuvo al revés mientras un cable bajaba de la ventana al título, y sin el cable el visitante
@@ -3399,6 +3407,11 @@ Nuvlo**, no con un objeto nuestro.
    recorte de teléfono, el azul pleno sólo en el halo, la línea de qué pasa si se quita el
    acceso, el contraste del pie y el orden apilado. Y una corrección de fondo: la pantalla es la
    de revisar el acceso, no la de conectar, y el texto decía lo segundo.
+8. **La tercera crítica (25/09/2026, 28/32)**, y otra vez todos los ajustes: la ventana centrada
+   entre 768 y 1199 con el halo detrás, `ads_read` conectado con el renglón de Meta en la
+   bajada, la escena visible a 390 sin scroll de más, el dato de la revisión un escalón arriba y
+   el filete a la medida del texto. Lo que queda es la densidad en escritorio: con densidad 2 la
+   captura queda a 0,87, y sólo lo arregla una toma más grande.
 
 ### Preguntas (composición, 17/09/2026)
 La única sección sin objeto, y **la única sin bloque de las tres claras**: las nueve respuestas

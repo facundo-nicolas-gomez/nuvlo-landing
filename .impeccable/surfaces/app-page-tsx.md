@@ -2360,6 +2360,21 @@ dueño pidió todos:
 «Guardar»—, no la de la primera conexión. La bajada decía «al conectar la cuenta»; ahora dice
 «la pantalla de Meta donde se revisa el acceso de Nuvlo».
 
+**Tercera crítica (25/09/2026, 28/32).** El dueño pidió todos los ajustes:
+
+- **P1:** entre 768 y 1199 el `<picture>` se estiraba al ancho de la escena, la ventana quedaba
+  contra la izquierda y el halo 140px a su derecha. Ahora el `<picture>` mide lo que la imagen y
+  los dos quedan centrados.
+- **P2:** la bajada dice que Meta nombra `ads_read` «Acceder a tus anuncios de Facebook y
+  estadísticas relacionadas».
+- **P2:** a 390 la escena quedaba invisible con la sección a la vista. `Entra` sumó una prop
+  `umbral` (0,76 por defecto, así ninguna otra sección cambia) y la escena usa 0,9.
+- **P3:** el dato de la revisión va en peso 500 y hoja plena; el filete del pie, a la medida de
+  la bajada.
+
+**Sin resolver:** la densidad en escritorio (0,87 con densidad 2). Hace falta una toma más
+grande que la del 175 %.
+
 ## Lo que quedó sin resolver
 
 > **Auditada entera el 19/09/2026, y el resultado obliga a leerla con desconfianza.** De las

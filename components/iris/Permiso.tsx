@@ -63,11 +63,17 @@ export function Permiso() {
               <span className="i-permiso-frase">Lee las campañas.</span>{" "}
               <span className="i-permiso-frase">No las toca.</span>
             </h2>
+            {/* El nombre técnico y el de Meta, dichos juntos (tercera crítica,
+                25/09/2026): el escéptico ve `ads_read` acá y otra frase en la
+                captura, y si nadie le dice que son lo mismo puede sospechar que
+                la captura es de otro permiso. Se dice en el texto y no encima
+                de la captura: marcarla desde afuera ya se probó y salió. */}
             <p className="i-bajada i-cabeza-bajada">
-              Es la pantalla de Meta donde se revisa el acceso de Nuvlo: un solo
-              permiso, de sólo lectura,{" "}
-              <code className="i-permiso-codigo">ads_read</code>. No puede crear,
-              editar ni pausar campañas, ni cambiar presupuestos.
+              Es la pantalla de Meta donde se revisa el acceso de Nuvlo. Pide un
+              solo permiso, de sólo lectura:{" "}
+              <code className="i-permiso-codigo">ads_read</code>, que Meta nombra
+              «Acceder a tus anuncios de Facebook y estadísticas relacionadas».
+              No puede crear, editar ni pausar campañas, ni cambiar presupuestos.
             </p>
             <div className="i-permiso-pie">
               <p>
@@ -93,7 +99,11 @@ export function Permiso() {
             </div>
           </Entra>
 
-          <Entra className="i-permiso-escena">
+          {/* Umbral 0,9 y no el 0,76 de siempre: apilada, la escena vive al
+              pie de la sección, y a 390 quedaba por debajo del 76 % con la
+              sección entera a la vista —un hueco donde tenía que estar la
+              prueba, hasta 60px más de scroll—. */}
+          <Entra className="i-permiso-escena" umbral={0.9}>
             {/* El azul nace de la ventana: el halo se enciende con ella.
                 Elemento y no pseudo (*La Regla del Pseudo-elemento
                 Compartido*). */}

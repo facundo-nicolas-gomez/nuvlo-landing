@@ -91,12 +91,19 @@ export function Entra({
   className,
   demora = 0,
   como = "div",
+  umbral = 0.76,
   ...resto
 }: {
   children: ReactNode;
   className?: string;
   demora?: number;
   como?: "div" | "section" | "li";
+  /* Fracción de la pantalla que el borde de arriba tiene que cruzar para
+     revelarse. El 0,76 de siempre sirve a un bloque que ES lo que se mira; uno
+     que vive al pie de su sección puede quedar por debajo con la sección
+     entera a la vista, y ahí deja un hueco (medido en #permiso a 390,
+     25/09/2026). Ése pide uno más bajo. */
+  umbral?: number;
 } & HTMLAttributes<HTMLElement>) {
   const ref = useRef<HTMLDivElement & HTMLLIElement>(null);
 
@@ -109,13 +116,14 @@ export function Entra({
     nodo.dataset.entra = "oculto";
 
     // Los dos umbrales, en fracción de viewport: entra cuando su borde de
-    // arriba pasó el 76 % de la pantalla —o sea, cuando el bloque ya está donde
-    // se mira— y se esconde recién cuando quedó 15 % afuera por arriba o por
-    // abajo. En el medio no se toca, que es lo que evita el parpadeo.
+    // arriba pasó el `umbral` —el 76 % de la pantalla salvo que el bloque pida
+    // otro, o sea cuando ya está donde se mira— y se esconde recién cuando
+    // quedó 15 % afuera por arriba o por abajo. En el medio no se toca, que es
+    // lo que evita el parpadeo.
     const decidir = () => {
       const r = nodo.getBoundingClientRect();
       const alto = window.innerHeight;
-      if (r.top < alto * 0.76 && r.bottom > 0) {
+      if (r.top < alto * umbral && r.bottom > 0) {
         nodo.dataset.entra = "visto";
         return;
       }
@@ -127,7 +135,7 @@ export function Entra({
     const soltar = registrar(decidir);
     decidir();
     return soltar;
-  }, []);
+  }, [umbral]);
 
   const estilo = { "--demora": `${demora}ms` } as CSSProperties;
 
