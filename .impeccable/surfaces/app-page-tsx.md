@@ -2372,6 +2372,17 @@ dueño pidió todos:
 - **P3:** el dato de la revisión va en peso 500 y hoja plena; el filete del pie, a la medida de
   la bajada.
 
+**Cuarta crítica (25/09/2026, 29/32, sin P0 ni P1).** El dueño pidió todo:
+- la frase «No puede crear, editar ni pausar campañas, ni cambiar presupuestos» en su propio
+  párrafo;
+- un solo eje entre 768 y 1199: la escena se angosta a la ventana y arranca en el borde del
+  texto;
+- el recorte sin pie también en tablet táctil;
+- fundido de 400ms con movimiento reducido;
+- la coma pegada a la pastilla de `ads_read`.
+
+Decidió no fechar la revisión de Meta.
+
 **Sin resolver:** la densidad en escritorio (0,87 con densidad 2). Hace falta una toma más
 grande que la del 175 %.
 

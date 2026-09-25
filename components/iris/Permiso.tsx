@@ -27,7 +27,7 @@ import { Entra } from "./Entra";
  *   entre esas filas no hay un píxel que no sea blanco, así que la unión no se
  *   ve. Sin el canto gris (4px a los lados, 5 arriba, 4 abajo), y la foto,
  *   tapada por un círculo gris. Se muestra a 562×262: 1,75 píxeles por píxel.
- * - `autorizacion-nuvlo-movil.png`, 901×286, para teléfono: sólo la barra, el
+ * - `autorizacion-nuvlo-movil.png`, 901×286, para teléfono y tablet táctil: la barra, el
  *   título y el permiso. A 287px de ancho la ventana entera dejaba el renglón
  *   del permiso en 7px —la prueba se veía como una forma— y «Guardar» se
  *   ofrecía para tocar sin hacer nada. Sin el pie de Meta el mismo ancho
@@ -73,6 +73,11 @@ export function Permiso() {
               solo permiso, de sólo lectura:{" "}
               <code className="i-permiso-codigo">ads_read</code>, que Meta nombra
               «Acceder a tus anuncios de Facebook y estadísticas relacionadas».
+            </p>
+            {/* Párrafo propio (cuarta crítica, 25/09/2026): era la cola de un
+                párrafo de tres ideas, ocho renglones a 390, y es la frase que
+                el escéptico viene a buscar. Solo, se encuentra de un vistazo. */}
+            <p className="i-bajada i-permiso-limite">
               No puede crear, editar ni pausar campañas, ni cambiar presupuestos.
             </p>
             <div className="i-permiso-pie">
@@ -111,10 +116,16 @@ export function Permiso() {
             {/* `<picture>` y no `next/image`: hay dos recortes distintos, no el
                 mismo a dos tamaños, y `next/image` sólo sabe de lo segundo. Sin
                 recompresión, que en una captura de interfaz deja halos en cada
-                letra. Los `width`/`height` de cada uno reservan su proporción. */}
+                letra. Los `width`/`height` de cada uno reservan su proporción.
+
+                El recorte sin pie va en teléfono y también en tablet táctil
+                hasta 1199 (cuarta crítica, 25/09/2026): el motivo que lo creó
+                —un «Guardar» azul que se ofrece al dedo y no hace nada— vale
+                igual en una tablet. Con mouse, entre 768 y 1199, queda la
+                ventana entera. */}
             <picture>
               <source
-                media="(max-width: 767px)"
+                media="(max-width: 767px), (pointer: coarse) and (max-width: 1199px)"
                 srcSet="/meta/autorizacion-nuvlo-movil.png"
                 width={901}
                 height={286}

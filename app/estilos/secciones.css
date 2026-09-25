@@ -7650,6 +7650,20 @@ body[data-barra-control] .i-atajo {
   }
 }
 
+/* Apilada y con lugar de sobra (768 a 1199), la ventana se alinea al borde del
+   texto y no al centro: centrada, el bloque tenía dos ejes —el texto contra la
+   izquierda y la cita en el medio— y el canto izquierdo de la ventana no
+   coincidía con nada (cuarta crítica, 25/09/2026). Lo que se angosta es la
+   ESCENA y no sólo el contenido: el halo está anclado a la escena, y con
+   `justify-content` la ventana se iba a la izquierda y el halo se quedaba en
+   el medio, 141px a su derecha (medido a 1024). */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .i-permiso-escena {
+    justify-self: start;
+    width: min(100%, 562px);
+  }
+}
+
 .i-permiso-panel .i-display {
   color: var(--color-hoja);
 }
@@ -7665,13 +7679,23 @@ body[data-barra-control] .i-atajo {
   color: color-mix(in srgb, var(--color-hoja) 92%, transparent);
 }
 
+/* El margen negativo a la derecha devuelve lo que el relleno de la pastilla le
+   saca a la puntuación de al lado: sin él se leía «ads_read , que». */
 .i-permiso-codigo {
+  margin-inline-end: -3px;
   padding: 1px 6px;
   border-radius: var(--radius-chico);
   background: color-mix(in srgb, var(--color-hoja) 16%, transparent);
   color: var(--color-hoja);
   font-family: inherit;
   font-weight: 600;
+}
+
+/* La frase que el escéptico busca, en su propio párrafo y a un paso de línea
+   de la bajada. */
+.i-permiso-limite {
+  margin-top: var(--spacing-linea);
+  max-width: 38rem;
 }
 
 /* A la medida de la bajada: apilado, el filete corría 850px a 1024 mientras
@@ -7827,6 +7851,27 @@ body[data-barra-control] .i-atajo {
   from {
     opacity: 0;
     transform: scale(0.8);
+  }
+}
+
+/* ── CON MOVIMIENTO REDUCIDO, UN FUNDIDO ──────────────────────────────────
+   La regla global lleva la animación a su final en el acto, y la ventana
+   pasaba de invisible a puesta de golpe (cuarta crítica, 25/09/2026). Es la
+   excepción que `base.css` ya les da a todas las entradas —sólo opacidad, 400ms,
+   sin desplazar—, llevada a la ventana y al halo, que hacen su propia entrada.
+   Gana por especificidad contra `.iris *`, con `!important` de los dos lados. */
+@media (prefers-reduced-motion: reduce) {
+  .iris .i-permiso-escena[data-entra="oculto"] .i-permiso-ventana,
+  .iris .i-permiso-escena[data-entra="oculto"] .i-permiso-halo {
+    transform: none !important;
+  }
+
+  .iris .i-permiso-escena[data-entra="visto"] .i-permiso-ventana,
+  .iris .i-permiso-escena[data-entra="visto"] .i-permiso-halo {
+    animation: none !important;
+    transform: none !important;
+    transition-property: opacity !important;
+    transition-duration: 0.4s !important;
   }
 }
 

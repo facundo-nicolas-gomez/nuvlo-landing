@@ -3412,6 +3412,21 @@ Nuvlo**, no con un objeto nuestro.
    bajada, la escena visible a 390 sin scroll de más, el dato de la revisión un escalón arriba y
    el filete a la medida del texto. Lo que queda es la densidad en escritorio: con densidad 2 la
    captura queda a 0,87, y sólo lo arregla una toma más grande.
+9. **La cuarta crítica (25/09/2026, 29/32, sin P0 ni P1)**, y otra vez todo:
+   - la frase de lo que Nuvlo no puede hacer, en su propio párrafo: era la cola de uno de tres
+     ideas, ocho renglones a 390;
+   - entre 768 y 1199 la ESCENA se angosta a la ventana y se alinea al borde del texto: un solo
+     eje. Con `justify-content` sólo se movía la ventana y el halo, anclado a la escena, quedaba
+     141px a su derecha;
+   - el recorte sin pie también en tablet táctil hasta 1199 (`(pointer: coarse)`): el «Guardar»
+     que se ofrece al dedo vale igual ahí;
+   - con movimiento reducido la ventana y el halo funden en 400ms —la excepción que `base.css`
+     ya da a todas las entradas— en vez de aparecer de golpe;
+   - la pastilla de `ads_read` devuelve con margen negativo lo que su relleno le quitaba a la
+     coma de al lado.
+
+   El dueño decidió **no fechar** la revisión de Meta: una fecha invita a preguntar si sigue
+   vigente.
 
 ### Preguntas (composición, 17/09/2026)
 La única sección sin objeto, y **la única sin bloque de las tres claras**: las nueve respuestas
