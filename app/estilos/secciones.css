@@ -7590,14 +7590,21 @@ body[data-barra-control] .i-atajo {
   border-radius: var(--radius-bandeja);
   overflow: hidden;
   color: var(--color-hoja);
-  /* Apilado, la ventana va arriba: el azul arriba y el petróleo abajo, donde
-     está el título. */
+  /* ── EL AZUL PLENO, SÓLO EN EL HALO (dueño, 25/09/2026) ─────────────────
+     El campo llegaba al azul de Meta puro en su borde, y en escritorio eso
+     era un tercio del panel en el color de otra empresa, lejos de la
+     ventana: se podía leer como un anuncio de Meta o un aval, que es
+     justo lo que `PRODUCT.md` prohíbe insinuar. Ahora termina en el
+     `--puente` —la mitad entre los dos— y el azul pleno vive sólo en el
+     halo, detrás de la cita, que es donde tiene derecho a estar.
+
+     Apilado, el título va arriba y la ventana abajo: petróleo arriba y el
+     puente abajo, donde está la cita. */
   background: linear-gradient(
     180deg,
-    var(--azul-meta) 0%,
-    var(--puente) 42%,
-    var(--color-acento) 70%,
-    var(--petroleo-hondo) 100%
+    var(--petroleo-hondo) 0%,
+    var(--color-acento) 45%,
+    var(--puente) 100%
   );
 }
 
@@ -7614,9 +7621,8 @@ body[data-barra-control] .i-atajo {
     background: linear-gradient(
       100deg,
       var(--petroleo-hondo) 0%,
-      var(--color-acento) 32%,
-      var(--puente) 62%,
-      var(--azul-meta) 100%
+      var(--color-acento) 38%,
+      var(--puente) 100%
     );
   }
 }
@@ -7626,19 +7632,21 @@ body[data-barra-control] .i-atajo {
   z-index: 2;
 }
 
-/* Apilado, la ventana primero: el cable baja de ella al título, que es la
-   dirección del dato. */
+/* Apilado, el título primero y la cita después: la afirmación y su prueba.
+   Estuvo al revés mientras un cable bajaba de la ventana al título, y sin el
+   cable el visitante veía primero una pantalla que no leía. */
 .i-permiso-escena {
   position: relative;
   z-index: 2;
-  order: -1;
   display: flex;
   justify-content: center;
 }
 
-@media (min-width: 1200px) {
+/* En teléfono la cita llega hasta el canto del panel: cada píxel de ancho es
+   tamaño de letra en el renglón del permiso. */
+@media (max-width: 767px) {
   .i-permiso-escena {
-    order: 0;
+    margin-inline: calc(-1 * clamp(24px, 5vw, 72px) + 12px);
   }
 }
 
@@ -7650,8 +7658,11 @@ body[data-barra-control] .i-atajo {
   display: block;
 }
 
+/* 92 % y no 84 (25/09/2026): medido píxel a píxel sobre el degradé, al 84 %
+   el pie bajaba a 3,27:1 en su punto más claro y la bajada a 4,41 en el
+   peor 5 % a 390. */
 .i-permiso-panel .i-bajada {
-  color: color-mix(in srgb, var(--color-hoja) 84%, transparent);
+  color: color-mix(in srgb, var(--color-hoja) 92%, transparent);
 }
 
 .i-permiso-codigo {
@@ -7672,11 +7683,17 @@ body[data-barra-control] .i-atajo {
   border-top: 1px solid color-mix(in srgb, var(--color-hoja) 24%, transparent);
   font-size: 0.9375rem;
   line-height: 1.5;
-  color: color-mix(in srgb, var(--color-hoja) 84%, transparent);
+  color: color-mix(in srgb, var(--color-hoja) 92%, transparent);
 }
 
 .i-permiso-pie p {
   margin: 0;
+}
+
+/* El dato de la revisión cierra el pie, un poco separado del enlace: el
+   último renglón es de confianza, no la salida. */
+.i-permiso-pie .i-permiso-revision {
+  margin-top: 8px;
 }
 
 /* El enlace en hoja y no en `acento-sobre-noche`: sobre el petróleo del campo
@@ -7715,7 +7732,8 @@ body[data-barra-control] .i-atajo {
 
 /* ── LA VENTANA: LA CAPTURA REAL, RECORTADA ───────────────────────────────
    Es la autorización de Meta tal cual, sin el blanco del medio ni el canto
-   gris (el recorte está explicado en `Permiso.tsx`). Una cita no se retiña:
+   gris, y en teléfono un recorte propio con sólo la barra, el título y el
+   permiso (los dos están explicados en `Permiso.tsx`). Una cita no se retiña:
    el radio y la sombra honda son lo único que le pone la página, y son lo que
    la despega del campo como una ventana y no como un rectángulo pegado. Nunca
    más ancha que 562px: el archivo trae 1,75 píxeles por cada uno de esos, y

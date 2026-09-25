@@ -1,8 +1,7 @@
-import Image from "next/image";
 import { Entra } from "./Entra";
 
 /**
- * EL PERMISO — la autorización real de Meta, recortada (24/09/2026).
+ * EL PERMISO — la pantalla real de Meta, recortada (24/09/2026).
  *
  * ── DE DÓNDE VIENE ─────────────────────────────────────────────────────────
  * Fue un diodo con sello («parece de un estudio jurídico»), una tarjeta de
@@ -11,30 +10,39 @@ import { Entra } from "./Entra";
  * captura real, recortada: la réplica era más limpia pero dejaba de ser
  * Meta, y lo que convence al trafficker escéptico es justamente que lo sea.
  *
- * ── EL RECORTE ─────────────────────────────────────────────────────────────
- * `public/meta/autorizacion-nuvlo.png`, 983×502, sale de la captura de 991×1182
- * que aportó el dueño con el zoom del navegador al 175 % (al 200 % la ventana
- * no entraba en la pantalla), con tres cambios y nada más:
- * - se sacó el blanco del medio: la parte de arriba llega hasta 70px debajo
- *   del permiso (y=321) y la de abajo arranca 49px antes de la línea del pie
- *   (y=992) —los 40 y 28 de la primera captura, a 1,75—. Entre esas dos filas
- *   no hay un solo píxel que no sea blanco, así que la unión no se ve;
- * - se recortó el canto gris de la ventana (4px a los lados, 5 arriba, 4
- *   abajo): el borde lo pone la sombra de la página;
- * - la foto de perfil de quien autorizó es un círculo gris neutro, porque es
- *   un dato personal en una página pública.
+ * ── QUÉ PANTALLA ES ────────────────────────────────────────────────────────
+ * La de REVISAR el acceso de Nuvlo —por eso el botón dice «Guardar»—, no la
+ * de la primera conexión (confirmado por el dueño, 25/09/2026). La bajada lo
+ * dice así y no «al conectar»: una cita que se presenta como otro momento
+ * del flujo deja de ser exacta aunque la imagen sea real.
  *
- * Se muestra a 562×287 —la medida de siempre—, así que lleva 1,75 píxeles por
- * píxel de pantalla. La primera era 1x y se ablandaba en cualquier pantalla
- * densa. Si algún día llega una a 2x, se cambia el archivo y nada más: las
- * medidas de acá son las de pantalla, no las del archivo.
+ * ── LOS DOS RECORTES ───────────────────────────────────────────────────────
+ * Salen de la captura de 991×1182 que aportó el dueño con el zoom del
+ * navegador al 175 % (al 200 % la ventana no entraba). En los dos, la foto de
+ * perfil de quien autorizó queda fuera: es un dato personal en una página
+ * pública.
+ * - `autorizacion-nuvlo.png`, 983×458, para pantallas anchas: la ventana
+ *   entera sin el blanco del medio. Arriba llega hasta 40px debajo del
+ *   permiso (y=291) y abajo arranca 35px antes de la línea del pie (y=1006);
+ *   entre esas filas no hay un píxel que no sea blanco, así que la unión no se
+ *   ve. Sin el canto gris (4px a los lados, 5 arriba, 4 abajo), y la foto,
+ *   tapada por un círculo gris. Se muestra a 562×262: 1,75 píxeles por píxel.
+ * - `autorizacion-nuvlo-movil.png`, 901×286, para teléfono: sólo la barra, el
+ *   título y el permiso. A 287px de ancho la ventana entera dejaba el renglón
+ *   del permiso en 7px —la prueba se veía como una forma— y «Guardar» se
+ *   ofrecía para tocar sin hacer nada. Sin el pie de Meta el mismo ancho
+ *   alcanza para leerlo. El avatar y su flecha se pintaron de blanco para
+ *   poder cortar a margen parejo del texto (x=905).
  *
  * ── LO QUE SE AFIRMA ───────────────────────────────────────────────────────
  * - `ads_read` es el ÚNICO permiso que pide el panel (`META_SCOPES` en
  *   `nuvlo-panel/src/lib/meta.ts`), y Meta lo muestra como ese solo renglón.
  *   Si el arreglo cambia, la captura y el texto mienten a la vez.
+ * - Quitar el acceso deja a Nuvlo sin poder leer la cuenta y no cambia nada
+ *   en Meta: `ads_read` no escribe, así que no hay nada que deshacer.
  * - La revisión de apps de Meta la afirma el dueño (`PRODUCT.md`) y va como
- *   dato, sin logo ni «aval».
+ *   dato, sin logo ni «aval». Va al final del pie: el último renglón es de
+ *   confianza, no la salida.
  * - El enlace va a la ayuda de Meta sobre cómo quitar integraciones: abre sin
  *   sesión y en castellano.
  */
@@ -56,13 +64,16 @@ export function Permiso() {
               <span className="i-permiso-frase">No las toca.</span>
             </h2>
             <p className="i-bajada i-cabeza-bajada">
-              Es lo que Meta muestra al conectar la cuenta: Nuvlo pide un solo
-              permiso,{" "}
+              Es la pantalla de Meta donde se revisa el acceso de Nuvlo: un solo
+              permiso, de sólo lectura,{" "}
               <code className="i-permiso-codigo">ads_read</code>. No puede crear,
               editar ni pausar campañas, ni cambiar presupuestos.
             </p>
             <div className="i-permiso-pie">
-              <p>Nuvlo pasó la revisión de apps de Meta para ese permiso.</p>
+              <p>
+                Si se quita el acceso, Nuvlo deja de leer la cuenta y en Meta no
+                cambia nada.
+              </p>
               <a
                 className="i-permiso-enlace"
                 href={AYUDA_INTEGRACIONES}
@@ -76,6 +87,9 @@ export function Permiso() {
                 </span>
                 <span className="i-solo-lectores"> (se abre en otra pestaña)</span>
               </a>
+              <p className="i-permiso-revision">
+                Nuvlo pasó la revisión de apps de Meta para ese permiso.
+              </p>
             </div>
           </Entra>
 
@@ -84,16 +98,27 @@ export function Permiso() {
                 Elemento y no pseudo (*La Regla del Pseudo-elemento
                 Compartido*). */}
             <div className="i-permiso-halo" aria-hidden="true" />
-            {/* `unoptimized`: `next/image` la recomprimiría a WebP q75, y en
-                una captura de interfaz eso deja halos en cada letra. */}
-            <Image
-              className="i-permiso-ventana"
-              src="/meta/autorizacion-nuvlo.png"
-              width={562}
-              height={287}
-              unoptimized
-              alt="Pantalla de autorización de Meta: «Revisa la solicitud de acceso de Nuvlo», con un único permiso, «Acceder a tus anuncios de Facebook y estadísticas relacionadas», y los botones Atrás y Guardar."
-            />
+            {/* `<picture>` y no `next/image`: hay dos recortes distintos, no el
+                mismo a dos tamaños, y `next/image` sólo sabe de lo segundo. Sin
+                recompresión, que en una captura de interfaz deja halos en cada
+                letra. Los `width`/`height` de cada uno reservan su proporción. */}
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                srcSet="/meta/autorizacion-nuvlo-movil.png"
+                width={901}
+                height={286}
+              />
+              <img
+                className="i-permiso-ventana"
+                src="/meta/autorizacion-nuvlo.png"
+                width={983}
+                height={458}
+                loading="lazy"
+                decoding="async"
+                alt="Pantalla de Meta para revisar el acceso de Nuvlo: «Revisa la solicitud de acceso de Nuvlo», con un único permiso, «Acceder a tus anuncios de Facebook y estadísticas relacionadas»."
+              />
+            </picture>
           </Entra>
         </div>
       </div>

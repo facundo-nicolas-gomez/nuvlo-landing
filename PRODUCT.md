@@ -392,13 +392,21 @@ Lo que no puede decir: que Meta aprobó, avaló o certificó a Nuvlo, ni nada qu
 sello suyo. **Si `META_SCOPES` cambia, `#permiso` miente**: se revisa en la misma tanda.
 
 **La prueba es la pantalla de Meta, citada (decisión del dueño, 24/09/2026).** La sección
-muestra la captura real de la autorización que el dueño aportó: «Revisa la solicitud de acceso
-de Nuvlo» con un solo renglón, «Acceder a tus anuncios de Facebook y estadísticas
-relacionadas». El logo de Meta aparece **sólo porque está en esa interfaz real**; el sitio no
-agrega logos ni sellos de Meta en ningún otro lado, y el pie ya dice que Nuvlo no está afiliado
-a Meta Platforms. De la captura se sacó únicamente lo que no dice nada —el blanco del medio— y
-**la foto de perfil de quien autorizó, que es un dato personal y se tapó con un círculo gris**.
-Si Meta cambia esa pantalla, se vuelve a capturar.
+muestra la captura real que el dueño aportó: «Revisa la solicitud de acceso de Nuvlo» con un
+solo renglón, «Acceder a tus anuncios de Facebook y estadísticas relacionadas». **Es la
+pantalla de REVISAR el acceso, no la de la primera conexión** —por eso dice «Guardar»—
+(confirmado por el dueño, 25/09/2026), y el texto la presenta así: «la pantalla de Meta donde
+se revisa el acceso de Nuvlo». Decir «lo que Meta muestra al conectar» sería presentar la cita
+como otro momento del flujo. El logo de Meta aparece **sólo porque está en esa interfaz
+real**; el sitio no agrega logos ni sellos de Meta en ningún otro lado, y el pie ya dice que
+Nuvlo no está afiliado a Meta Platforms. De la captura se sacó únicamente lo que no dice nada
+—el blanco del medio y, en la versión de teléfono, el pie de Meta— y **la foto de perfil de
+quien autorizó, que es un dato personal y no se publica**. Si Meta cambia esa pantalla, se
+vuelve a capturar.
+
+**Lo que pasa si se quita el acceso, y se dice (25/09/2026):** Nuvlo deja de poder leer la
+cuenta y en Meta no cambia nada. Es verdad por construcción —`ads_read` no escribe, así que no
+hay nada que deshacer— y era la mitad del miedo del trafficker que la sección no contestaba.
 
 El enlace de la sección va a la ayuda de Meta sobre cómo quitar integraciones comerciales
 (`facebook.com/help/405094243235242`): abre sin sesión y en castellano. El enlace directo a la

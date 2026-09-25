@@ -3332,36 +3332,51 @@ la sección de 1249 a 1119 (de 1644 a 1515 en móvil).
 ### El permiso (composición, 24/09/2026)
 
 Entre El entregable y Precios, `components/iris/Permiso.tsx`. Dice una cosa —Nuvlo lee las
-campañas y no las toca— y la prueba con **la pantalla que Meta le muestra al trafficker al
-conectar**, no con un objeto nuestro.
+campañas y no las toca— y la prueba con **la pantalla de Meta donde se revisa el acceso de
+Nuvlo**, no con un objeto nuestro.
 
-- **El campo**: un panel del ancho de la columna, en `--radius-bandeja`, que va del **azul de
-  Meta** alrededor de la ventana al **petróleo de Nuvlo** del lado del título. Los intermedios
-  salen de `color-mix` entre los dos, así no hay un tercer color. Es la única superficie de
-  color saturado de la parte clara, y se justifica porque carga el argumento: de quién es cada
-  lado se lee en el color antes que en el texto. Apilado, el azul arriba (la ventana) y el
-  petróleo abajo (el título).
+- **El campo**: un panel del ancho de la columna, en `--radius-bandeja`, que va del **petróleo
+  de Nuvlo** del lado del título al **`--puente`** —la mitad entre el petróleo y el azul de
+  Meta— del lado de la ventana. Los tonos salen de `color-mix` entre los dos, así no hay un
+  tercer color. Es la única superficie de color saturado de la parte clara, y se justifica
+  porque carga el argumento: de quién es cada lado se lee en el color antes que en el texto.
+  Apilado, el petróleo arriba (el título) y el puente abajo (la ventana).
 - **El azul de Meta** (`--azul-meta`, `#1877f2`, en `base.css`) está muestreado del botón
   «Guardar» de la captura, no de un manual de marca. **Es la única excepción de color de la
-  página fuera del sistema**, y vive sólo en este campo y su halo: fuera de la cita, un azul de
-  Meta sería vestirse de Meta. Escenario, no sistema: no cruza al panel.
-- **La ventana**: la captura real de la autorización (`public/meta/autorizacion-nuvlo.png`,
-  983×502, sacada con el zoom del navegador al 175 %), recortada —sin el blanco del medio ni el
-  canto gris— y con la foto de perfil tapada por un círculo gris. Se muestra a 562×287 y nunca
-  más grande, así que lleva 1,75 píxeles por píxel de pantalla, con radio de 12 y la sombra
-  honda de lo que flota; es lo único que la página le pone. Un halo azul la rodea. **La primera
-  captura era 1x y se ablandaba en cualquier pantalla densa (25/09/2026)**: una cita de
-  interfaz es casi toda texto, y el texto es lo primero que delata la falta de píxeles.
+  página fuera del sistema, y el pleno vive sólo en el halo, detrás de la ventana** (dueño,
+  25/09/2026). El campo llegó a terminar en azul pleno en su borde, y en escritorio eso era un
+  tercio del panel en el color de otra empresa, lejos de la cita: se podía leer como un anuncio
+  de Meta o un aval. Fuera de la cita, un azul de Meta es vestirse de Meta. Escenario, no
+  sistema: no cruza al panel.
+- **La ventana**: la captura real de la pantalla donde se REVISA el acceso —no la de la primera
+  conexión—, sacada con el zoom del navegador al 175 %. Dos recortes, servidos con `<picture>`:
+  - **Ancho** (`autorizacion-nuvlo.png`, 983×458): la ventana entera sin el blanco del medio
+    ni el canto gris, con la foto de perfil tapada. Se muestra a 562×262 y nunca más grande
+    —1,75 píxeles por píxel—.
+  - **Teléfono** (`autorizacion-nuvlo-movil.png`, 901×286): sólo la barra, el título y el
+    permiso, sin el pie de Meta y sin el avatar, y la ventana llega casi al canto del panel. A
+    287px la ventana entera dejaba el renglón del permiso en 7px —la prueba se veía como una
+    forma— y ofrecía un «Guardar» azul para tocar que no hacía nada. Ahora mide 326px y el
+    renglón se lee.
+
+  Radio de 12 y la sombra honda de lo que flota: es lo único que la página le pone. Un halo
+  azul la rodea. **La primera captura era 1x y se ablandaba en cualquier pantalla densa**: una
+  cita de interfaz es casi toda texto, y el texto es lo primero que delata la falta de píxeles.
 - **Texto sobre el campo**: titular en hoja, «Lee las campañas. / No las toca.», una oración por
-  renglón; bajada con `ads_read` en una pastilla de hoja al 16 %; un filete, el dato de la
-  revisión de Meta y el enlace a la ayuda de Meta para quitar el acceso. **El enlace va en hoja
-  subrayado y no en `acento-sobre-noche`**: ese celeste da 3,8:1 sobre el petróleo y un enlace de
-  15px pide 4,5. El anillo de foco del panel es hoja.
+  renglón; bajada que presenta la pantalla como la de revisar el acceso, con `ads_read` en una
+  pastilla de hoja al 16 %; un filete y el pie, en este orden: qué pasa si se quita el acceso,
+  el enlace a la ayuda de Meta y, al final, el dato de la revisión de Meta —el último renglón es
+  de confianza, no la salida—. Bajada y pie en hoja al **92 %**: al 84 % el pie bajaba a 3,27:1
+  en el punto más claro del degradé; medido píxel a píxel después del cambio, el peor punto es
+  5,29:1. **El enlace va en hoja subrayado y no en `acento-sobre-noche`**: ese celeste da 3,8:1
+  sobre el petróleo y un enlace de 15px pide 4,5. El anillo de foco del panel es hoja.
 - **Movimiento**: uno solo. La ventana sube desde el campo (48px, escala 0,94) mientras el halo
   se enciende: el azul nace de la ventana. La escena anula la entrada genérica de `Entra` para
   hacer la suya. Con movimiento reducido aparece puesta.
-- **Umbral**: en fila desde 1200. A 1024 la captura bajaba a 404px y el texto de Meta no se
-  leía; apilada va a 562.
+- **Umbral y orden**: en fila desde 1200. A 1024 la captura bajaba a 404px y el texto de Meta no
+  se leía. Apilada, **el titular va primero y la cita después**: la afirmación y su prueba.
+  Estuvo al revés mientras un cable bajaba de la ventana al título, y sin el cable el visitante
+  veía primero una pantalla que no leía.
 
 **El camino, en una tarde (24/09/2026), porque cada paso dejó una regla:**
 
@@ -3380,6 +3395,10 @@ conectar**, no con un objeto nuestro.
 5. **Una réplica en HTML** de la ventana: **«perdió calidad»**. Era más limpia y dejaba de ser
    Meta, que es justo lo que convence.
 6. **La captura real, recortada**, que es lo que hay.
+7. **La segunda crítica (25/09/2026, 25/32)** dejó cinco ajustes y el dueño pidió todos: el
+   recorte de teléfono, el azul pleno sólo en el halo, la línea de qué pasa si se quita el
+   acceso, el contraste del pie y el orden apilado. Y una corrección de fondo: la pantalla es la
+   de revisar el acceso, no la de conectar, y el texto decía lo segundo.
 
 ### Preguntas (composición, 17/09/2026)
 La única sección sin objeto, y **la única sin bloque de las tres claras**: las nueve respuestas

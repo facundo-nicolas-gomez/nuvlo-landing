@@ -2342,6 +2342,24 @@ En teléfono el texto de Meta es chico (la ventana mide unos 300px) pero ya no b
 misma tanda la bajada perdió un tuteo que se le había escapado a la pasada a español neutro:
 «Es lo que Meta muestra al conectar la cuenta».
 
+**Segunda crítica (25/09/2026, 25/32, dual-agent; la primera fue 18/32).** Cinco ajustes, y el
+dueño pidió todos:
+
+- **P1, teléfono:** a 287px el renglón del permiso quedaba en 7px. Ahora hay un recorte propio
+  (`autorizacion-nuvlo-movil.png`, 901×286: barra, título y permiso, sin el pie de Meta ni el
+  avatar) servido con `<picture>`, y la ventana llega casi al canto del panel: 326px, densidad
+  2,76.
+- **P2, azul:** el campo termina en el puente y el azul pleno queda sólo en el halo.
+- **P2, qué pasa si se quita:** «Si se quita el acceso, Nuvlo deja de leer la cuenta y en Meta no
+  cambia nada.»
+- **P3, contraste:** bajada y pie al 92 % de hoja; el peor punto medido es 5,29:1 (era 3,27).
+- **P3, blanco y pie:** 40px de pantalla bajo el permiso en vez de 68, y el pie cierra con el
+  dato de la revisión y no con la salida. Apilado, el titular va primero.
+
+**Y una corrección de hecho:** la captura es la pantalla de REVISAR el acceso —por eso dice
+«Guardar»—, no la de la primera conexión. La bajada decía «al conectar la cuenta»; ahora dice
+«la pantalla de Meta donde se revisa el acceso de Nuvlo».
+
 ## Lo que quedó sin resolver
 
 > **Auditada entera el 19/09/2026, y el resultado obliga a leerla con desconfianza.** De las
