@@ -232,6 +232,20 @@ usuario). "Reporte" o "informe", no "dashboard". "Cuenta publicitaria" para la d
 
 - **Nombre:** Nuvlo. Dominios: `nuvloapp.com` (este sitio), `panel.nuvloapp.com` (el
   producto), `r.nuvloapp.com` (reportes públicos). Contacto: `soporte@nuvloapp.com`.
+- **El titular se nombra en el sitio** (27/09/2026). Nuvlo es una marca; atrás hay una
+  persona humana, **Facundo Nicolás Gómez**, y hasta esa fecha el sitio no lo decía en
+  ninguna parte. **Meta rechazó la verificación del negocio** por eso: su revisor cruza el
+  nombre legal declarado en Business Manager contra el sitio web, y sin verificación no hay
+  acceso a la API que el producto necesita. Desde entonces el nombre va en el copyright del
+  pie —la única línea que aparece en todas las páginas— y en el bloque de contacto de los
+  Términos y la Privacidad, los tres desde `lib/nombre-legal.ts`. Va completo y con tilde,
+  como el documento. **Y va en tono de dato, nunca de declaración** (decisión del dueño, el
+  mismo día): la primera versión lo anunciaba con una frase propia —«Nuvlo es un servicio
+  de …»— en el pie y en la apertura de los Términos, y la rechazó. Adentro de un copyright
+  o de un bloque de contacto cumple igual y no interrumpe. **Lo que no se negocia es que
+  sea texto visible**: escondido en un `meta` o en texto oculto no lo lee el revisor, que
+  es lo único que lo motivó. **Domicilio y CUIT siguen fuera del sitio**: no hacían falta
+  para el rechazo que se corrigió, y se agregan si Meta los pide.
 - **Voz:** español neutro, **sin tuteo ni voseo conjugado** (decisión del dueño,
   24/09/2026: la venta se abre a todo el mercado hispanohablante). La segunda persona va
   por posesivo («tu cliente», «decisión tuya»), los botones y títulos en infinitivo, y

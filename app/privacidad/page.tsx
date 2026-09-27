@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/landing/LegalPage";
+import { NOMBRE_LEGAL } from "@/lib/nombre-legal";
 
 export const metadata: Metadata = {
   title: "Política de Privacidad — Nuvlo",
@@ -190,6 +191,9 @@ export default function Privacidad() {
         Para preguntas sobre esta política o sobre tus datos:{" "}
         <a href="mailto:soporte@nuvloapp.com">soporte@nuvloapp.com</a>
       </p>
+      {/* Quién responde por estos datos. Una política sin responsable
+          identificado no dice a quién reclamarle. */}
+      <p>Responsable del tratamiento: {NOMBRE_LEGAL} · nuvloapp.com</p>
     </LegalPage>
   );
 }

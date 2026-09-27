@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/landing/LegalPage";
+import { NOMBRE_LEGAL } from "@/lib/nombre-legal";
 import {
   PRECIO_ESTANDAR_LABEL,
   PRECIO_WHITE_LABEL_LABEL,
@@ -186,6 +187,9 @@ export default function Terminos() {
         Para cualquier consulta sobre estos términos:{" "}
         <a href="mailto:soporte@nuvloapp.com">soporte@nuvloapp.com</a>
       </p>
+      {/* Quién se obliga por este texto. Va al pie y no en la apertura por
+          decisión del dueño: identifica sin declarar. */}
+      <p>Nuvlo · {NOMBRE_LEGAL} · nuvloapp.com</p>
     </LegalPage>
   );
 }

@@ -8404,7 +8404,9 @@ body[data-barra-control] .i-atajo {
 
 /* 26rem: la línea legal daba 112 caracteres en una sola línea al marco nuevo.
    A 12px eso es una tira difícil de seguir; topeada cae en dos de ~56, que es
-   medida de lectura. */
+   medida de lectura. Desde el 27/09/2026 el copyright lleva además al titular
+   (`lib/nombre-legal.ts`) y son 136 caracteres: siguen cayendo en dos, y la
+   fila no cambió de alto. */
 .i-telon-legal {
   margin: 0;
   max-width: 26rem;

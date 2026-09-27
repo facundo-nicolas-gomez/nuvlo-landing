@@ -2,6 +2,7 @@ import Link from "next/link";
 import PanelLink from "@/components/landing/PanelLink";
 import { Wordmark } from "./Piezas";
 import { BOTONES_LEGALES } from "@/lib/botones-legales";
+import { NOMBRE_LEGAL } from "@/lib/nombre-legal";
 
 /**
  * Un enlace del pie: `<Link>` si apunta adentro del sitio, `<a>` pelado si sale
@@ -143,9 +144,16 @@ export function Pie() {
       </div>
 
       <div className="i-pie-linea">
+        {/* El titular viaja DENTRO del copyright, que es donde un nombre legal
+            se busca y donde nadie se detiene a leerlo. Fue una frase aparte
+            —«Nuvlo es un servicio de …»— y el dueño la rechazó: sonaba a
+            declaración. Acá dice lo mismo sin anunciarse, y sigue siendo texto
+            plano de la página, que es lo que el revisor de Meta cruza contra su
+            documentación (ver `lib/nombre-legal.ts`). Si se va, la verificación
+            se cae. */}
         <p className="i-fino i-telon-legal">
-          © 2026 Nuvlo. Las cifras de este sitio son de un ejemplo ficticio.
-          Nuvlo no está afiliado a Meta Platforms, Inc.
+          © 2026 Nuvlo · {NOMBRE_LEGAL}. Las cifras de este sitio son de un
+          ejemplo ficticio. Nuvlo no está afiliado a Meta Platforms, Inc.
         </p>
         <Link className="i-telon-arriba" href="/#inicio" aria-label="Volver arriba">
           <Arriba />

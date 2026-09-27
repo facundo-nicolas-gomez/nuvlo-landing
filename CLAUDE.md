@@ -249,11 +249,13 @@ puede ver —la composición, los tamaños, las tres luces de macOS— sigue sie
 `../nuvlo-panel` es el producto y el repo principal. Su `docs/ENTORNO.md §11` y `§12`
 registran lo que ata a los dos: las tres legales, el sitemap que sólo anuncia rutas
 montadas, la lista blanca del CTA, el reporte de muestra que manda sobre el reporte
-real y los precios que el CI del panel lee por ruta. Los íconos estaban en esa lista, se
-borraron el 12/09/2026, volvieron el 20/09/2026 y **el 24/09/2026 pasaron a salir del
-monograma** que aportó el dueño: son **tres archivos y los mismos bytes en los dos repos**
-—`icon.svg` redondo, `favicon.ico` con 16/32/48 del mismo dibujo y `apple-icon.png` de 180
-cuadrado, porque iOS enmascara por su cuenta—, en `app/` acá y en `src/app/` del panel.
+real, el nombre del titular —la misma cadena en `lib/nombre-legal.ts` de los dos repos,
+sin chequeo que los cruce— y los precios que el CI del panel lee por ruta. Los íconos
+estaban en esa lista, se borraron el 12/09/2026, volvieron el 20/09/2026 y **el
+24/09/2026 pasaron a salir del monograma** que aportó el dueño: son **tres archivos y
+los mismos bytes en los dos repos** —`icon.svg` redondo, `favicon.ico` con 16/32/48 del
+mismo dibujo y `apple-icon.png` de 180 cuadrado, porque iOS enmascara por su cuenta—,
+en `app/` acá y en `src/app/` del panel.
 **No se editan a mano**: los escribe `scripts/generar-iconos.mjs` a partir de
 `marca/nuvlo-monograma.svg`, copiando los dos `path` sin tocar un vértice y agregando sólo
 un `transform`; si la marca cambia, se corre el script y se commitean los seis archivos en
