@@ -485,8 +485,6 @@ export function Lectura() {
               ))}
             </ol>
           </div>
-
-          <p className="i-fino i-lectura-ejemplo">Ejemplo con datos ficticios</p>
         </div>
 
         <div className="i-lectura-escenario" ref={escenario}>

@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { BOTONES_LEGALES } from "@/lib/botones-legales";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { BOTON_ARREPENTIMIENTO } from "@/lib/botones-legales";
+import { useEffect, useRef, useState } from "react";
 import { Boton, Wordmark } from "./Piezas";
 
 /**
@@ -320,20 +320,18 @@ export function Navbar() {
   );
 }
 
-/* Los dos botones que la Disposición 954/2025 manda mostrar. Viven en dos
-   lugares según el ancho —la fila de la barra o el renglón de abajo— y por eso
-   son una pieza: el texto y los destinos se escriben una vez. */
+/* El botón de arrepentimiento. Vive en dos lugares según el ancho —la fila de
+   la barra o el renglón de abajo— y por eso es una pieza: el texto y el destino
+   se escriben una vez.
+
+   **Era una lista con los dos que pide la Disposición 954/2025**; el de baja de
+   servicio salió de la barra el 28/09/2026 por decisión del dueño y quedó sólo
+   en el pie. Lo que eso cuesta está en `lib/botones-legales.ts` y en
+   `PRODUCT.md`: no es una decisión de diseño y no se revierte sin decirlo. */
 function Legales() {
   return (
-    <>
-      {BOTONES_LEGALES.map((b, n) => (
-        <Fragment key={b.href}>
-          {n > 0 && <span aria-hidden="true"> · </span>}
-          <a className="i-nav-legal-enlace" href={b.href}>
-            {b.texto}
-          </a>
-        </Fragment>
-      ))}
-    </>
+    <a className="i-nav-legal-enlace" href={BOTON_ARREPENTIMIENTO.href}>
+      {BOTON_ARREPENTIMIENTO.texto}
+    </a>
   );
 }

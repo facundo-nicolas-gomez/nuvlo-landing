@@ -144,20 +144,30 @@ cancela en cualquier momento, con acceso hasta el fin del período pago. «No ha
 reembolsos» a secas ya no es verdad y no se escribe.
 
 **Los dos botones de la Disposición 954/2025** —«Botón de arrepentimiento» y «Botón de
-baja de servicio»— viven **en la barra superior, del lado opuesto a las acciones**, y se
-repiten en el pie. Los formularios viven en el panel (`/boton-de-arrepentimiento`,
-`/boton-de-baja`), que da el código de identificación en el acto; el sitio sólo enlaza.
+baja de servicio»— viven en el pie. Los formularios viven en el panel
+(`/boton-de-arrepentimiento`, `/boton-de-baja`), que da el código de identificación en el
+acto; el sitio sólo enlaza.
 
-La barra es la única pieza que cumple las tres cosas que la norma pide a la vez —«a simple
-vista, en lugar destacado y en el primer acceso»—: está en las cinco páginas, se ve al entrar
-y no se va con el scroll.
+**En la barra superior quedó sólo el de arrepentimiento** (decisión del dueño,
+28/09/2026). Los dos estaban ahí, del lado opuesto a las acciones, y el de baja se sacó.
 
-**Desde 1.100px viven en la fila de la barra; por debajo, en un renglón propio justo abajo
-(20/09/2026).** Entre los dos no queda ningún ancho sin ellos, y con eso **se cerró la única
-línea de incumplimiento que este archivo registraba.**
+**Eso reabre la línea de incumplimiento que este archivo daba por cerrada, y se decidió
+sabiéndolo.** La barra es la única pieza que cumple las tres cosas que la norma pide a la
+vez —«a simple vista, en lugar destacado y en el primer acceso»—: está en las cinco
+páginas, se ve al entrar y no se va con el scroll. El pie no: hay que bajar hasta el
+final. Así que el de arrepentimiento sigue cumpliendo las tres y **el de baja pasó a estar
+sólo donde hay que buscarlo**, que es lo que la norma no quiere para él. Revertirlo es una
+línea en `components/iris/Navbar.tsx`.
 
-El problema era de medida y no de criterio: con los dos botones la fila pide 976px, a 1.100 le
-sobran 45 y a 1.024 le faltan seis. Por debajo de 768 las anclas ya se apagaban y quedaban
+**Desde 1.100px vive en la fila de la barra; por debajo, en un renglón propio justo abajo
+(20/09/2026).** Entre los dos no queda ningún ancho sin él. Eso había cerrado la única
+línea de incumplimiento que este archivo registraba, para los dos botones; desde el
+28/09/2026 vale sólo para el de arrepentimiento, que es el que quedó ahí.
+
+El problema era de medida y no de criterio: con los dos botones la fila pedía 976px, a 1.100 le
+sobraban 45 y a 1.024 le faltaban seis. (Con uno solo sobra lugar; el renglón de abajo se
+conserva igual, porque en teléfono la fila sigue sin darle espacio a nada más.) Por debajo
+de 768 las anclas ya se apagaban y quedaban
 marca, «Ingresar» y el CTA, que a 320 van justos: en teléfono **no hay lugar en la fila, con
 anclas o sin ellas**, así que apretarla nunca iba a alcanzar. El segundo renglón era
 inevitable; lo que quedaba por decidir era dónde.
@@ -169,8 +179,8 @@ siempre. Y va como hermano de la barra y no adentro, porque adentro sumaría alt
 pegada: eso es la franja que el dueño rechazó el 19/09, y ésta es otra pieza —sólo existe donde
 la barra no da, y no se queda—.
 
-Los dos enlaces entraron además al piso táctil de 44px, que hasta hoy no los alcanzaba porque
-sólo se veían desde 1.100, o sea nunca bajo un puntero grueso.
+Los dos enlaces entraron además al piso táctil de 44px, que hasta ese día no los alcanzaba
+porque sólo se veían desde 1.100, o sea nunca bajo un puntero grueso.
 
 El recorrido del 19/09/2026, por si alguna vez se reabre: franja propia → adentro de la fila →
 el dueño vació la barra → renglón fino del héroe → afuera del héroe → de vuelta a la barra.
@@ -368,6 +378,17 @@ usuario). "Reporte" o "informe", no "dashboard". "Cuenta publicitaria" para la d
 Se produce de forma determinística con `buildReportHtml()` del panel
 (`nuvlo-panel/src/lib/report-generator.ts`) a partir de un `ReportData v1`: mismos datos,
 mismo HTML. **Sus datos son ficticios siempre, nunca de un cliente real.**
+
+**Pero desde el 28/09/2026 el sitio ya no lo dice en ninguna parte** (decisión del dueño).
+Se retiraron los seis avisos que lo declaraban: la línea del pie, los rótulos de La
+lectura, La máquina y las dos charlas, y el aviso de `/reporte`, que iba arriba del
+documento antes de que se leyera un solo número. La regla de arriba no cambió —los datos
+se inventan y nunca salen de una cuenta real—; lo que cambió es que el visitante no tiene
+cómo saberlo. **Lo que eso implica, dicho una vez:** las cifras de rendimiento de un
+anunciante con nombre —inversión, conversaciones, costo por conversación, con su análisis
+escrito— quedan en la misma página que los tres logos reales de «Estas marcas ya reciben
+sus reportes con Nuvlo», sin nada que las separe. Un visitante puede leerlas como el caso
+de un cliente. Volver a rotularlo es un `<p>` por sección.
 
 Otro material disponible:
 

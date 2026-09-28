@@ -129,7 +129,7 @@ export function Cierre() {
 
         {/* La charla, sobre la noche: cómo termina la historia. */}
         <Entra demora={120} className="i-remate-charla">
-          <Charla rotulo="Cómo termina · ejemplo ficticio" />
+          <Charla rotulo="Cómo termina" />
         </Entra>
       </div>
 

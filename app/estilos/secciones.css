@@ -3395,10 +3395,6 @@
 }
 
 /* La nota del ejemplo va al pie de la columna, lejos de la guía. */
-.i-lectura-lado .i-lectura-ejemplo {
-  margin-top: auto;
-}
-
 /* En una pantalla baja (1280×720 y menos) la columna no entra con el aire de
    una alta: el titular pegaba contra la barra y la nota tocaba el borde. Se
    aprieta el aire y la bajada baja al cuerpo de lectura; no se saca nada. */
@@ -3652,10 +3648,6 @@
 
 .i-lectura[data-lista] li[data-lugar="activa"] .i-lectura-texto {
   transition: opacity 0.45s var(--curva-lectura) 0.14s;
-}
-
-.i-lectura-ejemplo {
-  margin: 0;
 }
 
 /* ── EL ESCENARIO Y LA HOJA ─────────────────────────────────────────────────
@@ -4018,10 +4010,6 @@
   .i-lectura[data-abierta] .i-lectura-texto {
     padding-top: 8px;
     opacity: 1;
-  }
-
-  .i-lectura-ejemplo {
-    display: none;
   }
 
   .i-lectura[data-abierta] .i-doc-bloque::before {
@@ -8403,10 +8391,11 @@ body[data-barra-control] .i-atajo {
 }
 
 /* 26rem: la línea legal daba 112 caracteres en una sola línea al marco nuevo.
-   A 12px eso es una tira difícil de seguir; topeada cae en dos de ~56, que es
-   medida de lectura. Desde el 27/09/2026 el copyright lleva además al titular
-   (`lib/nombre-legal.ts`) y son 136 caracteres: siguen cayendo en dos, y la
-   fila no cambió de alto. */
+   A 12px eso es una tira difícil de seguir; topeada cae en dos, que es medida
+   de lectura. Hoy son 83 —el copyright con el titular (`lib/nombre-legal.ts`)
+   y la aclaración de Meta; el aviso de ejemplo ficticio se retiró el
+   28/09/2026— y siguen cayendo en dos. El tope se queda igual: es el que evita
+   que una línea futura vuelva a ser una tira. */
 .i-telon-legal {
   margin: 0;
   max-width: 26rem;

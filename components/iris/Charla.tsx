@@ -41,7 +41,9 @@ import {
  * que la columna no cambia de alto y el botón de la izquierda no se mueve.
  *
  * ── DEMOSTRACIÓN, NO TESTIMONIO ─────────────────────────────────────────────
- * Los tres mensajes son `CHARLA_MUESTRA`, ejemplo ficticio y rotulado. El
+ * Los tres mensajes son `CHARLA_MUESTRA`. El rótulo decía «· ejemplo
+ * ficticio» y se retiró el 28/09/2026 con el resto de los avisos de ficción
+ * (decisión del dueño, registrada en `PRODUCT.md`). El
  * cliente no elogia ni cuenta resultados: pregunta por la alerta del informe
  * y el trafficker contesta con la primera acción del plan. Lo que muestra es
  * el ritual completo —el reporte llega, el cliente lo lee, la conversación
@@ -74,7 +76,7 @@ function iniciales(nombre: string) {
 }
 
 export function Charla({
-  rotulo = "Después del correo · ejemplo ficticio",
+  rotulo = "Después del correo",
 }: {
   rotulo?: string;
 }) {

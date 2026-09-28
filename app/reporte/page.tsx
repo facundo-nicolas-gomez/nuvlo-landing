@@ -41,16 +41,17 @@ import { AGENCIA_MUESTRA } from "@/lib/reporte-muestra";
  * cierre de ese plan: cambiar el host sin cambiar el pie sería un informe que
  * se contradice a sí mismo.
  *
- * ── LA FICCIÓN SE DECLARA ACÁ Y NO SÓLO EN EL PIE ───────────────────────────
- * La página es indexable, así que alguien puede aterrizar desde una búsqueda
- * sin haber visto la home. El pie del sitio ya dice que las cifras son de un
- * ejemplo ficticio, y acá no alcanza con eso: el aviso va arriba del documento,
- * antes de que se lea un solo número.
+ * ── LA FICCIÓN YA NO SE DECLARA, Y ACÁ ES DONDE MÁS PESA ────────────────────
+ * Esta página es indexable y alguien puede aterrizar desde una búsqueda sin
+ * haber visto la home. Hasta el 28/09/2026 el aviso iba arriba del documento,
+ * antes de que se leyera un solo número, y el pie del sitio lo repetía. Los dos
+ * se retiraron por decisión del dueño (`PRODUCT.md`): las cifras del documento
+ * siguen siendo inventadas y ya no hay nada que lo diga.
  */
 export const metadata: Metadata = {
   title: "El reporte que recibe tu cliente — Nuvlo",
   description:
-    "El reporte de Meta Ads completo, tal como lo abre el cliente que lo recibe: encabezado, resumen, las cuatro cifras, el detalle contra el mes anterior, el plan de acción y la firma. Ejemplo con datos ficticios.",
+    "El reporte de Meta Ads completo, tal como lo abre el cliente que lo recibe: encabezado, resumen, las cuatro cifras, el detalle contra el mes anterior, el plan de acción y la firma.",
   alternates: { canonical: "/reporte" },
   openGraph: {
     type: "website",
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
     url: "https://nuvloapp.com/reporte",
     title: "El reporte que recibe tu cliente — Nuvlo",
     description:
-      "El reporte de Meta Ads completo, tal como lo abre el cliente que lo recibe. Ejemplo con datos ficticios.",
+      "El reporte de Meta Ads completo, tal como lo abre el cliente que lo recibe.",
   },
 };
 
@@ -73,8 +74,7 @@ export default function PaginaReporte() {
           <div className="i-reporte-cabeza">
             <h1 className="i-reporte-titulo">El reporte que recibe tu cliente</h1>
             <p className="i-chico i-reporte-nota">
-              Así lo abre, en su propia página. Las cifras son de un ejemplo
-              ficticio: Nuvlo no publica datos de ninguna cuenta real.
+              Así lo abre, en su propia página.
             </p>
           </div>
 

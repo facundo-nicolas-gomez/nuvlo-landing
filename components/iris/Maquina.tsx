@@ -325,8 +325,7 @@ export function Maquina() {
                       Aprobar y enviar
                     </button>
                     <p className="i-fino i-maq-ejemplo">
-                      Ejemplo con datos ficticios. Es el mismo botón del panel,
-                      y funciona.
+                      Es el mismo botón del panel, y funciona.
                     </p>
                   </div>
                 </div>

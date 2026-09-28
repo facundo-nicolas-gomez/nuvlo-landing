@@ -152,8 +152,8 @@ export function Pie() {
             documentación (ver `lib/nombre-legal.ts`). Si se va, la verificación
             se cae. */}
         <p className="i-fino i-telon-legal">
-          © 2026 Nuvlo · {NOMBRE_LEGAL}. Las cifras de este sitio son de un
-          ejemplo ficticio. Nuvlo no está afiliado a Meta Platforms, Inc.
+          © 2026 Nuvlo · {NOMBRE_LEGAL}. Nuvlo no está afiliado a Meta
+          Platforms, Inc.
         </p>
         <Link className="i-telon-arriba" href="/#inicio" aria-label="Volver arriba">
           <Arriba />
